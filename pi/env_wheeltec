@@ -1,0 +1,27 @@
+IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
+# export ROS_MASTER_IP=$IP_ADDRESS
+# export ROS_MASTER_URI=http://$ROS_MASTER_IP:11311
+# export ROS_HOSTNAME=$ROS_MASTER_IP
+export ROS_DOMAIN_ID=77
+export wheeltec_workspace="/home/wheeltec/wheeltec_ros2"
+cd $wheeltec_workspace
+
+PATH=/home/wheeltec/OSPath/pi:$PATH
+
+alias x='x.sh'
+alias rr='x ros'
+alias wt='x wt'
+
+# edit
+alias erc='nano ~/.bashrc'
+alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
+
+# dir
+alias dwh='cd /home/wheeltec/' # dir wheeltec home
+alias dww="cd $wheeltec_workspace" # dir ros workspace
+alias dld="cd $wheeltec_workspace/src/wheeltec_lidar_ros2" # wheeltec lidar src
+
+# update
+alias ue='source /home/wheeltec/wheeltec_ros2/install/setup.bash' # update env
+alias ue2='source /home/wheeltec/.bashrc' # update env
+alias ux='x ux' # update x.sh

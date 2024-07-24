@@ -1,0 +1,45 @@
+version: '2'
+
+services:
+
+  db:
+    container_name: mysql
+    hostname: mysql
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: E8e6Hd82
+      MYSQL_DATABASE: redmine
+    volumes:
+      - vMysql:/var/lib/mysql:Z
+    networks: 
+      - netRedmine
+  
+  redmine:
+    container_name: redmine
+    hostname: redmine
+    image: redmine:3.4
+    restart: always
+    depends_on: 
+      - db
+    ports:
+      - 30002:3000
+    environment:
+      REDMINE_DB_MYSQL: db
+      REDMINE_DB_PASSWORD: E8e6Hd82
+      REDMINE_SECRET_KEY_BASE: supersecretkey
+    volumes:
+      - vHome:/usr/src/redmine:Z
+      - vFiles:/usr/src/redmine/files:Z
+      - vConfig:/usr/src/redmine/config:Z
+    networks: 
+      - netRedmine
+
+volumes:
+  vHome:
+  vFiles:
+  vConfig:
+  vMysql:
+
+networks: 
+  netRedmine:

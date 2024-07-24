@@ -1,0 +1,35 @@
+version: '3.1'
+services:
+  jenkins:
+    # image: jenkins/jenkins:lts
+    image: jenkins/jenkins:2.401.2-lts
+    # image: jenkins/jenkins:2.346.1-lts
+    # image: jenkins/jenkins:2.289.3-lts
+    # image: jenkins/jenkins:2.277.4-lts
+    # image: jenkins/jenkins:2.263.4-lts
+    # image: jenkins/jenkins:2.249.3-lts
+    # image: jenkins/jenkins:2.235.5
+    # image: jenkins/jenkins:2.222.4
+    container_name: jenkins
+    privileged: true
+    user: root
+    restart: always
+    ports:
+      # - '8080:8080'
+      - '30003:8080'
+      - '50000:50000'
+    environment:
+      - TZ=Asia/Taipei
+      - JAVA_OPTS="-Dhudson.security.HudsonPrivateSecurityRealm.ID_REGEX=[a-zA-Z0-9_.@-]+"
+    #   - TMP=/var/jenkins_home/tmp
+    #   - TEMP=/var/jenkins_home/tmp
+    #   - TMPDIR=/var/jenkins_home/tmp
+    volumes:
+      - vHome:/var/jenkins_home:Z
+      - /home/test/FTP/Public/Jenkins:/var/jenkins_home/workspace/output:Z
+      - /usr/bin/docker:/usr/bin/docker
+      - /var/run/docker.sock:/var/run/docker.sock
+      # - /usr/lib64/libltdl.so.7:/usr/lib/x86_64-linux-gnu/libltdl.so.7
+
+volumes:
+  vHome:

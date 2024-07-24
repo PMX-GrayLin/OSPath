@@ -1,0 +1,50 @@
+version: '2'
+
+services:
+
+  postgres:
+    container_name: postgres
+    hostname: postgres
+    image: postgres:12.2
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: E8e6Hd82
+      POSTGRES_DB: redmine  
+    volumes:
+      - vPostgres:/var/lib/postgresql:Z
+      - vPostgres_data:/var/lib/postgresql/data:Z
+    networks: 
+      - netRedmine
+
+  redmine:
+    container_name: redmine
+    hostname: redmine
+    image: redmine:4.1
+    restart: always
+    depends_on: 
+      - postgres
+    ports:
+      - 30002:3000
+    environment:
+      REDMINE_DB_POSTGRES: postgres
+      REDMINE_DB_PASSWORD: E8e6Hd82
+      REDMINE_DB_DATABASE: redmine
+      REDMINE_SECRET_KEY_BASE: supersecretkey
+    volumes:
+      - vHome:/usr/src/redmine:Z
+      - vFiles:/usr/src/redmine/files:Z
+      - vConfig:/usr/src/redmine/config:Z
+    networks: 
+      - netRedmine
+
+volumes:
+    vHome:
+    vFiles:
+    vConfig:
+    vPostgres:
+    vPostgres_data:
+
+networks: 
+  netRedmine:

@@ -1,0 +1,72 @@
+version: '3.1'
+services:
+ 
+  gitlab:
+    container_name: gitlab
+    # image: gitlab/gitlab-ce:11.11.8-ce.0
+    # image: gitlab/gitlab-ce:12.0.12-ce.0
+    # image: gitlab/gitlab-ce:12.9.2-ce.0
+    # image: gitlab/gitlab-ce:12.9.10-ce.0
+    # image: gitlab/gitlab-ce:12.10.6-ce.0
+    # image: gitlab/gitlab-ce:13.0.0-ce.0
+    # image: gitlab/gitlab-ce:13.0.14-ce.0
+    # image: gitlab/gitlab-ce:13.1.11-ce.0
+    # image: gitlab/gitlab-ce:13.8.8-ce.0
+    # image: gitlab/gitlab-ce:13.12.10-ce.0
+    # image: gitlab/gitlab-ce:13.12.12-ce.0
+    # image: gitlab/gitlab-ce:14.0.11-ce.0
+    image: gitlab/gitlab-ce:14.1.6-ce.0
+    hostname: gitlab
+    restart: always
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://10.1.13.207:30000'
+        gitlab_rails['gitlab_ssh_host'] = '10.1.13.207'
+        gitlab_rails['gitlab_shell_ssh_port'] = 30001
+        gitlab_rails['time_zone'] = 'Asia/Taipei'
+        gitlab_rails['gitlab_email_display_name'] = 'Gitlab'
+        gitlab_rails['gitlab_default_can_create_group'] = true
+        gitlab_rails['gitlab_username_changing_enabled'] = true
+        gitlab_rails['lfs_enabled'] = true
+        gitlab_rails['omniauth_enabled'] = false
+        gitlab_rails['backup_archive_permissions'] = '0666'
+        gitlab_rails['backup_keep_time'] = 5184000
+        gitlab_rails['gitlab_shell_git_timeout']= 14400
+        gitlab_rails['rack_attack_git_basic_auth'] = {
+          'enabled' => true,
+          'ip_whitelist' => ["127.0.0.1"],
+          'maxretry' => 10,
+          'findtime' => 60,
+          'bantime' => 3600
+        }
+         gitlab_rails['smtp_enable'] = true
+         gitlab_rails['smtp_address'] = "relay.primax.com.tw"
+         gitlab_rails['smtp_port'] = 25
+         gitlab_rails['smtp_domain'] = "10.1.2.255"
+         gitlab_rails['smtp_enable_starttls_auto'] = false
+         gitlab_rails['smtp_tls'] = false
+# gitlab_rails['smtp_user_name'] = "smtp user"
+# gitlab_rails['smtp_password'] = "smtp password"
+# gitlab_rails['smtp_authentication'] = "login"
+# gitlab_rails['gitlab_email_reply_to'] = 'noreply@example.com'
+      # GITLAB_SKIP_UNMIGRATED_DATA_CHECK: 'true'
+    volumes:
+      - vData:/var/opt/gitlab:Z
+      - vConfig:/etc/gitlab:Z
+      - vConfig_r:/var/opt/gitlab/gitlab-rails/etc:Z
+      - vLogs:/var/log/gitlab:Z
+    ports:
+      - '443:443'
+      - '30000:30000'
+      - '30001:22'
+    networks: 
+      netGitlab:
+
+volumes:
+  vData:
+  vConfig:
+  vConfig_r:
+  vLogs:
+
+networks: 
+  netGitlab:
