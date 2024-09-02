@@ -1118,3 +1118,9 @@ if [ "$1" = "chrome" ] ; then
 
 fi
 
+# update x
+if [ "$1" == "ux" ] ; then
+	cd ~/OSPath
+	git reset --hard HEAD
+	git pull
+fi
