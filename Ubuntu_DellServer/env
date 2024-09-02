@@ -1,0 +1,25 @@
+IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
+
+# export ROS_MASTER_IP=192.168.1.196
+# export ROS_MASTER_URI=http://$ROS_MASTER_IP:11311
+# export ROS_HOSTNAME=192.168.1.158
+export ROS_DOMAIN_ID=77
+
+PATH=~/OSPath/Ubuntu:$PATH
+
+alias x='x.sh'
+alias rr='x ros'
+alias wt='x wt'
+alias p3='python3'
+
+# edit
+alias ex='x code x'
+alias erc='nano ~/.bashrc'
+alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
+
+# dir
+alias dh='cd ~' # dir home
+
+# update
+alias ue='source ~/.bashrc' # update env
+alias ux='x ux' # update x.sh
