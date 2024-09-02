@@ -1123,4 +1123,5 @@ if [ "$1" == "ux" ] ; then
 	cd ~/OSPath
 	git reset --hard HEAD
 	git pull
+	sudo chmod Ubuntu_DellServer/* 777
 fi
