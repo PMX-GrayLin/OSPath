@@ -11,7 +11,7 @@ alias x='x.sh'
 alias p3='python3'
 
 # edit
-alias ex='nano x'
+alias ex='nano ~/OSPath/Ubuntu_DellServer/x.sh'
 alias erc='nano ~/.bashrc'
 alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
 
