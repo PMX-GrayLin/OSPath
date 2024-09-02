@@ -5,7 +5,7 @@ IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
 # export ROS_HOSTNAME=192.168.1.158
 # export ROS_DOMAIN_ID=77
 
-PATH=~/OSPath/Ubuntu:$PATH
+PATH=~/OSPath/Ubuntu_DellServer:$PATH
 
 alias x='x.sh'
 alias rr='x ros'
