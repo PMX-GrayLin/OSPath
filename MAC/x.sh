@@ -24,6 +24,9 @@ currentDateTime=`date "+%m%d%H%M"`
 # wheeltec
 wheeltec_ip="192.168.1.196"
 
+# VisionBox
+VisionBox_ip="192.168.1.13"
+
 # SSH
 if [ "$1" == "ssh" ] ; then
 
@@ -31,6 +34,10 @@ if [ "$1" == "ssh" ] ; then
 		ssh gray.lin@10.1.13.207
 	elif [ "$2" == "pi" ] ; then
 		ssh pi@raspberrypi.local
+	
+	elif [ "$2" == "vb" ] ; then
+		echo "ssh user@$VisionBox_ip"
+		
 	elif [ "$2" == "wt" ] ; then
 		# wheeltech
 		if [ "$3" = "r" ] ; then
