@@ -37,7 +37,8 @@ if [ "$1" == "ssh" ] ; then
 	
 	elif [ "$2" == "vb" ] ; then
 		echo "ssh user@$VisionBox_ip"
-		
+		ssh -Y user@$VisionBox_ip
+
 	elif [ "$2" == "wt" ] ; then
 		# wheeltech
 		if [ "$3" = "r" ] ; then

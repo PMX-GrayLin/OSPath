@@ -751,5 +751,5 @@ if [ "$1" == "ux" ] ; then
 	cd ~/OSPath
 	git reset --hard HEAD
 	git pull
-	sudo chmod 777 Ubuntu_DellServer/x.sh
+	sudo chmod 777 VisionBox/x.sh
 fi
