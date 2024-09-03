@@ -315,7 +315,7 @@ if [ "$1" = "chmod" ] ; then
 	if [ -n "$2" ] ; then
 		if [ "$2" = "all" ] ; then
 			if [ "$3" = "4" ] ; then
-				sudo chmod  -R 444 .
+				sudo chmod -R 444 .
 			elif [ "$3" = "6" ] ; then
 				sudo chmod -R 666 .
 			else
