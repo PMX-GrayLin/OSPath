@@ -25,7 +25,8 @@ currentDateTime=`date "+%m%d%H%M"`
 wheeltec_ip="192.168.1.196"
 
 # VisionBox
-VisionBox_ip="192.168.1.13"
+# VisionBox_ip="192.168.1.13"
+VisionBox_ip="192.168.1.131"
 
 # SSH
 if [ "$1" == "ssh" ] ; then

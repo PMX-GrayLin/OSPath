@@ -55,9 +55,12 @@ if [ "$1" == "vb" ] ; then
 	
 	elif [ $2 = "git" ] ; then
 		echo "update src, rm -r $appDir & git clone..."
-		rm -r $appDir
+		# rm -r $appDir
+		cd $appDir 
+		git reset --hard HEAD
+		git pull
 		git clone https://github.com/PMX-GrayLin/vision_box_DualCam_gray.git
-		
+
 	fi
 fi
 
