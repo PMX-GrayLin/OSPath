@@ -42,13 +42,22 @@ fi
 # VisionBox 
 if [ "$1" == "vb" ] ; then
 	echo "VisionBox command..."
+	appDir="vision_box_DualCam_gray"
 	cd ~/primax/apps
+
 	if [ "$2" = "jobs" ] ; then
 		pm2 list
+
 	elif [ $2 = "r" ] ; then
 		echo "Run..."
-		./
-
+		cd $appDir 
+		./vision_box_DualCam
+	
+	elif [ $2 = "git" ] ; then
+		echo "update src, rm -r $appDir & git clone..."
+		rm -r $appDir
+		git clone https://github.com/PMX-GrayLin/vision_box_DualCam_gray.git
+		
 	fi
 fi
 
