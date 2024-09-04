@@ -48,18 +48,23 @@ if [ "$1" == "vb" ] ; then
 	if [ "$2" = "jobs" ] ; then
 		pm2 list
 
+	elif [ $2 = "git" ] ; then
+		echo "update src, rm -r $appDir & git clone..."
+		cd $appDir 
+		git reset --hard HEAD
+		git pull
+		git clone https://github.com/PMX-GrayLin/vision_box_DualCam_gray.git
+
+	elif [ $2 = "b" ] ; then
+		echo "Build..."
+		cd $appDir 
+		make
+
 	elif [ $2 = "r" ] ; then
 		echo "Run..."
 		cd $appDir 
 		./vision_box_DualCam
 	
-	elif [ $2 = "git" ] ; then
-		echo "update src, rm -r $appDir & git clone..."
-		# rm -r $appDir
-		cd $appDir 
-		git reset --hard HEAD
-		git pull
-		git clone https://github.com/PMX-GrayLin/vision_box_DualCam_gray.git
 
 	fi
 fi
