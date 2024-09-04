@@ -31,6 +31,27 @@ echo "param 3:"$3
 echo "param 4:"$4
 echo "param 5:"$5
 
+# update x
+if [ "$1" == "ux" ] ; then
+	cd ~/OSPath
+	git reset --hard HEAD
+	git pull
+	sudo chmod 777 VisionBox/x.sh
+fi
+
+# VisionBox 
+if [ "$1" == "vb" ] ; then
+	echo "VisionBox command..."
+	cd ~/primax/apps
+	if [ "$2" = "jobs" ] ; then
+		pm2 list
+	elif [ $2 = "r" ] ; then
+		echo "Run..."
+		./
+
+	fi
+fi
+
 # Test
 if [ "$1" = "tt" ] ; then
 	cd ~
@@ -43,83 +64,6 @@ if [ "$1" = "tt" ] ; then
 		echo "1..."
 	fi
 
-fi
-
-# working directory 
-if [ "$1" = "wd" ] ; then
-	echo "XDG_CURRENT_DESKTOP=$XDG_CURRENT_DESKTOP" 
-	if [  "$XDG_CURRENT_DESKTOP" = "KDE" ] ; then
-
-		if [ "$2" = "git" ] ; then
-			xfce4-terminal --geometry=160x40 \
-			--tab -T "Docker_Gitlab" --working-directory=$gitDir \
-			--tab -T "Docker_Gitlab2" --working-directory=$gitDir \
-			--tab -T "Gitlab_Data" --working-directory=$gitDir_Data \
-			--tab -T "gitDir_Config" --working-directory=$gitDir_Config \
-			--tab -T "Home/Gray" --working-directory=$xDir
-		elif [ "$2" = "red" ] ; then
-			xfce4-terminal --geometry=160x40 \
-			--tab -T "Docker_Redmine" --working-directory=$redDir \
-			--tab -T "Docker_Redmine2" --working-directory=$redDir \
-			--tab -T "Redmine_Home" --working-directory=$redDir_Home \
-			--tab -T "Redmine_File" --working-directory=$redDir_Files \
-			--tab -T "Redmine_Config" --working-directory=$redDir_Config \
-			--tab -T "Postgres" --working-directory=$redDir_Postgres
-		elif [ "$2" = "ftp" ] ; then
-			xfce4-terminal --geometry=160x40 \
-			--tab -T "FTP Data" --working-directory="/home/test/FTP/" \
-			--tab -T "FTP /etc" --working-directory="/etc" \
-			--tab -T "FTP /etc/vsftpd" --working-directory="/etc/vsftpd"
-		elif [ "$2" = "jks" ] ; then
-			xfce4-terminal --geometry=160x40 \
-			--tab -T "Docker_Jenkins" --working-directory=$jksDir \
-			--tab -T "Docker_Jenkins2" --working-directory=$jksDir \
-			--tab -T "Jenkins_Home" --working-directory=$jksDir_Home 
-		else
-			echo "param 3 not match"
-			exit -1
-		fi
-
-	elif [ "$XDG_CURRENT_DESKTOP" = "GNOME" ] || [ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ] ; then
-		if [ "$2" = "git" ] ; then
-			gnome-terminal --geometry=140x40 \
-			--tab -t "Docker_Gitlab" --working-directory=$gitDir \
-			--tab -t "Docker_Gitlab2" --working-directory=$gitDir \
-			--tab -t "Gitlab_Data" --working-directory=$gitDir_Data \
-			--tab -t "gitDir_Config" --working-directory=$gitDir_Config \
-			--tab -t "Home/Gray" --working-directory=$xDir
-		elif [ "$2" = "red" ] ; then
-			gnome-terminal --geometry=150x40 \
-			--tab -t "Docker_Redmine" --working-directory=$redDir \
-			--tab -t "Docker_Redmine2" --working-directory=$redDir \
-			--tab -t "Redmine_Home" --working-directory=$redDir_Home \
-			--tab -t "Redmine_File" --working-directory=$redDir_Files \
-			--tab -t "Redmine_Config" --working-directory=$redDir_Config \
-			--tab -t "Postgres" --working-directory=$redDir_Postgres
-		elif [ "$2" = "ftp" ] ; then
-			gnome-terminal --geometry=150x40 \
-			--tab -t "FTP Data" --working-directory="/home/test/FTP/" \
-			--tab -t "FTP /etc" --working-directory="/etc" \
-			--tab -t "FTP /etc/vsftpd" --working-directory="/etc/vsftpd"
-		elif [ "$2" = "jks" ] ; then
-			gnome-terminal --geometry=150x40 \
-			--tab -t "Docker_Jenkins" --working-directory=$jksDir \
-			--tab -t "Docker_Jenkins2" --working-directory=$jksDir \
-			--tab -t "Jenkins_Home" --working-directory=$jksDir_Home 
-		elif [ "$2" = "ros" ] ; then
-			xfce4-terminal --geometry=150x40 \
-			--tab -T "home" --working-directory=~ \
-			--tab -T "wheeltec" --working-directory=~ \
-			--tab -T "ROS node" --working-directory=$nodeDir \
-			--tab -T "ROS install dir" --working-directory=$rosDir_Home
-		else
-			echo "param 3 not match"
-			exit -1
-		fi
-	else
-		echo "param 2 not match"
-		exit -1
-	fi
 fi
 
 # system related 
@@ -746,10 +690,3 @@ if [ "$1" = "chrome" ] ; then
 
 fi
 
-# update x
-if [ "$1" == "ux" ] ; then
-	cd ~/OSPath
-	git reset --hard HEAD
-	git pull
-	sudo chmod 777 VisionBox/x.sh
-fi
