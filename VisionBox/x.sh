@@ -49,7 +49,7 @@ if [ "$1" == "vb" ] ; then
 		pm2 list
 
 	elif [ $2 = "git" ] ; then
-		echo "update src, rm -r $appDir & git clone..."
+		echo "update src..."
 		cd $appDir 
 		git reset --hard HEAD
 		git pull
