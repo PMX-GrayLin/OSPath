@@ -53,7 +53,6 @@ if [ "$1" == "vb" ] ; then
 		cd $appDir 
 		git reset --hard HEAD
 		git pull
-		git clone https://github.com/PMX-GrayLin/vision_box_DualCam_gray.git
 
 	elif [ $2 = "b" ] ; then
 		echo "Build..."
