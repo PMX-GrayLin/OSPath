@@ -63,7 +63,6 @@ if [ "$1" == "vb" ] ; then
 		echo "Run..."
 		cd $appDir 
 		./vision_box_DualCam
-	
 
 	fi
 fi
