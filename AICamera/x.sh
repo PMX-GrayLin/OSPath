@@ -40,26 +40,26 @@ if [ "$1" == "ux" ] ; then
 fi
 
 # AICamera 
-if [ "$1" == "aic" ] ; then
+if [ "$1" = "aic" ] ; then
 	echo "AICamera command..."
 	appDir="vision_box_DualCam_gray"
 	cd ~/primax/apps
 
-	if [ "$2" == "jobs" ] ; then
+	if [ "$2" = "jobs" ] ; then
 		pm2 list
 
-	elif [ $2 == "git" ] ; then
+	elif [ $2 = "git" ] ; then
 		echo "update src..."
 		cd $appDir 
 		git reset --hard HEAD
 		git pull
 
-	elif [ $2 == "b" ] ; then
+	elif [ $2 = "b" ] ; then
 		echo "Build..."
 		cd $appDir 
 		make
 
-	elif [ $2 == "r" ] ; then
+	elif [ $2 = "r" ] ; then
 		echo "Run..."
 		cd $appDir 
 		./vision_box_DualCam
