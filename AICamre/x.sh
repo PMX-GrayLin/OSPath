@@ -230,6 +230,11 @@ elif [ "$2" = "user+g" ] ; then
 	fi
 fi
 
+if [ "$1" = "date" ] ; then
+	timedatectl set-ntp yes
+	date
+fi
+
 # logout
 if [ "$1" = "logout" ] ; then
 	gnome-session-quit
