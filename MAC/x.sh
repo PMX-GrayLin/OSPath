@@ -82,7 +82,6 @@ if [ "$1" == "scp" ] ; then
 		elif [ "$3" == "down" ] ; then
 			sshpass -p $pass scp $user@$AICamera_ip:$remoteFolder/$4 .
 		fi
-
 	fi
 fi
 
