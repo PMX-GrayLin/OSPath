@@ -54,8 +54,9 @@ if [ "$1" = "yy" ] ; then
 		export BUILD_DIR=`pwd`
 		MACHINE=genio-700-evk bitbake rity-demo-image
 
-	elif [ "$2" = "red" ] ; then
-	
+	elif [ "$2" = "repo" ] ; then
+		repo init -u ssh://git@10.1.7.125:10022/amr2_build_mirror/manifests.git -b main -m default.xml --no-repo-verify
+		
 	fi
 fi
 
