@@ -876,6 +876,17 @@ if [ "$1" == "pj" ] ; then
 	
 fi
 
+# tar
+if [ "$1" = "zip" ] ; then
+		echo ">>>> zip $2 to $3.tar.gz"
+		tar -czvf $3.tar.gz $2
+fi
+if [ "$1" = "unzip" ] ; then
+		echo ">>>> unzip file"
+		tar -xzvf $2
+fi
+
+
 # RB5
 if [ "$1" == "pi" ] ; then
 

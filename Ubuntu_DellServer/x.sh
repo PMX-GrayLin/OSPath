@@ -45,6 +45,20 @@ if [ "$1" = "tt" ] ; then
 
 fi
 
+# Yocto
+if [ "$1" = "yy" ] ; then
+	echo "Yocto..."
+	if [  "$2" = "b" ] ; then
+		echo "build..."
+		TEMPLATECONF=$PWD/src/meta-rity/meta/conf source src/poky/oe-init-build-env
+		export BUILD_DIR=`pwd`
+		MACHINE=genio-700-evk bitbake rity-demo-image
+
+	elif [ "$2" = "red" ] ; then
+	
+	fi
+fi
+
 # working directory 
 if [ "$1" = "wd" ] ; then
 	echo "XDG_CURRENT_DESKTOP=$XDG_CURRENT_DESKTOP" 

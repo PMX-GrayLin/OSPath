@@ -6,6 +6,7 @@ IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
 # export ROS_DOMAIN_ID=77
 
 PATH=~/OSPath/Ubuntu_DellServer:$PATH
+PATH=~/bin:$PATH
 
 alias x='x.sh'
 alias p3='python3'
