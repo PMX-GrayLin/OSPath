@@ -42,7 +42,7 @@ fi
 # AICamera 
 if [ "$1" = "aic" ] ; then
 	echo "AICamera command..."
-	appDir="vision_box_DualCam_gray"
+	appDir="vision_box_DualCam"
 	cd ~/primax/apps
 
 	if [ "$2" = "jobs" ] ; then

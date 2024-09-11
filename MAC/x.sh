@@ -26,13 +26,20 @@ wheeltec_ip="192.168.1.196"
 
 # VisionBox
 VisionBox_ip="192.168.1.13"
-AICamera_ip="192.168.0.19"
+AICamera_ip="192.168.1.19"
+DellServer_ip="10.1.13.207"
 
 # SSH
 if [ "$1" == "ssh" ] ; then
 
-	if [ "$2" == "gray" ] ; then
-		ssh gray.lin@10.1.13.207
+	if [ "$2" == "dell" ] ; then
+
+		if [ "$3" != "" ] ; then
+			ssh $3@$DellServer_ip
+		else 
+			ssh gray.lin@$DellServer_ip
+		fi
+
 	elif [ "$2" == "pi" ] ; then
 		ssh pi@raspberrypi.local
 	
@@ -53,7 +60,7 @@ if [ "$1" == "ssh" ] ; then
 			ssh -Y wheeltec@$wheeltec_ip
 		fi
 	else
-		ssh $2@10.1.13.207
+		echo "no match"
 	fi
 fi
 
