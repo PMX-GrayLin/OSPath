@@ -4,6 +4,14 @@ FROM ubuntu:22.04
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Taiwan
 
+# Create a new user called 'user'
+RUN useradd -m -d /home/myuser -s /bin/bash user && \
+    echo "user:user" | chpasswd && \
+    adduser user sudo
+
+# Set the new user as the default user
+USER user
+
 WORKDIR /tmp
 
 ENV PATH="~/.bin:$PATH"
@@ -47,5 +55,6 @@ RUN mkdir -p ~/.bin
 #RUN PATH="${HOME}/.bin:${PATH}"
 RUN curl https://storage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
 RUN chmod a+rx ~/.bin/repo
+
 
 CMD ["/bin/bash"]
