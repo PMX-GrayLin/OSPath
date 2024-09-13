@@ -44,7 +44,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 RUN mkdir -p ~/.bin
-RUN PATH="${HOME}/.bin:${PATH}"
+#RUN PATH="${HOME}/.bin:${PATH}"
 RUN curl https://storage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
 RUN chmod a+rx ~/.bin/repo
 
