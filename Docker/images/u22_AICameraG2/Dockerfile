@@ -48,7 +48,7 @@ RUN apt-get update && apt-get install -y \
     xterm \
     python3-subunit \
     mesa-common-dev \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && apt-get clean
 
 RUN mkdir -p ~/.bin
