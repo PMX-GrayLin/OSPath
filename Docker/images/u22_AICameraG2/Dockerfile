@@ -6,8 +6,15 @@ ENV TZ=Asia/Taiwan
 
 WORKDIR /tmp
 
+ENV PATH="${HOME}/.bin:$PATH"
+
 RUN apt-get update && apt-get install -y \
     curl \
+    locales \
+    file \
+    lz4 \
+    nano \
+    zstd \
     gawk \
     wget \
     git \
@@ -32,7 +39,9 @@ RUN apt-get update && apt-get install -y \
     pylint \
     xterm \
     python3-subunit \
-    mesa-common-dev
+    mesa-common-dev \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    && apt-get clean
 
 RUN mkdir -p ~/.bin
 RUN PATH="${HOME}/.bin:${PATH}"
