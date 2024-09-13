@@ -638,7 +638,8 @@ if [ "$1" = "aic" ] ; then
 		docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down
 	elif [ "$2" = "bash" ] ; then
 		echo "========== docker exec -it -u root u22_aicamerag2 /bin/bash =========="
-		docker exec -it -u root u22_aicamerag2 /bin/bash
+		# docker exec -it -u root u22_aicamerag2 /bin/bash
+		docker exec -it u22_aicamerag2 /bin/bash
 elif [ "$2" = "log" ] ; then
 		echo "========== docker logs -tf jenkins =========="
 		docker logs -tf u22_aicamerag2
