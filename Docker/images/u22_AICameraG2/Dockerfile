@@ -6,7 +6,7 @@ ENV TZ=Asia/Taiwan
 
 WORKDIR /tmp
 
-ENV PATH="${HOME}/.bin:$PATH"
+ENV PATH="~/.bin:$PATH"
 
 RUN apt-get update && apt-get install -y \
     curl \
