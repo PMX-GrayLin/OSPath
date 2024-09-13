@@ -637,11 +637,11 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "down" ] ; then
 		docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down
 	elif [ "$2" = "bash" ] ; then
-		echo "========== docker exec -it -u root aicamerag2 /bin/bash =========="
-		docker exec -it -u root aicamerag2 /bin/bash
+		echo "========== docker exec -it -u root container_aicamerag2 /bin/bash =========="
+		docker exec -it -u root container_aicamerag2 /bin/bash
 elif [ "$2" = "log" ] ; then
 		echo "========== docker logs -tf jenkins =========="
-		docker logs -tf aicamerag2
+		docker logs -tf container_aicamerag2
 	else
 		echo "param 2 not match"
 		exit -1
