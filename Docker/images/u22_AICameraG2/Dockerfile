@@ -41,10 +41,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && apt-get clean
 
-RUN mkdir -p ~/.bin
+#RUN mkdir -p ~/.bin
 #RUN PATH="${HOME}/.bin:${PATH}"
-RUN curl https://storage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
-RUN chmod a+rx ~/.bin/repo
+RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo
+RUN chmod a+rx /usr/local/bin/repo
 
 # Create a new user called 'user'
 RUN useradd -m -d /home/myuser -s /bin/bash user && \
@@ -54,7 +54,7 @@ RUN useradd -m -d /home/myuser -s /bin/bash user && \
 # Set the new user as the default user
 USER user
 
-ENV PATH="/root/.bin:$PATH"
+#ENV PATH="/root/.bin:$PATH"
 
 
 CMD ["/bin/bash"]
