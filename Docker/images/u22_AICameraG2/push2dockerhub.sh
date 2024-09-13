@@ -1,1 +1,1 @@
-docker push graygray/u22_AICameraG2
+docker push graygray/u22_aicamerag2
