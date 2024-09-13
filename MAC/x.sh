@@ -34,6 +34,7 @@ if [ "$1" == "ssh" ] ; then
 
 	if [ "$2" == "dell" ] ; then
 
+		## ctcfw/Primax1234
 		if [ "$3" != "" ] ; then
 			ssh $3@$DellServer_ip
 		else 

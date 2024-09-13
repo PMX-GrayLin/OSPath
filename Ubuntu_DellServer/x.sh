@@ -49,6 +49,9 @@ fi
 if [ "$1" = "yy" ] ; then
 	echo "Yocto..."
 	if [  "$2" = "b" ] ; then
+		repo init -u ssh://git@10.1.7.125:10022/amr2_build_mirror/manifests.git -b main -m default.xml --no-repo-verify
+		repo sync
+
 		echo "build..."
 		TEMPLATECONF=$PWD/src/meta-rity/meta/conf source src/poky/oe-init-build-env
 		export BUILD_DIR=`pwd`
@@ -617,6 +620,28 @@ if [ "$1" = "jks" ] ; then
 elif [ "$2" = "log" ] ; then
 		echo "========== docker logs -tf jenkins =========="
 		docker logs -tf jenkins
+	else
+		echo "param 2 not match"
+		exit -1
+	fi
+fi
+
+# AI Camera
+if [ "$1" = "aic" ] ; then
+
+	aicDir="$dockderDir/AICameraG2"
+
+	if [ "$2" = "up" ] ; then
+		docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up -d
+		# docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up
+	elif [ "$2" = "down" ] ; then
+		docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down
+	elif [ "$2" = "bash" ] ; then
+		echo "========== docker exec -it -u root aicamerag2 /bin/bash =========="
+		docker exec -it -u root aicamerag2 /bin/bash
+elif [ "$2" = "log" ] ; then
+		echo "========== docker logs -tf jenkins =========="
+		docker logs -tf aicamerag2
 	else
 		echo "param 2 not match"
 		exit -1
