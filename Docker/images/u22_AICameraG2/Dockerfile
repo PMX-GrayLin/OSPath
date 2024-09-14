@@ -48,12 +48,12 @@ RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin
 RUN chmod a+rx /usr/local/bin/repo
 
 # Create a new user called 'user'
-RUN useradd -m -d /home/user -s /bin/bash user && \
-    echo "user:user" | chpasswd && \
-    adduser user sudo
+RUN useradd -m -d /home/gray.lin -s /bin/bash gray.lin && \
+    echo "gray.lin:zxcv1234" | chpasswd && \
+    adduser gray.lin sudo
 
 # Set the new user as the default user
-USER user
+USER gray.lin
 
 #ENV PATH="/root/.bin:$PATH"
 
