@@ -48,7 +48,7 @@ RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin
 RUN chmod a+rx /usr/local/bin/repo
 
 # Create a new user called 'user'
-RUN useradd -m -d /home/myuser -s /bin/bash user && \
+RUN useradd -m -d /home/user -s /bin/bash user && \
     echo "user:user" | chpasswd && \
     adduser user sudo
 
