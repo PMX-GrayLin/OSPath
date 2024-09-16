@@ -51,9 +51,16 @@ if [ "$1" = "yy" ] ; then
 	echo "Yocto..., PROJ_ROOT:$PROJ_ROOT"
 	if [  "$2" = "b" ] ; then
 
-		TEMPLATECONF=$PWD/src/meta-rity/meta/conf source src/poky/oe-init-build-env
+		TEMPLATECONF=$PWD/src/meta-rity/meta/conf 
+		source src/poky/oe-init-build-env
 		export BUILD_DIR=`pwd`
 		echo "build..., BUILD_DIR:$BUILD_DIR"
+
+		# Enable/Disable components that require NDA access
+		echo NDA_BUILD = \"0\" >> ${BUILD_DIR}/conf/local.conf
+		# Setup paths for downloads and sstate-cache folders
+		echo DL_DIR = \"\${TOPDIR}/../downloads\" >> ${BUILD_DIR}/conf/local.conf
+		echo SSTATE_DIR = \"\${TOPDIR}/../sstate-cache\" >> ${BUILD_DIR}/conf/local.conf
 
 		MACHINE=genio-700-evk bitbake rity-demo-image
 
