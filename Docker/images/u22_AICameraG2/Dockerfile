@@ -7,6 +7,7 @@ ENV TZ=Asia/Taiwan
 WORKDIR /tmp
 
 RUN apt-get update && apt-get install -y \
+    dpkg-dev \
     sudo \
     curl \
     locales \

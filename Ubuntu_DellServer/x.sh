@@ -795,3 +795,10 @@ if [ "$1" == "ux" ] ; then
 	git pull
 	sudo chmod 777 Ubuntu_DellServer/x.sh
 fi
+
+# find content
+if [ "$1" == "grep" ] ; then
+
+	grep -r $2 .
+
+fi
