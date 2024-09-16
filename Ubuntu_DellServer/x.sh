@@ -47,12 +47,14 @@ fi
 
 # Yocto
 if [ "$1" = "yy" ] ; then
-	echo "Yocto..."
+	export PROJ_ROOT=`pwd`
+	echo "Yocto..., PROJ_ROOT:$PROJ_ROOT"
 	if [  "$2" = "b" ] ; then
 
-		echo "build..."
 		TEMPLATECONF=$PWD/src/meta-rity/meta/conf source src/poky/oe-init-build-env
 		export BUILD_DIR=`pwd`
+		echo "build..., BUILD_DIR:$BUILD_DIR"
+
 		MACHINE=genio-700-evk bitbake rity-demo-image
 
 	elif [ "$2" = "repo" ] ; then
