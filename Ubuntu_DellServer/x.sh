@@ -49,8 +49,6 @@ fi
 if [ "$1" = "yy" ] ; then
 	echo "Yocto..."
 	if [  "$2" = "b" ] ; then
-		repo init -u ssh://git@10.1.7.125:10022/amr2_build_mirror/manifests.git -b main -m default.xml --no-repo-verify
-		repo sync
 
 		echo "build..."
 		TEMPLATECONF=$PWD/src/meta-rity/meta/conf source src/poky/oe-init-build-env
@@ -60,6 +58,7 @@ if [ "$1" = "yy" ] ; then
 	elif [ "$2" = "repo" ] ; then
 		echo "repo..."
 		repo init -u ssh://git@10.1.7.125:10022/amr2_build_mirror/manifests.git -b main -m default.xml --no-repo-verify
+		repo sync
 
 	fi
 fi
