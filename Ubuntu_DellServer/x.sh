@@ -660,9 +660,14 @@ if [ "$1" = "aic" ] ; then
 		echo "========== docker exec -it -u root u22_aicamerag2 /bin/bash =========="
 		# docker exec -it -u root u22_aicamerag2 /bin/bash
 		docker exec -it u22_aicamerag2 /bin/bash
-elif [ "$2" = "log" ] ; then
+	elif [ "$2" = "log" ] ; then
 		echo "========== docker logs -tf jenkins =========="
 		docker logs -tf u22_aicamerag2
+
+	elif [ "$2" = "flash" ] ; then
+		# aiot-flash
+		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo
+		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
 	else
 		echo "param 2 not match"
 		exit -1
