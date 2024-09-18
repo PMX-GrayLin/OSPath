@@ -45,6 +45,18 @@ if [ "$1" = "tt" ] ; then
 
 fi
 
+# BitBake
+if [ "$1" = "bb" ] ; then
+	echo "BitBake..."
+	if [  "$2" = "c" ] ; then
+		echo "clean recipe..., $3"
+		bitbake -c cleansstate $3
+
+	elif [ "$2" = "b" ] ; then
+		echo "build recipe..., $3"
+		bitbake $3
+	fi
+fi
 # Yocto
 if [ "$1" = "yy" ] ; then
 	export PROJ_ROOT=`pwd`
