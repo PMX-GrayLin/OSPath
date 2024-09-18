@@ -665,6 +665,7 @@ if [ "$1" = "aic" ] ; then
 		docker logs -tf u22_aicamerag2
 
 	elif [ "$2" = "flash" ] ; then
+		echo "========== flash images... =========="
 		# aiot-flash
 		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo
 		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
