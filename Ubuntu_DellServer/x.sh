@@ -69,6 +69,7 @@ if [ "$1" = "yt" ] ; then
 		# echo DL_DIR = \"\${TOPDIR}/../downloads\" >> ${BUILD_DIR}/conf/local.conf
 		# echo SSTATE_DIR = \"\${TOPDIR}/../sstate-cache\" >> ${BUILD_DIR}/conf/local.conf
 
+		echo "DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image"
 		DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image
 
 	elif [ "$2" = "env" ] ; then
