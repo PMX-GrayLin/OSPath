@@ -74,6 +74,7 @@ if [ "$1" = "yt" ] ; then
 	elif [ "$2" = "env" ] ; then
 		echo "check env vars..."
 		echo "PROJ_ROOT:${PROJ_ROOT}"
+		echo "TEMPLATECONF:${TEMPLATECONF}"
 		echo "BUILD_DIR:${BUILD_DIR}"
 
 	elif [ "$2" = "repo" ] ; then
