@@ -79,13 +79,11 @@ if [ "$1" = "yt" ] ; then
 		echo "BUILD_DIR:${BUILD_DIR}"
 		echo "BB_NUMBER_THREADS:${BB_NUMBER_THREADS}"
 		echo "PARALLEL_MAKE:${PARALLEL_MAKE}"
-		BB_NUMBER_THREADS = "8"
-		PARALLEL_MAKE = "-j8"
 
 	elif [ "$2" = "thread" ] ; then
-		BB_NUMBER_THREADS = "$3"
-		PARALLEL_MAKE = "-j$3"
-		
+		export BB_NUMBER_THREADS = "$3"
+		export PARALLEL_MAKE = "-j$3"
+
 	elif [ "$2" = "repo" ] ; then
 		echo "repo..."
 		repo init -u ssh://git@10.1.7.125:10022/amr2_build_mirror/manifests.git -b main -m default.xml --no-repo-verify
