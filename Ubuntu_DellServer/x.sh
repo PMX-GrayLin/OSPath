@@ -58,9 +58,8 @@ if [ "$1" = "bb" ] ; then
 	fi
 fi
 # Yocto
-if [ "$1" = "yy" ] ; then
-	export PROJ_ROOT=`pwd`
-	echo "Yocto..., PROJ_ROOT:$PROJ_ROOT"
+if [ "$1" = "yt" ] ; then
+	echo "Yocto..."
 	if [  "$2" = "b" ] ; then
 
 		# Enable/Disable components that require NDA access
