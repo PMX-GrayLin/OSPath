@@ -178,7 +178,7 @@ if [ "$1" = "sys" ] ; then
 		echo "==== Memory info ===="
 		free -mh
 		echo "==== Disk info ===="
-		df -h --total
+		df -h --total | grep sd
 	elif [ "$2" = "users" ] ; then
 		# awk -F: '{ print $1}' /etc/passwd
 		echo "========== online User =========="
