@@ -74,6 +74,9 @@ if [ "$1" = "yt" ] ; then
 		echo "DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image"
 		DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image
 
+	elif [ "$2" = "flash" ] ; then
+		genio-flash
+
 	elif [ "$2" = "env" ] ; then
 		echo "check env vars..."
 		echo "PROJ_ROOT:${PROJ_ROOT}"
@@ -91,6 +94,35 @@ if [ "$1" = "yt" ] ; then
 		repo init -u ssh://git@10.1.7.125:10022/amr2_build_mirror/manifests.git -b main -m default.xml --no-repo-verify
 		repo sync
 
+	fi
+fi
+
+# AI Camera
+if [ "$1" = "aic" ] ; then
+
+	aicDir="$dockderDir/AICameraG2"
+
+	if [ "$2" = "up" ] ; then
+		docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up -d
+		# docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up
+	elif [ "$2" = "down" ] ; then
+		docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down
+	elif [ "$2" = "bash" ] ; then
+		echo "========== docker exec -it -u root u22_aicamerag2 /bin/bash =========="
+		# docker exec -it -u root u22_aicamerag2 /bin/bash
+		docker exec -it u22_aicamerag2 /bin/bash
+	elif [ "$2" = "log" ] ; then
+		echo "========== docker logs -tf jenkins =========="
+		docker logs -tf u22_aicamerag2
+
+	elif [ "$2" = "flash" ] ; then
+		echo "========== flash images... =========="
+		# aiot-flash
+		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo
+		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
+	else
+		echo "param 2 not match"
+		exit -1
 	fi
 fi
 
@@ -650,35 +682,6 @@ if [ "$1" = "jks" ] ; then
 elif [ "$2" = "log" ] ; then
 		echo "========== docker logs -tf jenkins =========="
 		docker logs -tf jenkins
-	else
-		echo "param 2 not match"
-		exit -1
-	fi
-fi
-
-# AI Camera
-if [ "$1" = "aic" ] ; then
-
-	aicDir="$dockderDir/AICameraG2"
-
-	if [ "$2" = "up" ] ; then
-		docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up -d
-		# docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up
-	elif [ "$2" = "down" ] ; then
-		docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down
-	elif [ "$2" = "bash" ] ; then
-		echo "========== docker exec -it -u root u22_aicamerag2 /bin/bash =========="
-		# docker exec -it -u root u22_aicamerag2 /bin/bash
-		docker exec -it u22_aicamerag2 /bin/bash
-	elif [ "$2" = "log" ] ; then
-		echo "========== docker logs -tf jenkins =========="
-		docker logs -tf u22_aicamerag2
-
-	elif [ "$2" = "flash" ] ; then
-		echo "========== flash images... =========="
-		# aiot-flash
-		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo
-		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
 	else
 		echo "param 2 not match"
 		exit -1
