@@ -58,7 +58,7 @@ if [ "$1" = "bb" ] ; then
 
 	elif [ "$2" = "l" ] ; then
 		echo "list recipe..."
-		if [ "$3" = "" ] ; then
+		if [ "$3" != "" ] ; then
 			bitbake-layers show-recipes | grep $3
 		else
 			bitbake-layers show-recipes
