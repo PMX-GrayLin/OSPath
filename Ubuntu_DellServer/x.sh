@@ -56,13 +56,21 @@ if [ "$1" = "bb" ] ; then
 		echo "build recipe..., $3"
 		bitbake $3
 
-	elif [ "$2" = "l" ] ; then
+	elif [ "$2" = "lr" ] ; then
 		echo "list recipe..."
 		if [ "$3" != "" ] ; then
 			bitbake-layers show-recipes | grep $3
 		else
 			bitbake-layers show-recipes
 		fi
+	
+	elif [ "$2" = "l" ] ; then
+		echo "layer..."
+		if [  "$3" = "c" ] ; then
+			echo "bitbake-layers create-layer $4"
+			bitbake-layers create-layer $4
+		fi
+
 	fi
 
 fi
