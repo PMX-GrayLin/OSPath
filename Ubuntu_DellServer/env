@@ -17,7 +17,8 @@ alias erc='nano ~/.bashrc'
 alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
 
 # dir
-alias dh='cd ~' # dir home
+alias dh='cd ~'     # dir home
+alias dpp='cd $pp'  # dir project path
 
 # update
 alias ue='source ~/.bashrc' # update env
