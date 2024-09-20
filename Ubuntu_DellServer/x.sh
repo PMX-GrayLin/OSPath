@@ -70,7 +70,7 @@ if [ "$1" = "bb" ] ; then
 			echo "bitbake-layers create-layer $4"
 			bitbake-layers create-layer $4
 		
-		if [  "$3" = "cr" ] ; then
+		elif [  "$3" = "cr" ] ; then
 			echo "bitbake-layers create-recipe $4"
 			bitbake-layers create-recipe $4
 		fi
