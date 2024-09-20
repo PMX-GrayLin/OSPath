@@ -57,8 +57,12 @@ if [ "$1" = "bb" ] ; then
 		bitbake $3
 
 	elif [ "$2" = "l" ] ; then
-		echo "list recipe..., grep $3"
-		bitbake-layers show-recipes | grep $3
+		echo "list recipe..."
+		if [ "$3" = "" ] ; then
+			bitbake-layers show-recipes | grep $3
+		else
+			bitbake-layers show-recipes
+		fi
 	fi
 
 fi
@@ -88,7 +92,7 @@ if [ "$1" = "yt" ] ; then
 		repo sync
 
 	else
-		echo "check env vars..."
+		echo "priject env vars..."
 		echo "PROJ_ROOT:${PROJ_ROOT}"
 		echo "TEMPLATECONF:${TEMPLATECONF}"
 		echo "BUILD_DIR:${BUILD_DIR}"
