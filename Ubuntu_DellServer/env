@@ -7,6 +7,7 @@ IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
 
 PATH=~/OSPath/Ubuntu_DellServer:$PATH
 PATH=~/bin:$PATH
+pp="~"  # project path
 
 alias x='x.sh'
 alias p3='python3'
@@ -17,15 +18,14 @@ alias erc='nano ~/.bashrc'
 alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
 
 # dir
-alias dh='cd ~'     # dir home
-alias dpp='cd $pp'  # dir project path
+alias dh='cd ~'         # dir home
+alias dpp='cd $pp'      # dir project path
+alias dppi='cd $pp'     # dir project build image path
 
 # update
 alias ue='source ~/.bashrc' # update env
 alias ux='x ux' # update x.sh
 
 # env
-Path_MTK="~"
-pp="~"
 alias spp='export pp=`pwd`' # set yocto project path
-alias env_mtk="cd $Path_MTK && export PROJ_ROOT=$Path_MTK && export TEMPLATECONF=$Path_MTK/src/meta-rity/meta/conf/ && source $Path_MTK/src/poky/oe-init-build-env && export BUILD_DIR=$Path_MTK/build"
+alias env_mtk="cd $pp && export PROJ_ROOT=$pp && export TEMPLATECONF=$pp/src/meta-rity/meta/conf/ && source $pp/src/poky/oe-init-build-env && export BUILD_DIR=$pp/build"
