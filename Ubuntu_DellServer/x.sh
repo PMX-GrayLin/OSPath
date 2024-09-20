@@ -66,9 +66,13 @@ if [ "$1" = "bb" ] ; then
 	
 	elif [ "$2" = "l" ] ; then
 		echo "layer..."
-		if [  "$3" = "c" ] ; then
+		if [  "$3" = "cl" ] ; then
 			echo "bitbake-layers create-layer $4"
 			bitbake-layers create-layer $4
+		
+		if [  "$3" = "cr" ] ; then
+			echo "bitbake-layers create-recipe $4"
+			bitbake-layers create-recipe $4
 		fi
 
 	fi
