@@ -55,20 +55,20 @@ if [ "$1" = "bb" ] ; then
 	elif [ "$2" = "b" ] ; then
 		echo "build recipe..., $3"
 		bitbake $3
-
-	elif [ "$2" = "lr" ] ; then
-		echo "list recipe..."
-		if [ "$3" != "" ] ; then
-			bitbake-layers show-recipes | grep $3
-		else
-			bitbake-layers show-recipes
-		fi
 	
 	elif [ "$2" = "l" ] ; then
 		echo "layer..."
-		if [  "$3" = "l" ] ; then
+		if [  "$3" = "sl" ] ; then
 			echo "bitbake-layers show-layers"
 			bitbake-layers show-layers
+
+		if [  "$3" = "sr" ] ; then
+			echo "show-recipe..."
+			if [ "$4" != "" ] ; then
+				bitbake-layers show-recipes | grep $4
+			else
+				bitbake-layers show-recipes
+			fi
 
 		elif [  "$3" = "cl" ] ; then
 			echo "bitbake-layers create-layer $4"
