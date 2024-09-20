@@ -60,6 +60,8 @@ fi
 # Yocto
 if [ "$1" = "yt" ] ; then
 	echo "Yocto..."
+	echo "pp:$pp..."
+	
 	if [  "$2" = "b" ] ; then
 
 		# Enable/Disable components that require NDA access
