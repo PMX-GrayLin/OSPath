@@ -8,6 +8,7 @@ IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
 PATH=~/OSPath/Ubuntu_DellServer:$PATH
 PATH=~/bin:$PATH
 pp="~"  # project path
+$PROJ_ROOT="~"
 
 alias x='x.sh'
 alias p3='python3'
