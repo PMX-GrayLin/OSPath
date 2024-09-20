@@ -80,9 +80,9 @@ if [ "$1" = "yt" ] ; then
 		echo "BB_NUMBER_THREADS:${BB_NUMBER_THREADS}"
 		echo "PARALLEL_MAKE:${PARALLEL_MAKE}"
 
-	elif [ "$2" = "thread" ] ; then
-		export BB_NUMBER_THREADS="$3"
-		export PARALLEL_MAKE="-j$3"
+	# elif [ "$2" = "thread" ] ; then
+	# 	BB_NUMBER_THREADS="$3"
+	# 	PARALLEL_MAKE="-j$3"
 
 	elif [ "$2" = "repo" ] ; then
 		echo "repo..."
