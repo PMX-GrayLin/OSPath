@@ -14,6 +14,7 @@ alias p3='python3'
 # edit
 alias ex='nano ~/OSPath/Ubuntu_DellServer/x.sh'
 alias erc='nano ~/.bashrc'
+alias ebb="nano $pp/src/meta-rity/meta-rity-demo/recipes-demo/images/rity-demo-image.bb"
 alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
 
 # dir
