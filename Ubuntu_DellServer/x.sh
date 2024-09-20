@@ -55,12 +55,16 @@ if [ "$1" = "bb" ] ; then
 	elif [ "$2" = "b" ] ; then
 		echo "build recipe..., $3"
 		bitbake $3
+
+	elif [ "$2" = "l" ] ; then
+		echo "list recipe..., grep $3"
+		bitbake-layers show-recipes | grep $3
 	fi
+	
 fi
 # Yocto
 if [ "$1" = "yt" ] ; then
-	echo "Yocto..."
-	echo "pp:$pp..."
+	echo "Yocto, pp:$pp..."
 	
 	if [  "$2" = "b" ] ; then
 
@@ -75,6 +79,7 @@ if [ "$1" = "yt" ] ; then
 		DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image
 
 	elif [ "$2" = "flash" ] ; then
+		echo "genio-flash..."
 		genio-flash
 
 	elif [ "$2" = "env" ] ; then
