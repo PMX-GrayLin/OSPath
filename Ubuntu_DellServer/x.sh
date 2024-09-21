@@ -46,40 +46,40 @@ if [ "$1" = "tt" ] ; then
 fi
 
 # BitBake
-# if [ "$1" = "bb" ] ; then
-# 	echo "BitBake..."
-# 	if [  "$2" = "c" ] ; then
-# 		echo "clean recipe..., $3"
-# 		bitbake -c cleansstate $3
+if [ "$1" = "bb" ] ; then
+	echo "BitBake..."
+	if [  "$2" = "c" ] ; then
+		echo "clean recipe..., $3"
+		bitbake -c cleansstate $3
 
-# 	elif [ "$2" = "b" ] ; then
-# 		echo "build recipe..., $3"
-# 		bitbake $3
+	elif [ "$2" = "b" ] ; then
+		echo "build recipe..., $3"
+		bitbake $3
 	
-# 	elif [ "$2" = "l" ] ; then
-# 		echo "layer..."
-# 		if [  "$3" = "sl" ] ; then
-# 			echo "bitbake-layers show-layers"
-# 			bitbake-layers show-layers
+	elif [ "$2" = "l" ] ; then
+		echo "layer..."
+		if [  "$3" = "sl" ] ; then
+			echo "bitbake-layers show-layers"
+			bitbake-layers show-layers
 
-# 		if [  "$3" = "sr" ] ; then
-# 			echo "show-recipe..."
-# 			if [ "$4" != "" ] ; then
-# 				bitbake-layers show-recipes | grep $4
-# 			else
-# 				bitbake-layers show-recipes
-# 			fi
+		elif [  "$3" = "sr" ] ; then
+			echo "show-recipe..."
+			if [ "$4" != "" ] ; then
+				bitbake-layers show-recipes | grep $4
+			else
+				bitbake-layers show-recipes
+			fi
 
-# 		elif [  "$3" = "cl" ] ; then
-# 			echo "bitbake-layers create-layer $4"
-# 			bitbake-layers create-layer $4
+		elif [  "$3" = "cl" ] ; then
+			echo "bitbake-layers create-layer $4"
+			bitbake-layers create-layer $4
 
-# 		elif [  "$3" = "cr" ] ; then
-# 			echo "bitbake-layers create-recipe $4"
-# 			bitbake-layers create-recipe $4
-# 		fi
-# 	fi
-# fi
+		elif [  "$3" = "cr" ] ; then
+			echo "bitbake-layers create-recipe $4"
+			bitbake-layers create-recipe $4
+		fi
+	fi
+fi
 
 # Yocto
 if [ "$1" = "yt" ] ; then
