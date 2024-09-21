@@ -54,7 +54,8 @@ if [ "$1" = "bb" ] ; then
 
 	elif [ "$2" = "b" ] ; then
 		echo "build recipe..., $3"
-		bitbake -D $3
+		# bitbake -D $3
+		bitbake $3
 	
 	elif [ "$2" = "l" ] ; then
 		echo "layer..."
