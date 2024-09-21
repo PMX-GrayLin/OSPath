@@ -21,6 +21,7 @@ alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
 # dir
 alias dh='cd ~'         # dir home
 alias dpp='cd $pp'      # dir project path
+alias dpmx='cd $pp/src/meta-primax/recipes-primax/fwfiles'    # dir primax
 alias dppi='cd $pp/build/tmp/deploy/images/genio-700-evk'     # dir project build image path
 
 # update
