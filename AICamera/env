@@ -1,4 +1,4 @@
-IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
+# IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
 
 PATH=~/OSPath/AICamera:$PATH
 
