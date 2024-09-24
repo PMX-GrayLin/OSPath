@@ -83,7 +83,7 @@ if [ "$1" == "scp" ] ; then
 	elif [ "$2" == "aic" ] ; then
 		user="ubuntu"
 		pass="primax1234"
-		remoteFolder="~/"
+		remoteFolder="~"
 		# remoteFolder="~/primax/apps"
 		if [ "$3" == "up" ] ; then
 			sshpass -p $pass scp ./$4 $user@$AICamera_ip:$remoteFolder/$5

@@ -1,5 +1,4 @@
-IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
-
+# IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
 # export ROS_MASTER_IP=192.168.1.196
 # export ROS_MASTER_URI=http://$ROS_MASTER_IP:11311
 # export ROS_HOSTNAME=192.168.1.158
@@ -19,16 +18,17 @@ alias econf="nano $pp/build/conf/local.conf"
 alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
 
 # dir
-alias dh='cd ~'         # dir home
-alias dpp='cd $pp'      # dir project path
-alias dpmx='cd $pp/src/meta-primax/recipes-primax/fwfiles'    # dir primax
-alias dppi='cd $pp/build/tmp/deploy/images/genio-700-evk'     # dir project build image path
+alias dh='cd ~'                                                 # dir home
+alias dpp='cd $pp'                                              # dir project path
+alias dpmx='cd $pp/src/meta-primax/recipes-primax/primax'       # dir primax
+alias dpi='cd $pp/build/tmp/deploy/images/genio-700-evk'        # dir project build image path
 
 # update
-alias ue='source ~/.bashrc' # update env
-alias ux='x ux' # update x.sh
+alias ue='source ~/.bashrc'     # update env
+alias ux='x ux'                 # update x.sh
+alias uall='ux && ue'           # update x.sh
 
 # env
 alias spp='export pp=`pwd`' # set yocto project path
-alias env_mtk="cd $pp && export PROJ_ROOT=$pp && export TEMPLATECONF=$pp/src/meta-rity/meta/conf/ && source $pp/src/poky/oe-init-build-env && export BUILD_DIR=$pp/build"
+alias env_mtk="cd `pp` && export PROJ_ROOT=`pp` && export TEMPLATECONF=`pp`/src/meta-rity/meta/conf/ && source `pp`/src/poky/oe-init-build-env && export BUILD_DIR=`pp`/build"
 alias spe="spp && env_mtk"  # set project env
