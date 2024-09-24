@@ -30,5 +30,5 @@ alias uall='ux && ue'           # update x.sh
 
 # env
 alias spp='export PROJ_ROOT=`pwd`'  # set yocto project path
-alias env_mtk="TEMPLATECONF=$PROJ_ROOT/src/meta-rity/meta/conf/ && source $PROJ_ROOT/src/poky/oe-init-build-env && export BUILD_DIR=$PROJ_ROOT/build"
-alias spe="spp && env_mtk"          # set project env
+alias env_mtk='TEMPLATECONF=$PROJ_ROOT/src/meta-rity/meta/conf/ && source $PROJ_ROOT/src/poky/oe-init-build-env && export BUILD_DIR=$PROJ_ROOT/build'
+alias spe='spp && env_mtk'          # set project env
