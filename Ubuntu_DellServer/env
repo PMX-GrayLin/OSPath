@@ -13,15 +13,15 @@ alias p3='python3'
 # edit
 alias ex='nano ~/OSPath/Ubuntu_DellServer/x.sh'
 alias erc='nano ~/.bashrc'
-alias ebb="nano $pp/src/meta-rity/meta-rity-demo/recipes-demo/images/rity-demo-image.bb"
-alias econf="nano $pp/build/conf/local.conf"
+alias ebb="nano $PROJ_ROOT/src/meta-rity/meta-rity-demo/recipes-demo/images/rity-demo-image.bb"
+alias econf="nano $PROJ_ROOT/build/conf/local.conf"
 alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
 
 # dir
 alias dh='cd ~'                                                 # dir home
-alias dpp='cd $pp'                                              # dir project path
-alias dpmx='cd $pp/src/meta-primax/recipes-primax/primax'       # dir primax
-alias dpi='cd $pp/build/tmp/deploy/images/genio-700-evk'        # dir project build image path
+alias dpp='cd $PROJ_ROOT'                                              # dir project path
+alias dpmx='cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax'       # dir primax
+alias dpi='cd $PROJ_ROOT/build/tmp/deploy/images/genio-700-evk'        # dir project build image path
 
 # update
 alias ue='source ~/.bashrc'     # update env
