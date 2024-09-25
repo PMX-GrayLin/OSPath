@@ -1,9 +1,3 @@
-# IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
-# export ROS_MASTER_IP=192.168.1.196
-# export ROS_MASTER_URI=http://$ROS_MASTER_IP:11311
-# export ROS_HOSTNAME=192.168.1.158
-# export ROS_DOMAIN_ID=77
-
 PATH=~/OSPath/Ubuntu_DellServer:$PATH
 PATH=~/bin:$PATH
 
@@ -38,3 +32,6 @@ alias env2='source $PROJ_ROOT/src/poky/oe-init-build-env'
 alias env3='export BUILD_DIR=$PROJ_ROOT/build'
 alias env_mtk='env1 && env2 && env3'
 alias spe='spp && env_mtk'                                              # set project env
+
+# git 
+alias gx='cd ~ && git clone https://github.com/PMX-GrayLin/OSPath.git && chmod 777 OSPath/AICamera/x.sh'
