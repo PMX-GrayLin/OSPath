@@ -5,7 +5,8 @@ IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
 # export ROS_HOSTNAME=192.168.1.158
 # export ROS_DOMAIN_ID=77
 
-PATH=~/OSPath/Ubuntu:$PATH
+InHost="Ubuntu"
+PATH=~/OSPath/$InHost:$PATH
 
 alias x='x.sh'
 alias rr='x ros'
@@ -21,8 +22,9 @@ alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
 alias dh='cd ~' # dir home
 
 # update
-alias ue='source ~/.bashrc' # update env
-alias ux='x ux' # update x.sh
+alias ue='source ~/.bashrc'     # update env
+alias ux='x ux'                 # update x.sh
+alias ua='ux && ue'             # update x.sh
 
 # git 
-alias gx='cd ~ && git clone https://github.com/PMX-GrayLin/OSPath.git && chmod 777 OSPath/AICamera/x.sh'
+alias gx='cd ~ && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \;'
