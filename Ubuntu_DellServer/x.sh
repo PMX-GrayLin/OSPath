@@ -862,8 +862,14 @@ if [ "$1" == "nfs" ] ; then
 
 	elif [ "$2" = "r" ] ; then
 		sudo exportfs -ra
-		sudo systemctl stop nfs-kernel-server
+		sudo systemctl restart nfs-kernel-server
+
+	elif [ "$2" = "start" ] ; then
+
 		sudo systemctl start nfs-kernel-server
+		
+	elif [ "$2" = "stop" ] ; then
+		sudo systemctl stop nfs-kernel-server
 
 	elif [ "$2" = "port" ] ; then
 		sudo ufw allow from 10.0.0.0/8 to any port 111
