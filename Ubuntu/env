@@ -3,7 +3,7 @@ IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
 # export ROS_MASTER_IP=192.168.1.196
 # export ROS_MASTER_URI=http://$ROS_MASTER_IP:11311
 # export ROS_HOSTNAME=192.168.1.158
-export ROS_DOMAIN_ID=77
+# export ROS_DOMAIN_ID=77
 
 PATH=~/OSPath/Ubuntu:$PATH
 
@@ -23,3 +23,6 @@ alias dh='cd ~' # dir home
 # update
 alias ue='source ~/.bashrc' # update env
 alias ux='x ux' # update x.sh
+
+# git 
+alias gx='cd ~ && git clone https://github.com/PMX-GrayLin/OSPath.git && chmod 777 OSPath/AICamera/x.sh'
