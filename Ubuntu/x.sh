@@ -44,9 +44,21 @@ echo "param 3:"$3
 echo "param 4:"$4
 echo "param 5:"$5
 
+# AI Camera
+if [ "$1" = "aic" ] ; then
+	echo "========== AI Camera =========="
+	if [ "$2" = "nfs" ] ; then
+		if [  "$3" = "+" ] ; then
+			sudo mount $wheeltec_ip:/home/wheeltec/wheeltec_ros2 /mnt
+		elif [  "$3" = "-" ] ; then
+			sudo umount /mnt
+		fi
+
+	fi
+fi
+
 # wheeltec
 if [ "$1" = "wt" ] ; then
-
 
 	if [ "$2" = "i" ] ; then
 		echo "========== wheeltec ip:($wheeltec_ip) =========="

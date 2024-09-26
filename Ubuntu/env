@@ -1,5 +1,4 @@
-IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
-
+# IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
 # export ROS_MASTER_IP=192.168.1.196
 # export ROS_MASTER_URI=http://$ROS_MASTER_IP:11311
 # export ROS_HOSTNAME=192.168.1.158
@@ -13,18 +12,21 @@ alias rr='x ros'
 alias wt='x wt'
 alias p3='python3'
 
+# AI Camera
+alias aic='x aic'
+
 # edit
 alias ex='x code x'
 alias erc='nano ~/.bashrc'
 alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
 
 # dir
-alias dh='cd ~' # dir home
+alias dh='cd ~'                 # dir home
 
 # update
 alias ue='source ~/.bashrc'     # update env
 alias ux='x ux'                 # update x.sh
-alias ua='ux && ue'             # update x.sh
+alias ua='ux && ue'             # update all
 
 # git 
 alias gx='cd ~ && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \;'
