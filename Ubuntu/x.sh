@@ -50,8 +50,8 @@ if [ "$1" = "aic" ] ; then
 	DellServer_ip="10.1.13.207"
 	if [ "$2" = "nfs" ] ; then
 		# nfs mount dir
-		dir_nfs_remote="/home/gray.lin/home/gray.lin/iot-yocto-mtk"
-		dir_nfs="/nfs-share"
+		dir_nfs_remote="/home/gray.lin/iot-yocto-mtk"
+		dir_nfs="~/nfs-share"
 
 		if [  "$3" = "+" ] ; then
 			sudo mount $DellServer_ip:$dir_nfs_remote $dir_nfs
