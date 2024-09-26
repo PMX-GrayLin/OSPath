@@ -853,20 +853,22 @@ if [ "$1" == "nfs" ] ; then
 	if [ "$2" = "e" ] ; then
 		echo "========== edit conf file ========== " 
 		sudo nano /etc/exports
+		
 	elif [ "$2" = "mkdir" ] ; then
 		echo "========== make nfs dir ========== " 
 		sudo mkdir -p $3
 		sudo chown nobody:nogroup /srv/nfs/data
 		sudo chmod 777 /srv/nfs/data
+
 	elif [ "$2" = "r" ] ; then
 		sudo exportfs -ra
 		sudo systemctl stop nfs-kernel-server
 		sudo systemctl start nfs-kernel-server
 
 	elif [ "$2" = "port" ] ; then
-		ufw allow from 192.168.1.0/24 to any port 111
-		ufw allow from 192.168.1.0/24 to any port 2049
-		ufw allow from 192.168.1.0/24 to any port 13025
+		ufw allow from 10.0.2.0/24 to any port 111
+		ufw allow from 10.0.2.0/24 to any port 2049
+		ufw allow from 10.0.2.0/24 to any port 13025
 
 	else
 		sudo exportfs -v
