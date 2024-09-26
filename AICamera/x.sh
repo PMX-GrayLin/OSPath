@@ -31,14 +31,6 @@ echo "param 3:"$3
 echo "param 4:"$4
 echo "param 5:"$5
 
-# update x
-if [ "$1" == "ux" ] ; then
-	cd ~/OSPath
-	git reset --hard HEAD
-	git pull
-	sudo chmod 777 AICamera/x.sh
-fi
-
 # AICamera 
 if [ "$1" = "aic" ] ; then
 	echo "AICamera command..."
@@ -697,16 +689,16 @@ if [ "$1" = "dkc" ] ; then
 	fi
 fi
 
-# chrome-remote-desktop
-if [ "$1" = "chrome" ] ; then
+# update x
+if [ "$1" == "ux" ] ; then
+	cd ~/OSPath
+	git reset --hard HEAD
+	git pull
+	sudo chmod 777 AICamera/x.sh
+fi
 
-		if [ "$2" = "r" ] ; then
-			echo "========== restart  chrome-remote-desktop ========== " 
- 			sudo systemctl stop chrome-remote-desktop
- 			sudo systemctl start chrome-remote-desktop
-		else
- 			sudo systemctl status chrome-remote-desktop
-		fi
-
+# find
+if [ "$1" == "find" ] ; then
+	find . -name "$2" 
 fi
 
