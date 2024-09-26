@@ -837,13 +837,35 @@ fi
 # chrome-remote-desktop
 if [ "$1" = "chrome" ] ; then
 
-		if [ "$2" = "r" ] ; then
-			echo "========== restart  chrome-remote-desktop ========== " 
- 			sudo systemctl stop chrome-remote-desktop
- 			sudo systemctl start chrome-remote-desktop
-		else
- 			sudo systemctl status chrome-remote-desktop
-		fi
+	if [ "$2" = "r" ] ; then
+		echo "========== restart  chrome-remote-desktop ========== " 
+		sudo systemctl stop chrome-remote-desktop
+		sudo systemctl start chrome-remote-desktop
+	else
+		sudo systemctl status chrome-remote-desktop
+	fi
+
+fi
+
+# nfs
+if [ "$1" == "nfs" ] ; then
+	echo "========== NFS "==========
+	if [ "$2" = "e" ] ; then
+		echo "========== edit conf file ========== " 
+		sudo nano /etc/exports
+	elif [ "$2" = "mkdir" ] ; then
+		echo "========== make nfs dir ========== " 
+		sudo mkdir -p $3
+		sudo chown nobody:nogroup /srv/nfs/data
+		sudo chmod 777 /srv/nfs/data
+	elif [ "$2" = "r" ] ; then
+		sudo exportfs -ra
+		sudo systemctl stop nfs-kernel-server
+		sudo systemctl start nfs-kernel-server
+	else
+		sudo exportfs -v
+		sudo systemctl status nfs-kernel-server
+	fi
 
 fi
 
