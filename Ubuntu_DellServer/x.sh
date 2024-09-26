@@ -866,9 +866,9 @@ if [ "$1" == "nfs" ] ; then
 		sudo systemctl start nfs-kernel-server
 
 	elif [ "$2" = "port" ] ; then
-		sudo ufw allow from 10.0.2.0/24 to any port 111
-		sudo ufw allow from 10.0.2.0/24 to any port 2049
-		sudo ufw allow from 10.0.2.0/24 to any port 13025
+		sudo ufw allow from 10.0.0.0/8 to any port 111
+		sudo ufw allow from 10.0.0.0/8 to any port 2049
+		sudo ufw allow from 10.0.0.0/8 to any port 13025
 
 	else
 		sudo exportfs -v
