@@ -101,6 +101,7 @@ if [ "$1" = "yt" ] ; then
 	elif [ "$2" = "flash" ] ; then
 		echo "genio-flash..."
 		genio-flash
+		# aiot-flash
 
 	elif [ "$2" = "repo" ] ; then
 		echo "repo..."
@@ -123,21 +124,25 @@ if [ "$1" = "aic" ] ; then
 	echo "========== PROJ_ROOT:$PROJ_ROOT =========="
 	aicDir="$dockderDir/AICameraG2"
 
-	if [ "$2" = "up" ] ; then
-		docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up -d
-		# docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up
-	elif [ "$2" = "down" ] ; then
-		docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down
-	elif [ "$2" = "bash" ] ; then
-		echo "========== docker exec -it -u root u22_aicamerag2 /bin/bash =========="
-		# docker exec -it -u root u22_aicamerag2 /bin/bash
-		docker exec -it u22_aicamerag2 /bin/bash
-	elif [ "$2" = "log" ] ; then
-		echo "========== docker logs -tf jenkins =========="
-		docker logs -tf u22_aicamerag2
+	if [ "$2" = "dk" ] ; then
+		echo "========== docker cmd =========="
+
+		if [ "$3" = "up" ] ; then
+			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up -d
+			# docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up
+		elif [ "$3" = "down" ] ; then
+			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down
+		elif [ "$3" = "bash" ] ; then
+			echo "========== docker exec -it -u root u22_aicamerag2 /bin/bash =========="
+			# docker exec -it -u root u22_aicamerag2 /bin/bash
+			docker exec -it u22_aicamerag2 /bin/bash
+		elif [ "$3" = "log" ] ; then
+			echo "========== docker logs -tf jenkins =========="
+			docker logs -tf u22_aicamerag2
+		fi
 
 	elif [ "$2" = "flash" ] ; then
-		echo "========== flash images... =========="
+		echo "========== flash images =========="
 		# aiot-flash
 		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo
 		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
