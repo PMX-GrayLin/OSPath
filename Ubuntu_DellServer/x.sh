@@ -143,9 +143,8 @@ if [ "$1" = "aic" ] ; then
 
 	elif [ "$2" = "us" ] ; then
 		echo "========== update yocto src =========="
-		dpmx
+		echo "========== PROJ_ROOT:$PROJ_ROOT =========="
 		
-
 	else
 		echo "param 2 not match"
 		exit -1
