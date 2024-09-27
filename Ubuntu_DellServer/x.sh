@@ -140,6 +140,12 @@ if [ "$1" = "aic" ] ; then
 		# aiot-flash
 		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo
 		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
+
+	elif [ "$2" = "us" ] ; then
+		echo "========== update yocto src =========="
+		dpmx
+		
+
 	else
 		echo "param 2 not match"
 		exit -1
@@ -867,7 +873,7 @@ if [ "$1" == "nfs" ] ; then
 	elif [ "$2" = "start" ] ; then
 
 		sudo systemctl start nfs-kernel-server
-		
+
 	elif [ "$2" = "stop" ] ; then
 		sudo systemctl stop nfs-kernel-server
 
@@ -890,6 +896,11 @@ if [ "$1" == "ux" ] ; then
 	git reset --hard HEAD
 	git pull
 	sudo chmod 777 Ubuntu_DellServer/x.sh
+fi
+
+# update src
+if [ "$1" == "" ] ; then
+	c
 fi
 
 # find content
