@@ -104,7 +104,7 @@ if [ "$1" = "yt" ] ; then
 
 	elif [ "$2" = "repo" ] ; then
 		echo "repo..."
-		repo init -u https://gitlab.com/mediatek/aiot/bsp/manifest.git -b refs/tags/rity-kirkstone-v24.0 -m default.xml --no-repo-verify
+		repo init -u https://gitlab.com/mediatek/aiot/bsp/manifest.git -b rity/kirkstone -m default.xml
  		repo sync
 
 	else
