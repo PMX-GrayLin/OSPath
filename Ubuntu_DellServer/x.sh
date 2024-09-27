@@ -144,6 +144,9 @@ if [ "$1" = "aic" ] ; then
 
 	elif [ "$2" = "us" ] ; then
 		echo "========== update yocto src =========="
+		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/vision_box_DualCam_gray
+		git reset --hard HEAD
+		git pull
 		
 	else
 		echo "param 2 not match"
