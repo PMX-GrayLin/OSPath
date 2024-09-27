@@ -104,8 +104,8 @@ if [ "$1" = "yt" ] ; then
 
 	elif [ "$2" = "repo" ] ; then
 		echo "repo..."
-		repo init -u ssh://git@10.1.7.125:10022/amr2_build_mirror/manifests.git -b main -m default.xml --no-repo-verify
-		repo sync
+		repo init -u https://gitlab.com/mediatek/aiot/bsp/manifest.git -b refs/tags/rity-kirkstone-v24.0 -m default.xml --no-repo-verify
+ 		repo sync
 
 	else
 		echo "priject env vars..."
@@ -120,6 +120,7 @@ fi
 # AI Camera
 if [ "$1" = "aic" ] ; then
 
+	echo "========== PROJ_ROOT:$PROJ_ROOT =========="
 	aicDir="$dockderDir/AICameraG2"
 
 	if [ "$2" = "up" ] ; then
@@ -143,7 +144,6 @@ if [ "$1" = "aic" ] ; then
 
 	elif [ "$2" = "us" ] ; then
 		echo "========== update yocto src =========="
-		echo "========== PROJ_ROOT:$PROJ_ROOT =========="
 		
 	else
 		echo "param 2 not match"
