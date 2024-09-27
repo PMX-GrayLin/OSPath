@@ -14,7 +14,7 @@ alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
 
 # dir
 alias dh='cd ~'                 # dir home
-alias dvb='cd ~/primax/apps'    # dir VisionBox
+alias daic='cd ~/primax/apps'    # dir AI camera
 
 # update
 alias ue='source ~/.bashrc'     # update env
@@ -22,4 +22,4 @@ alias ux='x ux'                 # update x.sh
 alias ua='ux && ue'             # update all
 
 # git 
-alias gx='cd ~ && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \;'
+alias gx='cd ~ && rm -r OSPath && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \;'
