@@ -52,8 +52,8 @@ RUN chmod a+rx /usr/local/bin/repo
 # Create a new user called 'user'
 RUN useradd -m -d /home/gray.lin -s /bin/bash gray.lin && \
     echo "gray.lin:zxcv1234" | chpasswd && \
-    adduser gray.lin sudo \
-    locale-gen en_US.UTF-8 \
+    adduser gray.lin sudo && \
+    locale-gen en_US.UTF-8 && \
     update-locale LANG=en_US.UTF-8
 
 # Set the new user as the default user
