@@ -917,7 +917,10 @@ fi
 
 # find content
 if [ "$1" == "grep" ] ; then
-
 	grep -r $2 .
+fi
 
+# find content
+if [ "$1" == "find" ] ; then
+	find . -name $2
 fi
