@@ -88,6 +88,11 @@ if [ "$1" = "yt" ] ; then
 	
 	if [  "$2" = "b" ] ; then
 
+		# export PROJ_ROOT=`pwd`
+		# export TEMPLATECONF=$PROJ_ROOT/src/meta-rity/meta/conf/
+		# source src/poky/oe-init-build-env
+		# export BUILD_DIR=`pwd`
+
 		# Enable/Disable components that require NDA access
 		# echo NDA_BUILD = \"0\" >> ${BUILD_DIR}/conf/local.conf
 
@@ -148,7 +153,7 @@ if [ "$1" = "aic" ] ; then
 		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
 
 	elif [ "$2" = "us" ] ; then
-		echo "========== update yocto src =========="
+		echo "========== update yocto primax src =========="
 		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/vision_box_DualCam_gray
 		git reset --hard HEAD
 		git pull

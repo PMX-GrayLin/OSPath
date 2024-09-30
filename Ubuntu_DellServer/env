@@ -38,3 +38,6 @@ alias spe='spp && env_mtk'                                              # set pr
 
 # git 
 alias gx='cd ~ && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \;'
+
+alias yt='x yt'
+alias aic='x aic'
