@@ -10,9 +10,9 @@ alias ex='nano ~/OSPath/$InHost/x.sh'
 alias erc='nano ~/.bashrc'
 alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
 
-alias ebbi="nano $PROJ_ROOT/src/meta-rity/meta-rity-demo/recipes-demo/images/rity-demo-image.bb"
+alias ebbi='nano $PROJ_ROOT/src/meta-rity/meta-rity-demo/recipes-demo/images/rity-demo-image.bb'
 alias ebbpmx='nano $PROJ_ROOT/src/meta-primax/recipes-primax/primax/primax_1.0.bb'
-alias econf="nano $PROJ_ROOT/build/conf/local.conf"
+alias econf='nano $PROJ_ROOT/build/conf/local.conf'
 
 # dir
 alias dh='cd ~'                                                                         # dir home
