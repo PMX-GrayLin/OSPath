@@ -56,6 +56,10 @@ if [ "$1" = "bb" ] ; then
 		echo "build recipe..., $3"
 		# bitbake -D $3
 		bitbake $3
+
+	elif [ "$2" = "v" ] ; then
+		echo "check recipe version..., $3"
+		bitbake -e $3 | grep "^PV="
 	
 	elif [ "$2" = "l" ] ; then
 		echo "layer..."
