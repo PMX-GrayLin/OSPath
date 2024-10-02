@@ -50,8 +50,9 @@ if [ "$1" = "bb" ] ; then
 	echo "BitBake..."
 	if [  "$2" = "c" ] ; then
 		echo "clean recipe..., $3"
-		bitbake -c cleansstate $3
-
+		# bitbake -c cleansstate $3
+		bitbake -c cleanall $3
+		
 	elif [ "$2" = "b" ] ; then
 		echo "build recipe..., $3"
 		# bitbake -D $3
