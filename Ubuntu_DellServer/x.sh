@@ -157,7 +157,11 @@ if [ "$1" = "aic" ] ; then
 		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/vision_box_DualCam_gray
 		git reset --hard HEAD
 		git pull
-		
+
+		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
+		git reset --hard HEAD
+		git pull
+
 	else
 		echo "param 2 not match"
 		exit -1

@@ -42,3 +42,4 @@ alias gx='cd ~ && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPa
 alias yt='x yt'
 alias aic='x aic'
 alias aicb='x aic us && x bb b primax'
+

@@ -26,7 +26,7 @@ wheeltec_ip="192.168.1.196"
 
 # VisionBox
 VisionBox_ip="192.168.1.13"
-AICamera_ip="192.168.1.19"
+AICamera_ip="192.168.1.65"
 DellServer_ip="10.1.13.207"
 
 # SSH
@@ -49,8 +49,10 @@ if [ "$1" == "ssh" ] ; then
 		ssh -Y user@$VisionBox_ip
 
 	elif [ "$2" == "aic" ] ; then
-		echo "ssh -Y ubuntu@$AICamera_ip"
-		ssh -Y ubuntu@$AICamera_ip
+		# echo "ssh -Y ubuntu@$AICamera_ip"
+		# ssh -Y ubuntu@$AICamera_ip
+		echo "ssh -Y root@$AICamera_ip"
+		ssh -Y root@$AICamera_ip
 
 	elif [ "$2" == "wt" ] ; then
 		# wheeltech
@@ -81,9 +83,11 @@ if [ "$1" == "scp" ] ; then
 			sshpass -p $pass scp $user@$VisionBox_ip:$remoteFolder/$4 .
 		fi
 	elif [ "$2" == "aic" ] ; then
-		user="ubuntu"
-		pass="primax1234"
-		remoteFolder="~"
+		# user="ubuntu"
+		# pass="primax1234"
+		user="root"
+		pass=""
+		remoteFolder="~/primax"
 		# remoteFolder="~/primax/apps"
 		if [ "$3" == "up" ] ; then
 			sshpass -p $pass scp ./$4 $user@$AICamera_ip:$remoteFolder/$5
