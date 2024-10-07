@@ -15,13 +15,15 @@ alias ebbpmx='nano $PROJ_ROOT/src/meta-primax/recipes-primax/primax/primax_1.0.b
 alias econf='nano $PROJ_ROOT/build/conf/local.conf'
 
 # dir
-alias dh='cd ~'                                                                         # dir home
-alias dpr='cd $PROJ_ROOT'                                                               # dir project root
-alias dppmx='cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax'                       # dir project primax
-alias dpi='cd $PROJ_ROOT/build/tmp/deploy/images/genio-700-evk'                         # dir project build image path
-alias dpb='cd $PROJ_ROOT/build'                                                         # dir project build path
-alias dpbbS='cd $BUILD_DIR/tmp/work/armv8a-poky-linux/primax/1.0-r0/primax-1.0'         # dir project BB {S} path
-alias dpbbD='cd $BUILD_DIR/tmp/work/armv8a-poky-linux/primax/1.0-r0/image/home/root'    # dir project BB {D} path
+alias dh='cd ~'                                                                                     # dir home
+alias dpr='cd $PROJ_ROOT'                                                                           # dir project root
+alias dppmx='cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax'                                   # dir project primax
+alias dpi='cd $PROJ_ROOT/build/tmp/deploy/images/genio-700-evk'                                     # dir project build image path
+alias dpb='cd $PROJ_ROOT/build'                                                                     # dir project build path
+alias dpbbS='cd $BUILD_DIR/tmp/work/armv8a-poky-linux/primax/1.0-r0/primax-1.0'                     # dir project BB {S} path
+alias dpbbD='cd $BUILD_DIR/tmp/work/armv8a-poky-linux/primax/1.0-r0/image/home/root'                # dir project BB {D} path
+alias dpinc='cd $BUILD_DIR/tmp/work/armv8a-poky-linux/primax/1.0-r0/recipe-sysroot/usr/include'     # dir project BB {D} path
+alias dplib='cd $BUILD_DIR/tmp/work/armv8a-poky-linux/primax/1.0-r0/recipe-sysroot/usr/lib'         # dir project BB {D} path
 
 # update
 alias ue='source ~/.bashrc'     # update env
