@@ -42,7 +42,7 @@ fi
 # VisionBox 
 if [ "$1" == "vb" ] ; then
 	echo "VisionBox command..."
-	appDir="vision_box_DualCam_gray"
+	appDir="vision_box_DualCam"
 	cd ~/primax/apps
 
 	if [ "$2" = "jobs" ] ; then
