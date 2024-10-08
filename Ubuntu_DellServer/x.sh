@@ -118,6 +118,16 @@ if [ "$1" = "yt" ] ; then
 		repo init -u https://gitlab.com/mediatek/aiot/bsp/manifest.git -b rity/kirkstone -m default.xml
  		repo sync
 
+	elif [ "$2" = "git" ] ; then
+		echo "========== git clone org-169115935@github.com:PMX-CTC/C_AI-Camera-G2_FW.git =========="
+		git clone org-169115935@github.com:PMX-CTC/C_AI-Camera-G2_FW.git
+
+	elif [ "$2" = "us" ] ; then
+		echo "========== update yocto project =========="
+		cd ~/C_AI-Camera-G2_FW
+		git reset --hard HEAD
+		git pull
+
 	else
 		echo "priject env vars..."
 		echo "PROJ_ROOT:${PROJ_ROOT}"
