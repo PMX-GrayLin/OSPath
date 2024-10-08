@@ -919,11 +919,6 @@ if [ "$1" == "ux" ] ; then
 	sudo chmod 777 Ubuntu_DellServer/x.sh
 fi
 
-# update src
-if [ "$1" == "" ] ; then
-	c
-fi
-
 # find content
 if [ "$1" == "grep" ] ; then
 	grep -r $2 .
