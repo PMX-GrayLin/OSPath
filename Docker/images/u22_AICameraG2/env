@@ -1,0 +1,25 @@
+InHost="AICamera"
+PATH=~/OSPath/$InHost:$PATH
+
+alias x='x.sh'
+alias p3='python3'
+
+# AI Camera
+alias aic='x aic'
+
+# edit
+alias ex='nano ~/OSPath/VisionBox/x.sh'
+alias erc='nano ~/.bashrc'
+alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
+
+# dir
+alias dh='cd ~'                 # dir home
+alias daic='cd ~/primax/apps'    # dir AI camera
+
+# update
+alias ue='source ~/.bashrc'     # update env
+alias ux='x ux'                 # update x.sh
+alias ua='ux && ue'             # update all
+
+# git 
+alias gx='cd ~ && rm -r OSPath && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \;'
