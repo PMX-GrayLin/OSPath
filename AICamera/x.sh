@@ -34,30 +34,30 @@ echo "param 5:"$5
 # AICamera 
 if [ "$1" = "aic" ] ; then
 	echo "AICamera command..."
-	appDir="vision_box_DualCam"
-	cd ~/primax/apps
+	# appDir="vision_box_DualCam"
+	# cd ~/primax
 
-	if [ "$2" = "jobs" ] ; then
-		pm2 list
+	# if [ "$2" = "jobs" ] ; then
+	# 	pm2 list
+	#
+	# elif [ "$2" = "git" ] ; then
+	# 	echo "update src..."
+	# 	cd $appDir 
+	# 	git reset --hard HEAD
+	# 	git pull
 
-	elif [ "$2" = "git" ] ; then
-		echo "update src..."
-		cd $appDir 
-		git reset --hard HEAD
-		git pull
-
-	elif [ "$2" = "b" ] ; then
-		echo "Build..."
-		cd $appDir 
-		make
+	# elif [ "$2" = "b" ] ; then
+	# 	echo "Build..."
+	# 	cd $appDir 
+	# 	make
 
 	elif [ "$2" = "r" ] ; then
 		echo "Run..."
-		cd $appDir 
+		cd ~/primax
 		./vision_box_DualCam
 
-	elif [ "$2" = "ub" ] ; then
-		echo "update binary..."
+	elif [ "$2" = "ftp" ] ; then
+		echo "update files from ftp..."
 		cd ~/primax
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/Public/vision_box_DualCam
 		chmod 777 vision_box_DualCam
