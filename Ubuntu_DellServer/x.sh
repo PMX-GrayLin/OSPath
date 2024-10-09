@@ -30,6 +30,9 @@ echo "param 2:"$2
 echo "param 3:"$3
 echo "param 4:"$4
 echo "param 5:"$5
+echo "param 5:"$5
+echo "PROJ_ROOT:"$PROJ_ROOT
+echo "BUILD_DIR:"$BUILD_DIR
 
 # Test
 if [ "$1" = "tt" ] ; then
@@ -176,6 +179,10 @@ if [ "$1" = "aic" ] ; then
 		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
 		git reset --hard HEAD
 		git pull
+
+	elif [ "$2" = "ftp" ] ; then
+		echo "========== update primax files to FTP =========="
+		cp -f $PROJ_ROOT/build/tmp/work/armv8a-poky-linux/primax/1.0-r0/primax-1.0/src/vision_box_DualCam/vision_box_DualCam/vision_box_DualCam /mnt/disk2/FTP/Public
 
 	else
 		echo "param 2 not match"
