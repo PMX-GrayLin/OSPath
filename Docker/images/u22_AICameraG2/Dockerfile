@@ -67,6 +67,6 @@ RUN git config --global user.email "gray.lin@primax.com.tw" && \
 
 # Automatically extract tar archives with ADD
 ADD ./ssh.tar.gz /home/gray.lin
-RUN mv ssh .ssh
+RUN mv /home/gray.lin/ssh /home/gray.lin/.ssh
 
 CMD ["/bin/bash"]
