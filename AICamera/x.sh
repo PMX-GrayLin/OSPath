@@ -51,7 +51,7 @@ if [ "$1" = "aic" ] ; then
 	# 	cd $appDir 
 	# 	make
 
-	elif [ "$2" = "r" ] ; then
+	if [ "$2" = "r" ] ; then
 		echo "Run..."
 		cd ~/primax
 		./vision_box_DualCam
