@@ -56,6 +56,11 @@ if [ "$1" = "aic" ] ; then
 		cd $appDir 
 		./vision_box_DualCam
 
+	elif [ "$2" = "ub" ] ; then
+		echo "update binary..."
+		cd ~/primax
+		wget ftp://gray.lin:Zx03310331@10.1.13.207/Public/vision_box_DualCam
+		chmod 777 vision_box_DualCam
 	fi
 fi
 
