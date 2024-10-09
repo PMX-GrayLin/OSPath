@@ -65,8 +65,7 @@ RUN mv /home/gray.lin/ssh /home/gray.lin/.ssh && \
     chmod 400 /home/gray.lin/.ssh/id_rsa && \
     chmod 777 /home/gray.lin/x.sh && \
     source /home/gray.lin/env
-    # export PATH="/home/gray.lin/":$PATH
- 
+
 # Set the new user as the default user
 USER gray.lin
 
