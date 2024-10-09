@@ -56,17 +56,25 @@ RUN useradd -m -d /home/gray.lin -s /bin/bash gray.lin && \
     locale-gen en_US.UTF-8 && \
     update-locale LANG=en_US.UTF-8
 
+# Automatically extract tar archives with ADD
+ADD ./ssh.tar.gz /home/gray.lin
+ADD ./x.sh /home/gray.lin
+ADD ./env /home/gray.lin
+
+RUN mv /home/gray.lin/ssh /home/gray.lin/.ssh && \
+    chmod 400 /home/gray.lin/.ssh/id_rsa && \
+    chmod 777 /home/gray.lin/x.sh && \
+    source /home/gray.lin/env
+    # export PATH="/home/gray.lin/":$PATH
+ 
 # Set the new user as the default user
 USER gray.lin
 
-#ENV PATH="/root/.bin:$PATH"
+ENV PATH="/home/gray.lin:$PATH"
 
 RUN git config --global user.email "gray.lin@primax.com.tw" && \
     git config --global user.name "Gray.Lin" && \
-    git config --global color.ui auto
-
-# Automatically extract tar archives with ADD
-ADD ./ssh.tar.gz /home/gray.lin
-RUN mv /home/gray.lin/ssh /home/gray.lin/.ssh
+    git config --global color.ui auto && \
+    ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 CMD ["/bin/bash"]
