@@ -63,17 +63,17 @@ ADD ./env /home/gray.lin
 
 RUN mv /home/gray.lin/ssh /home/gray.lin/.ssh && \
     chmod 400 /home/gray.lin/.ssh/id_rsa && \
-    chmod 777 /home/gray.lin/x.sh && \
-    . /home/gray.lin/env
+    chmod 777 /home/gray.lin/x.sh
 
 # Set the new user as the default user
 USER gray.lin
 
-ENV PATH="/home/gray.lin:$PATH"
+# ENV PATH="/home/gray.lin:$PATH"
 
 RUN git config --global user.email "gray.lin@primax.com.tw" && \
     git config --global user.name "Gray.Lin" && \
     git config --global color.ui auto && \
-    ssh-keyscan github.com >> ~/.ssh/known_hosts
+    ssh-keyscan github.com >> ~/.ssh/known_hosts && \
+    source ~/env
 
 CMD ["/bin/bash"]
