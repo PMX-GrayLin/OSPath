@@ -181,8 +181,9 @@ if [ "$1" = "aic" ] ; then
 		git pull
 
 	elif [ "$2" = "ftp" ] ; then
-		echo "========== update primax files to FTP =========="
-		cp -f $PROJ_ROOT/build/tmp/work/armv8a-poky-linux/primax/1.0-r0/primax-1.0/src/vision_box_DualCam/vision_box_DualCam /mnt/disk2/FTP/Public
+		echo "========== update files to FTP =========="
+		dir_ftp="/mnt/disk2/FTP/Public/gray"
+		cp -f $PROJ_ROOT/build/tmp/work/armv8a-poky-linux/primax/1.0-r0/primax-1.0/src/vision_box_DualCam/vision_box_DualCam $dir_ftp
 
 	else
 		echo "param 2 not match"
