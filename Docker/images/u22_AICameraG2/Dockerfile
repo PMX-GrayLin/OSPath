@@ -74,6 +74,6 @@ RUN git config --global user.email "gray.lin@primax.com.tw" && \
     git config --global user.name "Gray.Lin" && \
     git config --global color.ui auto && \
     ssh-keyscan github.com >> ~/.ssh/known_hosts && \
-    sh ~/env
+    . ~/env
 
 CMD ["/bin/bash"]

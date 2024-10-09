@@ -31,34 +31,6 @@ echo "param 3:"$3
 echo "param 4:"$4
 echo "param 5:"$5
 
-# AICamera 
-if [ "$1" = "aic" ] ; then
-	echo "AICamera command..."
-	appDir="vision_box_DualCam"
-	cd ~/primax/apps
-
-	if [ "$2" = "jobs" ] ; then
-		pm2 list
-
-	elif [ "$2" = "git" ] ; then
-		echo "update src..."
-		cd $appDir 
-		git reset --hard HEAD
-		git pull
-
-	elif [ "$2" = "b" ] ; then
-		echo "Build..."
-		cd $appDir 
-		make
-
-	elif [ "$2" = "r" ] ; then
-		echo "Run..."
-		cd $appDir 
-		./vision_box_DualCam
-
-	fi
-fi
-
 # Test
 if [ "$1" = "tt" ] ; then
 	cd ~
@@ -71,6 +43,221 @@ if [ "$1" = "tt" ] ; then
 		echo "1..."
 	fi
 
+fi
+
+# BitBake
+if [ "$1" = "bb" ] ; then
+	echo "BitBake..."
+	if [  "$2" = "c" ] ; then
+		echo "clean recipe..., $3"
+		# bitbake -c cleansstate $3
+		bitbake -c cleanall $3
+		
+	elif [ "$2" = "b" ] ; then
+		echo "build recipe..., $3"
+		# bitbake -D $3
+		bitbake $3
+
+	elif [ "$2" = "i" ] ; then
+		echo "check recipe info..., $3"
+		bitbake -e $3 | grep -E "^SRC_URI=|^FILE=|^PV="
+	
+	elif [ "$2" = "l" ] ; then
+		echo "layer..."
+		if [  "$3" = "sl" ] ; then
+			echo "bitbake-layers show-layers"
+			bitbake-layers show-layers
+
+		elif [  "$3" = "sr" ] ; then
+			echo "show-recipe..."
+			if [ "$4" != "" ] ; then
+				bitbake-layers show-recipes | grep $4
+			else
+				bitbake-layers show-recipes
+			fi
+
+		elif [  "$3" = "cl" ] ; then
+			echo "bitbake-layers create-layer $4"
+			bitbake-layers create-layer $4
+
+		elif [  "$3" = "cr" ] ; then
+			echo "bitbake-layers create-recipe $4"
+			bitbake-layers create-recipe $4
+		fi
+	fi
+fi
+
+# Yocto
+if [ "$1" = "yt" ] ; then
+	echo "Yocto, pp:$pp..."
+	
+	if [  "$2" = "b" ] ; then
+
+		# export PROJ_ROOT=`pwd`
+		# export TEMPLATECONF=$PROJ_ROOT/src/meta-rity/meta/conf/
+		# source src/poky/oe-init-build-env
+		# export BUILD_DIR=`pwd`
+
+		# Enable/Disable components that require NDA access
+		# echo NDA_BUILD = \"0\" >> ${BUILD_DIR}/conf/local.conf
+
+		# Setup paths for downloads and sstate-cache folders
+		# echo DL_DIR = \"\${TOPDIR}/../downloads\" >> ${BUILD_DIR}/conf/local.conf
+		# echo SSTATE_DIR = \"\${TOPDIR}/../sstate-cache\" >> ${BUILD_DIR}/conf/local.conf
+
+		echo "DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image"
+		DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image
+
+	elif [ "$2" = "flash" ] ; then
+		echo "genio-flash..."
+		genio-flash
+		# aiot-flash
+
+	elif [ "$2" = "repo" ] ; then
+		echo "repo..."
+		repo init -u https://gitlab.com/mediatek/aiot/bsp/manifest.git -b rity/kirkstone -m default.xml
+ 		repo sync
+
+	elif [ "$2" = "git" ] ; then
+		echo "========== git clone org-169115935@github.com:PMX-CTC/C_AI-Camera-G2_FW.git =========="
+		git clone org-169115935@github.com:PMX-CTC/C_AI-Camera-G2_FW.git
+
+	elif [ "$2" = "us" ] ; then
+		echo "========== update yocto project =========="
+		cd ~/C_AI-Camera-G2_FW
+		git reset --hard HEAD
+		git pull
+
+	else
+		echo "priject env vars..."
+		echo "PROJ_ROOT:${PROJ_ROOT}"
+		echo "TEMPLATECONF:${TEMPLATECONF}"
+		echo "BUILD_DIR:${BUILD_DIR}"
+		echo "BB_NUMBER_THREADS:${BB_NUMBER_THREADS}"
+		echo "PARALLEL_MAKE:${PARALLEL_MAKE}"
+	fi
+fi
+
+# AI Camera
+if [ "$1" = "aic" ] ; then
+
+	echo "========== PROJ_ROOT:$PROJ_ROOT =========="
+	aicDir="$dockderDir/AICameraG2"
+
+	if [ "$2" = "dk" ] ; then
+		echo "========== docker cmd =========="
+
+		if [ "$3" = "up" ] ; then
+			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up -d
+			# docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up
+		elif [ "$3" = "down" ] ; then
+			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down
+		elif [ "$3" = "bash" ] ; then
+			echo "========== docker exec -it -u root u22_aicamerag2 /bin/bash =========="
+			# docker exec -it -u root u22_aicamerag2 /bin/bash
+			docker exec -it u22_aicamerag2 /bin/bash
+		elif [ "$3" = "log" ] ; then
+			echo "========== docker logs -tf jenkins =========="
+			docker logs -tf u22_aicamerag2
+		fi
+
+	elif [ "$2" = "flash" ] ; then
+		echo "========== flash images =========="
+		# aiot-flash
+		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo
+		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
+
+	elif [ "$2" = "us" ] ; then
+		echo "========== update yocto primax src =========="
+		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/vision_box_DualCam
+		git reset --hard HEAD
+		git pull
+
+		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
+		git reset --hard HEAD
+		git pull
+
+	else
+		echo "param 2 not match"
+		exit -1
+	fi
+fi
+
+# working directory 
+if [ "$1" = "wd" ] ; then
+	echo "XDG_CURRENT_DESKTOP=$XDG_CURRENT_DESKTOP" 
+	if [  "$XDG_CURRENT_DESKTOP" = "KDE" ] ; then
+
+		if [ "$2" = "git" ] ; then
+			xfce4-terminal --geometry=160x40 \
+			--tab -T "Docker_Gitlab" --working-directory=$gitDir \
+			--tab -T "Docker_Gitlab2" --working-directory=$gitDir \
+			--tab -T "Gitlab_Data" --working-directory=$gitDir_Data \
+			--tab -T "gitDir_Config" --working-directory=$gitDir_Config \
+			--tab -T "Home/Gray" --working-directory=$xDir
+		elif [ "$2" = "red" ] ; then
+			xfce4-terminal --geometry=160x40 \
+			--tab -T "Docker_Redmine" --working-directory=$redDir \
+			--tab -T "Docker_Redmine2" --working-directory=$redDir \
+			--tab -T "Redmine_Home" --working-directory=$redDir_Home \
+			--tab -T "Redmine_File" --working-directory=$redDir_Files \
+			--tab -T "Redmine_Config" --working-directory=$redDir_Config \
+			--tab -T "Postgres" --working-directory=$redDir_Postgres
+		elif [ "$2" = "ftp" ] ; then
+			xfce4-terminal --geometry=160x40 \
+			--tab -T "FTP Data" --working-directory="/home/test/FTP/" \
+			--tab -T "FTP /etc" --working-directory="/etc" \
+			--tab -T "FTP /etc/vsftpd" --working-directory="/etc/vsftpd"
+		elif [ "$2" = "jks" ] ; then
+			xfce4-terminal --geometry=160x40 \
+			--tab -T "Docker_Jenkins" --working-directory=$jksDir \
+			--tab -T "Docker_Jenkins2" --working-directory=$jksDir \
+			--tab -T "Jenkins_Home" --working-directory=$jksDir_Home 
+		else
+			echo "param 3 not match"
+			exit -1
+		fi
+
+	elif [ "$XDG_CURRENT_DESKTOP" = "GNOME" ] || [ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ] ; then
+		if [ "$2" = "git" ] ; then
+			gnome-terminal --geometry=140x40 \
+			--tab -t "Docker_Gitlab" --working-directory=$gitDir \
+			--tab -t "Docker_Gitlab2" --working-directory=$gitDir \
+			--tab -t "Gitlab_Data" --working-directory=$gitDir_Data \
+			--tab -t "gitDir_Config" --working-directory=$gitDir_Config \
+			--tab -t "Home/Gray" --working-directory=$xDir
+		elif [ "$2" = "red" ] ; then
+			gnome-terminal --geometry=150x40 \
+			--tab -t "Docker_Redmine" --working-directory=$redDir \
+			--tab -t "Docker_Redmine2" --working-directory=$redDir \
+			--tab -t "Redmine_Home" --working-directory=$redDir_Home \
+			--tab -t "Redmine_File" --working-directory=$redDir_Files \
+			--tab -t "Redmine_Config" --working-directory=$redDir_Config \
+			--tab -t "Postgres" --working-directory=$redDir_Postgres
+		elif [ "$2" = "ftp" ] ; then
+			gnome-terminal --geometry=150x40 \
+			--tab -t "FTP Data" --working-directory="/home/test/FTP/" \
+			--tab -t "FTP /etc" --working-directory="/etc" \
+			--tab -t "FTP /etc/vsftpd" --working-directory="/etc/vsftpd"
+		elif [ "$2" = "jks" ] ; then
+			gnome-terminal --geometry=150x40 \
+			--tab -t "Docker_Jenkins" --working-directory=$jksDir \
+			--tab -t "Docker_Jenkins2" --working-directory=$jksDir \
+			--tab -t "Jenkins_Home" --working-directory=$jksDir_Home 
+		elif [ "$2" = "ros" ] ; then
+			xfce4-terminal --geometry=150x40 \
+			--tab -T "home" --working-directory=~ \
+			--tab -T "wheeltec" --working-directory=~ \
+			--tab -T "ROS node" --working-directory=$nodeDir \
+			--tab -T "ROS install dir" --working-directory=$rosDir_Home
+		else
+			echo "param 3 not match"
+			exit -1
+		fi
+	else
+		echo "param 2 not match"
+		exit -1
+	fi
 fi
 
 # system related 
@@ -90,7 +277,7 @@ if [ "$1" = "sys" ] ; then
 		echo "==== Memory info ===="
 		free -mh
 		echo "==== Disk info ===="
-		df -h --total
+		df -h --total | grep sd
 	elif [ "$2" = "users" ] ; then
 		# awk -F: '{ print $1}' /etc/passwd
 		echo "========== online User =========="
@@ -220,11 +407,6 @@ elif [ "$2" = "user+g" ] ; then
 		echo "param 2 not match"
 		exit -1
 	fi
-fi
-
-if [ "$1" = "date" ] ; then
-	timedatectl set-ntp yes
-	date
 fi
 
 # logout
@@ -689,16 +871,70 @@ if [ "$1" = "dkc" ] ; then
 	fi
 fi
 
+# chrome-remote-desktop
+if [ "$1" = "chrome" ] ; then
+
+	if [ "$2" = "r" ] ; then
+		echo "========== restart  chrome-remote-desktop ========== " 
+		sudo systemctl stop chrome-remote-desktop
+		sudo systemctl start chrome-remote-desktop
+	else
+		sudo systemctl status chrome-remote-desktop
+	fi
+
+fi
+
+# nfs
+if [ "$1" == "nfs" ] ; then
+	echo "========== NFS "==========
+	if [ "$2" = "e" ] ; then
+		echo "========== edit conf file ========== " 
+		sudo nano /etc/exports
+
+	elif [ "$2" = "mkdir" ] ; then
+		echo "========== make nfs dir ========== " 
+		sudo mkdir -p $3
+		sudo chown nobody:nogroup /srv/nfs/data
+		sudo chmod 777 /srv/nfs/data
+
+	elif [ "$2" = "r" ] ; then
+		sudo exportfs -ra
+		sudo systemctl restart nfs-kernel-server
+
+	elif [ "$2" = "start" ] ; then
+
+		sudo systemctl start nfs-kernel-server
+
+	elif [ "$2" = "stop" ] ; then
+		sudo systemctl stop nfs-kernel-server
+
+	elif [ "$2" = "port" ] ; then
+		sudo ufw allow from 10.0.0.0/8 to any port 111
+		sudo ufw allow from 10.0.0.0/8 to any port 2049
+		sudo ufw allow from 10.0.0.0/8 to any port 13025
+
+	else
+		sudo exportfs -v
+		sudo systemctl status nfs-kernel-server
+		rpcinfo -p
+	fi
+
+fi
+
 # update x
 if [ "$1" == "ux" ] ; then
 	cd ~/OSPath
 	git reset --hard HEAD
 	git pull
-	sudo chmod 777 AICamera/x.sh
+	sudo chmod 777 Ubuntu_DellServer/x.sh
 fi
 
-# find
+# find content
+if [ "$1" == "grep" ] ; then
+	grep -r $2 .
+fi
+
+# find content
 if [ "$1" == "find" ] ; then
-	find . -name "$2" 
+	find . -name $2
 fi
-

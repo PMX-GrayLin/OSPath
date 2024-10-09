@@ -1,25 +1,46 @@
-InHost="AICamera"
-PATH=~/OSPath/$InHost:$PATH
+
+PATH=~:$PATH
 
 alias x='x.sh'
 alias p3='python3'
 
-# AI Camera
-alias aic='x aic'
-
 # edit
-alias ex='nano ~/OSPath/VisionBox/x.sh'
+alias ex='nano ~/x.sh'
 alias erc='nano ~/.bashrc'
 alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
 
+alias ebbi='nano $PROJ_ROOT/src/meta-rity/meta-rity-demo/recipes-demo/images/rity-demo-image.bb'
+alias ebbpmx='nano $PROJ_ROOT/src/meta-primax/recipes-primax/primax/primax_1.0.bb'
+alias econf='nano $PROJ_ROOT/build/conf/local.conf'
+
 # dir
-alias dh='cd ~'                 # dir home
-alias daic='cd ~/primax/apps'    # dir AI camera
+alias dh='cd ~'                                                                                     # dir home
+alias dpr='cd $PROJ_ROOT'                                                                           # dir project root
+alias dppmx='cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax'                                   # dir project primax
+alias dpi='cd $PROJ_ROOT/build/tmp/deploy/images/genio-700-evk'                                     # dir project build image path
+alias dpb='cd $PROJ_ROOT/build'                                                                     # dir project build path
+alias dpbbS='cd $BUILD_DIR/tmp/work/armv8a-poky-linux/primax/1.0-r0/primax-1.0'                     # dir project BB {S} path
+alias dpbbD='cd $BUILD_DIR/tmp/work/armv8a-poky-linux/primax/1.0-r0/image/home/root'                # dir project BB {D} path
+alias dpinc='cd $BUILD_DIR/tmp/work/armv8a-poky-linux/primax/1.0-r0/recipe-sysroot/usr/include'     # dir project BB {D} path
+alias dplib='cd $BUILD_DIR/tmp/work/armv8a-poky-linux/primax/1.0-r0/recipe-sysroot/usr/lib'         # dir project BB {D} path
 
 # update
 alias ue='source ~/.bashrc'     # update env
 alias ux='x ux'                 # update x.sh
 alias ua='ux && ue'             # update all
 
+# env
+alias spp='export PROJ_ROOT=`pwd`'                                      # set yocto project path
+alias env1='export TEMPLATECONF=$PROJ_ROOT/src/meta-rity/meta/conf/'
+alias env2='source $PROJ_ROOT/src/poky/oe-init-build-env'
+alias env3='export BUILD_DIR=$PROJ_ROOT/build'
+alias env_mtk='env1 && env2 && env3'
+alias spe='spp && env_mtk'                                              # set project env
+
 # git 
-alias gx='cd ~ && rm -r OSPath && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \;'
+alias gx='cd ~ && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \;'
+
+alias yt='x yt'
+alias aic='x aic'
+alias aicb='x aic us && x bb b primax'
+
