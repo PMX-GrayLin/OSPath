@@ -4,6 +4,9 @@ FROM ubuntu:22.04
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Taiwan
 
+# Set bash as the default shell
+SHELL ["/bin/bash", "-c"]
+
 WORKDIR /tmp
 
 RUN apt-get update && apt-get install -y \
@@ -74,6 +77,6 @@ RUN git config --global user.email "gray.lin@primax.com.tw" && \
     git config --global user.name "Gray.Lin" && \
     git config --global color.ui auto && \
     ssh-keyscan github.com >> ~/.ssh/known_hosts && \
-    . ~/env
+    source ~/env
 
 CMD ["/bin/bash"]
