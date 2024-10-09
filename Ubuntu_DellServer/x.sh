@@ -168,6 +168,8 @@ if [ "$1" = "aic" ] ; then
 		echo "========== flash images =========="
 		# aiot-flash
 		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo
+
+	elif [ "$2" = "dp" ] ; then
 		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
 
 	elif [ "$2" = "us" ] ; then

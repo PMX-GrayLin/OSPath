@@ -37,9 +37,9 @@ if [ "$1" = "aic" ] ; then
 	# appDir="vision_box_DualCam"
 	# cd ~/primax
 
-	# if [ "$2" = "jobs" ] ; then
-	# 	pm2 list
-	#
+	if [ "$2" = "jobs" ] ; then
+		pm2 list
+	
 	# elif [ "$2" = "git" ] ; then
 	# 	echo "update src..."
 	# 	cd $appDir 
@@ -50,8 +50,11 @@ if [ "$1" = "aic" ] ; then
 	# 	echo "Build..."
 	# 	cd $appDir 
 	# 	make
+	elif [ "$2" = "dp" ] ; then
+		i2cdetect -r -y 0
+		i2cdetect -r -y 4
 
-	if [ "$2" = "r" ] ; then
+	elif [ "$2" = "r" ] ; then
 		echo "Run..."
 		cd ~/primax
 		./vision_box_DualCam
