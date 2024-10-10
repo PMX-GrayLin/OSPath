@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     file \
     lz4 \
     nano \
+    tree \
     zstd \
     gawk \
     wget \
