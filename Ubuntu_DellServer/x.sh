@@ -92,24 +92,17 @@ fi
 
 # Yocto
 if [ "$1" = "yt" ] ; then
-	echo "Yocto, pp:$pp..."
+	echo "Yocto..."
 	
 	if [  "$2" = "b" ] ; then
-
-		# export PROJ_ROOT=`pwd`
-		# export TEMPLATECONF=$PROJ_ROOT/src/meta-rity/meta/conf/
-		# source src/poky/oe-init-build-env
-		# export BUILD_DIR=`pwd`
-
-		# Enable/Disable components that require NDA access
-		# echo NDA_BUILD = \"0\" >> ${BUILD_DIR}/conf/local.conf
-
-		# Setup paths for downloads and sstate-cache folders
-		# echo DL_DIR = \"\${TOPDIR}/../downloads\" >> ${BUILD_DIR}/conf/local.conf
-		# echo SSTATE_DIR = \"\${TOPDIR}/../sstate-cache\" >> ${BUILD_DIR}/conf/local.conf
-
+		echo "build whole image..."
 		echo "DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image"
 		DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image
+
+	if [  "$2" = "bk" ] ; then
+		echo "build kernel..."
+		echo "MACHINE=genio-700-evk bitbake linux-mtk"
+		MACHINE=genio-700-evk bitbake linux-mtk
 
 	elif [ "$2" = "flash" ] ; then
 		echo "genio-flash..."
