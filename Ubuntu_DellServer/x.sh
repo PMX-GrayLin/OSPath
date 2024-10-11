@@ -876,19 +876,6 @@ if [ "$1" = "dkc" ] ; then
 	fi
 fi
 
-# chrome-remote-desktop
-if [ "$1" = "chrome" ] ; then
-
-	if [ "$2" = "r" ] ; then
-		echo "========== restart  chrome-remote-desktop ========== " 
-		sudo systemctl stop chrome-remote-desktop
-		sudo systemctl start chrome-remote-desktop
-	else
-		sudo systemctl status chrome-remote-desktop
-	fi
-
-fi
-
 # nfs
 if [ "$1" == "nfs" ] ; then
 	echo "========== NFS "==========
@@ -939,7 +926,7 @@ if [ "$1" == "grep" ] ; then
 	grep -r $2 .
 fi
 
-# find content
+# find file
 if [ "$1" == "find" ] ; then
 	find . -name $2
 fi
