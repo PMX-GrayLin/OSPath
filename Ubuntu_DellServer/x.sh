@@ -99,7 +99,7 @@ if [ "$1" = "yt" ] ; then
 		echo "DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image"
 		DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image
 
-	if [  "$2" = "bk" ] ; then
+	elif [  "$2" = "bk" ] ; then
 		echo "build kernel..."
 		echo "MACHINE=genio-700-evk bitbake linux-mtk"
 		MACHINE=genio-700-evk bitbake linux-mtk
