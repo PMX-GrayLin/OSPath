@@ -151,10 +151,10 @@ if [ "$1" = "aic" ] ; then
 		echo "========== docker cmd =========="
 
 		if [ "$3" = "up" ] ; then
-			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up -d --verbose
+			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up -d
 			# docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up
 		elif [ "$3" = "down" ] ; then
-			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down --verbose
+			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down
 		elif [ "$3" = "bash" ] ; then
 			echo "========== docker exec -it -u root u22_aicamerag2 /bin/bash =========="
 			# docker exec -it -u root u22_aicamerag2 /bin/bash
