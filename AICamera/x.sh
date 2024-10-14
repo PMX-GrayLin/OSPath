@@ -51,7 +51,10 @@ if [ "$1" = "aic" ] ; then
 	# 	cd $appDir 
 	# 	make
 	elif [ "$2" = "dp" ] ; then
+		echo "check display port..."
+		echo "i2cdetect -r -y 0"
 		i2cdetect -r -y 0
+		echo "i2cdetect -r -y 4"
 		i2cdetect -r -y 4
 
 	elif [ "$2" = "r" ] ; then
