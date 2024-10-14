@@ -126,10 +126,11 @@ if [ "$1" = "yt" ] ; then
 
 	elif [ "$2" = "k" ] ; then
 		echo "========== kernel =========="
-		if [  "$2" = "dts" ] ; then
-			
-		elif [ "$2" = "us" ] ; then
-		fi
+		# if [  "$2" = "dts" ] ; then
+
+		# elif [ "$2" = "us" ] ; then
+
+		# fi
 
 	else
 		echo "priject env vars..."
