@@ -76,6 +76,9 @@ if [ "$1" = "aic" ] ; then
 		dir_ftp="Public/gray"
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/vision_box_DualCam
 		chmod 777 vision_box_DualCam
+
+		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/st_tof_module.ko
+
 	fi
 fi
 
