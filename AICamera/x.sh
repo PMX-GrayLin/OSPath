@@ -57,6 +57,12 @@ if [ "$1" = "aic" ] ; then
 		echo "i2cdetect -r -y 4"
 		i2cdetect -r -y 4
 
+	elif [ "$2" = "us" ] ; then
+		echo "update primax src in U22"
+		cd ~/primax/apps/vision_box_DualCam
+		git reset --hard HEAD
+		git pull
+
 	elif [ "$2" = "r" ] ; then
 		echo "Run..."
 		cd ~/primax

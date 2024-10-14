@@ -13,7 +13,8 @@ alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
 alias ebbi='nano $PROJ_ROOT/src/meta-rity/meta-rity-demo/recipes-demo/images/rity-demo-image.bb'
 alias ebbpmx='nano $PROJ_ROOT/src/meta-primax/recipes-primax/primax/primax_1.0.bb'
 alias econf='nano $PROJ_ROOT/build/conf/local.conf'
-alias ekconf='nano $BUILD_DIR//workspace/sources/linux-mtk/arch/arm64/configs/defconfig'
+alias ekconf='nano $BUILD_DIR/workspace/sources/linux-mtk/arch/arm64/configs/defconfig'
+alias ekcon2='nano $PROJ_ROOT/src/meta-mediatek-bsp/recipes-kernel/linux/linux-mtk/mt8390-evk.cfg'
 
 # dir
 alias dh='cd ~'                                                                                     # dir home
