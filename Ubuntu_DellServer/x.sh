@@ -124,6 +124,13 @@ if [ "$1" = "yt" ] ; then
 		git reset --hard HEAD
 		git pull
 
+	elif [ "$2" = "k" ] ; then
+		echo "========== kernel =========="
+		if [  "$2" = "dts" ] ; then
+			
+		elif [ "$2" = "us" ] ; then
+		fi
+
 	else
 		echo "priject env vars..."
 		echo "PROJ_ROOT:${PROJ_ROOT}"
