@@ -140,10 +140,12 @@ if [ "$1" = "aic" ] ; then
 		cp -f $dir_work/temp/log.do_compile.1874386 $dir_ftp
 		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam $dir_ftp
 
-		dir_image="$PROJ_ROOT/build/tmp//deploy/images/genio-700-evk"
-		cp -f $dir_image/fitImage $dir_ftp
-		cp -f $dir_image/modules-genio-700-evk.tgz $dir_ftp
+		# dir_image="$PROJ_ROOT/build/tmp//deploy/images/genio-700-evk"
+		# cp -f $dir_image/fitImage $dir_ftp
+		# cp -f $dir_image/modules-genio-700-evk.tgz $dir_ftp
 
+		dir_ko="tmp/work/genio_700_evk-poky-linux/st-tof-module/1.0-r0/image/lib/modules/5.15.47-mtk+g35a55626beff"
+		cp -f $dir_ko/st_tof_module.ko $dir_ftp
 	else
 		echo "param 2 not match"
 		exit -1
