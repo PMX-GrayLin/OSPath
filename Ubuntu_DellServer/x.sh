@@ -141,7 +141,7 @@ if [ "$1" = "aic" ] ; then
 		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam $dir_ftp
 
 		dir_image="$PROJ_ROOT/build/tmp//deploy/images/genio-700-evk"
-		cp -f $dir_image/dir_image $dir_ftp
+		cp -f $dir_image/fitImage $dir_ftp
 		cp -f $dir_image/modules-genio-700-evk.tgz $dir_ftp
 
 	else
