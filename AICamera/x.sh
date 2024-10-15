@@ -63,6 +63,16 @@ if [ "$1" = "aic" ] ; then
 		git reset --hard HEAD
 		git pull
 
+	elif [ "$2" = "um" ] ; then
+		echo "update module"
+
+		cd /
+		dd if=fitImage of=/dev/mmcblk0p9 bs=1024
+		rm -r -f lib
+		tar xvf modules-genio-700-evk.tgz
+		cp -r lib/modules/5.15.47* /lib/modules/
+		sync
+
 	elif [ "$2" = "r" ] ; then
 		echo "Run..."
 		cd ~/primax
@@ -76,9 +86,11 @@ if [ "$1" = "aic" ] ; then
 		dir_ftp="Public/gray"
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/vision_box_DualCam
 		chmod 777 vision_box_DualCam
-
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/st_tof_module.ko
 
+		cd /
+		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/fitImage
+		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/modules-genio-700-evk.tgz
 	fi
 fi
 
