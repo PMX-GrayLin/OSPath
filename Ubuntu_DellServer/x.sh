@@ -142,7 +142,7 @@ if [ "$1" = "aic" ] ; then
 
 		dir_image="$PROJ_ROOT/build/tmp//deploy/images/genio-700-evk"
 		cp -f $dir_image/dir_image $dir_ftp
-		cp -f modules-genio-700-evk.tgz $dir_ftp
+		cp -f $dir_image/modules-genio-700-evk.tgz $dir_ftp
 
 	else
 		echo "param 2 not match"
