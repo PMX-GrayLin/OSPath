@@ -90,6 +90,66 @@ if [ "$1" = "bb" ] ; then
 	fi
 fi
 
+# AI Camera
+if [ "$1" = "aic" ] ; then
+
+	echo "========== PROJ_ROOT:$PROJ_ROOT =========="
+	aicDir="$dockderDir/AICameraG2"
+
+	if [ "$2" = "dk" ] ; then
+		echo "========== docker cmd =========="
+
+		if [ "$3" = "up" ] ; then
+			echo "docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up -d"
+			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up -d
+			# docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up
+		elif [ "$3" = "down" ] ; then
+			echo "docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down"
+			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down
+		elif [ "$3" = "bash" ] ; then
+			echo "========== docker exec -it -u root u22_aicamerag2 /bin/bash =========="
+			# docker exec -it -u root u22_aicamerag2 /bin/bash
+			docker exec -it u22_aicamerag2 /bin/bash
+		elif [ "$3" = "log" ] ; then
+			echo "========== docker logs -tf jenkins =========="
+			docker logs -tf u22_aicamerag2
+		fi
+
+	elif [ "$2" = "flash" ] ; then
+		echo "========== flash images =========="
+		# aiot-flash
+		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo
+
+	elif [ "$2" = "dp" ] ; then
+		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
+
+	elif [ "$2" = "us" ] ; then
+		echo "========== update yocto primax src =========="
+		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/vision_box_DualCam
+		git reset --hard HEAD
+		git pull
+
+		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
+		git reset --hard HEAD
+		git pull
+
+	elif [ "$2" = "ftp" ] ; then
+		echo "========== update files to FTP =========="
+		dir_ftp="/mnt/disk2/FTP/Public/gray/"
+		dir_work="$PROJ_ROOT/build/tmp/work/armv8a-poky-linux/primax/1.0-r0"
+		cp -f $dir_work/temp/log.do_compile.1874386 $dir_ftp
+		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam $dir_ftp
+
+		dir_image="$PROJ_ROOT/build/tmp//deploy/images/genio-700-evk"
+		cp -f $dir_image/dir_image $dir_ftp
+		cp -f modules-genio-700-evk.tgz $dir_ftp
+
+	else
+		echo "param 2 not match"
+		exit -1
+	fi
+fi
+
 # Yocto
 if [ "$1" = "yt" ] ; then
 	echo "Yocto..."
@@ -139,61 +199,6 @@ if [ "$1" = "yt" ] ; then
 		echo "BUILD_DIR:${BUILD_DIR}"
 		echo "BB_NUMBER_THREADS:${BB_NUMBER_THREADS}"
 		echo "PARALLEL_MAKE:${PARALLEL_MAKE}"
-	fi
-fi
-
-# AI Camera
-if [ "$1" = "aic" ] ; then
-
-	echo "========== PROJ_ROOT:$PROJ_ROOT =========="
-	aicDir="$dockderDir/AICameraG2"
-
-	if [ "$2" = "dk" ] ; then
-		echo "========== docker cmd =========="
-
-		if [ "$3" = "up" ] ; then
-			echo "docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up -d"
-			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up -d
-			# docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up
-		elif [ "$3" = "down" ] ; then
-			echo "docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down"
-			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down
-		elif [ "$3" = "bash" ] ; then
-			echo "========== docker exec -it -u root u22_aicamerag2 /bin/bash =========="
-			# docker exec -it -u root u22_aicamerag2 /bin/bash
-			docker exec -it u22_aicamerag2 /bin/bash
-		elif [ "$3" = "log" ] ; then
-			echo "========== docker logs -tf jenkins =========="
-			docker logs -tf u22_aicamerag2
-		fi
-
-	elif [ "$2" = "flash" ] ; then
-		echo "========== flash images =========="
-		# aiot-flash
-		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo
-
-	elif [ "$2" = "dp" ] ; then
-		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
-
-	elif [ "$2" = "us" ] ; then
-		echo "========== update yocto primax src =========="
-		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/vision_box_DualCam
-		git reset --hard HEAD
-		git pull
-
-		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
-		git reset --hard HEAD
-		git pull
-
-	elif [ "$2" = "ftp" ] ; then
-		echo "========== update files to FTP =========="
-		dir_ftp="/mnt/disk2/FTP/Public/gray/"
-		cp -f $PROJ_ROOT/build/tmp/work/armv8a-poky-linux/primax/1.0-r0/temp/log.do_compile.1874386 $dir_ftp
-		cp -f $PROJ_ROOT/build/tmp/work/armv8a-poky-linux/primax/1.0-r0/primax-1.0/src/vision_box_DualCam/vision_box_DualCam $dir_ftp
-
-	else
-		echo "param 2 not match"
-		exit -1
 	fi
 fi
 
