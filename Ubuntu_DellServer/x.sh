@@ -166,10 +166,14 @@ if [ "$1" = "yt" ] ; then
 		echo "MACHINE=genio-700-evk bitbake linux-mtk"
 		MACHINE=genio-700-evk bitbake linux-mtk
 
-	elif [ "$2" = "flash" ] ; then
+	elif [ "$2" = "f" ] ; then
 		echo "genio-flash..."
 		genio-flash
 		# aiot-flash
+
+	elif [ "$2" = "fk" ] ; then
+		echo "genio-flash kernel..."
+		genio-flash kernel
 
 	elif [ "$2" = "repo" ] ; then
 		echo "repo..."
