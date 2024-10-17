@@ -82,7 +82,7 @@ if [ "$1" = "aic" ] ; then
 		echo "update files from ftp..."
 		cd ~/primax
 		rm vision_box_DualCam*
-		rm *.ko
+		rm *.ko*
 
 		dir_ftp="Public/gray"
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/vision_box_DualCam
