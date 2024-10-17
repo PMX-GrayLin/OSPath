@@ -29,6 +29,21 @@ VisionBox_ip="192.168.1.13"
 AICamera_ip="192.168.1.65"
 DellServer_ip="10.1.13.207"
 
+# nfs
+if [ "$1" == "nfs" ] ; then
+	echo "========== NFS "==========
+	cd ~
+	if [ "$2" = "+" ] ; then
+		mount -t nfs -o nolock 10.1.13.207:/mnt/disk2/yocto_build_folder/gray DellServer/yocto_build_folder
+		mount -t nfs -o nolock 10.1.13.207:/home/gray.lin DellServer/home
+	
+	elif [ "$2" = "-" ] ; then
+		umount DellServer/yocto_build_folder
+		umount DellServer/home
+	fi
+
+fi
+
 # SSH
 if [ "$1" == "ssh" ] ; then
 
