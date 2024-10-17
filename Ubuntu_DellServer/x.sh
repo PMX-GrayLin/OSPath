@@ -137,7 +137,7 @@ if [ "$1" = "aic" ] ; then
 		echo "========== update files to FTP =========="
 		dir_ftp="/mnt/disk2/FTP/Public/gray/"
 		dir_work="$PROJ_ROOT/build/tmp/work/armv8a-poky-linux/primax/1.0-r0"
-		cp -f $dir_work/temp/log.do_compile.1874386 $dir_ftp
+		cp -f $dir_work/temp/log.do_compile $dir_ftp
 		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam $dir_ftp
 
 		# dir_image="$PROJ_ROOT/build/tmp//deploy/images/genio-700-evk"
