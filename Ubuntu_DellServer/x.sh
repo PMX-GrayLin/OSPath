@@ -144,7 +144,7 @@ if [ "$1" = "aic" ] ; then
 		# cp -f $dir_image/fitImage $dir_ftp
 		# cp -f $dir_image/modules-genio-700-evk.tgz $dir_ftp
 
-		dir_ko="tmp/work/genio_700_evk-poky-linux/st-tof-module/1.0-r0/image/lib/modules"
+		dir_ko="$PROJ_ROOT/build/tmp/work/genio_700_evk-poky-linux/st-tof-module/1.0-r0/image/lib/modules"
 		cp -f $dir_ko/st_tof_module.ko $dir_ftp
 	else
 		echo "param 2 not match"
