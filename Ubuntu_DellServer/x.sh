@@ -484,7 +484,7 @@ if [ "$1" = "chmod" ] ; then
 			else
 				sudo chmod -R 777 .
 			fi
-		elif [ "$2" = "f" ] ; then
+		elif [ "$2" = "dir" ] ; then
 			echo "change only dir..."
 			echo "find $3 -type d -exec sudo chmod 777 {} \;"
 			find $3 -type d -exec sudo chmod 777 {} \;
