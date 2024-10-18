@@ -129,9 +129,9 @@ if [ "$1" = "aic" ] ; then
 		git reset --hard HEAD
 		git pull
 
-		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
-		git reset --hard HEAD
-		git pull
+		# cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
+		# git reset --hard HEAD
+		# git pull
 
 	elif [ "$2" = "ftp" ] ; then
 		echo "========== update files to FTP =========="
