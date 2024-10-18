@@ -14,6 +14,7 @@ alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
 
 # dir
 alias dh='cd ~'                 # dir home
+alias d--='cd $OLDPWD'          # dir previous dir
 alias dpmx='cd ~/primax'        # dir primax
 
 # update

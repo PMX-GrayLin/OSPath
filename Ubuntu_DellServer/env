@@ -18,6 +18,7 @@ alias ekcon2='nano $PROJ_ROOT/src/meta-mediatek-bsp/recipes-kernel/linux/linux-m
 
 # dir
 alias dh='cd ~'                                                                                     # dir home
+alias d--='cd $OLDPWD'                                                                              # dir previous dir
 alias dpr='cd $PROJ_ROOT'                                                                           # dir project root
 alias dpb='cd $PROJ_ROOT/build'                                                                     # dir project build path
 alias dps='cd $PROJ_ROOT/src'                                                                       # dir project src path

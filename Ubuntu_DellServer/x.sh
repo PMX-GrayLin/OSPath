@@ -954,3 +954,9 @@ fi
 if [ "$1" == "find" ] ; then
 	find . -name $2
 fi
+
+# file / folder size
+if [ "$1" == "size" ] ; then
+	du -sh $2
+fi
+

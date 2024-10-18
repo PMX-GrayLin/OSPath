@@ -1007,3 +1007,8 @@ if [ "$1" == "r" ] ; then
 	echo "reboot....done"
 fi
 
+# file / folder size
+if [ "$1" == "size" ] ; then
+	du -sh $2
+fi
+
