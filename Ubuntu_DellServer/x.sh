@@ -166,6 +166,11 @@ if [ "$1" = "yt" ] ; then
 		echo "MACHINE=genio-700-evk bitbake linux-mtk"
 		MACHINE=genio-700-evk bitbake linux-mtk
 
+	elif [  "$2" = "kconf" ] ; then
+		echo "kernel config..."
+		echo "bitbake virtual/kernel -c menuconfig"
+		bitbake virtual/kernel -c menuconfig
+
 	elif [ "$2" = "f" ] ; then
 		echo "genio-flash..."
 		genio-flash
