@@ -1,0 +1,22 @@
+InHost="MAC"
+PATH=~/OSPath/$InHost:$PATH
+
+alias x='x.sh'
+alias p3='python3'
+
+# edit
+alias ex='nano ~/OSPath/$InHost/x.sh'
+alias erc='nano ~/.zshrc'
+
+# dir
+alias dh='cd ~'                 # dir home
+alias d--='cd $OLDPWD'          # dir previous dir
+                                                                       
+# update
+alias ue='source ~/.zshrc'      # update env
+alias ux='x ux'                 # update x.sh
+alias ua='ux && ue'             # update all
+
+# git 
+alias gx='cd ~ && rm -r OSPath && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \; && cd ~'
+
