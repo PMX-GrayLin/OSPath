@@ -54,14 +54,15 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "ck" ] ; then
 		echo "check feature..."
 		echo "i2cdetect -l"
-		if [ "$2" = "dp" ] ; then
+		i2cdetect -l
+		if [ "$3" = "dp" ] ; then
 			echo "display port..."
 			echo "i2cdetect -r -y 0"
 			i2cdetect -r -y 0
 			echo "i2cdetect -r -y 4"
 			i2cdetect -r -y 4
 
-		elif [ "$2" = "tof" ] ; then
+		elif [ "$3" = "tof" ] ; then
 			echo "tof sensor..."
 			echo "i2cdetect -r -y 1"
 			i2cdetect -r -y 1
