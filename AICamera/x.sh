@@ -39,7 +39,11 @@ if [ "$1" = "aic" ] ; then
 
 	if [ "$2" = "jobs" ] ; then
 		pm2 list
-	
+
+	elif [ "$2" = "pid" ] ; then
+		echo "PID : $(ps -C vision_box_DualCam)"
+		$(ps -C vision_box_DualCam)
+		
 	# elif [ "$2" = "git" ] ; then
 	# 	echo "update src..."
 	# 	cd $appDir 
