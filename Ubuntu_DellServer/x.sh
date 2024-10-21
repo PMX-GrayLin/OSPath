@@ -115,14 +115,6 @@ if [ "$1" = "aic" ] ; then
 			docker logs -tf u22_aicamerag2
 		fi
 
-	elif [ "$2" = "flash" ] ; then
-		echo "========== flash images =========="
-		# aiot-flash
-		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo
-
-	elif [ "$2" = "dp" ] ; then
-		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
-
 	elif [ "$2" = "us" ] ; then
 		echo "========== update yocto primax src =========="
 		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/vision_box_DualCam
@@ -179,6 +171,9 @@ if [ "$1" = "yt" ] ; then
 	elif [ "$2" = "fk" ] ; then
 		echo "genio-flash kernel..."
 		genio-flash kernel
+
+	elif [ "$2" = "fdp" ] ; then
+		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
 
 	elif [ "$2" = "repo" ] ; then
 		echo "repo..."

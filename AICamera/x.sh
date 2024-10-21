@@ -50,12 +50,22 @@ if [ "$1" = "aic" ] ; then
 	# 	echo "Build..."
 	# 	cd $appDir 
 	# 	make
-	elif [ "$2" = "dp" ] ; then
-		echo "check display port..."
-		echo "i2cdetect -r -y 0"
-		i2cdetect -r -y 0
-		echo "i2cdetect -r -y 4"
-		i2cdetect -r -y 4
+
+	elif [ "$2" = "ck" ] ; then
+		echo "check feature..."
+		echo "i2cdetect -l"
+		if [ "$2" = "dp" ] ; then
+			echo "display port..."
+			echo "i2cdetect -r -y 0"
+			i2cdetect -r -y 0
+			echo "i2cdetect -r -y 4"
+			i2cdetect -r -y 4
+
+		elif [ "$2" = "tof" ] ; then
+			echo "tof sensor..."
+			echo "i2cdetect -r -y 1"
+			i2cdetect -r -y 1
+		fi
 
 	elif [ "$2" = "us" ] ; then
 		echo "update primax src in U22"
@@ -66,12 +76,12 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "um" ] ; then
 		echo "update module"
 
-		cd /
-		dd if=fitImage of=/dev/mmcblk0p9 bs=1024
-		rm -r -f lib
-		tar xvf modules-genio-700-evk.tgz
-		cp -r lib/modules/5.15.47* /lib/modules/
-		sync
+		# cd /
+		# dd if=fitImage of=/dev/mmcblk0p9 bs=1024
+		# rm -r -f lib
+		# tar xvf modules-genio-700-evk.tgz
+		# cp -r lib/modules/5.15.47* /lib/modules/
+		# sync
 
 	elif [ "$2" = "r" ] ; then
 		echo "Run..."
