@@ -43,8 +43,10 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "pid" ] ; then
 		ps -C vision_box_DualCam
 
-	elif [ "$2" = "sig" ] ; then
+	elif [ "$2" = "sig1" ] ; then
 		kill -USR1 $(ps -C vision_box_DualCam)
+	elif [ "$2" = "sig2" ] ; then
+		kill -USR2 $(ps -C vision_box_DualCam)
 
 	# elif [ "$2" = "git" ] ; then
 	# 	echo "update src..."
