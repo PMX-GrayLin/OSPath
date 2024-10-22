@@ -221,7 +221,7 @@ if [ "$1" = "vb" ] ; then
 
 		elif [ "$3" = "glue" ] ; then
 			echo "glue..."
-			image2Flash="vb_barcode_ocr_release_20240709.img"
+			image2Flash="vb_dualcam_20240908.img"
 			sudo dd if=$image2Flash of=/dev/sdd bs=1G count=30 status=progress && sync
 
 		else 
