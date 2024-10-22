@@ -208,6 +208,31 @@ if [ "$1" = "yt" ] ; then
 	fi
 fi
 
+if [ "$1" = "vb" ] ; then
+	echo "VisionHub..."
+	if [ "$2" = "f" ] ; then
+		echo "flash image..."
+		cd /mnt/disk2/FTP/joe_handover/3_VisionHub_AICamera/3_11_images
+
+		if [ "$3" = "barcode" ] ; then
+			echo "barcode..."
+			image2Flash="vb_barcode_ocr_release_20240709.img"
+			sudo dd if=$image2Flash of=/dev/sdd bs=1G count=30 status=progress && sync
+
+		elif [ "$3" = "glue" ] ; then
+			echo "glue..."
+			image2Flash="vb_barcode_ocr_release_20240709.img"
+			sudo dd if=$image2Flash of=/dev/sdd bs=1G count=30 status=progress && sync
+
+		else 
+			lsblk | grep "sd"
+		fi
+	else
+		echo "else..."
+	fi
+
+fi
+
 # working directory 
 if [ "$1" = "wd" ] ; then
 	echo "XDG_CURRENT_DESKTOP=$XDG_CURRENT_DESKTOP" 
