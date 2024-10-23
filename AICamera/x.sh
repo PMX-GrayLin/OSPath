@@ -111,6 +111,8 @@ if [ "$1" = "aic" ] ; then
 		# cd /
 		# wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/fitImage
 		# wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/modules-genio-700-evk.tgz
+
+		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor.ko
 	fi
 fi
 
