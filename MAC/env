@@ -1,6 +1,10 @@
 InHost="MAC"
 PATH=~/OSPath/$InHost:$PATH
 
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
 alias x='x.sh'
 alias p3='python3'
 
