@@ -39,7 +39,15 @@ if [ "$1" = "aic" ] ; then
 
 	if [ "$2" = "jobs" ] ; then
 		pm2 list
-	
+
+	elif [ "$2" = "pid" ] ; then
+		ps -C vision_box_DualCam
+
+	elif [ "$2" = "sig1" ] ; then
+		kill -USR1 $(ps -C vision_box_DualCam)
+	elif [ "$2" = "sig2" ] ; then
+		kill -USR2 $(ps -C vision_box_DualCam)
+
 	# elif [ "$2" = "git" ] ; then
 	# 	echo "update src..."
 	# 	cd $appDir 
@@ -54,14 +62,15 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "ck" ] ; then
 		echo "check feature..."
 		echo "i2cdetect -l"
-		if [ "$2" = "dp" ] ; then
+		i2cdetect -l
+		if [ "$3" = "dp" ] ; then
 			echo "display port..."
 			echo "i2cdetect -r -y 0"
 			i2cdetect -r -y 0
 			echo "i2cdetect -r -y 4"
 			i2cdetect -r -y 4
 
-		elif [ "$2" = "tof" ] ; then
+		elif [ "$3" = "tof" ] ; then
 			echo "tof sensor..."
 			echo "i2cdetect -r -y 1"
 			i2cdetect -r -y 1
@@ -102,6 +111,9 @@ if [ "$1" = "aic" ] ; then
 		# cd /
 		# wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/fitImage
 		# wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/modules-genio-700-evk.tgz
+
+		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor.ko.sunny
+		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor.ko.james
 	fi
 fi
 
