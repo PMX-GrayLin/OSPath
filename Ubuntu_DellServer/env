@@ -19,6 +19,9 @@ alias ekconf2='nano $PROJ_ROOT/src/meta-mediatek-bsp/recipes-kernel/linux/linux-
 # dir
 alias dh='cd ~'                                                                                     # dir home
 alias d--='cd $OLDPWD'                                                                              # dir previous dir
+alias dftp='cd /mnt/disk2/FTP'                                                                                     # dir home
+
+# dir yocto related
 alias dpr='cd $PROJ_ROOT'                                                                           # dir project root
 alias dpb='cd $PROJ_ROOT/build'                                                                     # dir project build path
 alias dps='cd $PROJ_ROOT/src'                                                                       # dir project src path
