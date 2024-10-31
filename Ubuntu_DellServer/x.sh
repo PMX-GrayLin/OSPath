@@ -442,7 +442,7 @@ if [ "$1" = "ftp" ] ; then
 				sudo usermod -aG docker $3
 			else
 				# CCPSW team group for default
-				sudo useradd  -m $3 -g "CCP" -s /bin/bash
+				sudo useradd -m $3 -g "CCP" -s /bin/bash
 				sudo usermod -aG docker $3
 
 				# make a yocto build dir & user link
@@ -457,6 +457,7 @@ if [ "$1" = "ftp" ] ; then
 		fi
 	elif [ "$2" = "user-" ] ; then
 		sudo userdel -r $3
+		sudo rm -r /mnt/disk2/yocto_build_folder/$3
 elif [ "$2" = "user+g" ] ; then
 		sudo usermod -aG $3 $4
 	elif [ "$2" = "config" ] ; then
