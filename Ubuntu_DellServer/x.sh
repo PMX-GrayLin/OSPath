@@ -219,12 +219,16 @@ if [ "$1" = "vb" ] ; then
 			image2Flash="vb_barcode_ocr_release_20240709.img"
 			sudo dd if=$image2Flash of=/dev/sdd bs=1G status=progress && sync
 
-		elif [ "$3" = "glue" ] ; then
+		elif [ "$3" = "barcode" ] ; then
 			echo "glue..."
 			image2Flash="vb_dualcam_20240908.img"
 			sudo dd if=$image2Flash of=/dev/sdd bs=1G status=progress && sync
 
-		else 
+		elif [ "$3" = "g1" ] ; then
+			image2Flash="vs_g1_s004_testok_20231013.img"
+			sudo dd if=$image2Flash of=/dev/sdd bs=1G status=progress && sync
+
+		else
 			lsblk | grep "sd"
 		fi
 	else
