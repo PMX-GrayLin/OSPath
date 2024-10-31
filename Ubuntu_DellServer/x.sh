@@ -440,6 +440,10 @@ if [ "$1" = "ftp" ] ; then
 				# CCPSW team group for default
 				sudo useradd  -m $3 -g "CCP" -s /bin/bash
 				sudo usermod -aG docker $3
+
+				# make a yocto build dir & user link
+				sudo mkdir /mnt/disk2/yocto_build_folder/$3
+				sudo ln -s /mnt/disk2/yocto_build_folder/$3 ~/yocto_build_folder
 			fi
 			echo "$3:$3" | sudo chpasswd
 			sudo chage -d 0 $3
