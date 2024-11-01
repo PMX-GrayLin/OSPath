@@ -471,6 +471,38 @@ elif [ "$2" = "user+g" ] ; then
 	fi
 fi
 
+# user
+if [ "$1" = "user" ] ; then
+	if [ "$2" = "+" ] ; then
+		if [ -n "$3" ] ; then
+			mainGroup="CCP"
+			subGroup="docker"
+
+			if [ "$4" = "all" ] ; then
+				subGroup="sudo,adm,lpadm,docker"
+			fi
+
+			sudo useradd -m $3 -g $mainGroup -G $subGroup -s /bin/bash
+
+			# make a yocto build dir & user link
+			sudo mkdir /mnt/disk2/yocto_build_folder/$3
+			sudo chown $3:$mainGroup /mnt/disk2/yocto_build_folder/$3
+			cd /home/$3
+			sudo ln -s /mnt/disk2/yocto_build_folder/$3 yocto_build_folder
+			sudo chown $3:$mainGroup yocto_build_folder
+			
+			echo "$3:$3" | sudo chpasswd
+			sudo chage -d 0 $3
+			sudo chage -l $3 | head -n 3
+		else
+			echo "param 3 needed"
+		fi
+	elif [ "$2" = "-" ] ; then
+		sudo userdel -r $3
+		#sudo rm -r /mnt/disk2/yocto_build_folder/$3
+	fi
+fi
+
 # logout
 if [ "$1" = "logout" ] ; then
 	gnome-session-quit
