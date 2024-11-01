@@ -116,10 +116,11 @@ if [ "$1" = "aic" ] ; then
 fi
 
 if [ "$1" = "eth" ] ; then
+	connectionName="Wired connection 1"
 	if [ "$2" = "static" ] ; then
 		lanSection="192.168.1"
 		ipAddr="192.168.1.$3"
-		connectionName="Wired connection 1"
+
 		nmcli connection modify "$connectionName" ipv4.addresses $ipAddr/24 ipv4.gateway $lanSection.1 ipv4.dns 8.8.8.8 ipv4.method manual
 		nmcli connection down "$connectionName"
 		nmcli connection up "$connectionName"
