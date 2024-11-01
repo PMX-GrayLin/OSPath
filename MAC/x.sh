@@ -26,7 +26,7 @@ wheeltec_ip="192.168.1.196"
 
 # VisionBox
 VisionBox_ip="192.168.1.13"
-AICamera_ip="192.168.1.65"
+AICamera_ip="192.168.1.66"
 DellServer_ip="10.1.13.207"
 
 # nfs
@@ -64,8 +64,6 @@ if [ "$1" == "ssh" ] ; then
 		ssh -Y user@$VisionBox_ip
 
 	elif [ "$2" == "aic" ] ; then
-		# echo "ssh -Y ubuntu@$AICamera_ip"
-		# ssh -Y ubuntu@$AICamera_ip
 		echo "ssh -Y root@$AICamera_ip"
 		ssh -Y root@$AICamera_ip
 
