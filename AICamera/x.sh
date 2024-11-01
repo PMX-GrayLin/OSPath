@@ -34,8 +34,6 @@ echo "param 5:"$5
 # AICamera 
 if [ "$1" = "aic" ] ; then
 	echo "AICamera command..."
-	# appDir="vision_box_DualCam"
-	# cd ~/primax
 
 	if [ "$2" = "jobs" ] ; then
 		pm2 list
@@ -114,6 +112,21 @@ if [ "$1" = "aic" ] ; then
 
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor.ko.sunny
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor.ko.james
+	fi
+fi
+
+if [ "$1" = "eth" ] ; then
+	if [ "$2" = "static" ] ; then
+		lanSection="192.168.1"
+		ipAddr="192.168.1.$3"
+		connectionName="Wired connection 1"
+		nmcli connection modify $connectionName ipv4.addresses $ipAddr/24 ipv4.gateway $lanSection.1 ipv4.dns 8.8.8.8 ipv4.method manual
+		nmcli connection down $connectionName
+		nmcli connection up $connectionName
+	elif [ "$2" = "dynamic" ] ; then
+		nmcli connection modify $connectionName ipv4.method auto
+		nmcli connection down $connectionName
+		nmcli connection up $connectionName
 	fi
 fi
 
@@ -281,8 +294,13 @@ elif [ "$2" = "user+g" ] ; then
 fi
 
 if [ "$1" = "date" ] ; then
-	timedatectl set-ntp yes
-	date
+
+	if [ "$2" = "+8" ] ; then
+		timedatectl set-timezone Asia/Singapore
+	else
+		timedatectl set-ntp yes
+		date
+	fi
 fi
 
 # logout
