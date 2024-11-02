@@ -9,6 +9,12 @@ SHELL ["/bin/bash", "-c"]
 
 WORKDIR /tmp
 
+# Update package list and install prerequisites
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt-get update
+
 RUN apt-get update && apt-get install -y \
     libelf-dev \
     dpkg-dev \
@@ -31,22 +37,30 @@ RUN apt-get update && apt-get install -y \
     chrpath \
     socat \
     cpio \
-    python3 \
-    python3-pip \
-    python3-pexpect \
     xz-utils \
     debianutils \
     iputils-ping \
-    python3-git \
-    python3-jinja2 \
     libegl1-mesa \
     libsdl1.2-dev \
     pylint \
     xterm \
-    python3-subunit \
     mesa-common-dev 
     #&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     #&& apt-get clean
+
+# Install Python 3.9 and pip
+RUN apt-get install -y python3.9 python3.9-distutils \
+&& curl -sS https://bootstrap.pypa.io/get-pip.py | python3.9
+
+# Set Python 3.9 as the default python3
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1
+
+    # python3 \
+    # python3-pip \
+    # python3-pexpect \
+    # python3-git \
+    # python3-jinja2 \
+    # python3-subunit \
 
 #RUN mkdir -p ~/.bin
 #RUN PATH="${HOME}/.bin:${PATH}"
