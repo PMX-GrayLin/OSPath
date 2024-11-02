@@ -1,0 +1,24 @@
+version: '3.1'
+services:
+  ubuntu:
+    image: graygray/u22_aicamerag2
+    container_name: u22_aicamerag2
+    stdin_open: true  # Keep the container running and open for interactive mode
+    tty: true  # Allocate a pseudo-TTY (useful for running bash)
+    command: /bin/bash  # Run bash as the command
+    privileged: true
+#    user: root
+    restart: always
+    ports:
+      - '54322:22'
+    environment:
+      - TZ=Asia/Taipei
+    #   - JAVA_OPTS="-Dhudson.security.HudsonPrivateSecurityRealm.ID_REGEX=[a-zA-Z0-9_.@-]+"
+    #   - TMP=/var/jenkins_home/tmp
+    #   - TEMP=/var/jenkins_home/tmp
+    #   - TMPDIR=/var/jenkins_home/tmp
+    volumes:
+      - /mnt/disk2/yocto_build_folder/docker:/tmp
+
+#volumes:
+#  vHome:
