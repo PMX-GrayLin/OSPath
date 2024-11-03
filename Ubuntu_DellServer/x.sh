@@ -503,9 +503,10 @@ if [ "$1" = "user" ] ; then
 
 		if [ -n "$3" ] ; then
 			# make a yocto build dir & user link
-			sudo mkdir /mnt/disk2/yocto_build_folder/$3
-			sudo chown $3:$mainGroup /mnt/disk2/yocto_build_folder/$3
-			cp ../misc/step* .
+			buildfolder="/mnt/disk2/yocto_build_folder"
+			sudo mkdir $buildfolder/$3
+			sudo chown $3:$mainGroup $buildfolder/$3
+			cp $buildfolder/misc/step* $buildfolder/$3
 			cd /home/$3
 			sudo ln -s /mnt/disk2/yocto_build_folder/$3 yocto_build_folder
 			sudo chown $3:$mainGroup yocto_build_folder
