@@ -507,6 +507,7 @@ if [ "$1" = "user" ] ; then
 			mkdir $buildfolder/$3
 			cp $buildfolder/misc/step* $buildfolder/$3
 			sudo chown $3:$mainGroup $buildfolder/$3
+			sudo chown $3:$mainGroup $buildfolder/$3/step*
 			cd /home/$3
 			sudo ln -s /mnt/disk2/yocto_build_folder/$3 yocto_build_folder
 			sudo chown $3:$mainGroup yocto_build_folder
