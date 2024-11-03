@@ -1,7 +1,8 @@
 xDir=~/"OSPath/Ubuntu"
 
 # docker
-dockderDir=~/"Docker"
+dockderDir=~/"OSPath/Docker"
+# dockderDir=~/"Docker"
 
 # redmine
 redDir="$dockderDir/redmine"
@@ -30,6 +31,9 @@ echo "param 2:"$2
 echo "param 3:"$3
 echo "param 4:"$4
 echo "param 5:"$5
+echo "param 5:"$5
+echo "PROJ_ROOT:"$PROJ_ROOT
+echo "BUILD_DIR:"$BUILD_DIR
 
 # Test
 if [ "$1" = "tt" ] ; then
@@ -87,31 +91,90 @@ if [ "$1" = "bb" ] ; then
 	fi
 fi
 
+# AI Camera
+if [ "$1" = "aic" ] ; then
+
+	echo "========== PROJ_ROOT:$PROJ_ROOT =========="
+	aicDir="$dockderDir/AICameraG2"
+
+	if [ "$2" = "dk" ] ; then
+		echo "========== docker cmd =========="
+
+		if [ "$3" = "up" ] ; then
+			echo "docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up -d"
+			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up -d
+			# docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up
+		elif [ "$3" = "down" ] ; then
+			echo "docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down"
+			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down
+		elif [ "$3" = "bash" ] ; then
+			echo "========== docker exec -it -u root u22_aicamerag2 /bin/bash =========="
+			# docker exec -it -u root u22_aicamerag2 /bin/bash
+			docker exec -it u22_aicamerag2 /bin/bash
+		elif [ "$3" = "log" ] ; then
+			echo "========== docker logs -tf jenkins =========="
+			docker logs -tf u22_aicamerag2
+		fi
+
+	elif [ "$2" = "us" ] ; then
+		echo "========== update yocto primax src =========="
+		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/vision_box_DualCam
+		git reset --hard HEAD
+		git pull
+
+		# cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
+		# git reset --hard HEAD
+		# git pull
+
+	elif [ "$2" = "ftp" ] ; then
+		echo "========== update files to FTP =========="
+		dir_ftp="/mnt/disk2/FTP/Public/gray/"
+		dir_work="$PROJ_ROOT/build/tmp/work/armv8a-poky-linux/primax/1.0-r0"
+		cp -f $dir_work/temp/log.do_compile $dir_ftp
+		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam $dir_ftp
+
+		# dir_image="$PROJ_ROOT/build/tmp//deploy/images/genio-700-evk"
+		# cp -f $dir_image/fitImage $dir_ftp
+		# cp -f $dir_image/modules-genio-700-evk.tgz $dir_ftp
+
+		dir_ko="$PROJ_ROOT/build/tmp/work/genio_700_evk-poky-linux/st-tof-module/1.0-r0/image/lib/modules"
+		cp -f $dir_ko/st_tof_module.ko $dir_ftp
+	else
+		echo "param 2 not match"
+		exit -1
+	fi
+fi
+
 # Yocto
 if [ "$1" = "yt" ] ; then
-	echo "Yocto, pp:$pp..."
+	echo "Yocto..."
 	
 	if [  "$2" = "b" ] ; then
-
-		# export PROJ_ROOT=`pwd`
-		# export TEMPLATECONF=$PROJ_ROOT/src/meta-rity/meta/conf/
-		# source src/poky/oe-init-build-env
-		# export BUILD_DIR=`pwd`
-
-		# Enable/Disable components that require NDA access
-		# echo NDA_BUILD = \"0\" >> ${BUILD_DIR}/conf/local.conf
-
-		# Setup paths for downloads and sstate-cache folders
-		# echo DL_DIR = \"\${TOPDIR}/../downloads\" >> ${BUILD_DIR}/conf/local.conf
-		# echo SSTATE_DIR = \"\${TOPDIR}/../sstate-cache\" >> ${BUILD_DIR}/conf/local.conf
-
+		echo "build whole image..."
 		echo "DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image"
 		DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image
 
-	elif [ "$2" = "flash" ] ; then
+	elif [  "$2" = "bk" ] ; then
+		echo "build kernel..."
+		echo "MACHINE=genio-700-evk bitbake linux-mtk"
+		MACHINE=genio-700-evk bitbake linux-mtk
+
+	elif [  "$2" = "kconf" ] ; then
+		echo "kernel config..."
+		echo "bitbake virtual/kernel -c menuconfig"
+		bitbake virtual/kernel -c menuconfig
+
+	elif [ "$2" = "f" ] ; then
 		echo "genio-flash..."
 		genio-flash
 		# aiot-flash
+
+	elif [ "$2" = "fk" ] ; then
+		echo "genio-flash kernel..."
+		genio-flash kernel
+
+	elif [ "$2" = "fdp" ] ; then
+		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
 
 	elif [ "$2" = "repo" ] ; then
 		echo "repo..."
@@ -128,6 +191,14 @@ if [ "$1" = "yt" ] ; then
 		git reset --hard HEAD
 		git pull
 
+	elif [ "$2" = "k" ] ; then
+		echo "========== kernel =========="
+		# if [  "$2" = "dts" ] ; then
+
+		# elif [ "$2" = "us" ] ; then
+
+		# fi
+
 	else
 		echo "priject env vars..."
 		echo "PROJ_ROOT:${PROJ_ROOT}"
@@ -138,49 +209,33 @@ if [ "$1" = "yt" ] ; then
 	fi
 fi
 
-# AI Camera
-if [ "$1" = "aic" ] ; then
+if [ "$1" = "vb" ] ; then
+	echo "VisionHub..."
+	if [ "$2" = "f" ] ; then
+		echo "flash image..."
+		cd /mnt/disk2/FTP/joe_handover/3_VisionHub_AICamera/3_11_images
 
-	echo "========== PROJ_ROOT:$PROJ_ROOT =========="
-	aicDir="$dockderDir/AICameraG2"
+		if [ "$3" = "barcode" ] ; then
+			echo "barcode..."
+			image2Flash="vb_barcode_ocr_release_20240709.img"
+			sudo dd if=$image2Flash of=/dev/sdd bs=1G status=progress && sync
 
-	if [ "$2" = "dk" ] ; then
-		echo "========== docker cmd =========="
+		elif [ "$3" = "barcode" ] ; then
+			echo "glue..."
+			image2Flash="vb_dualcam_20240908.img"
+			sudo dd if=$image2Flash of=/dev/sdd bs=1G status=progress && sync
 
-		if [ "$3" = "up" ] ; then
-			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up -d
-			# docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" up
-		elif [ "$3" = "down" ] ; then
-			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down
-		elif [ "$3" = "bash" ] ; then
-			echo "========== docker exec -it -u root u22_aicamerag2 /bin/bash =========="
-			# docker exec -it -u root u22_aicamerag2 /bin/bash
-			docker exec -it u22_aicamerag2 /bin/bash
-		elif [ "$3" = "log" ] ; then
-			echo "========== docker logs -tf jenkins =========="
-			docker logs -tf u22_aicamerag2
+		elif [ "$3" = "g1" ] ; then
+			image2Flash="vs_g1_s004_testok_20231013.img"
+			sudo dd if=$image2Flash of=/dev/sdd bs=1G status=progress && sync
+
+		else
+			lsblk | grep "sd"
 		fi
-
-	elif [ "$2" = "flash" ] ; then
-		echo "========== flash images =========="
-		# aiot-flash
-		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo
-		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
-
-	elif [ "$2" = "us" ] ; then
-		echo "========== update yocto primax src =========="
-		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/vision_box_DualCam
-		git reset --hard HEAD
-		git pull
-
-		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
-		git reset --hard HEAD
-		git pull
-
 	else
-		echo "param 2 not match"
-		exit -1
+		echo "else..."
 	fi
+
 fi
 
 # working directory 
@@ -388,8 +443,15 @@ if [ "$1" = "ftp" ] ; then
 				sudo usermod -aG docker $3
 			else
 				# CCPSW team group for default
-				sudo useradd  -m $3 -g "CCP" -s /bin/bash
+				sudo useradd -m $3 -g "CCP" -s /bin/bash
 				sudo usermod -aG docker $3
+
+				# make a yocto build dir & user link
+				sudo mkdir /mnt/disk2/yocto_build_folder/$3
+				sudo chown $3:CCP /mnt/disk2/yocto_build_folder/$3
+				cd /home/$3
+				sudo ln -s /mnt/disk2/yocto_build_folder/$3 yocto_build_folder
+				sudo chown $3:CCP yocto_build_folder
 			fi
 			echo "$3:$3" | sudo chpasswd
 			sudo chage -d 0 $3
@@ -399,6 +461,7 @@ if [ "$1" = "ftp" ] ; then
 		fi
 	elif [ "$2" = "user-" ] ; then
 		sudo userdel -r $3
+		sudo rm -r /mnt/disk2/yocto_build_folder/$3
 elif [ "$2" = "user+g" ] ; then
 		sudo usermod -aG $3 $4
 	elif [ "$2" = "config" ] ; then
@@ -406,6 +469,49 @@ elif [ "$2" = "user+g" ] ; then
 	else
 		echo "param 2 not match"
 		exit -1
+	fi
+fi
+
+# user
+if [ "$1" = "user" ] ; then
+	mainGroup="CCP"
+	subGroup="docker"
+
+	if [ "$2" = "+" ] ; then
+		if [ -n "$3" ] ; then
+
+			if [ "$4" = "all" ] ; then
+				subGroup="sudo,adm,lpadm,docker"
+			fi
+
+			sudo useradd -m $3 -g $mainGroup -G $subGroup -s /bin/bash
+			
+			echo "$3:$3" | sudo chpasswd
+			sudo chage -d 0 $3
+			sudo chage -l $3 | head -n 3
+		else
+			echo "param 3 needed"
+		fi
+	elif [ "$2" = "-" ] ; then
+		sudo userdel -r $3
+		#sudo rm -r /mnt/disk2/yocto_build_folder/$3
+
+	elif [ "$2" = "+g" ] ; then
+		sudo usermod -aG $3 $4
+
+	elif [ "$2" = "+yt" ] ; then
+
+		if [ -n "$3" ] ; then
+			# make a yocto build dir & user link
+			sudo mkdir /mnt/disk2/yocto_build_folder/$3
+			sudo chown $3:$mainGroup /mnt/disk2/yocto_build_folder/$3
+			cd /home/$3
+			sudo ln -s /mnt/disk2/yocto_build_folder/$3 yocto_build_folder
+			sudo chown $3:$mainGroup yocto_build_folder
+		else 
+			echo "param 3 needed"
+		fi
+
 	fi
 fi
 
@@ -459,6 +565,10 @@ if [ "$1" = "chmod" ] ; then
 			else
 				sudo chmod -R 777 .
 			fi
+		elif [ "$2" = "dir" ] ; then
+			echo "change only dir..."
+			echo "find $3 -type d -exec sudo chmod 777 {} \;"
+			find $3 -type d -exec sudo chmod 777 {} \;
 		else
 			if [ "$3" = "4" ] ; then
 				sudo chmod -R 444 $2
@@ -871,19 +981,6 @@ if [ "$1" = "dkc" ] ; then
 	fi
 fi
 
-# chrome-remote-desktop
-if [ "$1" = "chrome" ] ; then
-
-	if [ "$2" = "r" ] ; then
-		echo "========== restart  chrome-remote-desktop ========== " 
-		sudo systemctl stop chrome-remote-desktop
-		sudo systemctl start chrome-remote-desktop
-	else
-		sudo systemctl status chrome-remote-desktop
-	fi
-
-fi
-
 # nfs
 if [ "$1" == "nfs" ] ; then
 	echo "========== NFS "==========
@@ -934,7 +1031,13 @@ if [ "$1" == "grep" ] ; then
 	grep -r $2 .
 fi
 
-# find content
+# find file
 if [ "$1" == "find" ] ; then
 	find . -name $2
 fi
+
+# file / folder size
+if [ "$1" == "size" ] ; then
+	du -sh $2
+fi
+
