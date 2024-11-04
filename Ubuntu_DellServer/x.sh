@@ -515,6 +515,16 @@ if [ "$1" = "user" ] ; then
 			echo "param 3 needed"
 		fi
 
+	elif [ "$2" = "-yt" ] ; then
+
+		if [ -n "$3" ] ; then
+			# make a yocto build dir & user link
+			buildfolder="/mnt/disk2/yocto_build_folder"
+			sudo rm -r $buildfolder/$3
+		else 
+			echo "param 3 needed"
+		fi
+
 	fi
 fi
 
