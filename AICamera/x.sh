@@ -114,6 +114,11 @@ if [ "$1" = "aic" ] ; then
 
 		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor.ko.sunny
 		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor.ko.james
+
+	elif [ "$2" = "stress" ] ; then
+		stress-ng --cpu 8 &
+		genio-stress-gpu &
+
 	fi
 fi
 
