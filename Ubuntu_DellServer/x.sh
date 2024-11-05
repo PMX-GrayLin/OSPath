@@ -139,6 +139,12 @@ if [ "$1" = "aic" ] ; then
 
 		dir_ko="$PROJ_ROOT/build/tmp/work/genio_700_evk-poky-linux/st-tof-module/1.0-r0/image/lib/modules"
 		cp -f $dir_ko/st_tof_module.ko $dir_ftp
+
+	elif [ "$2" = "stress" ] ; then
+		stress-ng --cpu 8 &
+		genio-stress-gpu &
+
+		
 	else
 		echo "param 2 not match"
 		exit -1

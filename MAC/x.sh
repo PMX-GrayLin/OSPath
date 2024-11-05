@@ -64,8 +64,14 @@ if [ "$1" == "ssh" ] ; then
 		ssh -Y user@$VisionBox_ip
 
 	elif [ "$2" == "aic" ] ; then
-		echo "ssh -Y root@$AICamera_ip"
-		ssh -Y root@$AICamera_ip
+
+		if [ "$3" == "r" ] ; then
+			echo "ssh-keygen -R $AICamera_ip"
+			ssh-keygen -R $AICamera_ip
+		else
+			echo "ssh -Y root@$AICamera_ip"
+			ssh -Y root@$AICamera_ip
+		fi
 
 	elif [ "$2" == "wt" ] ; then
 		# wheeltech
