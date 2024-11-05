@@ -31,7 +31,6 @@ echo "param 2:"$2
 echo "param 3:"$3
 echo "param 4:"$4
 echo "param 5:"$5
-echo "param 5:"$5
 echo "PROJ_ROOT:"$PROJ_ROOT
 echo "BUILD_DIR:"$BUILD_DIR
 
@@ -129,7 +128,7 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "ftp" ] ; then
 		echo "========== update files to FTP =========="
 		dir_ftp="/mnt/disk2/FTP/Public/gray/"
-		dir_work="$PROJ_ROOT/build/tmp/work/armv8a-poky-linux/primax/1.0-r0"
+		dir_work="$PROJ_ROOT/build/tmp/work/genio_700_evk-poky-linux/primax/1.0-r0"
 		cp -f $dir_work/temp/log.do_compile $dir_ftp
 		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam $dir_ftp
 
@@ -144,7 +143,6 @@ if [ "$1" = "aic" ] ; then
 		stress-ng --cpu 8 &
 		genio-stress-gpu &
 
-		
 	else
 		echo "param 2 not match"
 		exit -1
