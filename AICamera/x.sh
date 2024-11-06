@@ -122,6 +122,7 @@ if [ "$1" = "aic" ] ; then
 		cd /home/root/primax/ai/test_npu_boundary_folder
 		./test_boundary.sh &
 	fi
+	
 fi
 
 if [ "$1" = "eth" ] ; then
@@ -137,7 +138,8 @@ if [ "$1" = "eth" ] ; then
 		nmcli connection down "$connectionName"
 		nmcli connection up "$connectionName"
 	else
-		cat /etc/systemd/network
+		#cat /etc/systemd/network
+		nano /etc/NetworkManager/system-connections/'Wired connection 1.nmconnection'
 
 	fi
 fi
