@@ -72,13 +72,13 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "r" ] ; then
 		echo "Run..."
 		cd ~/primax
-		pkill vision_box_DualCam
+		pkill vision_box
 		vision_box_DualCam &
 
 	elif [ "$2" = "ftp" ] ; then
 		echo "update files from ftp..."
 		cd ~/primax
-		pkill vision_box_DualCam
+		pkill vision_box
 		rm vision_box_DualCam*
 		rm *.ko*
 
