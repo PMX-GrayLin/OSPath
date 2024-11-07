@@ -10,7 +10,6 @@ alias aic='x aic'
 # edit
 alias ex="nano ~/OSPath/$InHost/x.sh"
 alias erc='nano ~/.bashrc'
-alias ewifi='nano /etc/netplan/01-network-manager-all.yaml'
 
 # dir
 alias dh='cd ~'                 # dir home

@@ -46,17 +46,6 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "sig2" ] ; then
 		kill -USR2 $(ps -C vision_box_DualCam)
 
-	# elif [ "$2" = "git" ] ; then
-	# 	echo "update src..."
-	# 	cd $appDir 
-	# 	git reset --hard HEAD
-	# 	git pull
-
-	# elif [ "$2" = "b" ] ; then
-	# 	echo "Build..."
-	# 	cd $appDir 
-	# 	make
-
 	elif [ "$2" = "ck" ] ; then
 		echo "check feature..."
 		echo "i2cdetect -l"
@@ -80,24 +69,16 @@ if [ "$1" = "aic" ] ; then
 		git reset --hard HEAD
 		git pull
 
-	elif [ "$2" = "um" ] ; then
-		echo "update module"
-
-		# cd /
-		# dd if=fitImage of=/dev/mmcblk0p9 bs=1024
-		# rm -r -f lib
-		# tar xvf modules-genio-700-evk.tgz
-		# cp -r lib/modules/5.15.47* /lib/modules/
-		# sync
-
 	elif [ "$2" = "r" ] ; then
 		echo "Run..."
 		cd ~/primax
-		./vision_box_DualCam
+		pkill vision_box_DualCam
+		vision_box_DualCam &
 
 	elif [ "$2" = "ftp" ] ; then
 		echo "update files from ftp..."
 		cd ~/primax
+		pkill vision_box_DualCam
 		rm vision_box_DualCam*
 		rm *.ko*
 
@@ -114,6 +95,8 @@ if [ "$1" = "aic" ] ; then
 
 		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor.ko.sunny
 		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor.ko.james
+
+		vision_box_DualCam &		
 
 	elif [ "$2" = "stress" ] ; then
 		if [ "$3" = "-fw" ] ; then
