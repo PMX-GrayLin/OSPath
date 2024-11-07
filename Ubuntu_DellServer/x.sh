@@ -167,13 +167,16 @@ if [ "$1" = "yt" ] ; then
 
 	elif [ "$2" = "f" ] ; then
 
-		if [ "$3" = "c" ] ; then
+		if [ "$3" = "cam" ] ; then
+			echo "===== genio-flash --load-dtbo camera-imx214-csi0.dtbo ====="
+			genio-flash --load-dtbo camera-imx214-csi0.dtbo
+		if [ "$3" = "dp" ] ; then
+			echo "===== genio-flash --load-dtbo display-dp.dtbo ====="
+			genio-flash --load-dtbo display-dp.dtbo
+		else
 			echo "===== genio-flash ====="
 			genio-flash
 			#aiot-flash
-		else
-			echo "===== genio-flash --load-dtbo camera-imx214-csi0.dtbo ====="
-			genio-flash --load-dtbo camera-imx214-csi0.dtbo
 		fi
 
 	elif [ "$2" = "fk" ] ; then
