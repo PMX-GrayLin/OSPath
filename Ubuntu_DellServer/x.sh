@@ -166,9 +166,15 @@ if [ "$1" = "yt" ] ; then
 		bitbake virtual/kernel -c menuconfig
 
 	elif [ "$2" = "f" ] ; then
-		echo "genio-flash..."
-		genio-flash
-		# aiot-flash
+
+		if [ "$2" = "c" ] ; then
+			echo "===== genio-flash ====="
+			genio-flash
+			#aiot-flash
+		else
+			echo "===== genio-flash --load-dtbo camera-imx214-csi0.dtbo ====="
+			genio-flash --load-dtbo camera-imx214-csi0.dtbo
+		fi
 
 	elif [ "$2" = "fk" ] ; then
 		echo "genio-flash kernel..."

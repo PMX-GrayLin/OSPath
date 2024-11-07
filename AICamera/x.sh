@@ -116,11 +116,18 @@ if [ "$1" = "aic" ] ; then
 		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor.ko.james
 
 	elif [ "$2" = "stress" ] ; then
-		vision_box_DualCam &
-		stress-ng --cpu 8 &
-		genio-stress-gpu &
-		cd /home/root/primax/ai/test_npu_boundary_folder
-		./test_boundary.sh &
+		if [ "$3" = "-fw" ] ; then
+			stress-ng --cpu 8 &
+			genio-stress-gpu &
+			cd /home/root/primax/ai/test_npu_boundary_folder
+			./test_boundary.sh &
+		else
+			vision_box_DualCam &
+			stress-ng --cpu 8 &
+			genio-stress-gpu &
+			cd /home/root/primax/ai/test_npu_boundary_folder
+			./test_boundary.sh &
+		fi
 	fi
 	
 fi
