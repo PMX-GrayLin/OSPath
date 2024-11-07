@@ -167,7 +167,7 @@ if [ "$1" = "yt" ] ; then
 
 	elif [ "$2" = "f" ] ; then
 
-		if [ "$2" = "c" ] ; then
+		if [ "$3" = "c" ] ; then
 			echo "===== genio-flash ====="
 			genio-flash
 			#aiot-flash
