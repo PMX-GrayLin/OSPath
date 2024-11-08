@@ -88,7 +88,7 @@ if [ "$1" = "aic" ] ; then
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/st_tof_module.ko
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor_v24.ko
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/ai.tar.gz
-		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/mediamtx_v1.9.3_linux_armv7/mediamtx
+		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/mediamtx_v1.9.3_linux_arm64v8/mediamtx
 		chmod 777 mediamtx
 
 		# cd /
