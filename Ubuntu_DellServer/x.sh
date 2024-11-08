@@ -57,12 +57,12 @@ if [ "$1" = "bb" ] ; then
 		bitbake -c cleanall $3
 		
 	elif [ "$2" = "b" ] ; then
-		echo "build recipe..., $3"
+		echo "build recipe... $3"
 		# bitbake -D $3
 		bitbake $3
 
 	elif [ "$2" = "i" ] ; then
-		echo "check recipe info..., $3"
+		echo "check recipe info... $3"
 		bitbake -e $3 | grep -E "^SRC_URI=|^FILE=|^PV="
 	
 	elif [ "$2" = "l" ] ; then
