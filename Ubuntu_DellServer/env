@@ -29,6 +29,7 @@ alias dpb='cd $PROJ_ROOT/build'                                                 
 alias dps='cd $PROJ_ROOT/src'                                                                       # dir project src path
 alias dppmx='cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax'                                   # dir project primax
 alias dptof='cd $PROJ_ROOT/src/meta-primax/recipes-tof/st-tof-module'                               # dir project tof
+alias dpmtx='cd $PROJ_ROOT/src/meta-primax/recipes-mediamtx/mediamtx'                               # dir project tof
 alias dpi='cd $PROJ_ROOT/build/tmp/deploy/images/genio-700-evk'                                     # dir project build image path
 alias dpbbS='cd $BUILD_DIR/tmp/work/genio_700_evk-poky-linux/primax/1.0-r0/primax-1.0'              # dir project BB {S} path
 alias dpbbD='cd $BUILD_DIR/tmp/work/genio_700_evk-poky-linux/primax/1.0-r0/image/'                  # dir project BB {D} path
