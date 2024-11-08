@@ -78,6 +78,7 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "ftp" ] ; then
 		echo "update files from ftp..."
 		cd ~/primax
+		
 		pkill vision_box
 		rm vision_box_DualCam*
 		rm *.ko*
@@ -88,6 +89,8 @@ if [ "$1" = "aic" ] ; then
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/st_tof_module.ko
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor_v24.ko
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/ai.tar.gz
+
+		rm mediamtx*
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/mediamtx_v1.9.3_linux_amd64/mediamtx
 		chmod 777 mediamtx
 
