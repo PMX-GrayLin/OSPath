@@ -65,18 +65,20 @@ if [ "$1" == "ssh" ] ; then
 		ssh -Y user@$VisionBox_ip
 
 	elif [ "$2" == "aic" ] ; then
-
-		if [ "$3" == "r" ] ; then
-			echo "ssh-keygen -R $AICamera_ip_default"
-			ssh-keygen -R $AICamera_ip_default
-
-		elif [ "$3" == "old" ] ; then
+		if [ "$3" == "old" ] ; then
+			if [ "$4" == "r" ] ; then
+				echo "ssh-keygen -R $AICamera_ip_default"
+				ssh-keygen -R $AICamera_ip_default
+			fi
 			echo "ssh -Y root@$AICamera_ip_default"
 			ssh -Y root@$AICamera_ip_default
 		else
+			if [ "$4" == "r" ] ; then
+				echo "ssh-keygen -R $AICamera_ip_default"
+				ssh-keygen -R $AICamera_ip_default
+			fi
 			echo "ssh -Y root@$AICamera_ip"
 			ssh -Y root@$AICamera_ip
-
 		fi
 
 	elif [ "$2" == "wt" ] ; then
