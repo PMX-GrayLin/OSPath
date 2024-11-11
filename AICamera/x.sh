@@ -56,6 +56,8 @@ if [ "$1" = "aic" ] ; then
 			i2cdetect -r -y 0
 			echo "i2cdetect -r -y 4"
 			i2cdetect -r -y 4
+			echo "modeprint mediatek"
+			modeprint mediatek
 
 		elif [ "$3" = "tof" ] ; then
 			echo "tof sensor..."
