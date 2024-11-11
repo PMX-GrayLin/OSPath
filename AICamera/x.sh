@@ -129,7 +129,7 @@ if [ "$1" = "g1" ] ; then
 		pkill vision_box
 
 		dir_ftp="Public/AICameraG1"
-		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/docs.tar.gz
+		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/docs.tar.gz /media/primax
 	fi
 fi
 
