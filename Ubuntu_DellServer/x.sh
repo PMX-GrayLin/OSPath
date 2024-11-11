@@ -173,6 +173,9 @@ if [ "$1" = "yt" ] ; then
 		elif [ "$3" = "dp" ] ; then
 			echo "===== genio-flash --load-dtbo display-dp.dtbo ====="
 			genio-flash --load-dtbo display-dp.dtbo
+		elif [ "$3" = "tt" ] ; then
+			echo "===== genio-flash load test dtbos ====="
+			genio-flash --load-dtbo camera-imx214-csi0.dtbo --load-dtbo gpu-mali.dtbo --load-dtbo apusys.dtbo --load-dtbo video.dtbo
 		else
 			echo "===== genio-flash ====="
 			genio-flash
