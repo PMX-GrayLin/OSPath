@@ -120,6 +120,19 @@ if [ "$1" = "aic" ] ; then
 	
 fi
 
+# AICamera G1
+if [ "$1" = "g1" ] ; then
+	elif [ "$2" = "ftp" ] ; then
+		echo "copy files from ftp..."
+		cd ~/media/primax
+
+		pkill vision_box
+
+		dir_ftp="Public/joe_handover/AICameraG1"
+		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/docs.tar.gz
+
+fi
+
 if [ "$1" = "eth" ] ; then
 	connectionName="Wired connection 1"
 	if [ "$2" = "static" ] ; then
