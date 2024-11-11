@@ -122,7 +122,7 @@ fi
 
 # AICamera G1
 if [ "$1" = "g1" ] ; then
-	elif [ "$2" = "ftp" ] ; then
+	if [ "$2" = "ftp" ] ; then
 		echo "copy files from ftp..."
 		cd ~/media/primax
 
@@ -130,7 +130,7 @@ if [ "$1" = "g1" ] ; then
 
 		dir_ftp="Public/joe_handover/AICameraG1"
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/docs.tar.gz
-
+	fi
 fi
 
 if [ "$1" = "eth" ] ; then
