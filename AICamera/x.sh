@@ -124,12 +124,12 @@ fi
 if [ "$1" = "g1" ] ; then
 	if [ "$2" = "ftp" ] ; then
 		echo "copy files from ftp..."
-		cd ~/media/primax
+		cd /media/primax
 
 		pkill vision_box
 
 		dir_ftp="Public/AICameraG1"
-		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/docs.tar.gz /media/primax
+		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/docs.tar.gz
 	fi
 fi
 
