@@ -204,13 +204,13 @@ if [ "$1" = "yt" ] ; then
 		git reset --hard HEAD
 		git pull
 
-	elif [ "$2" = "k" ] ; then
-		echo "========== kernel =========="
-		# if [  "$2" = "dts" ] ; then
+	elif [ "$2" = "dtb2dts" ] ; then
+		echo "========== dtc -I dtb -O dts -o $3.dts $3.dtb =========="
+		dtc -I dtb -O dts -o $3.dts $3.dtb
 
-		# elif [ "$2" = "us" ] ; then
-
-		# fi
+	elif [ "$2" = "dts2dtb" ] ; then
+		echo "========== dtc -I dts -O dtb -o $3.dtb $3.dts =========="
+		dtc -I dts -O dtb -o $3.dtb $3.dts
 
 	else
 		echo "priject env vars..."
