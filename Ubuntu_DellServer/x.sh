@@ -177,9 +177,13 @@ if [ "$1" = "yt" ] ; then
 			echo "===== genio-flash --load-dtbo display-dp.dtbo ====="
 			genio-flash --load-dtbo display-dp.dtbo
 		elif [ "$3" = "k" ] ; then
-			echo "genio-flash kernel..."
-			# genio-flash kernel
-			genio-flash --load-dtbo display-dp.dtbo kernel mmc0boot1
+			if [ "$4" = "dp" ] ; then
+				echo "genio-flash --load-dtbo display-dp.dtbo kernel mmc0boot1..."
+				genio-flash --load-dtbo display-dp.dtbo kernel mmc0boot1
+			else 
+				echo "genio-flash kernel..."
+				genio-flash kernel
+			fi
 		else
 			echo "===== genio-flash ====="
 			genio-flash
