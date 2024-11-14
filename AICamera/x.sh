@@ -146,7 +146,7 @@ if [ "$1" = "g1" ] ; then
 fi
 
 if [ "$1" = "eth" ] ; then
-	connectionName="Wired\ connection\ 1"
+	connectionName='Wired connection 1.nmconnection'
 	if [ "$2" = "static" ] ; then
 		lanSection="192.168.1"
 		ipAddr="192.168.1.$3"
@@ -162,8 +162,8 @@ if [ "$1" = "eth" ] ; then
 	
 	elif [ "$2" = "e" ] ; then
 		ehco "nano /etc/NetworkManager/system-connections/$connectionName"
-		nano /etc/NetworkManager/system-connections/'Wired connection 1.nmconnection'
-		# nano /etc/NetworkManager/system-connections/$connectionName
+		# nano /etc/NetworkManager/system-connections/'Wired connection 1.nmconnection'
+		nano /etc/NetworkManager/system-connections/$connectionName
 	else
 		cat /etc/NetworkManager/system-connections/$connectionName
 	fi
