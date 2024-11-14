@@ -150,17 +150,22 @@ if [ "$1" = "eth" ] ; then
 	if [ "$2" = "static" ] ; then
 		lanSection="192.168.1"
 		ipAddr="192.168.1.$3"
+		echo "set static ip ro $ipAddr ..."
 		nmcli connection modify "$connectionName" ipv4.addresses $ipAddr/24 ipv4.gateway $lanSection.1 ipv4.dns 8.8.8.8 ipv4.method manual
 		nmcli connection down "$connectionName"
 		nmcli connection up "$connectionName"
 	elif [ "$2" = "dynamic" ] ; then
+		echo "set dhcp..."
 		nmcli connection modify "$connectionName" ipv4.method auto
 		nmcli connection down "$connectionName"
 		nmcli connection up "$connectionName"
+	
+	elif [ "$2" = "e" ] ; then
+		ehco "nano /etc/NetworkManager/system-connections/'Wired connection 1.nmconnection'"
+		# nano /etc/NetworkManager/system-connections/'Wired connection 1.nmconnection'
+		nano /etc/NetworkManager/system-connections/$connectionName
 	else
 		#cat /etc/systemd/network
-		nano /etc/NetworkManager/system-connections/'Wired connection 1.nmconnection'
-
 	fi
 fi
 
