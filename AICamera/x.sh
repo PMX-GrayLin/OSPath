@@ -146,7 +146,7 @@ if [ "$1" = "g1" ] ; then
 fi
 
 if [ "$1" = "eth" ] ; then
-	connectionName="Wired connection 1"
+	connectionName="Wired\ connection\ 1"
 	if [ "$2" = "static" ] ; then
 		lanSection="192.168.1"
 		ipAddr="192.168.1.$3"
