@@ -176,7 +176,7 @@ if [ "$1" = "yt" ] ; then
 		elif [ "$3" = "dp" ] ; then
 			echo "===== genio-flash --load-dtbo display-dp.dtbo ====="
 			genio-flash --load-dtbo display-dp.dtbo
-		elif [ "$2" = "k" ] ; then
+		elif [ "$3" = "k" ] ; then
 			echo "genio-flash kernel..."
 			# genio-flash kernel
 			genio-flash --load-dtbo display-dp.dtbo kernel mmc0boot1
