@@ -176,18 +176,15 @@ if [ "$1" = "yt" ] ; then
 		elif [ "$3" = "dp" ] ; then
 			echo "===== genio-flash --load-dtbo display-dp.dtbo ====="
 			genio-flash --load-dtbo display-dp.dtbo
+		elif [ "$2" = "k" ] ; then
+			echo "genio-flash kernel..."
+			# genio-flash kernel
+			genio-flash --load-dtbo display-dp.dtbo kernel mmc0boot1
 		else
 			echo "===== genio-flash ====="
 			genio-flash
 			#aiot-flash
 		fi
-
-	elif [ "$2" = "fk" ] ; then
-		echo "genio-flash kernel..."
-		genio-flash kernel
-
-	elif [ "$2" = "fdp" ] ; then
-		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
 
 	elif [ "$2" = "repo" ] ; then
 		echo "repo..."
