@@ -165,7 +165,7 @@ if [ "$1" = "eth" ] ; then
 		# nano /etc/NetworkManager/system-connections/'Wired connection 1.nmconnection'
 		nano /etc/NetworkManager/system-connections/$connectionName
 	else
-		#cat /etc/systemd/network
+		cat /etc/NetworkManager/system-connections/$connectionName
 	fi
 fi
 
