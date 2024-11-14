@@ -58,6 +58,10 @@ if [ "$1" = "aic" ] ; then
 			i2cdetect -r -y 4
 			echo "modeprint mediatek"
 			modeprint mediatek
+			echo "ls /sys/class/drm/"
+			ls /sys/class/drm/
+			echo "cat /sys/class/drm/card0-DP-1/status"
+			cat /sys/class/drm/card0-DP-1/status
 
 		elif [ "$3" = "tof" ] ; then
 			echo "tof sensor..."
