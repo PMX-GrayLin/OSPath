@@ -161,7 +161,7 @@ if [ "$1" = "eth" ] ; then
 		nmcli connection up "$connectionName"
 	
 	elif [ "$2" = "e" ] ; then
-		ehco "nano /etc/NetworkManager/system-connections/'Wired connection 1.nmconnection'"
+		ehco "nano /etc/NetworkManager/system-connections/$connectionName"
 		# nano /etc/NetworkManager/system-connections/'Wired connection 1.nmconnection'
 		nano /etc/NetworkManager/system-connections/$connectionName
 	else
