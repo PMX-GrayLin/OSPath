@@ -124,7 +124,7 @@ if [ "$1" == "scp" ] ; then
 	fi
 fi
 
-if [ "$1" == "wifi" ] ; then
+if [ "$1" == "lan" ] ; then
 	if [ "$2" == "scan" ] ; then
 		nmap -sn 192.168.0.0/24
 	fi
