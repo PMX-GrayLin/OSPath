@@ -164,6 +164,13 @@ if [ "$1" = "eth" ] ; then
 		echo "nano /etc/NetworkManager/system-connections/"$connectionName".nmconnection"
 		# nano /etc/NetworkManager/system-connections/'Wired connection 1.nmconnection'
 		nano /etc/NetworkManager/system-connections/"$connectionName".nmconnection
+
+	elif [ "$2" = "mac" ] ; then
+		echo "sync MAC address to USB0"
+		mac_address=$(ip link show usb0 | grep ether | awk '{print $2}')
+		echo "MAC Address:$mac_address"
+		nmcli connection modify "$connectionName" ethernet.cloned-mac-address "$mac_address"
+
 	else
 		cat /etc/NetworkManager/system-connections/"$connectionName".nmconnection
 	fi
