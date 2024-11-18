@@ -90,7 +90,12 @@ if [ "$1" == "ssh" ] ; then
 			ssh -Y wheeltec@$wheeltec_ip
 		fi
 	else
-		echo "no match"
+		if [ "$3" == "r" ] ; then
+			echo "ssh-keygen -R $2"
+			ssh-keygen -R $2
+		fi
+		ssh "$2"
+
 	fi
 fi
 
@@ -126,7 +131,9 @@ fi
 
 if [ "$1" == "lan" ] ; then
 	if [ "$2" == "scan" ] ; then
-		nmap -sn 192.168.0.0/24
+		lan="192.168.$3.0/24"
+		echo "nmap -sn "$lan""
+		nmap -sn "$lan"
 	fi
 fi
 

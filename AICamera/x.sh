@@ -83,31 +83,29 @@ if [ "$1" = "aic" ] ; then
 
 	elif [ "$2" = "ftp" ] ; then
 		echo "update files from ftp..."
+
+		# FTP details
+		ftp_user="gray.lin"
+		ftp_pass="Zx03310331"
+		ftp_host="10.1.13.207"
+		dir_ftp="Public/gray"
+
 		cd ~/primax
 
 		pkill vision_box
 		rm vision_box_DualCam*
 		rm *.ko*
 
-		dir_ftp="Public/gray"
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/vision_box_DualCam
 		chmod 777 vision_box_DualCam
-		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/st_tof_module.ko
-		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor_v24.ko
-		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/ai.tar.gz
+		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/st_tof_module.ko
+		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor_v24.ko
+		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/ai.tar.gz
 
-		rm mediamtx*
-		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/mediamtx_v1.9.3_linux_arm64v8/mediamtx
-		chmod 777 mediamtx
+		# all file in folder
+		wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --no-parent
 
-		# cd /
-		# wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/fitImage
-		# wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/modules-genio-700-evk.tgz
-
-		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor.ko.sunny
-		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor.ko.james
-
-		vision_box_DualCam &		
+		#vision_box_DualCam &		
 
 	elif [ "$2" = "stress" ] ; then
 		if [ "$3" = "-fw" ] ; then
