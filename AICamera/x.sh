@@ -104,7 +104,7 @@ if [ "$1" = "aic" ] ; then
 		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/ai.tar.gz
 
 		# all file in folder
-		wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$local_dir" --no-parent
+		wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$local_dir" --no-parent --cut-dirs=3
 
 		#vision_box_DualCam &		
 
