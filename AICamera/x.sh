@@ -89,6 +89,7 @@ if [ "$1" = "aic" ] ; then
 		ftp_pass="Zx03310331"
 		ftp_host="10.1.13.207"
 		dir_ftp="Public/gray"
+		dir_local="ftp"
 
 		cd ~/primax
 
@@ -96,14 +97,14 @@ if [ "$1" = "aic" ] ; then
 		rm vision_box_DualCam*
 		rm *.ko*
 
-		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/vision_box_DualCam
-		chmod 777 vision_box_DualCam
+		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/vision_box_DualCam
+		#chmod 777 vision_box_DualCam
 		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/st_tof_module.ko
 		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor_v24.ko
 		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/ai.tar.gz
 
 		# all file in folder
-		wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --no-parent
+		wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$local_dir" --no-parent
 
 		#vision_box_DualCam &		
 
