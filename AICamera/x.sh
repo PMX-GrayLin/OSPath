@@ -145,7 +145,8 @@ if [ "$1" = "g1" ] ; then
 fi
 
 if [ "$1" = "eth" ] ; then
-	connectionName="Wired connection 1"
+	# connectionName="Wired connection 1"
+	connectionName="usb0"
 	if [ "$2" = "static" ] ; then
 		lanSection="192.168.1"
 		ipAddr="192.168.1.$3"
@@ -161,12 +162,13 @@ if [ "$1" = "eth" ] ; then
 	
 	elif [ "$2" = "e" ] ; then
 		echo "nano /etc/NetworkManager/system-connections/"$connectionName".nmconnection"
-		# nano /etc/NetworkManager/system-connections/'Wired connection 1.nmconnection'
 		nano /etc/NetworkManager/system-connections/"$connectionName".nmconnection
 
 	elif [ "$2" = "mac" ] ; then
-		echo "sync MAC address to USB0"
-		mac_address=$(ip link show usb0 | grep ether | awk '{print $2}')
+
+		echo "set MAC address from misc/mac_address"
+		# mac_address=$(ip link show usb0 | grep ether | awk '{print $2}')
+		mac_address=$(cat /home/root/primax/misc/mac_address)
 		echo "MAC Address:$mac_address"
 		nmcli connection modify "$connectionName" ethernet.cloned-mac-address "$mac_address"
 

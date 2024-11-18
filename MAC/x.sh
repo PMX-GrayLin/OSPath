@@ -72,11 +72,9 @@ if [ "$1" == "ssh" ] ; then
 			fi
 			echo "ssh -Y root@$AICamera_ip_default"
 			ssh -Y root@$AICamera_ip_default
-		else
-			if [ "$4" == "r" ] ; then
-				echo "ssh-keygen -R $AICamera_ip_default"
-				ssh-keygen -R $AICamera_ip_default
-			fi
+		elif [ "$3" == "r" ] ; then
+			echo "ssh-keygen -R $AICamera_ip"
+			ssh-keygen -R $AICamera_ip
 			echo "ssh -Y root@$AICamera_ip"
 			ssh -Y root@$AICamera_ip
 		fi
@@ -90,11 +88,10 @@ if [ "$1" == "ssh" ] ; then
 			ssh -Y wheeltec@$wheeltec_ip
 		fi
 	else
-		if [ "$3" == "r" ] ; then
-			echo "ssh-keygen -R $2"
-			ssh-keygen -R $2
+		if [ "$2" == "r" ] ; then
+			echo "ssh-keygen -R $3"
+			ssh-keygen -R $3
 		fi
-		ssh "$2"
 
 	fi
 fi
