@@ -172,10 +172,9 @@ if [ "$1" = "eth" ] ; then
 		# echo "MAC Address:$mac_address"
 		# nmcli connection modify "$connectionName" ethernet.cloned-mac-address "$mac_address"
 
-		ifdown eth0
-		ifconfig eth0 hw ether ab:d3:fe:24:d1:4b
-		ifup eth0
+		ifdown eth0 && ifconfig eth0 hw ether ab:d3:fe:24:d1:4b && ifup eth0
 
+		# nmcli connection modify eth0 ethernet.cloned-mac-address ab:d3:fe:24:d1:4b
 
 	else
 		echo "cat /etc/NetworkManager/system-connections/"$connectionName".nmconnection"
