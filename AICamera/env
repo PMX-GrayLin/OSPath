@@ -12,10 +12,10 @@ alias ex="nano ~/OSPath/$InHost/x.sh"
 alias erc='nano ~/.bashrc'
 
 # dir
-alias dh='cd ~'                 # dir home
-alias d--='cd $OLDPWD'          # dir previous dir
-alias dpmx='cd ~/primax'        # dir primax
-alias dftp='cd ~/primax/misc'        # dir ftp sync folder
+alias dh='cd ~'                             # dir home
+alias d--='cd $OLDPWD'                      # dir previous dir
+alias dpmx='cd ~/primax'                    # dir primax
+alias dftp='cd ~/primax/10.1.13.207'        # dir ftp sync folder
 
 # update
 alias ue='source ~/.bashrc'     # update env
