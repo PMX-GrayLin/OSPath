@@ -26,7 +26,7 @@ wheeltec_ip="192.168.1.196"
 
 # VisionBox
 VisionBox_ip="192.168.1.13"
-AICamera_ip="192.168.1.68"
+AICamera_ip="192.168.1.67"
 DellServer_ip="10.1.13.207"
 
 # nfs
@@ -91,18 +91,18 @@ fi
 # scp
 if [ "$1" == "scp" ] ; then
 	echo "copy files..."
-	if [ "$2" == "xx" ] ; then
-		echo ""
-	elif [ "$2" == "vb" ] ; then
-		user="user"
-		pass="user"
-		# remoteFolder="~/"
-		remoteFolder="~/primax/apps"
-		if [ "$3" == "up" ] ; then
-			sshpass -p $pass scp ./$4 $user@$VisionBox_ip:$remoteFolder/$5
-		elif [ "$3" == "down" ] ; then
-			sshpass -p $pass scp $user@$VisionBox_ip:$remoteFolder/$4 .
-		fi
+	# if [ "$2" == "xx" ] ; then
+	# 	echo ""
+	# elif [ "$2" == "vb" ] ; then
+	# 	user="user"
+	# 	pass="user"
+	# 	# remoteFolder="~/"
+	# 	remoteFolder="~/primax/apps"
+	# 	if [ "$3" == "up" ] ; then
+	# 		sshpass -p $pass scp ./$4 $user@$VisionBox_ip:$remoteFolder/$5
+	# 	elif [ "$3" == "down" ] ; then
+	# 		sshpass -p $pass scp $user@$VisionBox_ip:$remoteFolder/$4 .
+	# 	fi
 	elif [ "$2" == "aic" ] ; then
 		# user="ubuntu"
 		# pass="primax1234"
