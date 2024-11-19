@@ -27,7 +27,7 @@ wheeltec_ip="192.168.1.196"
 # VisionBox
 VisionBox_ip="192.168.1.13"
 AICamera_ip_default="192.168.1.66"
-AICamera_ip="192.168.1.69"
+AICamera_ip="192.168.1.65"
 DellServer_ip="10.1.13.207"
 
 # nfs
@@ -65,19 +65,12 @@ if [ "$1" == "ssh" ] ; then
 		ssh -Y user@$VisionBox_ip
 
 	elif [ "$2" == "aic" ] ; then
-		if [ "$3" == "old" ] ; then
-			if [ "$4" == "r" ] ; then
-				echo "ssh-keygen -R $AICamera_ip_default"
-				ssh-keygen -R $AICamera_ip_default
-			fi
-			echo "ssh -Y root@$AICamera_ip_default"
-			ssh -Y root@$AICamera_ip_default
-		elif [ "$3" == "r" ] ; then
+		if [ "$3" == "r" ] ; then
 			echo "ssh-keygen -R $AICamera_ip"
 			ssh-keygen -R $AICamera_ip
-			echo "ssh -Y root@$AICamera_ip"
-			ssh -Y root@$AICamera_ip
 		fi
+		echo "ssh root@$AICamera_ip"
+		ssh root@$AICamera_ip
 
 	elif [ "$2" == "wt" ] ; then
 		# wheeltech

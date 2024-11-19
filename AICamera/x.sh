@@ -154,6 +154,7 @@ if [ "$1" = "eth" ] ; then
 		nmcli connection modify "$connectionName" ipv4.addresses $ipAddr/24 ipv4.gateway $lanSection.1 ipv4.dns 8.8.8.8 ipv4.method manual
 		nmcli connection down "$connectionName"
 		nmcli connection up "$connectionName"
+
 	elif [ "$2" = "dynamic" ] ; then
 		echo "set dhcp..."
 		nmcli connection modify "$connectionName" ipv4.method auto
@@ -165,14 +166,19 @@ if [ "$1" = "eth" ] ; then
 		nano /etc/NetworkManager/system-connections/"$connectionName".nmconnection
 
 	elif [ "$2" = "mac" ] ; then
-
 		echo "set MAC address from misc/mac_address"
 		# mac_address=$(ip link show usb0 | grep ether | awk '{print $2}')
-		mac_address=$(cat /home/root/primax/misc/mac_address)
-		echo "MAC Address:$mac_address"
-		nmcli connection modify "$connectionName" ethernet.cloned-mac-address "$mac_address"
+		# mac_address=$(cat /home/root/primax/misc/mac_address)
+		# echo "MAC Address:$mac_address"
+		# nmcli connection modify "$connectionName" ethernet.cloned-mac-address "$mac_address"
+
+		ifdown eth0
+		ifconfig eth0 hw ether ab:d3:fe:24:d1:4b
+		ifup eth0
+
 
 	else
+		echo "cat /etc/NetworkManager/system-connections/"$connectionName".nmconnection"
 		cat /etc/NetworkManager/system-connections/"$connectionName".nmconnection
 	fi
 fi
