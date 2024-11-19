@@ -15,6 +15,7 @@ alias erc='nano ~/.bashrc'
 alias dh='cd ~'                 # dir home
 alias d--='cd $OLDPWD'          # dir previous dir
 alias dpmx='cd ~/primax'        # dir primax
+alias dftp='cd ~/primax/misc'        # dir ftp sync folder
 
 # update
 alias ue='source ~/.bashrc'     # update env
