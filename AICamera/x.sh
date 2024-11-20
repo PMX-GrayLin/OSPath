@@ -97,8 +97,8 @@ if [ "$1" = "aic" ] ; then
 		rm vision_box_DualCam*
 		rm *.ko*
 
-		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/vision_box_DualCam
-		#chmod 777 vision_box_DualCam
+		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/vision_box_DualCam
+		chmod 777 vision_box_DualCam
 		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/st_tof_module.ko
 		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor_v24.ko
 		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/ai.tar.gz
@@ -106,7 +106,7 @@ if [ "$1" = "aic" ] ; then
 		# all file in folder
 		wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$local_dir" --no-parent --cut-dirs=3
 
-		#vision_box_DualCam &		
+		vision_box_DualCam &		
 
 	elif [ "$2" = "stress" ] ; then
 		if [ "$3" = "-fw" ] ; then

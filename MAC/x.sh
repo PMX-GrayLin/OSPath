@@ -91,8 +91,8 @@ fi
 # scp
 if [ "$1" == "scp" ] ; then
 	echo "copy files..."
-	# if [ "$2" == "xx" ] ; then
-	# 	echo ""
+	if [ "$2" == "xx" ] ; then
+		echo ""
 	# elif [ "$2" == "vb" ] ; then
 	# 	user="user"
 	# 	pass="user"
