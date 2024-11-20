@@ -106,7 +106,7 @@ if [ "$1" = "aic" ] ; then
 		# all file in folder
 		wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$local_dir" --no-parent --cut-dirs=3
 
-		vision_box_DualCam &		
+		gdb vision_box_DualCam 		
 
 	elif [ "$2" = "stress" ] ; then
 		if [ "$3" = "-fw" ] ; then
