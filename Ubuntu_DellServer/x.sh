@@ -131,7 +131,10 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "ftp" ] ; then
 		echo "========== update files to FTP =========="
 		dir_ftp="/mnt/disk2/FTP/Public/gray/"
-		dir_work="$PROJ_ROOT/build/tmp/work/genio_700_evk-poky-linux/primax/1.0-r0"
+
+		targetPlatform="armv8a-poky-linux"
+		# targetPlatform="genio_700_evk-poky-linux"
+		dir_work="$PROJ_ROOT/build/tmp/work/$targetPlatform/primax/1.0-r0"
 		cp -f $dir_work/temp/log.do_compile $dir_ftp
 		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam $dir_ftp
 
@@ -139,8 +142,8 @@ if [ "$1" = "aic" ] ; then
 		# cp -f $dir_image/fitImage $dir_ftp
 		# cp -f $dir_image/modules-genio-700-evk.tgz $dir_ftp
 
-		dir_ko="$PROJ_ROOT/build/tmp/work/genio_700_evk-poky-linux/st-tof-module/1.0-r0/image/lib/modules"
-		cp -f $dir_ko/st_tof_module.ko $dir_ftp
+		# dir_ko="$PROJ_ROOT/build/tmp/work/genio_700_evk-poky-linux/st-tof-module/1.0-r0/image/lib/modules"
+		# cp -f $dir_ko/st_tof_module.ko $dir_ftp
 
 
 	else
