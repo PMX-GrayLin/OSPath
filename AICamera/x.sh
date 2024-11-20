@@ -95,10 +95,10 @@ if [ "$1" = "aic" ] ; then
 
 		pkill vision_box
 		rm vision_box_DualCam*
-		rm *.ko*
-
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/vision_box_DualCam
 		chmod 777 vision_box_DualCam
+
+		rm *.ko*
 		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/st_tof_module.ko
 		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor_v24.ko
 		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/ai.tar.gz
