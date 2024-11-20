@@ -58,8 +58,11 @@ if [ "$1" = "bb" ] ; then
 		
 	elif [ "$2" = "b" ] ; then
 		echo "build recipe... $3"
-		# bitbake -D $3
 		bitbake $3
+
+	elif [ "$2" = "cp" ] ; then
+		echo "do_compile recipe... $3"
+		bitbake $3 -c compile -f
 
 	elif [ "$2" = "i" ] ; then
 		echo "check recipe info... $3"
