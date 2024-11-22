@@ -446,44 +446,6 @@ if [ "$1" = "ftp" ] ; then
 		echo "ex : sudo setfacl -Rdm g:SAC_EE:rwx DirName/"
 		echo "sudo setfacl -Rdm g:$4:rwx $3"
 		sudo setfacl -Rdm g:$4:rwx $3
-	elif [ "$2" = "user+" ] ; then
-		if [ -n "$3" ] ; then
-			if [ "$4" = "sidee" ] ; then
-				# SAC EE team group
-				sudo useradd  -m $3 -g "SAC_EE" -s /bin/bash
-			elif [ "$4" = "sidme" ] ; then
-				# SAC ME team group
-				sudo useradd  -m $3 -g "SAC_ME" -s /bin/bash
-			elif [ "$4" = "all" ] ; then
-				# all ftp available group
-				sudo useradd  -m $3 -G "SAC_EE,SAC_ME,SAC_SW,docker" -s /bin/bash
-			elif [ "$4" = "sidsw" ] ; then
-				# SAC SW team group for default
-				sudo useradd  -m $3 -g "SAC_SW" -s /bin/bash
-				sudo usermod -aG docker $3
-			else
-				# CCPSW team group for default
-				sudo useradd -m $3 -g "CCP" -s /bin/bash
-				sudo usermod -aG docker $3
-
-				# make a yocto build dir & user link
-				sudo mkdir /mnt/disk2/yocto_build_folder/$3
-				sudo chown $3:CCP /mnt/disk2/yocto_build_folder/$3
-				cd /home/$3
-				sudo ln -s /mnt/disk2/yocto_build_folder/$3 yocto_build_folder
-				sudo chown $3:CCP yocto_build_folder
-			fi
-			echo "$3:$3" | sudo chpasswd
-			sudo chage -d 0 $3
-			sudo chage -l $3 | head -n 3
-		else
-			echo "param 3 needed"
-		fi
-	elif [ "$2" = "user-" ] ; then
-		sudo userdel -r $3
-		sudo rm -r /mnt/disk2/yocto_build_folder/$3
-elif [ "$2" = "user+g" ] ; then
-		sudo usermod -aG $3 $4
 	elif [ "$2" = "config" ] ; then
 		code /etc/vsftpd.conf
 	else
@@ -514,7 +476,6 @@ if [ "$1" = "user" ] ; then
 		fi
 	elif [ "$2" = "-" ] ; then
 		sudo userdel -r $3
-		#sudo rm -r /mnt/disk2/yocto_build_folder/$3
 
 	elif [ "$2" = "+g" ] ; then
 		sudo usermod -aG $3 $4
