@@ -118,6 +118,12 @@ if [ "$1" = "aic" ] ; then
 			docker logs -tf aicamerag2
 		fi
 
+	elif [ "$2" = "tcus" ] ; then
+		echo "========== update yocto primax src =========="
+		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
+		git reset --hard HEAD
+		git pull
+
 	elif [ "$2" = "us" ] ; then
 		echo "========== update yocto primax src =========="
 		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/vision_box_DualCam

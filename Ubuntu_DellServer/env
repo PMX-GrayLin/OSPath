@@ -65,4 +65,5 @@ alias yt='x yt'
 alias aic='x aic'
 alias aicb='x aic us && x bb b primax'
 alias aicoc='x aic us && x bb oc primax'
+alias tcb='x aic tcus && x bb b primax'      # test code build
 
