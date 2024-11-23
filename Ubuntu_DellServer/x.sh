@@ -140,9 +140,12 @@ if [ "$1" = "aic" ] ; then
 
 		targetPlatform="armv8a-poky-linux"
 		# targetPlatform="genio_700_evk-poky-linux"
+
 		dir_work="$PROJ_ROOT/build/tmp/work/$targetPlatform/primax/1.0-r0"
 		cp -f $dir_work/temp/log.do_compile $dir_ftp
 		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam $dir_ftp
+
+		cp -f $dir_work/primax-1.0/src/Test_C_yocto/Test_C_yocto $dir_ftp
 
 		# dir_image="$PROJ_ROOT/build/tmp//deploy/images/genio-700-evk"
 		# cp -f $dir_image/fitImage $dir_ftp
