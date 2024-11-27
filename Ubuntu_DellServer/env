@@ -58,12 +58,13 @@ alias env_mtk='env1 && env2 && env3'
 alias spe='spp && env_mtk'                                                  # set project env
 alias ytb='DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image'
 
-# git 
-alias gx='cd ~ && rm -r OSPath && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \; && cd ~'
-
 alias yt='x yt'
 alias aic='x aic'
 alias aicb='x aic us && x bb b primax'
 alias aicoc='x aic us && x bb oc primax'
 alias tcb='x aic tcus && x bb b primax'      # test code build
 
+# git 
+alias gx='cd ~ && rm -r OSPath && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \; && cd ~'
+alias gytt='git clone git@github.com:PMX-GrayLin/Test_C_yocto.git'
+alias gytvb='git clone git@github.com:PMX-GrayLin/vision_box_DualCam.git'
