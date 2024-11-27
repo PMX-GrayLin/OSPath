@@ -61,8 +61,8 @@ alias ytb='DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image'
 alias yt='x yt'
 alias aic='x aic'
 alias aicb='x aic us && x bb b primax'
+alias aictb='x aic tcus && x bb b primax'      # test code build
 alias aicoc='x aic us && x bb oc primax'
-alias tcb='x aic tcus && x bb b primax'      # test code build
 
 # git 
 alias gx='cd ~ && rm -r OSPath && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \; && cd ~'
