@@ -67,6 +67,10 @@ if [ "$1" = "aic" ] ; then
 			echo "tof sensor..."
 			echo "i2cdetect -r -y 1"
 			i2cdetect -r -y 1
+		
+		elif [ "$3" = "cam" ] ; then
+			echo "camera..."
+			v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3
 		fi
 
 	elif [ "$2" = "us" ] ; then
