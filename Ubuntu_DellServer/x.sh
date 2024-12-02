@@ -61,8 +61,9 @@ if [ "$1" = "bb" ] ; then
 		bitbake $3
 
 	elif [ "$2" = "oc" ] ; then
-		echo "only compile recipe... $3, bitbake $3 -c compile -f"
-		bitbake $3 -c compile -f
+		echo "only compile recipe... $3, bitbake $3 -c compile"
+		# bitbake $3 -c compile -f
+		bitbake $3 -c compile
 
 	elif [ "$2" = "i" ] ; then
 		echo "check recipe info... $3"
@@ -121,13 +122,13 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "tcus" ] ; then
 		echo "========== update yocto primax src =========="
 		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
-		git reset --hard HEAD
+		# git reset --hard HEAD
 		git pull
 
 	elif [ "$2" = "us" ] ; then
 		echo "========== update yocto primax src =========="
 		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/vision_box_DualCam
-		git reset --hard HEAD
+		# git reset --hard HEAD
 		git pull
 
 		# cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
