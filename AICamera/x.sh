@@ -48,8 +48,8 @@ if [ "$1" = "aic" ] ; then
 
 	elif [ "$2" = "ck" ] ; then
 		echo "check feature..."
-		echo "i2cdetect -l"
-		i2cdetect -l
+		# echo "i2cdetect -l"
+		# i2cdetect -l
 		if [ "$3" = "dp" ] ; then
 			echo "display port..."
 			echo "i2cdetect -r -y 0"
