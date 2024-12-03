@@ -1,4 +1,4 @@
-xDir=~/"OSPath/Ubuntu"
+xDir=~/"OSPath/AICamera"
 
 # docker
 dockderDir=~/"Docker"
