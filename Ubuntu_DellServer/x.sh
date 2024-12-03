@@ -62,7 +62,6 @@ if [ "$1" = "bb" ] ; then
 
 	elif [ "$2" = "oc" ] ; then
 		echo "only compile recipe... $3, bitbake $3 -c compile"
-		# bitbake $3 -c compile -f
 		bitbake $3 -c compile
 
 	elif [ "$2" = "i" ] ; then
