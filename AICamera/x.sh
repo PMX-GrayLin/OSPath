@@ -74,6 +74,7 @@ if [ "$1" = "aic" ] ; then
 			declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
 			echo "VIDEO_DEV[0]:${VIDEO_DEV[0]}"
 			v4l2-ctl --device=${VIDEO_DEV[0]} --list-formats
+			v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV
 		fi
 
 	elif [ "$2" = "us" ] ; then
@@ -88,7 +89,7 @@ if [ "$1" = "aic" ] ; then
 		pkill vision_box
 		vision_box_DualCam &
 
-	elif [ "$2" = "clean" ] ; then
+	elif [ "$2" = "c" ] ; then
 		echo "clean..."
 		cd ~/primax
 		rm frame_*
