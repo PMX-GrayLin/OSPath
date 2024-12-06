@@ -70,8 +70,8 @@ if [ "$1" = "aic" ] ; then
 		
 		elif [ "$3" = "cam" ] ; then
 			echo "camera..."
-			declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
 			# v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3
+			declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
 			echo "VIDEO_DEV[0]:${VIDEO_DEV[0]}"
 			v4l2-ctl --device=${VIDEO_DEV[0]} --list-formats
 		fi
@@ -83,10 +83,22 @@ if [ "$1" = "aic" ] ; then
 		git pull
 
 	elif [ "$2" = "r" ] ; then
-		echo "Run..."
+		echo "run..."
 		cd ~/primax
 		pkill vision_box
 		vision_box_DualCam &
+
+	elif [ "$2" = "clean" ] ; then
+		echo "clean..."
+		cd ~/primax
+		rm frame_*
+
+	elif [ "$2" = "rs" ] ; then
+		echo "restart..."
+		if [ "$3" = "mtx" ] ; then
+			pkill mediamtx
+			mediamtx /etc/mediamtx/mediamtx.yml 
+		fi
 
 	elif [ "$2" = "ftp" ] ; then
 		echo "update files from ftp..."
