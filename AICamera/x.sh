@@ -73,7 +73,9 @@ if [ "$1" = "aic" ] ; then
 			# v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3
 			declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
 			echo "VIDEO_DEV[0]:${VIDEO_DEV[0]}"
+			echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-formats"
 			v4l2-ctl --device=${VIDEO_DEV[0]} --list-formats
+			echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV"
 			v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV
 		fi
 
