@@ -202,7 +202,7 @@ if [ "$1" = "yt" ] ; then
 			fi
 		elif [ "$3" = "all" ] ; then
 			echo "===== genio-flash $dtbos_ai $dtbos_codec $dtbos_cam $dtbos_dp ====="
-			genio-flash "$dtbos_ai $dtbos_codec $dtbos_cam $dtbos_dp"
+			genio-flash $dtbos_ai $dtbos_codec $dtbos_cam $dtbos_dp
 		else
 			echo "===== genio-flash ====="
 			genio-flash
