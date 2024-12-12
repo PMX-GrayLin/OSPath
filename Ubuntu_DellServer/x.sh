@@ -183,6 +183,8 @@ if [ "$1" = "yt" ] ; then
 
 		dtbos_ai="--load-dtbo gpu-mali.dtbo --load-dtbo apusys.dtbo"
 		dtbos_codec="--load-dtbo video.dtbo"
+		dtbos_cam="--load-dtbo camera-imx214-csi0.dtbo"
+		dtbos_dp="--load-dtbo display-dp.dtbo"		
 
 		if [ "$3" = "cam" ] ; then
 			echo "===== genio-flash --load-dtbo camera-imx214-csi0.dtbo ====="
@@ -198,6 +200,9 @@ if [ "$1" = "yt" ] ; then
 				echo "genio-flash kernel..."
 				genio-flash kernel
 			fi
+		elif [ "$3" = "all" ] ; then
+			echo "===== genio-flash $dtbos_ai $dtbos_codec $dtbos_cam $dtbos_dp ====="
+			genio-flash "$dtbos_ai $dtbos_codec $dtbos_cam $dtbos_dp"
 		else
 			echo "===== genio-flash ====="
 			genio-flash
