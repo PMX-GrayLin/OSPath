@@ -187,11 +187,11 @@ if [ "$1" = "yt" ] ; then
 		dtbos_dp="--load-dtbo display-dp.dtbo"		
 
 		if [ "$3" = "cam" ] ; then
-			echo "===== genio-flash --load-dtbo camera-imx214-csi0.dtbo ====="
-			genio-flash --load-dtbo camera-imx214-csi0.dtbo
+			echo "===== genio-flash $dtbos_cam ====="
+			genio-flash $dtbos_cam
 		elif [ "$3" = "dp" ] ; then
-			echo "===== genio-flash --load-dtbo display-dp.dtbo ====="
-			genio-flash --load-dtbo display-dp.dtbo
+			echo "===== genio-flash $dtbos_dp ====="
+			genio-flash $dtbos_dp
 		elif [ "$3" = "k" ] ; then
 			if [ "$4" = "dp" ] ; then
 				echo "genio-flash --load-dtbo display-dp.dtbo kernel mmc0boot1..."
