@@ -77,6 +77,11 @@ if [ "$1" = "aic" ] ; then
 			v4l2-ctl --device=${VIDEO_DEV[0]} --list-formats
 			echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV"
 			v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV
+
+		else
+			echo "check fw status..."
+			ps aux | grep vision_box_DualCam
+			ps aux | grep mediamtx
 		fi
 
 	elif [ "$2" = "us" ] ; then
