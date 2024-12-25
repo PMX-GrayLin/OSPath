@@ -110,7 +110,7 @@ if [ "$1" = "aic" ] ; then
 		elif [ "$3" = "all" ] ; then
 			pkill mediamtx
 			mediamtx /etc/mediamtx/mediamtx.yml&
-			pkill vision_box_DualCam
+			pkill vision_box
 			vision_box_DualCam &
 		fi
 
