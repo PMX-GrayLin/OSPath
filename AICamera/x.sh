@@ -102,11 +102,15 @@ if [ "$1" = "aic" ] ; then
 		rm frame_*
 
 	elif [ "$2" = "rs" ] ; then
-		echo "restart..."
+		echo "restart $3..."
 		if [ "$3" = "mtx" ] ; then
 			pkill mediamtx
 			mediamtx /etc/mediamtx/mediamtx.yml&
 		
+		elif [ "$3" = "fw" ] ; then
+			pkill vision_box
+			vision_box_DualCam &
+
 		elif [ "$3" = "all" ] ; then
 			pkill mediamtx
 			mediamtx /etc/mediamtx/mediamtx.yml&
@@ -234,26 +238,30 @@ if [ "$1" = "g1" ] ; then
 	fi
 fi
 
-if [ "$1" = "eth" ] ; then
+if [ "$1" = "eth0" ] ; then
 	# connectionName="Wired connection 1"
 	connectionName="usb0"
 	if [ "$2" = "static" ] ; then
-		lanSection="192.168.1"
-		ipAddr="192.168.1.$3"
-		echo "set static ip ro $ipAddr ..."
-		nmcli connection modify "$connectionName" ipv4.addresses $ipAddr/24 ipv4.gateway $lanSection.1 ipv4.dns 8.8.8.8 ipv4.method manual
-		nmcli connection down "$connectionName"
-		nmcli connection up "$connectionName"
+		# lanSection="192.168.1"
+		# ipAddr="192.168.1.$3"
+		# echo "set static ip ro $ipAddr ..."
+		# nmcli connection modify "$connectionName" ipv4.addresses $ipAddr/24 ipv4.gateway $lanSection.1 ipv4.dns 8.8.8.8 ipv4.method manual
+		# nmcli connection down "$connectionName"
+		# nmcli connection up "$connectionName"
+
+		echo -e "[Network]\nAddress=192.168.1.234/24\nGateway=192.168.1.1\nDNS=8.8.8.8" | tee -a /etc/systemd/network/00-eth0.network
 
 	elif [ "$2" = "dynamic" ] ; then
 		echo "set dhcp..."
-		nmcli connection modify "$connectionName" ipv4.method auto
-		nmcli connection down "$connectionName"
-		nmcli connection up "$connectionName"
+		sed -i '/^\[Network\]/,/^$/d' /etc/systemd/network/00-eth0.network
+		# nmcli connection modify "$connectionName" ipv4.method auto
+		# nmcli connection down "$connectionName"
+		# nmcli connection up "$connectionName"
 	
 	elif [ "$2" = "e" ] ; then
-		echo "nano /etc/NetworkManager/system-connections/"$connectionName".nmconnection"
-		nano /etc/NetworkManager/system-connections/"$connectionName".nmconnection
+		echo "nano /etc/systemd/network/00-eth0.network"
+		# nano /etc/NetworkManager/system-connections/"$connectionName".nmconnection
+		nano /etc/systemd/network/00-eth0.network		
 
 	elif [ "$2" = "mac" ] ; then
 		echo "set MAC address from misc/mac_address"
@@ -262,13 +270,15 @@ if [ "$1" = "eth" ] ; then
 		# echo "MAC Address:$mac_address"
 		# nmcli connection modify "$connectionName" ethernet.cloned-mac-address "$mac_address"
 
-		ifdown eth0 && ifconfig eth0 hw ether ab:d3:fe:24:d1:4b && ifup eth0
+		# ifdown eth0 && ifconfig eth0 hw ether ab:d3:fe:24:d1:4b && ifup eth0
 
 		# nmcli connection modify eth0 ethernet.cloned-mac-address ab:d3:fe:24:d1:4b
 
 	else
-		echo "cat /etc/NetworkManager/system-connections/"$connectionName".nmconnection"
-		cat /etc/NetworkManager/system-connections/"$connectionName".nmconnection
+		# echo "cat /etc/NetworkManager/system-connections/"$connectionName".nmconnection"
+		# cat /etc/NetworkManager/system-connections/"$connectionName".nmconnection
+
+		cat /etc/systemd/network/00-eth0.network
 	fi
 fi
 
