@@ -106,6 +106,12 @@ if [ "$1" = "aic" ] ; then
 		if [ "$3" = "mtx" ] ; then
 			pkill mediamtx
 			mediamtx /etc/mediamtx/mediamtx.yml&
+		
+		elif [ "$3" = "all" ] ; then
+			pkill mediamtx
+			mediamtx /etc/mediamtx/mediamtx.yml&
+			pkill vision_box_DualCam
+			vision_box_DualCam &
 		fi
 
 	elif [ "$2" = "gst" ] ; then
