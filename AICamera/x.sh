@@ -274,6 +274,10 @@ if [ "$1" = "eth0" ] ; then
 
 		# nmcli connection modify eth0 ethernet.cloned-mac-address ab:d3:fe:24:d1:4b
 
+	elif [ "$2" = "r" ] ; then
+		echo "systemctl restart systemd-networkd"
+		systemctl restart systemd-networkd
+
 	else
 		# echo "cat /etc/NetworkManager/system-connections/"$connectionName".nmconnection"
 		# cat /etc/NetworkManager/system-connections/"$connectionName".nmconnection
