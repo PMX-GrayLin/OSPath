@@ -277,7 +277,9 @@ if [ "$1" = "eth0" ] ; then
 	else
 		# echo "cat /etc/NetworkManager/system-connections/"$connectionName".nmconnection"
 		# cat /etc/NetworkManager/system-connections/"$connectionName".nmconnection
-
+		echo "ip addr show eth0 >>>>"
+		ip addr show eth0
+		echo "cat /etc/systemd/network/00-eth0.network >>>>"
 		cat /etc/systemd/network/00-eth0.network
 	fi
 fi
