@@ -48,8 +48,6 @@ if [ "$1" = "aic" ] ; then
 
 	elif [ "$2" = "ck" ] ; then
 		echo "check feature..."
-		# echo "i2cdetect -l"
-		# i2cdetect -l
 		if [ "$3" = "dp" ] ; then
 			echo "display port..."
 			echo "i2cdetect -r -y 0"
@@ -77,6 +75,15 @@ if [ "$1" = "aic" ] ; then
 			v4l2-ctl --device=${VIDEO_DEV[0]} --list-formats
 			echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV"
 			v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV
+
+		elif [ "$3" = "net" ] ; then
+			echo "net..."
+			echo "systemctl status systemd-networkd >>>>"
+			systemctl status systemd-networkd
+			echo "systemctl status NetworkManager >>>>"
+			systemctl status NetworkManager
+			echo "ip addr show eth0 >>>>"
+			ip addr show eth0
 
 		else
 			echo "check fw status..."
