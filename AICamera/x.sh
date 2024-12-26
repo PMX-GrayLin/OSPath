@@ -249,7 +249,7 @@ if [ "$1" = "eth0" ] ; then
 			echo "set static IP to $lan.$ip_last_num"
 			echo -e "[Network]\nAddress=$lan.$ip_last_num/24\nGateway=$lan.1\nDNS=8.8.8.8" | tee -a /etc/systemd/network/00-eth0.network
 
-		elif [ "$2" = "lan1" ] ; then
+		else
 			lan="192.168.1"
 			echo "set static IP to $lan.$ip_last_num"
 			echo -e "[Network]\nAddress=$lan.$ip_last_num/24\nGateway=$lan.1\nDNS=8.8.8.8" | tee -a /etc/systemd/network/00-eth0.network
