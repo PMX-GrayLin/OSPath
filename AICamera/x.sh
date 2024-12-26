@@ -238,49 +238,43 @@ if [ "$1" = "g1" ] ; then
 	fi
 fi
 
+# use systemd-networkd
+# not use NetworkManager
 if [ "$1" = "eth0" ] ; then
-	# connectionName="Wired connection 1"
-	connectionName="usb0"
 	if [ "$2" = "static" ] ; then
-		# lanSection="192.168.1"
-		# ipAddr="192.168.1.$3"
-		# echo "set static ip ro $ipAddr ..."
-		# nmcli connection modify "$connectionName" ipv4.addresses $ipAddr/24 ipv4.gateway $lanSection.1 ipv4.dns 8.8.8.8 ipv4.method manual
-		# nmcli connection down "$connectionName"
-		# nmcli connection up "$connectionName"
+		ip_last_num=99
 
-		echo -e "[Network]\nAddress=192.168.1.234/24\nGateway=192.168.1.1\nDNS=8.8.8.8" | tee -a /etc/systemd/network/00-eth0.network
+		if [ "$3" = "lan0" ] ; then
+			lan="192.168.0"
+			echo "set static IP to $lan.$ip_last_num"
+			echo -e "[Network]\nAddress=$lan.$ip_last_num/24\nGateway=$lan.1\nDNS=8.8.8.8" | tee -a /etc/systemd/network/00-eth0.network
+
+		elif [ "$2" = "lan1" ] ; then
+			lan="192.168.1"
+			echo "set static IP to $lan.$ip_last_num"
+			echo -e "[Network]\nAddress=$lan.$ip_last_num/24\nGateway=$lan.1\nDNS=8.8.8.8" | tee -a /etc/systemd/network/00-eth0.network
+		fi
 
 	elif [ "$2" = "dynamic" ] ; then
-		echo "set dhcp..."
+		echo "set IP dhcp..."
 		sed -i '/^\[Network\]/,/^$/d' /etc/systemd/network/00-eth0.network
-		# nmcli connection modify "$connectionName" ipv4.method auto
-		# nmcli connection down "$connectionName"
-		# nmcli connection up "$connectionName"
 	
 	elif [ "$2" = "e" ] ; then
 		echo "nano /etc/systemd/network/00-eth0.network"
-		# nano /etc/NetworkManager/system-connections/"$connectionName".nmconnection
-		nano /etc/systemd/network/00-eth0.network		
+		nano /etc/systemd/network/00-eth0.network	
+
+	elif [ "$2" = "c" ] ; then
+		echo "ip addr flush dev eth0"
+		ip addr flush dev eth0	
 
 	elif [ "$2" = "mac" ] ; then
 		echo "set MAC address from misc/mac_address"
-		# mac_address=$(ip link show usb0 | grep ether | awk '{print $2}')
-		# mac_address=$(cat /home/root/primax/misc/mac_address)
-		# echo "MAC Address:$mac_address"
-		# nmcli connection modify "$connectionName" ethernet.cloned-mac-address "$mac_address"
-
-		# ifdown eth0 && ifconfig eth0 hw ether ab:d3:fe:24:d1:4b && ifup eth0
-
-		# nmcli connection modify eth0 ethernet.cloned-mac-address ab:d3:fe:24:d1:4b
 
 	elif [ "$2" = "r" ] ; then
 		echo "systemctl restart systemd-networkd"
 		systemctl restart systemd-networkd
 
 	else
-		# echo "cat /etc/NetworkManager/system-connections/"$connectionName".nmconnection"
-		# cat /etc/NetworkManager/system-connections/"$connectionName".nmconnection
 		echo "ip addr show eth0 >>>>"
 		ip addr show eth0
 		echo "cat /etc/systemd/network/00-eth0.network >>>>"
