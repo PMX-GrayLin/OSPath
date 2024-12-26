@@ -248,15 +248,14 @@ if [ "$1" = "eth0" ] ; then
 			lan="192.168.0"
 			echo "set static IP to $lan.$ip_last_num"
 			echo -e "[Network]\nAddress=$lan.$ip_last_num/24\nGateway=$lan.1\nDNS=8.8.8.8" | tee -a /etc/systemd/network/00-eth0.network
-
 		else
 			lan="192.168.1"
 			echo "set static IP to $lan.$ip_last_num"
 			echo -e "[Network]\nAddress=$lan.$ip_last_num/24\nGateway=$lan.1\nDNS=8.8.8.8" | tee -a /etc/systemd/network/00-eth0.network
 		fi
 
-	elif [ "$2" = "dynamic" ] ; then
-		echo "set IP dhcp..."
+	elif [ "$2" = "dhcp" ] ; then
+		echo "reset to dhcp..."
 		sed -i '/^\[Network\]/,/^$/d' /etc/systemd/network/00-eth0.network
 	
 	elif [ "$2" = "e" ] ; then
@@ -266,9 +265,6 @@ if [ "$1" = "eth0" ] ; then
 	elif [ "$2" = "c" ] ; then
 		echo "ip addr flush dev eth0"
 		ip addr flush dev eth0	
-
-	elif [ "$2" = "mac" ] ; then
-		echo "set MAC address from misc/mac_address"
 
 	elif [ "$2" = "r" ] ; then
 		echo "systemctl restart systemd-networkd"
