@@ -75,6 +75,8 @@ if [ "$1" = "aic" ] ; then
 			v4l2-ctl --device=${VIDEO_DEV[0]} --list-formats
 			echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV"
 			v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV
+			echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-ctrls"
+			v4l2-ctl --device=${VIDEO_DEV[0]} --list-ctrls
 
 		elif [ "$3" = "net" ] ; then
 			echo "net..."

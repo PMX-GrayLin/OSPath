@@ -26,7 +26,7 @@ wheeltec_ip="192.168.1.196"
 
 # VisionBox
 VisionBox_ip="192.168.1.13"
-AICamera_ip="192.168.1.67"
+AICamera_ip="192.168.1.65"
 DellServer_ip="10.1.13.207"
 
 # nfs
@@ -108,12 +108,13 @@ if [ "$1" == "scp" ] ; then
 		# pass="primax1234"
 		user="root"
 		pass=""
-		remoteFolder="~/primax"
+		remoteFolder="/"
 		# remoteFolder="~/primax/apps"
 		if [ "$3" == "up" ] ; then
 			sshpass -p $pass scp ./$4 $user@$AICamera_ip:$remoteFolder/$5
 		elif [ "$3" == "down" ] ; then
-			sshpass -p $pass scp $user@$AICamera_ip:$remoteFolder/$4 .
+			# sshpass -p $pass scp $user@$AICamera_ip:$remoteFolder/$4 .
+			sshpass scp $user@$AICamera_ip:$remoteFolder/$4 .
 		fi
 	fi
 fi
