@@ -92,7 +92,7 @@ if [ "$1" = "aic" ] ; then
 			ls /dev/i2c-*
 			echo "i2cdetect -r -y 0"
 			i2cdetect -r -y 0
-			echo "i2cdetect -r -y 2"
+			echo "i2cdetect -r -y 1"
 			i2cdetect -r -y 1
 			echo "i2cdetect -r -y 2"
 			i2cdetect -r -y 2
