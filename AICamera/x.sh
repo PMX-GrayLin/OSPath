@@ -87,6 +87,24 @@ if [ "$1" = "aic" ] ; then
 			echo "ip addr show eth0 >>>>"
 			ip addr show eth0
 
+		elif [ "$3" = "i2c" ] ; then
+			echo "ls /dev/i2c-*"
+			ls /dev/i2c-*
+			echo "i2cdetect -r -y 0"
+			i2cdetect -r -y 0
+			echo "i2cdetect -r -y 2"
+			i2cdetect -r -y 1
+			echo "i2cdetect -r -y 2"
+			i2cdetect -r -y 2
+			echo "i2cdetect -r -y 3"
+			i2cdetect -r -y 3
+			echo "i2cdetect -r -y 4"
+			i2cdetect -r -y 4
+			echo "i2cdetect -r -y 5"
+			i2cdetect -r -y 5
+			echo "i2cdetect -r -y 6"
+			i2cdetect -r -y 6
+			
 		else
 			echo "check fw status..."
 			ps aux | grep vision_box_DualCam

@@ -108,13 +108,13 @@ if [ "$1" == "scp" ] ; then
 		# pass="primax1234"
 		user="root"
 		pass=""
-		remoteFolder="/"
+		remoteFolder=""
 		# remoteFolder="~/primax/apps"
 		if [ "$3" == "up" ] ; then
 			sshpass -p $pass scp ./$4 $user@$AICamera_ip:$remoteFolder/$5
 		elif [ "$3" == "down" ] ; then
 			# sshpass -p $pass scp $user@$AICamera_ip:$remoteFolder/$4 .
-			sshpass scp $user@$AICamera_ip:$remoteFolder/$4 .
+			sshpass scp $user@$AICamera_ip:$remoteFolder$4 .
 		fi
 	fi
 fi
