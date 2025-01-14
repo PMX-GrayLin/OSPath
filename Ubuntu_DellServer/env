@@ -21,6 +21,8 @@ alias edts='nano $BUILD_DIR/workspace/sources/linux-mtk/arch/arm64/boot/dts/medi
 # dir
 alias dh='cd ~'                                                                                     # dir home
 alias d--='cd $OLDPWD'                                                                              # dir previous dir
+alias d-2='cd ../..'                                                                                # dir previous dir
+alias d-3='cd ../../..'                                                                             # dir previous dir
 alias dftp='cd /mnt/disk2/FTP'                                                                      # dir FTP
 
 # dir yocto related
