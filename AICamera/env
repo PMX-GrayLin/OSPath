@@ -10,6 +10,7 @@ alias aic='x aic'
 # edit
 alias ex="nano ~/OSPath/$InHost/x.sh"
 alias erc='nano ~/.bashrc'
+alias einit='nano ~/etc.init.d/primax.sh'
 
 # dir
 alias dh='cd ~'                             # dir home
