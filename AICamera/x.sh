@@ -81,6 +81,8 @@ if [ "$1" = "aic" ] ; then
 
 			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_automatic=0"
 			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_automatic=0
+			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_temperature=2700"
+			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_temperature=2700
 
 		elif [ "$3" = "net" ] ; then
 			echo "net..."
