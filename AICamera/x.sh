@@ -208,7 +208,6 @@ if [ "$1" = "aic" ] ; then
 			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl iso=100
 			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl hue=30"
 			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl hue=30
-
 		fi
 
 	elif [ "$2" = "ftp" ] ; then
