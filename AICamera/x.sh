@@ -79,6 +79,9 @@ if [ "$1" = "aic" ] ; then
 			echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-ctrls"
 			v4l2-ctl --device=${VIDEO_DEV[0]} --list-ctrls
 
+			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_automatic=0"
+			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_automatic=0
+
 		elif [ "$3" = "net" ] ; then
 			echo "net..."
 			echo "systemctl status systemd-networkd >>>>"
@@ -149,7 +152,8 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "gst" ] ; then
 		declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
 		printf "Preview Node\t= ${VIDEO_DEV[0]}\nVideo Node\t= ${VIDEO_DEV[1]}\nCapture Node\t= ${VIDEO_DEV[2]}\n"
-		gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=2048,height=1536 ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream
+		# gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=2048,height=1536 ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream
+		gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=1920,height=1080 ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream
 
 	elif [ "$2" = "ftp" ] ; then
 		echo "update files from ftp..."
