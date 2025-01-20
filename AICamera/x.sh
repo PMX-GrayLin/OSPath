@@ -68,7 +68,6 @@ if [ "$1" = "aic" ] ; then
 		
 		elif [ "$3" = "cam" ] ; then
 			echo "camera..."
-			# v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3
 			echo "declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d \"\n\"`)"
 			declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
 			echo "VIDEO_DEV[0]:${VIDEO_DEV[0]}"
@@ -85,6 +84,14 @@ if [ "$1" = "aic" ] ; then
 			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_temperature=4200
 			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl auto_exposure=1"
 			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl auto_exposure=1
+			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl exposure_time_absolute=21000000"
+			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl exposure_time_absolute=21000000
+			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl saturation=7"
+			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl saturation=7
+			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl contrast=5"
+			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl contrast=5
+			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl iso=200"
+			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl iso=200
 
 		elif [ "$3" = "net" ] ; then
 			echo "net..."
@@ -158,6 +165,26 @@ if [ "$1" = "aic" ] ; then
 		printf "Preview Node\t= ${VIDEO_DEV[0]}\nVideo Node\t= ${VIDEO_DEV[1]}\nCapture Node\t= ${VIDEO_DEV[2]}\n"
 		# gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=2048,height=1536 ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream
 		gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=1920,height=1080 ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream
+
+	elif [ "$2" = "cam" ] ; then
+		echo "set ioctls"
+
+		echo "declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d \"\n\"`)"
+		declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
+		echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_automatic=0"
+		v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_automatic=0
+		echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_temperature=2700"
+		v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_temperature=4200
+		echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl auto_exposure=1"
+		v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl auto_exposure=1
+		echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl exposure_time_absolute=21000000"
+		v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl exposure_time_absolute=21000000
+		echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl saturation=7"
+		v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl saturation=7
+		echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl contrast=5"
+		v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl contrast=5
+		echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl iso=200"
+		v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl iso=200
 
 	elif [ "$2" = "ftp" ] ; then
 		echo "update files from ftp..."
