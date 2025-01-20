@@ -183,8 +183,8 @@ if [ "$1" = "aic" ] ; then
 		v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl saturation=7
 		echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl contrast=5"
 		v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl contrast=5
-		echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl iso=200"
-		v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl iso=200
+		echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl iso=100"
+		v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl iso=100
 
 	elif [ "$2" = "ftp" ] ; then
 		echo "update files from ftp..."
