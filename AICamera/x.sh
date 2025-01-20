@@ -82,7 +82,9 @@ if [ "$1" = "aic" ] ; then
 			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_automatic=0"
 			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_automatic=0
 			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_temperature=2700"
-			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_temperature=2700
+			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_temperature=4200
+			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl auto_exposure=1"
+			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl auto_exposure=1
 
 		elif [ "$3" = "net" ] ; then
 			echo "net..."
