@@ -33,6 +33,7 @@ alias dpb='cd $PROJ_ROOT/build'                                                 
 alias dps='cd $PROJ_ROOT/src'                                                                       # dir project src path
 alias dpi='cd $BUILD_DIR/tmp/deploy/images/genio-700-evk'                                           # dir project build image path
 alias dppmx='cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax'                                   # dir project primax
+alias dppmxs='cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src'             # dir project primax src
 alias dptof='cd $PROJ_ROOT/src/meta-primax/recipes-tof/st-tof-module'                               # dir project tof
 alias dpmtx='cd $PROJ_ROOT/src/meta-primax/recipes-mediamtx/mediamtx'                               # dir project tof
 alias dpbbS='cd $BUILD_DIR/tmp/work/genio_700_evk-poky-linux/primax/1.0-r0/primax-1.0'              # dir project BB {S} path
@@ -69,5 +70,5 @@ alias aictb='x aic tcus && x bb oc primax'      # test code build
 
 # git 
 alias gx='cd ~ && rm -r OSPath && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \; && cd ~'
-alias gytt='git clone git@github.com:PMX-GrayLin/Test_C_yocto.git'
-alias gytvb='git clone git@github.com:PMX-GrayLin/vision_box_DualCam.git'
+alias gct='rm -r Test_C_yocto && git clone git@github.com:PMX-GrayLin/Test_C_yocto.git'
+alias gcv='rm -r vision_box_DualCam && git clone git@github.com:PMX-GrayLin/vision_box_DualCam.git'
