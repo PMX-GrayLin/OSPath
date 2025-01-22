@@ -70,5 +70,5 @@ alias aictb='x aic tcus && x bb oc primax'      # test code build
 
 # git 
 alias gx='cd ~ && rm -r OSPath && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \; && cd ~'
-alias gct='rm -r Test_C_yocto && git clone git@github.com:PMX-GrayLin/Test_C_yocto.git'
-alias gcv='rm -r vision_box_DualCam && git clone git@github.com:PMX-GrayLin/vision_box_DualCam.git'
+alias gct='sudo rm -r Test_C_yocto && git clone git@github.com:PMX-GrayLin/Test_C_yocto.git'
+alias gcv='sudo rm -r vision_box_DualCam && git clone git@github.com:PMX-GrayLin/vision_box_DualCam.git'
