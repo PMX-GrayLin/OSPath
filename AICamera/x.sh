@@ -121,6 +121,7 @@ if [ "$1" = "aic" ] ; then
 		echo "run..."
 		cd ~/primax
 		pkill vision_box
+		sleep 1
 		vision_box_DualCam &
 
 	elif [ "$2" = "c" ] ; then
@@ -132,16 +133,20 @@ if [ "$1" = "aic" ] ; then
 		echo "restart $3..."
 		if [ "$3" = "mtx" ] ; then
 			pkill mediamtx
+			sleep 1
 			mediamtx /etc/mediamtx/mediamtx.yml&
 		
 		elif [ "$3" = "fw" ] ; then
 			pkill vision_box
+			sleep 3
 			vision_box_DualCam &
 
 		elif [ "$3" = "all" ] ; then
 			pkill mediamtx
-			mediamtx /etc/mediamtx/mediamtx.yml&
 			pkill vision_box
+
+			sleep 3
+			mediamtx /etc/mediamtx/mediamtx.yml&
 			vision_box_DualCam &
 		fi
 

@@ -15,6 +15,8 @@ alias einit='nano /etc/init.d/primax.sh'
 # dir
 alias dh='cd ~'                             # dir home
 alias d--='cd $OLDPWD'                      # dir previous dir
+alias d-2='cd ../..'                                                                                
+alias d-3='cd ../../..'                                                                             
 alias dpmx='cd ~/primax'                    # dir primax
 alias dftp='cd ~/primax/10.1.13.207'        # dir ftp sync folder
 alias dnet='cd /etc/systemd/network'
