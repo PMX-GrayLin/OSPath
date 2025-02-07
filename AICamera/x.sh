@@ -359,16 +359,7 @@ fi
 
 # Test
 if [ "$1" = "tt" ] ; then
-	cd ~
-	
-	rd=$(($RANDOM % 2))
-	if [ $rd = 0 ] ; then
-		echo "0..."
-
-	elif [ $rd = 1 ] ; then
-		echo "1..."
-	fi
-
+	curl http://localhost:8765/temperatures
 fi
 
 # system related 
