@@ -358,7 +358,9 @@ if [ "$1" = "eth0" ] ; then
 fi
 
 # Test
-if [ "$1" = "tt" ] ; then
+if [ "$1" = "tt1" ] ; then
+	curl http://localhost:8765/temperature
+elif [ "$1" = "tt2" ] ; then
 	curl http://localhost:8765/temperatures
 fi
 
