@@ -68,15 +68,28 @@ if [ "$1" = "aic" ] ; then
 		
 		elif [ "$3" = "cam" ] ; then
 			echo "camera..."
-			echo "declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d \"\n\"`)"
-			declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
-			echo "VIDEO_DEV[0]:${VIDEO_DEV[0]}"
-			echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-formats"
-			v4l2-ctl --device=${VIDEO_DEV[0]} --list-formats
-			echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV"
-			v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV
-			echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-ctrls"
-			v4l2-ctl --device=${VIDEO_DEV[0]} --list-ctrls
+
+			if [ "$3" = "usb" ] ; then
+			    VIDEO_DEV=137
+				echo "v4l2-ctl --device=${VIDEO_DEV} --list-formats"
+				v4l2-ctl --device=${VIDEO_DEV} --list-formats
+				echo "v4l2-ctl --device=${VIDEO_DEV} --list-framesizes=YUYV"
+				v4l2-ctl --device=${VIDEO_DEV} --list-framesizes=YUYV
+				echo "v4l2-ctl --device=${VIDEO_DEV} --list-ctrls"
+				v4l2-ctl --device=${VIDEO_DEV} --list-ctrls
+			else
+				echo "declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d \"\n\"`)"
+				declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
+				echo "VIDEO_DEV[0]:${VIDEO_DEV[0]}"
+				echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-formats"
+				v4l2-ctl --device=${VIDEO_DEV[0]} --list-formats
+				echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV"
+				v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV
+				echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-ctrls"
+				v4l2-ctl --device=${VIDEO_DEV[0]} --list-ctrls
+			fi
+
+
 
 		elif [ "$3" = "net" ] ; then
 			echo "net..."
