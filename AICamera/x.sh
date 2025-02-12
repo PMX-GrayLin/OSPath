@@ -69,7 +69,7 @@ if [ "$1" = "aic" ] ; then
 		elif [ "$3" = "cam" ] ; then
 			echo "camera..."
 
-			if [ "$3" = "usb" ] ; then
+			if [ "$4" = "usb" ] ; then
 			    VIDEO_DEV=137
 				echo "v4l2-ctl --device=${VIDEO_DEV} --list-formats"
 				v4l2-ctl --device=${VIDEO_DEV} --list-formats
