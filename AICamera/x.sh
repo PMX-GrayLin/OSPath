@@ -73,8 +73,8 @@ if [ "$1" = "aic" ] ; then
 			    VIDEO_DEV=137
 				echo "v4l2-ctl --device=${VIDEO_DEV} --list-formats-ext"
 				v4l2-ctl --device=${VIDEO_DEV} --list-formats-ext
-				echo "v4l2-ctl --device=${VIDEO_DEV} --list-framesizes=YUYV"
-				v4l2-ctl --device=${VIDEO_DEV} --list-framesizes=YUYV
+				#echo "v4l2-ctl --device=${VIDEO_DEV} --list-framesizes=YUYV"
+				#v4l2-ctl --device=${VIDEO_DEV} --list-framesizes=YUYV
 				echo "v4l2-ctl --device=${VIDEO_DEV} --list-ctrls"
 				v4l2-ctl --device=${VIDEO_DEV} --list-ctrls
 			else
@@ -83,8 +83,8 @@ if [ "$1" = "aic" ] ; then
 				echo "VIDEO_DEV[0]:${VIDEO_DEV[0]}"
 				echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-formats-ext"
 				v4l2-ctl --device=${VIDEO_DEV[0]} --list-formats-ext
-				echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV"
-				v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV
+				#echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV"
+				#v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV
 				echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-ctrls"
 				v4l2-ctl --device=${VIDEO_DEV[0]} --list-ctrls
 			fi
