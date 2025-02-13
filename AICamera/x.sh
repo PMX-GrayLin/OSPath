@@ -120,6 +120,7 @@ if [ "$1" = "aic" ] ; then
 			echo "check fw status..."
 			ps aux | grep vision_box_DualCam
 			ps aux | grep mediamtx
+			ps aux | grep test
 		fi
 
 	elif [ "$2" = "us" ] ; then
@@ -381,6 +382,12 @@ if [ "$1" = "tt1" ] ; then
 elif [ "$1" = "tt2" ] ; then
 	echo "curl http://localhost:8765/temperatures"
 	curl http://localhost:8765/temperatures
+elif [ "$1" = "tt3" ] ; then
+	echo "curl http://localhost:8765/startReading"
+	curl http://localhost:8765/startReading
+elif [ "$1" = "tt4" ] ; then
+	echo "curl http://localhost:8765/stopReading"
+	curl http://localhost:8765/stopReading
 fi
 
 # system related 
