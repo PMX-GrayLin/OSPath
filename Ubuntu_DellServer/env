@@ -59,7 +59,7 @@ alias env1='export TEMPLATECONF=$PROJ_ROOT/src/meta-rity/meta/conf/'
 alias env2='source $PROJ_ROOT/src/poky/oe-init-build-env'
 alias env3='export BUILD_DIR=$PROJ_ROOT/build'
 alias env_mtk='env1 && env2 && env3'
-alias spe='spp && env_mtk'                                                  # set project env
+alias spe='git branch && git status && spp && env_mtk'                      # set project env
 alias ytb='DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image'
 
 alias yt='x yt'

@@ -89,8 +89,6 @@ if [ "$1" = "aic" ] ; then
 				v4l2-ctl --device=${VIDEO_DEV[0]} --list-ctrls
 			fi
 
-
-
 		elif [ "$3" = "net" ] ; then
 			echo "net..."
 			echo "systemctl status systemd-networkd >>>>"

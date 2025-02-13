@@ -26,7 +26,9 @@ wheeltec_ip="192.168.1.196"
 
 # VisionBox
 VisionBox_ip="192.168.1.13"
-AICamera_ip="192.168.1.66"
+# AICamera_ip="192.168.1.66"
+AICamera_ip="192.168.1.67"
+# AICamera_ip="192.168.1.204"
 DellServer_ip="10.1.13.207"
 
 # nfs
