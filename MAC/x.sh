@@ -24,12 +24,14 @@ currentDateTime=`date "+%m%d%H%M"`
 # wheeltec
 wheeltec_ip="192.168.1.196"
 
-# VisionBox
-VisionBox_ip="192.168.1.13"
-AICamera_ip="192.168.1.65"
+# ai camera
+
+AICamera_ip="192.168.1.153"
+# AICamera_ip="192.168.1.65"
 # AICamera_ip="192.168.1.66"
 # AICamera_ip="192.168.1.67"
 # AICamera_ip="192.168.1.204"
+
 DellServer_ip="10.1.13.207"
 
 # nfs
@@ -62,10 +64,6 @@ if [ "$1" == "ssh" ] ; then
 	elif [ "$2" == "pi" ] ; then
 		ssh pi@raspberrypi.local
 	
-	elif [ "$2" == "vb" ] ; then
-		echo "ssh -Y user@$VisionBox_ip"
-		ssh -Y user@$VisionBox_ip
-
 	elif [ "$2" == "aic" ] ; then
 		if [ "$3" == "r" ] ; then
 			echo "ssh-keygen -R $AICamera_ip"
@@ -94,9 +92,7 @@ fi
 # scp
 if [ "$1" == "scp" ] ; then
 	echo "copy files..."
-	if [ "$2" == "xx" ] ; then
-		echo ""
-	elif [ "$2" == "aic" ] ; then
+	if [ "$2" == "aic" ] ; then
 		# user="ubuntu"
 		# pass="primax1234"
 		user="root"
