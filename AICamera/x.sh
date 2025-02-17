@@ -388,6 +388,9 @@ elif [ "$1" = "tt3" ] ; then
 elif [ "$1" = "tt4" ] ; then
 	echo "curl http://localhost:8765/stopReading"
 	curl http://localhost:8765/stopReading
+elif [ "$1" = "vv1" ] ; then
+	echo "curl http://localhost:8765/test"
+	curl http://localhost:8765/test
 fi
 
 # system related 
