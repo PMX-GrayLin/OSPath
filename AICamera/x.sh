@@ -31,6 +31,7 @@ echo "param 3:"$3
 echo "param 4:"$4
 echo "param 5:"$5
 
+
 # AICamera 
 if [ "$1" = "aic" ] ; then
 	echo "AICamera command..."
@@ -83,10 +84,14 @@ if [ "$1" = "aic" ] ; then
 				echo "VIDEO_DEV[0]:${VIDEO_DEV[0]}"
 				echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-formats-ext"
 				v4l2-ctl --device=${VIDEO_DEV[0]} --list-formats-ext
-				#echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV"
-				#v4l2-ctl --device=${VIDEO_DEV[0]} --list-framesizes=YUYV
 				echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-ctrls"
 				v4l2-ctl --device=${VIDEO_DEV[0]} --list-ctrls
+
+				echo "udevadm info -a -p $(udevadm info -q path -n ${VIDEO_DEV[0]})"
+				udevadm info -a -p $(udevadm info -q path -n ${VIDEO_DEV[0]})
+				udevadm info -a -p $(udevadm info -q path -n ${VIDEO_DEV[1]})
+				udevadm info -a -p $(udevadm info -q path -n ${VIDEO_DEV[2]})
+
 			fi
 
 		elif [ "$3" = "net" ] ; then
@@ -389,8 +394,8 @@ elif [ "$1" = "tt4" ] ; then
 	echo "curl http://localhost:8765/stopReading"
 	curl http://localhost:8765/stopReading
 elif [ "$1" = "vv1" ] ; then
-	echo "curl http://localhost:8765/test"
-	curl http://localhost:8765/test
+	echo "curl http://localhost:9876/test/1"
+	curl http://localhost:9876/test/1
 fi
 
 # system related 
