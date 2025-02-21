@@ -78,7 +78,7 @@ if [ "$1" = "aic" ] ; then
 				echo "v4l2-ctl --device=${VIDEO_DEV} --list-ctrls"
 				v4l2-ctl --device=${VIDEO_DEV} --list-ctrls
 			else
-				echo "declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d \"\n\"`)"
+				echo "declare -a VIDEO_DEV=(\`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d \"\n\"\`)"
 				declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
 				echo "VIDEO_DEV[0]:${VIDEO_DEV[0]}"
 				echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-formats-ext"
