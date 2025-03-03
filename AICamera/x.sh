@@ -172,6 +172,14 @@ if [ "$1" = "aic" ] ; then
 		if [ "$3" = "usb" ] ; then
 			gst-launch-1.0 -e -v v4l2src device="/dev/video137" ! image/jpeg,width=2048,height=1536,framerate=30/1 ! jpegdec ! videoconvert ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream
 			# gst-launch-1.0 -e -v v4l2src device="/dev/video137" ! videoconvert ! video/x-raw,format=I420,width=640,height=480 ! rtspclientsink location=rtsp://localhost:8554/mystream
+
+		elif [ "$3" = "iq" ] ; then
+
+			declare -a video=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
+       		# gst-launch-1.0 v4l2src device=${video[0]} ! video/x-raw,width=1280,height=720,format=YUY2 ! waylandsink 2>&1 1>/dev/null &
+			gst-launch-1.0 v4l2src device=${video[0]} ! v4l2convert output-io-mode=dmabuf-import ! fpsdisplaysink video-sink=waylandsink sync=false
+			# gst-launch-1.0 v4l2src device=${video[0]} ! v4l2convert output-io-mode=dmabuf-import ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false
+
 		else
 			declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
 			printf "Preview Node\t= ${VIDEO_DEV[0]}\nVideo Node\t= ${VIDEO_DEV[1]}\nCapture Node\t= ${VIDEO_DEV[2]}\n"
