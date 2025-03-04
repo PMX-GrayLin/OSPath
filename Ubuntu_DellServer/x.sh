@@ -186,7 +186,7 @@ if [ "$1" = "yt" ] ; then
 		dtbos_dp="--load-dtbo display-dp.dtbo"		
 
 		if [ "$3" = "cam" ] ; then
-			echo "===== genio-flash $dtbos_cam ====="
+			echo "===== genio-flash $dtbos_cam $dtbos_codec ====="
 			genio-flash $dtbos_cam $dtbos_codec
 		elif [ "$3" = "dp" ] ; then
 			echo "===== genio-flash $dtbos_dp ====="
