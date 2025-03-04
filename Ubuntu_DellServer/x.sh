@@ -187,7 +187,7 @@ if [ "$1" = "yt" ] ; then
 
 		if [ "$3" = "cam" ] ; then
 			echo "===== genio-flash $dtbos_cam ====="
-			genio-flash $dtbos_cam
+			genio-flash $dtbos_cam $dtbos_codec
 		elif [ "$3" = "dp" ] ; then
 			echo "===== genio-flash $dtbos_dp ====="
 			genio-flash $dtbos_dp
