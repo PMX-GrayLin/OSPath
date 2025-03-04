@@ -402,8 +402,13 @@ elif [ "$1" = "tt4" ] ; then
 	echo "curl http://localhost:8765/stopReading"
 	curl http://localhost:8765/stopReading
 elif [ "$1" = "tv" ] ; then
-	echo "curl http://localhost:9876/test/$2"
-	curl http://localhost:9876/test/$2
+	if [ -z "$3" ] ; then
+		echo "curl http://localhost:9876/test/$2"
+		curl http://localhost:9876/test/$2
+	else
+		echo "curl http://localhost:9876/test/$2/$3"
+		curl http://localhost:9876/test/$2/$3
+	fi
 fi
 
 # system related 
