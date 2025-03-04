@@ -401,9 +401,9 @@ elif [ "$1" = "tt3" ] ; then
 elif [ "$1" = "tt4" ] ; then
 	echo "curl http://localhost:8765/stopReading"
 	curl http://localhost:8765/stopReading
-elif [ "$1" = "vv1" ] ; then
-	echo "curl http://localhost:9876/test/1"
-	curl http://localhost:9876/test/1
+elif [ "$1" = "tv" ] ; then
+	echo "curl http://localhost:9876/test/$2"
+	curl http://localhost:9876/test/$2
 fi
 
 # system related 

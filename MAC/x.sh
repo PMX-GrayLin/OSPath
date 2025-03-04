@@ -27,10 +27,12 @@ wheeltec_ip="192.168.1.196"
 # ai camera
 
 # AICamera_ip="192.168.1.153"
-# AICamera_ip="192.168.0.102"
-AICamera_ip="192.168.1.65"
-# AICamera_ip="192.168.1.66"
+# AICamera_ip="192.168.0.100"
+# AICamera_ip="192.168.1.137"
+# AICamera_ip="192.168.1.65"
+AICamera_ip="192.168.1.66"
 # AICamera_ip="192.168.1.67"
+# AICamera_ip="192.168.1.99"
 # AICamera_ip="192.168.1.204"
 
 DellServer_ip="10.1.13.207"
@@ -58,8 +60,9 @@ if [ "$1" == "ssh" ] ; then
 		## ctcfw/Primax1234
 		if [ "$3" != "" ] ; then
 			ssh $3@$DellServer_ip
-		else 
-			ssh gray.lin@$DellServer_ip
+		else
+			sshpass -p 'Zx03310331' ssh gray.lin@$DellServer_ip
+			# ssh gray.lin@$DellServer_ip
 		fi
 
 	elif [ "$2" == "pi" ] ; then
@@ -101,8 +104,9 @@ if [ "$1" == "scp" ] ; then
 		remoteFolder=""
 		# remoteFolder="~/primax/apps"
 		if [ "$3" == "up" ] ; then
-			echo "sudo sshpass scp $4 $user@$AICamera_ip:$remoteFolder/$5"
-			sshpass scp ./$4 $user@$AICamera_ip:$remoteFolder/$5
+			echo "scp ./$4 $user@$AICamera_ip:$remoteFolder$5"
+			scp ./$4 $user@$AICamera_ip:$remoteFolder$5
+			# sshpass scp ./$4 $user@$AICamera_ip:$remoteFolder/$5
 		elif [ "$3" == "down" ] ; then
 			sshpass scp $user@$AICamera_ip:$remoteFolder$4 .
 		fi
