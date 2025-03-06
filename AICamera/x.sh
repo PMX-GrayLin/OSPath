@@ -190,7 +190,6 @@ if [ "$1" = "aic" ] ; then
 
 		echo "declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d \"\n\"`)"
 		declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
-		v4l2-ctl -d ${VIDEO_DEV[0]} --list-ctrls
 		if [ "$3" = "reset" ] ; then
 			echo "reset ioctls..."
 			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_automatic=1"
@@ -229,6 +228,9 @@ if [ "$1" = "aic" ] ; then
 			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl hue=30"
 			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl hue=30
 		fi
+
+		sleep 1
+		v4l2-ctl -d ${VIDEO_DEV[0]} --list-ctrls
 
 	elif [ "$2" = "ftp" ] ; then
 		echo "update files from ftp..."
