@@ -196,40 +196,24 @@ if [ "$1" = "aic" ] ; then
 			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_automatic=1
 			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl auto_exposure=0"
 			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl auto_exposure=0
-			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl exposure=0"
-			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl exposure=0
 			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl saturation=0"
 			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl saturation=0
 			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl contrast=0"
 			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl contrast=0
-			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl iso=100"
-			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl iso=100
-			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl hue=0"
-			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl hue=0
 		
 		elif [ "$3" = "set" ] ; then
 			echo "set ioctls..."
 			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_automatic=0"
 			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_automatic=0
-			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_temperature=4200"
-			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl white_balance_temperature=4200
 			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl auto_exposure=1"
 			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl auto_exposure=1
-			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl exposure_time_absolute=21000000"
-			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl exposure_time_absolute=21000000
-			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl exposure=0"
-			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl exposure=0
 			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl saturation=7"
 			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl saturation=7
 			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl contrast=5"
 			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl contrast=5
-			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl iso=100"
-			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl iso=100
-			echo "v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl hue=30"
-			v4l2-ctl -d ${VIDEO_DEV[0]} --set-ctrl hue=30
 		fi
 
-		sleep 1
+		sleep 0.5
 		v4l2-ctl -d ${VIDEO_DEV[0]} --list-ctrls
 
 	elif [ "$2" = "ftp" ] ; then
