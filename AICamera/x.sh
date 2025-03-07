@@ -126,6 +126,7 @@ if [ "$1" = "aic" ] ; then
 			ps aux | grep vision_box_DualCam
 			ps aux | grep mediamtx
 			ps aux | grep test
+			ps aux | grep gst
 		fi
 
 	elif [ "$2" = "us" ] ; then
