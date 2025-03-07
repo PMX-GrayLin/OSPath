@@ -122,7 +122,7 @@ if [ "$1" = "aic" ] ; then
 			i2cdetect -r -y 6
 			
 		else
-			echo "check fw status..."
+			echo "check process..."
 			ps aux | grep vision_box_DualCam
 			ps aux | grep mediamtx
 			ps aux | grep test
@@ -134,13 +134,6 @@ if [ "$1" = "aic" ] ; then
 		cd ~/primax/apps/vision_box_DualCam
 		git reset --hard HEAD
 		git pull
-
-	elif [ "$2" = "r" ] ; then
-		echo "run..."
-		cd ~/primax
-		pkill vision_box
-		sleep 1
-		vision_box_DualCam &
 
 	elif [ "$2" = "c" ] ; then
 		echo "clean..."
@@ -216,6 +209,16 @@ if [ "$1" = "aic" ] ; then
 
 		sleep 0.5
 		v4l2-ctl -d ${VIDEO_DEV[0]} --list-ctrls
+
+	elif [ "$2" = "kill" ] ; then
+
+		if [ "$3" = "fw" ] ; then
+			pkill vision_box
+			pkill test
+
+		elif [ "$3" = "gst" ] ; then
+			pkill gst-launch-1.0
+		fi
 
 	elif [ "$2" = "ftp" ] ; then
 		echo "update files from ftp..."
