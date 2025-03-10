@@ -87,10 +87,10 @@ if [ "$1" = "aic" ] ; then
 				echo "v4l2-ctl --device=${VIDEO_DEV[0]} --list-ctrls"
 				v4l2-ctl --device=${VIDEO_DEV[0]} --list-ctrls
 
-				echo "udevadm info -a -p $(udevadm info -q path -n ${VIDEO_DEV[0]})"
-				udevadm info -a -p $(udevadm info -q path -n ${VIDEO_DEV[0]})
-				udevadm info -a -p $(udevadm info -q path -n ${VIDEO_DEV[1]})
-				udevadm info -a -p $(udevadm info -q path -n ${VIDEO_DEV[2]})
+				# echo "udevadm info -a -p $(udevadm info -q path -n ${VIDEO_DEV[0]})"
+				# udevadm info -a -p $(udevadm info -q path -n ${VIDEO_DEV[0]})
+				# udevadm info -a -p $(udevadm info -q path -n ${VIDEO_DEV[1]})
+				# udevadm info -a -p $(udevadm info -q path -n ${VIDEO_DEV[2]})
 
 			fi
 
