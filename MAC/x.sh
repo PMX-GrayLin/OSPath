@@ -901,7 +901,6 @@ if [ "$1" == "pj" ] ; then
 	fi
 	
 fi
-
 # tar
 if [ "$1" = "zip" ] ; then
 		echo ">>>> zip $2 to $3.tar.gz"
@@ -912,6 +911,11 @@ if [ "$1" = "unzip" ] ; then
 		tar -xzvf $2
 fi
 
+if [ "$1" == "ping" ] ; then
+	if [ "$2" == "aic" ] ; then
+		ping $AICamera_ip
+	fi
+fi
 
 # RB5
 if [ "$1" == "pi" ] ; then
