@@ -26,6 +26,8 @@ alias d--='cd $OLDPWD'                                                          
 alias d-2='cd ../..'                                                                                
 alias d-3='cd ../../..'                                                                             
 alias dftp='cd /mnt/disk2/FTP'                                                                      # dir FTP
+alias dg2='cd /home/gray.lin/C_AI-Camera-G2_FW_Yocto'                                               # dir AI G2
+alias dplus='cd /home/gray.lin/yocto_build_folder/gray/C_AI-Camera-G2_FW_Yocto'                     # dir AI CameraPlus
 
 # dir yocto related
 alias dytb='cd /mnt/disk2/yocto_build_folder/gray'                                                  # dir yocto build                                   # dir home
