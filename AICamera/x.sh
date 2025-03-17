@@ -212,6 +212,34 @@ if [ "$1" = "aic" ] ; then
 		sleep 0.5
 		v4l2-ctl -d ${VIDEO_DEV[0]} --list-ctrls
 
+	elif [ "$2" = "iq" ] ; then
+		echo "IQ..."
+		dir_iq_new="/home/root/primax/10.1.13.207/IQ_DB/db_new/"
+		dir_iq_old="/home/root/primax/10.1.13.207/IQ_DB/db_old/"
+		dir_iq_dev="/usr/share/mtkcam/DataSet/SQLiteModule/db"
+
+		if [ "$3" = "new" ] ; then
+			echo "update new DB..."
+			if [ "$4" = "1" ] ; then
+				echo "OB & Shading DB..."
+				cp -f "$dir_iq_new/tuning_DB/imx214d2l_mipi_raw/ISP_param.db" "$dir_iq_dev/tuning_DB/imx214d2l_mipi_raw/ISP_param.db"
+			elif [ "$4" = "2" ] ; then
+				echo "awb DB..."
+				cp -f "$dir_iq_new/awb/ParameterDB_awb.db" "$dir_iq_dev/awb/ParameterDB_awb.db"
+			fi
+
+		elif [ "$3" = "old" ] ; then
+			echo "restore old DB..."
+			if [ "$4" = "1" ] ; then
+				echo "OB & Shading DB..."
+				cp -f "$dir_iq_old/tuning_DB/imx214d2l_mipi_raw/ISP_param.db" "$dir_iq_dev/tuning_DB/imx214d2l_mipi_raw/ISP_param.db"
+			elif [ "$4" = "2" ] ; then
+				echo "awb DB..."
+				cp -f "$dir_iq_old/awb/ParameterDB_awb.db" "$dir_iq_dev/awb/ParameterDB_awb.db"
+			fi
+		fi
+		sync
+
 	elif [ "$2" = "kill" ] ; then
 
 		if [ "$3" = "fw" ] ; then
