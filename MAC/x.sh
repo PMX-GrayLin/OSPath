@@ -29,11 +29,14 @@ wheeltec_ip="192.168.1.196"
 # AICamera_ip="192.168.0.100"
 # AICamera_ip="192.168.1.65"
 # AICamera_ip="192.168.1.66"
-# AICamera_ip="192.168.1.67"
+AICamera_ip="192.168.1.67"
 # AICamera_ip="192.168.1.68"
+# AICamera_ip="192.168.1.69"
+# AICamera_ip="192.168.1.70"
 # AICamera_ip="192.168.1.72"
+# AICamera_ip="192.168.1.73"
 # AICamera_ip="192.168.1.99"
-AICamera_ip="192.168.1.136"
+# AICamera_ip="192.168.1.136"
 # AICamera_ip="192.168.1.153"
 # AICamera_ip="192.168.1.223"
 # AICamera_ip="192.168.1.237"
@@ -314,6 +317,10 @@ if [ "$1" == "gst" ] ; then
 		code cerbero/build/recipe.py
 		code build/sources/ios_universal/arm64/gstreamer-1.0/subprojects/gst-plugins-bad/sys/applemedia/avfvideosrc.h
 		code build/sources/ios_universal/arm64/gstreamer-1.0/subprojects/gst-plugins-bad/sys/applemedia/avfvideosrc.m
+
+	elif [ "$2" == "udp" ] ; then
+		echo "GStreamer start udp stream server"
+		gst-launch-1.0 -v udpsrc port=5000 caps="application/x-rtp,media=video,encoding-name=H264" ! rtph264depay ! avdec_h264 ! videoconvert ! autovideosink
 
 	elif [ "$2" == "b" ] ; then
 		echo "build GStreamer..."
