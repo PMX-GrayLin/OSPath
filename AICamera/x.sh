@@ -222,7 +222,7 @@ if [ "$1" = "aic" ] ; then
 			echo "update new DB..."
 			if [ "$4" = "1" ] ; then
 				echo "OB & Shading DB..."
-				cp -f "$dir_iq_new/tuning_DB/imx214d2l_mipi_raw/ISP_param.db" "$dir_iq_dev/tuning_DB/imx214d2l_mipi_raw/ISP_param.db"
+				cp -f "$dir_iq_new/tuning_DB/imx214_mipi_raw/ISP_param.db" "$dir_iq_dev/tuning_DB/imx214_mipi_raw/ISP_param.db"
 			elif [ "$4" = "2" ] ; then
 				echo "awb DB..."
 				cp -f "$dir_iq_new/awb/ParameterDB_awb.db" "$dir_iq_dev/awb/ParameterDB_awb.db"
@@ -232,7 +232,7 @@ if [ "$1" = "aic" ] ; then
 			echo "restore old DB..."
 			if [ "$4" = "1" ] ; then
 				echo "OB & Shading DB..."
-				cp -f "$dir_iq_old/tuning_DB/imx214d2l_mipi_raw/ISP_param.db" "$dir_iq_dev/tuning_DB/imx214d2l_mipi_raw/ISP_param.db"
+				cp -f "$dir_iq_old/tuning_DB/imx214_mipi_raw/ISP_param.db" "$dir_iq_dev/tuning_DB/imx214_mipi_raw/ISP_param.db"
 			elif [ "$4" = "2" ] ; then
 				echo "awb DB..."
 				cp -f "$dir_iq_old/awb/ParameterDB_awb.db" "$dir_iq_dev/awb/ParameterDB_awb.db"
