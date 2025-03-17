@@ -215,7 +215,7 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "iq" ] ; then
 		echo "IQ..."
 		dir_iq_new="/home/root/primax/10.1.13.207/IQ_DB/db_new"
-		dir_iq_old="/home/root/primax/10.1.13.207/IQ_DB/db_old"
+		dir_iq_old="/home/root/primax/10.1.13.207/IQ_DB/db_origin"
 		dir_iq_dev="/usr/share/mtkcam/DataSet/SQLiteModule/db"
 
 		if [ "$3" = "new" ] ; then
