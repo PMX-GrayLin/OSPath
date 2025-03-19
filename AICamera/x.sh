@@ -227,6 +227,9 @@ if [ "$1" = "aic" ] ; then
 			elif [ "$4" = "2" ] ; then
 				echo "awb DB..."
 				cp -f "$dir_iq_new/awb/ParameterDB_awb.db" "$dir_iq_dev/awb/ParameterDB_awb.db"
+			elif [ "$4" = "3" ] ; then
+				echo "tone DB..."
+
 			elif [ "$4" = "all" ] ; then
 				cp -f "$dir_iq_new/tuning_DB/imx214_mipi_raw/ISP_param.db" "$dir_iq_dev/tuning_DB/imx214_mipi_raw/ISP_param.db"
 				cp -f "$dir_iq_new/awb/ParameterDB_awb.db" "$dir_iq_dev/awb/ParameterDB_awb.db"
@@ -240,6 +243,9 @@ if [ "$1" = "aic" ] ; then
 			elif [ "$4" = "2" ] ; then
 				echo "awb DB..."
 				cp -f "$dir_iq_old/awb/ParameterDB_awb.db" "$dir_iq_dev/awb/ParameterDB_awb.db"
+			elif [ "$4" = "3" ] ; then
+				echo "tone DB..."
+
 			elif [ "$4" = "all" ] ; then
 				cp -f "$dir_iq_old/tuning_DB/imx214_mipi_raw/ISP_param.db" "$dir_iq_dev/tuning_DB/imx214_mipi_raw/ISP_param.db"
 				cp -f "$dir_iq_old/awb/ParameterDB_awb.db" "$dir_iq_dev/awb/ParameterDB_awb.db"
