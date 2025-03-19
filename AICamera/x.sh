@@ -231,7 +231,6 @@ if [ "$1" = "aic" ] ; then
 				cp -f "$dir_iq_new/tuning_DB/imx214_mipi_raw/ISP_param.db" "$dir_iq_dev/tuning_DB/imx214_mipi_raw/ISP_param.db"
 				cp -f "$dir_iq_new/awb/ParameterDB_awb.db" "$dir_iq_dev/awb/ParameterDB_awb.db"
 			fi
-		fi
 
 		elif [ "$3" = "old" ] ; then
 			echo "restore old DB..."
