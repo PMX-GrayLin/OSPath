@@ -429,6 +429,9 @@ elif [ "$1" = "tt2" ] ; then
 	echo "curl http://localhost:8765/temperatures"
 	curl http://localhost:8765/temperatures
 elif [ "$1" = "tt3" ] ; then
+	echo "curl http://localhost:8765/temperature_array"
+	curl http://localhost:8765/temperature_array
+elif [ "$1" = "tt3" ] ; then
 	echo "curl http://localhost:8765/startReading"
 	curl http://localhost:8765/startReading
 elif [ "$1" = "tt4" ] ; then
