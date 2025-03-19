@@ -226,10 +226,10 @@ if [ "$1" = "aic" ] ; then
 				fileName="ISP_param.db"
 				echo "OB & Shading DB : $filePath/$fileName ..."
 				fileReplace="$dir_iq_new/$filePath/$fileName"
-				fileTarget=File="$dir_iq_dev/$filePath/$fileName"
+				fileTarget="$dir_iq_dev/$filePath/$fileName"
 				cp -f $fileReplace $fileTarget
-				md5sum fileReplace
-				md5sum fileTarget
+				md5sum $fileReplace
+				md5sum $fileTarget
 			elif [ "$4" = "2" ] ; then
 				echo "awb DB..."
 				cp -f "$dir_iq_new/awb/ParameterDB_awb.db" "$dir_iq_dev/awb/ParameterDB_awb.db"
