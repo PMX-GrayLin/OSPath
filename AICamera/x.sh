@@ -234,9 +234,9 @@ if [ "$1" = "aic" ] ; then
 				fileName="ParameterDB_tone.db"
 				echo "tone DB..."
 			elif [ "$4" = "all" ] ; then
-				aic iq new 1
-				aic iq new 2
-				aic iq new 3
+				x aic iq new 1
+				x aic iq new 2
+				x aic iq new 3
 			fi
 
 		elif [ "$3" = "old" ] ; then
