@@ -222,8 +222,14 @@ if [ "$1" = "aic" ] ; then
 		if [ "$3" = "new" ] ; then
 			echo "update new DB..."
 			if [ "$4" = "1" ] ; then
-				echo "OB & Shading DB..."
-				cp -f "$dir_iq_new/tuning_DB/imx214_mipi_raw/ISP_param.db" "$dir_iq_dev/tuning_DB/imx214_mipi_raw/ISP_param.db"
+				filePath="tuning_DB/imx214_mipi_raw"
+				fileName="ISP_param.db"
+				echo "OB & Shading DB : $filePath/$fileName ..."
+				fileReplace="$dir_iq_new/$filePath/$fileName"
+				fileTarget=File="$dir_iq_dev/$filePath/$fileName"
+				cp -f $fileReplace $fileTarget
+				md5sum fileReplace
+				md5sum fileTarget
 			elif [ "$4" = "2" ] ; then
 				echo "awb DB..."
 				cp -f "$dir_iq_new/awb/ParameterDB_awb.db" "$dir_iq_dev/awb/ParameterDB_awb.db"
@@ -234,7 +240,7 @@ if [ "$1" = "aic" ] ; then
 				cp -f "$dir_iq_new/tuning_DB/imx214_mipi_raw/ISP_param.db" "$dir_iq_dev/tuning_DB/imx214_mipi_raw/ISP_param.db"
 				cp -f "$dir_iq_new/awb/ParameterDB_awb.db" "$dir_iq_dev/awb/ParameterDB_awb.db"
 				cp -f "$dir_iq_new/tone/ParameterDB_tone.db" "$dir_iq_dev/tone/ParameterDB_tone.db"
-	fi
+			fi
 
 		elif [ "$3" = "old" ] ; then
 			echo "restore old DB..."
