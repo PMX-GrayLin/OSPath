@@ -225,23 +225,18 @@ if [ "$1" = "aic" ] ; then
 				filePath="tuning_DB/imx214_mipi_raw"
 				fileName="ISP_param.db"
 				echo "OB & Shading DB : $filePath/$fileName ..."
-				# fileReplace="$dir_iq_new/$filePath/$fileName"
-				# fileTarget="$dir_iq_dev/$filePath/$fileName"
-				# cp -f $fileReplace $fileTarget
-				# md5sum $fileReplace
-				# md5sum $fileTarget
 			elif [ "$4" = "2" ] ; then
 				filePath="awb"
 				fileName="ParameterDB_awb.db"
 				echo "awb DB : $filePath/$fileName ..."
-				cp -f "$dir_iq_new/awb/ParameterDB_awb.db" "$dir_iq_dev/awb/ParameterDB_awb.db"
 			elif [ "$4" = "3" ] ; then
+				filePath="tone"
+				fileName="ParameterDB_tone.db"
 				echo "tone DB..."
-				cp -f "$dir_iq_new/tone/ParameterDB_tone.db" "$dir_iq_dev/tone/ParameterDB_tone.db"
 			elif [ "$4" = "all" ] ; then
-				cp -f "$dir_iq_new/tuning_DB/imx214_mipi_raw/ISP_param.db" "$dir_iq_dev/tuning_DB/imx214_mipi_raw/ISP_param.db"
-				cp -f "$dir_iq_new/awb/ParameterDB_awb.db" "$dir_iq_dev/awb/ParameterDB_awb.db"
-				cp -f "$dir_iq_new/tone/ParameterDB_tone.db" "$dir_iq_dev/tone/ParameterDB_tone.db"
+				aic iq new 1
+				aic iq new 2
+				aic iq new 3
 			fi
 
 		elif [ "$3" = "old" ] ; then
