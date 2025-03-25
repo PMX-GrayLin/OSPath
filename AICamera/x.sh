@@ -442,19 +442,23 @@ elif [ "$1" = "tt2" ] ; then
 elif [ "$1" = "tt3" ] ; then
 	echo "curl http://localhost:8765/temperature_array"
 	curl http://localhost:8765/temperature_array
-elif [ "$1" = "tt3" ] ; then
-	echo "curl http://localhost:8765/startReading"
-	curl http://localhost:8765/startReading
-elif [ "$1" = "tt4" ] ; then
-	echo "curl http://localhost:8765/stopReading"
-	curl http://localhost:8765/stopReading
 elif [ "$1" = "tv" ] ; then
+	echo "call vision_box..."
 	if [ -z "$3" ] ; then
 		echo "curl http://localhost:9876/test/$2"
 		curl http://localhost:9876/test/$2
 	else
 		echo "curl http://localhost:9876/test/$2/$3"
 		curl http://localhost:9876/test/$2/$3
+	fi
+elif [ "$1" = "tt" ] ; then
+	echo "call test..."
+	if [ -z "$3" ] ; then
+		echo "curl http://localhost:8765/test/$2"
+		curl http://localhost:8765/test/$2
+	else
+		echo "curl http://localhost:8765/test/$2/$3"
+		curl http://localhost:8765/test/$2/$3
 	fi
 fi
 
