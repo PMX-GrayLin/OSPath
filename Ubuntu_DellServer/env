@@ -71,7 +71,7 @@ alias yt='x yt'
 alias aic='x aic'
 alias aicb='x aic us && x bb b primax'
 alias aicbv='x aic us && x bb ocv primax'
-alias aicvt='x aic tcus && x bb oct primax'      # test code build
+alias aicbt='x aic tcus && x bb oct primax'      # test code build
 
 # git 
 alias gx='cd ~ && rm -r OSPath && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \; && cd ~'
