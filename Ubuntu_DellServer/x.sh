@@ -62,12 +62,12 @@ if [ "$1" = "bb" ] ; then
 
 	elif [ "$2" = "ocv" ] ; then
 		echo "only compile recipe... $3, bitbake $3 -c compile"
-		export SKIP_VISION_BOX="0"
+		echo "1" > ~/BUILD_VISION_BOX
 		bitbake $3 -c compile
 
 	elif [ "$2" = "oct" ] ; then
 		echo "only compile recipe... $3, bitbake $3 -c compile"
-		export SKIP_VISION_BOX="1"
+		echo "0" > ~/BUILD_VISION_BOX
 		bitbake $3 -c compile
 
 	elif [ "$2" = "i" ] ; then
