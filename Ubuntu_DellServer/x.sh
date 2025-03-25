@@ -60,9 +60,13 @@ if [ "$1" = "bb" ] ; then
 		echo "build recipe... $3"
 		bitbake $3
 
-	elif [ "$2" = "oc" ] ; then
+	elif [ "$2" = "ocv" ] ; then
 		echo "only compile recipe... $3, bitbake $3 -c compile"
-		bitbake $3 -c compile
+		SKIP_VISION_BOX=1 bitbake $3 -c compile
+
+	elif [ "$2" = "oct" ] ; then
+		echo "only compile recipe... $3, bitbake $3 -c compile"
+		SKIP_VISION_BOX=0 bitbake $3 -c compile
 
 	elif [ "$2" = "i" ] ; then
 		echo "check recipe info... $3"
@@ -129,10 +133,6 @@ if [ "$1" = "aic" ] ; then
 		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/vision_box_DualCam
 		# git reset --hard HEAD
 		git pull
-
-		# cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
-		# git reset --hard HEAD
-		# git pull
 
 	elif [ "$2" = "ftp" ] ; then
 		echo "========== update files to FTP =========="
