@@ -62,11 +62,11 @@ if [ "$1" = "bb" ] ; then
 
 	elif [ "$2" = "ocv" ] ; then
 		echo "only compile recipe... $3, bitbake $3 -c compile"
-		SKIP_VISION_BOX=1 bitbake $3 -c compile
+		SKIP_VISION_BOX=0 bitbake $3 -c compile
 
 	elif [ "$2" = "oct" ] ; then
 		echo "only compile recipe... $3, bitbake $3 -c compile"
-		SKIP_VISION_BOX=0 bitbake $3 -c compile
+		SKIP_VISION_BOX=1 bitbake $3 -c compile
 
 	elif [ "$2" = "i" ] ; then
 		echo "check recipe info... $3"
