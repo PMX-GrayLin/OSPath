@@ -211,6 +211,7 @@ if [ "$1" = "aic" ] ; then
 		fi
 
 		sleep 0.5
+		echo "v4l2-ctl -d ${VIDEO_DEV[0]} --list-ctrls"
 		v4l2-ctl -d ${VIDEO_DEV[0]} --list-ctrls
 
 	elif [ "$2" = "iq" ] ; then
@@ -444,22 +445,16 @@ elif [ "$1" = "tt3" ] ; then
 	curl http://localhost:8765/temperature_array
 elif [ "$1" = "tv" ] ; then
 	echo "call vision_box..."
-	if [ -z "$3" ] ; then
-		echo "curl http://localhost:9876/test/$2"
-		curl http://localhost:9876/test/$2
-	else
-		echo "curl http://localhost:9876/test/$2/$3"
-		curl http://localhost:9876/test/$2/$3
-	fi
+	cmd="curl http://localhost:9876/fw/$2"
+	echo "$cmd"
+	$cmd
+
 elif [ "$1" = "tt" ] ; then
 	echo "call test..."
-	if [ -z "$3" ] ; then
-		echo "curl http://localhost:8765/test/$2"
-		curl http://localhost:8765/test/$2
-	else
-		echo "curl http://localhost:8765/test/$2/$3"
-		curl http://localhost:8765/test/$2/$3
-	fi
+	cmd="curl http://localhost:8765/fw/$2"
+	echo "$cmd"
+	$cmd
+
 fi
 
 # system related 
