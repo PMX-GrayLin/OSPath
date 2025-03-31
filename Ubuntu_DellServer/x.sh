@@ -134,7 +134,7 @@ if [ "$1" = "aic" ] ; then
 		git pull
 
 		# make build tag
-		touch $WORKDIR/tag_Build_test
+		touch $WORKDIR/temp/tag_Build_test
 
 	elif [ "$2" = "us" ] ; then
 		echo "========== update yocto primax src =========="
@@ -143,7 +143,7 @@ if [ "$1" = "aic" ] ; then
 		git pull
 
 		# make build tag
-		touch $WORKDIR/tag_Build_visionBox
+		touch $WORKDIR/temp/tag_Build_visionBox
 
 	elif [ "$2" = "ftp" ] ; then
 		echo "========== update files to FTP =========="
