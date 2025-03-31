@@ -128,15 +128,22 @@ if [ "$1" = "aic" ] ; then
 
 	elif [ "$2" = "tcus" ] ; then
 		echo "========== update yocto primax src =========="
+		WORKDIR="/mnt/disk2/yocto_build_folder/gray/C_AI-Camera-G2_FW_Yocto/build/tmp/work/armv8a-poky-linux/primax/1.0-r0"
 		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
 		# git reset --hard HEAD
 		git pull
+
+		# make build tag
+		touch $WORKDIR/tag_Build_test
 
 	elif [ "$2" = "us" ] ; then
 		echo "========== update yocto primax src =========="
 		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/vision_box_DualCam
 		# git reset --hard HEAD
 		git pull
+
+		# make build tag
+		touch $WORKDIR/tag_Build_visionBox
 
 	elif [ "$2" = "ftp" ] ; then
 		echo "========== update files to FTP =========="
