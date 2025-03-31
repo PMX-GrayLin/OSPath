@@ -62,14 +62,18 @@ if [ "$1" = "bb" ] ; then
 
 	elif [ "$2" = "ocv" ] ; then
 		echo "only compile recipe... $3, bitbake $3 -c compile"
-		export bbbb=1
-		echo "1" > ~/BUILD_VISION_BOX
+	    # make build tag
+		WORKDIR="/mnt/disk2/yocto_build_folder/gray/C_AI-Camera-G2_FW_Yocto/build/tmp/work/armv8a-poky-linux/primax/1.0-r0"
+		touch $WORKDIR/temp/tag_build_test
+
 		bitbake $3 -c compile
 
 	elif [ "$2" = "oct" ] ; then
 		echo "only compile recipe... $3, bitbake $3 -c compile"
-		export bbbb=0
-		echo "0" > ~/BUILD_VISION_BOX
+	    # make build tag
+		WORKDIR="/mnt/disk2/yocto_build_folder/gray/C_AI-Camera-G2_FW_Yocto/build/tmp/work/armv8a-poky-linux/primax/1.0-r0"
+		touch $WORKDIR/temp/tag_build_visionBox
+
 		bitbake $3 -c compile
 
 	elif [ "$2" = "i" ] ; then
@@ -128,22 +132,15 @@ if [ "$1" = "aic" ] ; then
 
 	elif [ "$2" = "tcus" ] ; then
 		echo "========== update yocto primax src =========="
-		WORKDIR="/mnt/disk2/yocto_build_folder/gray/C_AI-Camera-G2_FW_Yocto/build/tmp/work/armv8a-poky-linux/primax/1.0-r0"
 		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
 		# git reset --hard HEAD
 		git pull
-
-		# make build tag
-		touch $WORKDIR/temp/tag_build_test
 
 	elif [ "$2" = "us" ] ; then
 		echo "========== update yocto primax src =========="
 		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/vision_box_DualCam
 		# git reset --hard HEAD
 		git pull
-
-		# make build tag
-		touch $WORKDIR/temp/tag_build_visionBox
 
 	elif [ "$2" = "ftp" ] ; then
 		echo "========== update files to FTP =========="
