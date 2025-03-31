@@ -65,7 +65,7 @@ if [ "$1" = "bb" ] ; then
 	    # make build tag
 		WORKDIR="/mnt/disk2/yocto_build_folder/gray/C_AI-Camera-G2_FW_Yocto/build/tmp/work/armv8a-poky-linux/primax/1.0-r0"
 		rm "$WORKDIR/temp/tag_build"*
-		touch "$WORKDIR/temp/tag_build_visionBox"
+		touch "$WORKDIR/temp/tag_ignoreBuild_test"
 
 		bitbake $3 -c compile
 
@@ -74,7 +74,7 @@ if [ "$1" = "bb" ] ; then
 	    # make build tag
 		WORKDIR="/mnt/disk2/yocto_build_folder/gray/C_AI-Camera-G2_FW_Yocto/build/tmp/work/armv8a-poky-linux/primax/1.0-r0"
 		rm "$WORKDIR/temp/tag_build"*
-		touch "$WORKDIR/temp/tag_build_test"
+		touch "$WORKDIR/temp/tag_ignoreBuild_visionBox"
 
 		bitbake $3 -c compile
 
