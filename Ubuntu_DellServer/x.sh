@@ -58,21 +58,14 @@ if [ "$1" = "bb" ] ; then
 		
 	elif [ "$2" = "b" ] ; then
 		echo "build recipe... $3"
-
-		# make build tag
-		if [  "$3" = "primax" ] ; then
-			WORKDIR="/mnt/disk2/yocto_build_folder/gray/C_AI-Camera-G2_FW_Yocto/build/tmp/work/armv8a-poky-linux/primax/1.0-r0"
-			touch $WORKDIR/temp/tag_build_test
-			touch $WORKDIR/temp/tag_build_visionBox
-		fi
-
 		bitbake $3
 
 	elif [ "$2" = "ocv" ] ; then
 		echo "only compile recipe... $3, bitbake $3 -c compile"
 	    # make build tag
 		WORKDIR="/mnt/disk2/yocto_build_folder/gray/C_AI-Camera-G2_FW_Yocto/build/tmp/work/armv8a-poky-linux/primax/1.0-r0"
-		touch $WORKDIR/temp/tag_build_test
+		rm "$WORKDIR/temp/tag_build*"
+		touch "$WORKDIR/temp/tag_build_visionBox"
 
 		bitbake $3 -c compile
 
@@ -80,7 +73,8 @@ if [ "$1" = "bb" ] ; then
 		echo "only compile recipe... $3, bitbake $3 -c compile"
 	    # make build tag
 		WORKDIR="/mnt/disk2/yocto_build_folder/gray/C_AI-Camera-G2_FW_Yocto/build/tmp/work/armv8a-poky-linux/primax/1.0-r0"
-		touch $WORKDIR/temp/tag_build_visionBox
+		rm "$WORKDIR/temp/tag_build*"
+		touch "$WORKDIR/temp/tag_build_test"
 
 		bitbake $3 -c compile
 
