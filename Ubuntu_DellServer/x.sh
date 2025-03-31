@@ -69,6 +69,8 @@ if [ "$1" = "bb" ] ; then
 
 		bitbake $3 -c compile
 
+		rm "$WORKDIR/temp/tag_ignoreBuild"*
+
 	elif [ "$2" = "oct" ] ; then
 		echo "only compile recipe... $3, bitbake $3 -c compile"
 	    # make build tag
@@ -77,6 +79,8 @@ if [ "$1" = "bb" ] ; then
 		touch "$WORKDIR/temp/tag_ignoreBuild_visionBox"
 
 		bitbake $3 -c compile
+
+		rm "$WORKDIR/temp/tag_ignoreBuild"*
 
 	elif [ "$2" = "i" ] ; then
 		echo "check recipe info... $3"
