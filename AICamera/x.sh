@@ -290,17 +290,20 @@ if [ "$1" = "aic" ] ; then
 
 		pkill vision_box
 		rm vision_box_DualCam*
-		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/vision_box_DualCam
-		chmod 777 vision_box_DualCam
+		# wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/vision_box_DualCam
 
 		pkill test
 		rm test*
-		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/test
-		chmod 777 test
+		# wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/test
 
 		# all file in folder
 		wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$local_dir" --no-parent --cut-dirs=3	
 
+		cp $ftp_host/vision_box_DualCam .
+		cp $ftp_host/test .
+		chmod 777 vision_box_DualCam
+		chmod 777 test
+		
 		# need password
 		# rsync -avz -e "ssh" gray.lin@10.1.13.207:/mnt/disk2/FTP/Public/gray/aicamera /home/root/primax/ftp
 
