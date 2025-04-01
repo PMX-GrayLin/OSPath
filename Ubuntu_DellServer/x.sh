@@ -149,15 +149,14 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "ftp" ] ; then
 		echo "========== update files to FTP =========="
 		dir_ftp="/mnt/disk2/FTP/Public/gray"
-		fir_sync="$dir_ftp/aicamera"
 
 		targetPlatform="armv8a-poky-linux"
 		# targetPlatform="genio_700_evk-poky-linux"
 
 		dir_work="$PROJ_ROOT/build/tmp/work/$targetPlatform/primax/1.0-r0"
-		cp -f $dir_work/temp/log.do_compile $dir_ftp
-		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam $dir_sync
-		cp -f $dir_work/primax-1.0/src/Test_C_yocto/test $dir_sync
+		cp -f $dir_work/temp/log.do_compile $dir_ftp/
+		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam $dir_ftp/aicamera/
+		cp -f $dir_work/primax-1.0/src/Test_C_yocto/test $dir_ftp/aicamera/
 
 	else
 		echo "param 2 not match"
