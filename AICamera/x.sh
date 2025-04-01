@@ -298,15 +298,11 @@ if [ "$1" = "aic" ] ; then
 		wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/test
 		chmod 777 test
 
-		# rm *.ko*
-		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/st_tof_module.ko
-		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/imgsensor_v24.ko
-		#wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/ai.tar.gz
-
 		# all file in folder
-		wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$local_dir" --no-parent --cut-dirs=3
+		wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$local_dir" --no-parent --cut-dirs=3	
 
-		# gdb vision_box_DualCam 		
+		# need password
+		# rsync -avz -e "ssh" gray.lin@10.1.13.207:/mnt/disk2/FTP/Public/gray/aicamera /home/root/primax/ftp
 
 	elif [ "$2" = "stress" ] ; then
 		if [ "$3" = "-fw" ] ; then
