@@ -289,11 +289,11 @@ if [ "$1" = "aic" ] ; then
 		cd ~/primax
 
 		pkill vision_box
-		rm vision_box_DualCam*
+		# rm vision_box_DualCam*
 		# wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/vision_box_DualCam
 
 		pkill test
-		rm test*
+		# rm test*
 		# wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/test
 
 		# all file in folder
