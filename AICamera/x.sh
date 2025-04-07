@@ -116,8 +116,8 @@ if [ "$1" = "aic" ] ; then
 			i2cdetect -r -y 3
 			echo "i2cdetect -r -y 4"
 			i2cdetect -r -y 4
-			echo "i2cdetect -r -y 5"
-			i2cdetect -r -y 5
+			# echo "i2cdetect -r -y 5"
+			# i2cdetect -r -y 5
 			echo "i2cdetect -r -y 6"
 			i2cdetect -r -y 6
 			
