@@ -407,8 +407,6 @@ if [ "$1" = "cp2" ] ; then
 
 fi
 
-
-
 # gedit
 if [ "$1" = "ge" ] ; then
 	if [ "$2" = "x" ] ; then
