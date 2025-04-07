@@ -392,6 +392,23 @@ if [ "$1" = "sys" ] ; then
 	fi
 fi
 
+# copy to
+if [ "$1" = "cp2" ] ; then
+	echo "copy to..."
+
+	if [ "$2" = "ftp" ] ; then
+		path="/mnt/disk2/FTP/Public/gray"
+		cp -rf $3 $path 
+	elif [ "$2" = "h" ] ; then
+		path="~"
+		cp -rf $3 $path 
+	fi
+	echo "copy $3 to $path"
+
+fi
+
+
+
 # gedit
 if [ "$1" = "ge" ] ; then
 	if [ "$2" = "x" ] ; then
