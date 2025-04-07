@@ -400,7 +400,7 @@ if [ "$1" = "cp2" ] ; then
 		path="/mnt/disk2/FTP/Public/gray"
 		cp -rf $3 $path 
 	elif [ "$2" = "h" ] ; then
-		path="~"
+		path="$HOME"
 		cp -rf $3 $path 
 	fi
 	echo "copy $3 to $path"
