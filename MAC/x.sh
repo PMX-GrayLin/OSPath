@@ -28,7 +28,7 @@ wheeltec_ip="192.168.1.196"
 
 # AICamera_ip="192.168.1.153"
 # AICamera_ip="192.168.1.103"
-# AICamera_ip="192.168.1.31"
+# AICamera_ip="192.168.1.121"
 # AICamera_ip="192.168.1.179"
 # AICamera_ip="192.168.1.26"
 # AICamera_ip="192.168.1.145"

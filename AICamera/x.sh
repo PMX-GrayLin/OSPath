@@ -182,7 +182,7 @@ if [ "$1" = "aic" ] ; then
 
 			filename="snapshot_${timestamp}.png"
 			# Capture one frame and save as PNG
-			gst-launch-1.0 -e v4l2src device=${VIDEO_DEV[0]} num-buffers=1 ! video/x-raw,width=2048,height=1536 ! pngenc ! filesink location="${filename}"
+			gst-launch-1.0 -e v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=2048,height=1536 ! pngenc ! filesink location="${filename}"
 
 		else
 

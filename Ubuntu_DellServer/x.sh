@@ -53,6 +53,7 @@ if [ "$1" = "bb" ] ; then
 	echo "BitBake..."
 	if [  "$2" = "c" ] ; then
 		echo "clean recipe... $3"
+		bitbake -c clean
 		# bitbake -c cleansstate $3
 		bitbake -c cleanall $3
 		
