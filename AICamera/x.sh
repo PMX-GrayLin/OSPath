@@ -32,7 +32,8 @@ echo "param 4:"$4
 echo "param 5:"$5
 
 # timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
-timestamp=$(date +"%H%M%S")
+# timestamp=$(date +"%H%M%S")
+timestamp=$(TZ='Asia/Singapore' date +"%H%M%S")
 echo "timestamp:"$timestamp
 
 # AICamera 
@@ -181,8 +182,17 @@ if [ "$1" = "aic" ] ; then
 		elif [ "$3" = "png" ] ; then
 
 			filename="snapshot_${timestamp}.png"
-			# Capture one frame and save as PNG
-			gst-launch-1.0 -e v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=2048,height=1536 ! pngenc ! filesink location="${filename}"
+			gst-launch-1.0 -e v4l2src device=${VIDEO_DEV[0]} num-buffers=1 ! video/x-raw,width=2048,height=1536 ! pngenc ! filesink location="${filename}"
+
+		elif [ "$3" = "jpg" ] ; then
+
+			filename="snapshot_${timestamp}.jpg"
+			gst-launch-1.0 -e v4l2src device=${VIDEO_DEV[0]} num-buffers=1 ! video/x-raw,width=2048,height=1536 ! jpegenc ! filesink location="${filename}.jpg"
+
+		elif [ "$3" = "bmp" ] ; then
+
+			filename="snapshot_${timestamp}.bmp"
+			gst-launch-1.0 -e v4l2src device=${VIDEO_DEV[0]} num-buffers=1 ! video/x-raw,width=2048,height=1536 ! bmpenc ! filesink location="${filename}.bmp"
 
 		else
 
