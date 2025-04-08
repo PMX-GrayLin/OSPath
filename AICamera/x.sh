@@ -187,7 +187,8 @@ if [ "$1" = "aic" ] ; then
 		elif [ "$3" = "jpg" ] ; then
 
 			filename="snapshot_${timestamp}.jpg"
-			gst-launch-1.0 -e v4l2src device=${VIDEO_DEV[0]} num-buffers=1 ! video/x-raw,width=2048,height=1536 ! jpegenc ! filesink location="${filename}.jpg"
+			# gst-launch-1.0 -e v4l2src device=${VIDEO_DEV[0]} num-buffers=1 ! video/x-raw,width=2048,height=1536 ! jpegenc ! filesink location="${filename}.jpg"
+			gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} num-buffers=1 ! queue ! video/x-raw,framrate=30/1,width=2048,height=1536,format=NV12 ! v4l2jpegenc ! queue ! jpegparse ! filesink location="${filename}.jpg"
 
 		elif [ "$3" = "bmp" ] ; then
 
