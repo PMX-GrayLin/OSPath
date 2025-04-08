@@ -31,6 +31,9 @@ echo "param 3:"$3
 echo "param 4:"$4
 echo "param 5:"$5
 
+# timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
+timestamp=$(date +"%H%M%S")
+echo "timestamp:"$timestamp
 
 # AICamera 
 if [ "$1" = "aic" ] ; then
@@ -174,6 +177,12 @@ if [ "$1" = "aic" ] ; then
        		# gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=1280,height=720,format=YUY2 ! waylandsink 2>&1 1>/dev/null &
 			gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! v4l2convert output-io-mode=dmabuf-import ! fpsdisplaysink video-sink=waylandsink sync=false
 			# gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! v4l2convert output-io-mode=dmabuf-import ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false
+
+		elif [ "$3" = "png" ] ; then
+
+			filename="snapshot_${timestamp}.png"
+			# Capture one frame and save as PNG
+			gst-launch-1.0 -e v4l2src device=${VIDEO_DEV[0]} num-buffers=1 ! video/x-raw,width=2048,height=1536 ! pngenc ! filesink location="${filename}"
 
 		else
 
