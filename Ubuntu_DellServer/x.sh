@@ -394,7 +394,7 @@ if [ "$1" = "sys" ] ; then
 fi
 
 # copy to
-if [ "$1" = "cp2" ] ; then
+if [ "$1" = "cp" ] ; then
 	echo "copy to..."
 
 	if [ "$2" = "ftp" ] ; then
