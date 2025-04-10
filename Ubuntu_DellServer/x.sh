@@ -395,7 +395,6 @@ fi
 
 # copy to
 if [ "$1" = "cp" ] ; then
-	echo "copy to..."
 
 	if [ "$2" = "ftp" ] ; then
 		path="/mnt/disk2/FTP/Public/gray"
