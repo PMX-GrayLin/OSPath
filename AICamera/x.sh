@@ -38,9 +38,9 @@ echo "timestamp:"$timestamp
 
 if [ "$1" = "ot" ] ; then
 
-	i2cbus=2
+	i2cbus=4
 	if [ "$2" = "ck" ] ; then
-		echo "i2cdetect -r -y 2"
+		echo "i2cdetect -r -y $i2cbus"
 		i2cdetect -r -y $i2cbus
 
 	elif [ "$2" = "r8" ] ; then
