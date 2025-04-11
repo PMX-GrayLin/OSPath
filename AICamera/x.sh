@@ -195,6 +195,10 @@ if [ "$1" = "aic" ] ; then
 			filename="snapshot_${timestamp}.bmp"
 			gst-launch-1.0 -e v4l2src device=${VIDEO_DEV[0]} num-buffers=1 ! video/x-raw,width=2048,height=1536 ! bmpenc ! filesink location="${filename}.bmp"
 
+		elif [ "$3" = "dp" ] ; then
+
+			gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! v4l2convert output-io-mode=dmabuf-import ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false
+
 		else
 
 			echo "gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=2048,height=1536 ! v4l2h264enc extra-controls=\"cid,video_gop_size=30\" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
