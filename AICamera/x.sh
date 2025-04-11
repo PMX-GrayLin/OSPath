@@ -36,6 +36,25 @@ echo "param 5:"$5
 timestamp=$(TZ='Asia/Singapore' date +"%H%M%S")
 echo "timestamp:"$timestamp
 
+if [ "$1" = "ot" ] ; then
+
+	i2cbus=2
+	if [ "$2" = "ck" ] ; then
+		echo "i2cdetect -r -y 2"
+		i2cdetect -r -y $i2cbus
+
+	elif [ "$2" = "r8" ] ; then
+		echo "read 8*8"
+		i2ctransfer -y i2cbus w2@0x68 0x4E 0x00 r141
+
+	elif [ "$2" = "r16" ] ; then
+		echo "read 16*16"
+		i2ctransfer -y i2cbus w2@0x68 0x4E 0x00 r525
+
+	fi
+
+fi
+
 # AICamera 
 if [ "$1" = "aic" ] ; then
 	echo "AICamera command..."
@@ -120,12 +139,15 @@ if [ "$1" = "aic" ] ; then
 			i2cdetect -r -y 3
 			echo "i2cdetect -r -y 4"
 			i2cdetect -r -y 4
-			# echo "i2cdetect -r -y 5"
-			# i2cdetect -r -y 5
+			echo "i2cdetect -r -y 5"
+			i2cdetect -r -y 5
 			echo "i2cdetect -r -y 6"
 			i2cdetect -r -y 6
 			
 		else
+			echo "check process..."
+			cat /etc/primax_version
+
 			echo "check process..."
 			ps aux | grep vision_box_DualCam
 			ps aux | grep mediamtx
