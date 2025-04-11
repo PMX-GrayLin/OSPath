@@ -145,7 +145,7 @@ if [ "$1" = "aic" ] ; then
 			i2cdetect -r -y 6
 			
 		else
-			echo "check process..."
+			echo "check version..."
 			cat /etc/primax_version
 
 			echo "check process..."
