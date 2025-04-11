@@ -44,12 +44,11 @@ if [ "$1" = "ot" ] ; then
 		i2cdetect -r -y $i2cbus
 
 	elif [ "$2" = "r8" ] ; then
-		echo "read 8*8"
-		i2ctransfer -y i2cbus w2@0x68 0x4E 0x00 r141
+		echo "read 8*8... i2ctransfer -y $i2cbus w2@0x68 0x4E 0x00 r141"
+		i2ctransfer -y $i2cbus w2@0x68 0x4E 0x00 r141
 
 	elif [ "$2" = "r16" ] ; then
-		echo "read 16*16"
-		i2ctransfer -y i2cbus w2@0x68 0x4E 0x00 r525
+		echo "read 16*16... i2ctransfer -y $i2cbus w2@0x68 0x4E 0x00 r525"
 
 	fi
 
