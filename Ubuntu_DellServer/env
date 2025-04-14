@@ -49,8 +49,9 @@ alias dpdtbo='cd $PROJ_ROOT/src/meta-mediatek-bsp/recipes-kernel/dtbo/genio-700-
 alias dpbbKS='cd $BUILD_DIR/tmp/work/genio_700_evk-poky-linux/st-tof-module/1.0-r0'                 # dir project BB {S} path for kernel
 alias dpbbKD='cd $BUILD_DIR/tmp/work/genio_700_evk-poky-linux/st-tof-module/1.0-r0/image'           # dir project BB {D} path for kernel
 
-alias dpks='cd $BUILD_DIR//workspace/sources/linux-mtk/'                                            # dir project kernal source
-alias dpkdts='cd $BUILD_DIR//workspace/sources/linux-mtk/arch/arm64/boot/dts/mediatek'              # dir project kernal dts
+alias dpks='cd $BUILD_DIR/workspace/sources/linux-mtk/'                                            # dir project kernal source
+alias dpkdts='cd $BUILD_DIR/workspace/sources/linux-mtk/arch/arm64/boot/dts/mediatek'              # dir project kernal dts
+alias dpccm='cd $BUILD_DIR/workspace/sources/mtk-camisp-mw/mtkcam-yocto/custom/mt8195/hal/imgsensor/ver1/imx214_mipi_raw/sql'
 
 # update
 alias ue='source ~/.bashrc'     # update env
