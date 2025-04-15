@@ -51,7 +51,7 @@ alias dpbbKD='cd $BUILD_DIR/tmp/work/genio_700_evk-poky-linux/st-tof-module/1.0-
 
 alias dpks='cd $BUILD_DIR/workspace/sources/linux-mtk/'                                            # dir project kernal source
 alias dpkdts='cd $BUILD_DIR/workspace/sources/linux-mtk/arch/arm64/boot/dts/mediatek'              # dir project kernal dts
-alias dpccm='cd $BUILD_DIR/workspace/sources/mtk-camisp-mw/mtkcam-yocto/custom/mt8195/hal/imgsensor/ver1/imx214_mipi_raw/sql'
+alias dpccm='cd $BUILD_DIR/workspace/sources/mtk-camisp-mw/mtkcam-yocto/custom/mt8188/hal/imgsensor/ver1/imx214_mipi_raw/sql'
 
 # update
 alias ue='source ~/.bashrc'     # update env
@@ -63,7 +63,7 @@ alias spp='export PROJ_ROOT=`pwd`'                                          # se
 alias env1='export TEMPLATECONF=$PROJ_ROOT/src/meta-rity/meta/conf/'
 alias env2='source $PROJ_ROOT/src/poky/oe-init-build-env'
 alias env3='export BUILD_DIR=$PROJ_ROOT/build'
-alias env_mtk='env1 && env2 && env3'
+alias env_mtk='env1 && env2 && env3 && MACHINE=genio-700-evk'
 alias spe='git branch && spp && env_mtk'                                    # set project env
 alias spe2='spp && env_mtk'                                                 # set project env
 alias ytb='DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image'
