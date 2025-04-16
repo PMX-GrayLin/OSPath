@@ -119,13 +119,13 @@ if [ "$1" = "aic" ] ; then
 
 		elif [ "$3" = "net" ] ; then
 			echo "net..."
-			echo "systemctl status systemd-networkd >>>>"
+			echo ">>>> systemctl status systemd-networkd"
 			systemctl status systemd-networkd
-			echo "systemctl status NetworkManager >>>>"
+			echo ">>>> systemctl status NetworkManager"
 			systemctl status NetworkManager
-			echo "ip addr show eth0 >>>>"
+			echo ">>>> ip addr show eth0"
 			ip addr show eth0
-			echo "fw_printenv | grep eth >>>>"
+			echo ">>>> fw_printenv | grep eth"
 			fw_printenv | grep eth
 
 		elif [ "$3" = "i2c" ] ; then
@@ -471,9 +471,9 @@ if [ "$1" = "eth0" ] ; then
 		systemctl restart systemd-networkd
 
 	else
-		echo "ip addr show eth0 >>>>"
+		echo ">>>> ip addr show eth0"
 		ip addr show eth0
-		echo "cat /etc/systemd/network/00-eth0.network >>>>"
+		echo ">>>> cat /etc/systemd/network/00-eth0.network
 		cat /etc/systemd/network/00-eth0.network
 	fi
 fi
