@@ -330,7 +330,7 @@ if [ "$1" = "aic" ] ; then
 			duty=$((pwmPeriod / 2))  # 50% duty
 			echo $duty > "$pwmTarget/duty_cycle"
 		elif [ "$3" = "100" ] ; then
-			duty=$(pwmPeriod)
+			duty=$pwmPeriod
 			echo $duty > "$pwmTarget/duty_cycle"
 		elif [ "$3" = "on" ] ; then
 			echo 1 > $pwmTarget/enable
