@@ -164,7 +164,7 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "c" ] ; then
 		echo "clean..."
 		cd ~/primax
-		rm frame_*
+		rm fw_*.png fw_*.jpg fw_*.bmp
 
 	elif [ "$2" = "rs" ] ; then
 		echo "restart $3..."
@@ -311,6 +311,33 @@ if [ "$1" = "aic" ] ; then
 		md5sum $fileReplace
 		md5sum $fileTarget
 		sync
+
+	elif [ "$2" = "pwm" ] ; then
+
+		dir_pwm="/sys/devices/platform/soc/10048000.pwm/pwm/pwmchip0"
+		pwmTarget="$dir_pwm/pwm1"
+		pwmPeriod=200000	# 5 kHz
+
+		if [ "$3" = "enable" ] ; then
+			cd $dir_pwm
+			echo 1 > /sys/class/pwm/pwmchip0/export
+			sleep 0.5 
+			echo $pwmPeriod > $pwmTarget/period
+		elif [ "$3" = "25" ] ; then
+			duty=$((pwmPeriod / 4))
+			echo $duty > "$pwmTarget/duty_cycle"
+		elif [ "$3" = "50" ] ; then
+			duty=$((pwmPeriod / 2))  # 50% duty
+			echo $duty > "$pwmTarget/duty_cycle"
+		elif [ "$3" = "100" ] ; then
+			duty=$(pwmPeriod)
+			echo $duty > "$pwmTarget/duty_cycle"
+		elif [ "$3" = "on" ] ; then
+			echo 1 > $pwmTarget/enable
+		elif [ "$3" = "off" ] ; then
+			echo 0 > $pwmTarget/enable
+		fi
+
 
 	elif [ "$2" = "kill" ] ; then
 
