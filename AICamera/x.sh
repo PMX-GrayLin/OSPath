@@ -232,7 +232,7 @@ if [ "$1" = "aic" ] ; then
 		fi
 
 		echo "$cmd"
-		$(cmd)
+		$cmd
 	
 	elif [ "$2" = "cam" ] ; then
 
