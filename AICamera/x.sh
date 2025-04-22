@@ -198,7 +198,7 @@ if [ "$1" = "aic" ] ; then
 		if [ "$3" = "usb" ] ; then
 			gst-launch-1.0 -e -v v4l2src device="/dev/video137" ! image/jpeg,width=2048,height=1536,framerate=30/1 ! jpegdec ! videoconvert ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream
 
-		elif [ "$3" = "giga" ] ; then
+		elif [ "$3" = "gige" ] ; then
 
 			gst-launch-1.0 aravissrc camera-name="id1" ! videoconvert ! video/x-raw,format=NV12 ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream
 
