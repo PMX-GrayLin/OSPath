@@ -36,6 +36,17 @@ echo "param 5:"$5
 timestamp=$(TZ='Asia/Singapore' date +"%H%M%S")
 echo "timestamp:"$timestamp
 
+# copy to
+if [ "$1" = "cp" ] ; then
+
+	if [ "$2" = "h" ] ; then
+		path="$HOME"
+		cp -rf $3 $path 
+	fi
+	echo "copy $3 to $path"
+
+fi
+
 if [ "$1" = "ot" ] ; then
 
 	i2cbus=5
@@ -191,44 +202,38 @@ if [ "$1" = "aic" ] ; then
 		fi
 
 	elif [ "$2" = "gst" ] ; then
-
 		declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
-		echo "VIDEO_DEV:$VIDEO_DEV"
 
 		if [ "$3" = "usb" ] ; then
-			echo "gst-launch-1.0 -e -v v4l2src device="/dev/video137" ! image/jpeg,width=2048,height=1536,framerate=30/1 ! jpegdec ! videoconvert ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
-			gst-launch-1.0 -e -v v4l2src device="/dev/video137" ! image/jpeg,width=2048,height=1536,framerate=30/1 ! jpegdec ! videoconvert ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream
+			cmd="gst-launch-1.0 -e -v v4l2src device="/dev/video137" ! image/jpeg,width=2048,height=1536,framerate=30/1 ! jpegdec ! videoconvert ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
 
 		elif [ "$3" = "gige" ] ; then
 			cmd="gst-launch-1.0 aravissrc camera-name="id1" ! videoconvert ! video/x-raw,format=NV12 ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
-			# gst-launch-1.0 aravissrc camera-name="id1" ! videoconvert ! video/x-raw,format=NV12 ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream
 
 		elif [ "$3" = "iq" ] ; then
-       		# gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=1280,height=720,format=YUY2 ! waylandsink 2>&1 1>/dev/null &
-			gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! v4l2convert output-io-mode=dmabuf-import ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false
+       		# cmd="gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=1280,height=720,format=YUY2 ! waylandsink 2>&1 1>/dev/null &"
+			cmd="gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! v4l2convert output-io-mode=dmabuf-import ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false"
 
 		elif [ "$3" = "png" ] ; then
 			filename="snapshot_${timestamp}.png"
-			gst-launch-1.0 -e v4l2src device=${VIDEO_DEV[0]} num-buffers=1 ! video/x-raw,width=2048,height=1536 ! pngenc ! filesink location="${filename}"
+			cmd="gst-launch-1.0 -e v4l2src device=${VIDEO_DEV[0]} num-buffers=1 ! video/x-raw,width=2048,height=1536 ! pngenc ! filesink location="${filename}""
 
 		elif [ "$3" = "jpg" ] ; then
 			filename="snapshot_${timestamp}.jpg"
-			gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} num-buffers=1 ! queue ! video/x-raw,framrate=30/1,width=2048,height=1536,format=NV12 ! v4l2jpegenc ! queue ! jpegparse ! filesink location="${filename}.jpg"
+			cmd="gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} num-buffers=1 ! queue ! video/x-raw,framrate=30/1,width=2048,height=1536,format=NV12 ! v4l2jpegenc ! queue ! jpegparse ! filesink location="${filename}.jpg""
 
 		elif [ "$3" = "bmp" ] ; then
 			filename="snapshot_${timestamp}.bmp"
-			gst-launch-1.0 -e v4l2src device=${VIDEO_DEV[0]} num-buffers=1 ! video/x-raw,width=2048,height=1536 ! bmpenc ! filesink location="${filename}.bmp"
+			cmd="gst-launch-1.0 -e v4l2src device=${VIDEO_DEV[0]} num-buffers=1 ! video/x-raw,width=2048,height=1536 ! bmpenc ! filesink location="${filename}.bmp""
 
 		elif [ "$3" = "dp" ] ; then
-
-			gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! v4l2convert output-io-mode=dmabuf-import ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false
+			cmd="gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! v4l2convert output-io-mode=dmabuf-import ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false"
 
 		else
 
-			echo "gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=2048,height=1536 ! v4l2h264enc extra-controls=\"cid,video_gop_size=30\" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
-			gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=2048,height=1536 ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream
-			# gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=2048,height=1536 ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=mmap ! rtspclientsink location=rtsp://localhost:8554/mystream
-			# gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=1920,height=1080 ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream
+			cmd="gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=2048,height=1536 ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
+			# cmd="gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=2048,height=1536 ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=mmap ! rtspclientsink location=rtsp://localhost:8554/mystream"
+			# cmd="gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=1920,height=1080 ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
 		fi
 
 		echo "$cmd"
