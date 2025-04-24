@@ -278,19 +278,19 @@ if [ "$1" = "aic" ] ; then
 
 		if [ "$3" = "new" ] ; then
 			echo "update new DB..."
-			if [ "$4" = "1" ] ; then
+			if [ "$4" = "os" ] ; then
 				filePath="tuning_DB/imx214_mipi_raw"
 				fileName="ISP_param.db"
 				echo "OB & Shading DB : $filePath/$fileName ..."
-			elif [ "$4" = "2" ] ; then
+			elif [ "$4" = "ae" ] ; then
 				filePath="ae"
 				fileName="ParameterDB_ae.db"
 				echo "ae DB : $filePath/$fileName ..."
-			elif [ "$4" = "3" ] ; then
+			elif [ "$4" = "awb" ] ; then
 				filePath="awb"
 				fileName="ParameterDB_awb.db"
 				echo "awb DB : $filePath/$fileName ..."
-			elif [ "$4" = "4" ] ; then
+			elif [ "$4" = "tone" ] ; then
 				filePath="tone"
 				fileName="ParameterDB_tone.db"
 				echo "tone DB..."
@@ -299,27 +299,27 @@ if [ "$1" = "aic" ] ; then
 
 		elif [ "$3" = "old" ] ; then
 			echo "restore old DB..."
-			if [ "$4" = "1" ] ; then
+			if [ "$4" = "os" ] ; then
 				filePath="tuning_DB/imx214_mipi_raw"
 				fileName="ISP_param.db"
 				echo "OB & Shading DB : $filePath/$fileName ..."
 				cp -f "$dir_iq_old/tuning_DB/imx214_mipi_raw/ISP_param.db" "$dir_iq_dev/tuning_DB/imx214_mipi_raw/ISP_param.db"
-			elif [ "$4" = "2" ] ; then
+			elif [ "$4" = "ae" ] ; then
 				filePath="ae"
 				fileName="ParameterDB_ae.db"
 				echo "ae DB : $filePath/$fileName ..."
-			elif [ "$4" = "3" ] ; then
+			elif [ "$4" = "awb" ] ; then
 				filePath="awb"
 				fileName="ParameterDB_awb.db"
 				echo "awb DB : $filePath/$fileName ..."
-			elif [ "$4" = "4" ] ; then
+			elif [ "$4" = "tone" ] ; then
 				filePath="tone"
 				fileName="ParameterDB_tone.db"
 				echo "tone DB..."
 			fi
 			fileReplace="$dir_iq_old/$filePath/$fileName"
 		fi
-		
+
 		fileTarget="$dir_iq_dev/$filePath/$fileName"
 		echo "cp -f $fileReplace $fileTarget"
 		cp -f $fileReplace $fileTarget
