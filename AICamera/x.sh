@@ -213,6 +213,7 @@ if [ "$1" = "aic" ] ; then
 		elif [ "$3" = "iq" ] ; then
        		# cmd="gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=1280,height=720,format=YUY2 ! waylandsink 2>&1 1>/dev/null &"
 			cmd="gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! v4l2convert output-io-mode=dmabuf-import ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false"
+			cmd="gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! v4l2convert output-io-mode=dmabuf-import ! video/x-raw,width=4000,height=3000 ! fpsdisplaysink video-sink=waylandsink sync=false"
 
 		elif [ "$3" = "png" ] ; then
 			filename="snapshot_${timestamp}.png"
