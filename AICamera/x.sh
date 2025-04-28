@@ -370,7 +370,6 @@ if [ "$1" = "aic" ] ; then
 			echo 0 > $pwmTarget/enable
 		fi
 
-
 	elif [ "$2" = "kill" ] ; then
 
 		if [ "$3" = "fw" ] ; then
