@@ -47,6 +47,14 @@ if [ "$1" = "cp" ] ; then
 
 fi
 
+if [ "$1" = "gst" ] ; then
+	echo "gst pipeline test..."
+	if [ "$2" = "1" ] ; then
+		cmd=""
+	fi
+	$cmd 
+fi
+
 if [ "$1" = "ot" ] ; then
 
 	i2cbus=5
@@ -155,6 +163,12 @@ if [ "$1" = "aic" ] ; then
 			echo "i2cdetect -r -y 5"
 			i2cdetect -r -y 5
 			
+		elif [ "$3" = "di" ] ; then
+			gpioget /dev/gpiochip0 0 1
+
+		elif [ "$3" = "do" ] ; then
+			gpioset 0 3=$4 7=$4
+
 		else
 			echo "check version..."
 			cat /etc/primax_version
