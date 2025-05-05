@@ -1058,6 +1058,7 @@ fi
 
 # find file
 if [ "$1" == "find" ] ; then
+	echo "find . -name $2"
 	find . -name $2
 fi
 
