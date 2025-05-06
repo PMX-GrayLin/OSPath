@@ -167,6 +167,10 @@ if [ "$1" = "aic" ] ; then
 			echo "gpioget /dev/gpiochip0 0 1"
 			gpioget /dev/gpiochip0 0 1
 
+		elif [ "$3" = "triger" ] ; then
+			echo "gpioget /dev/gpiochip0 17 70"
+			gpioget /dev/gpiochip0 17 70
+
 		elif [ "$3" = "do" ] ; then
 			echo "gpioset 0 3=$4 7=$4"
 			gpioset 0 3=$4 7=$4
