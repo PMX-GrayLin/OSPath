@@ -24,10 +24,12 @@ alias edts='nano $BUILD_DIR/workspace/sources/linux-mtk/arch/arm64/boot/dts/medi
 # dir
 alias dh='cd ~'                                                                                     # dir home
 alias d--='cd $OLDPWD'                                                                              # dir previous dir
-alias d-2='cd ../..'                                                                                
-alias d-3='cd ../../..'                                                                             
-alias dftp='cd /mnt/disk2/FTP'                                                                      # dir FTP
-alias dftp2='cd /mnt/disk2/FTP/Public/gray'                                                         # dir FTP
+alias d-2='cd ../..'
+alias d-3='cd ../../..'
+alias d-4='cd ../../../..'
+alias dftp='cd /mnt/disk2/FTP/Public/gray'                                                                      # dir FTP
+alias dftpaic='cd /mnt/disk2/FTP/Public/gray/aicamera'                                                         # dir FTP
+alias dftpccm='cd /mnt/disk2/FTP/Public/gray/aicamera/ccm_db'                                                         # dir FTP
 alias dg2='cd /home/gray.lin/C_AI-Camera-G2_FW_Yocto'                                               # dir AI Camera G2
 alias dplus='cd /mnt/disk2/yocto_build_folder/gray/C_AI-Camera-G2_FW_Yocto'                         # dir AI Camera Plus
 alias dvh='cd /mnt/disk2/yocto_build_folder/gray/VisionHub'                                         # dir Vision Hub

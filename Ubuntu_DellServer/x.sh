@@ -401,6 +401,9 @@ if [ "$1" = "cp" ] ; then
 	elif [ "$2" = "h" ] ; then
 		path="$HOME"
 		cp -rf $3 $path
+	elif [ "$2" = "aic" ] ; then
+		path="/mnt/disk2/FTP/Public/gray/aicamera"
+		cp -rf $3 $path 
 	elif [ "$2" = "ccm" ] ; then
 		path="/mnt/disk2/FTP/Public/gray/aicamera/ccm_db"
 		cp -rf $3 $path 
