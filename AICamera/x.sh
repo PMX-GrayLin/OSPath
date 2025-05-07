@@ -44,15 +44,11 @@ if [ "$1" = "ccm" ] ; then
 		fileName1="ISP_param.db"
 		fileName2="ISP_mapping.db"
 
-		if [ "$2" = "src" ] ; then
-			filePath_src="$filePath/src"
-		elif [ "$2" = "mtk" ] ; then
-			filePath_src="$filePath/mtk"
-		elif [ "$2" = "org" ] ; then
-			filePath_src="$filePath/org"
+		if [ -z "$2" ]; then
+			echo "filePath_src:$filePath_src should be set correctlly..."
+			exit 1
 		else
-			echo "filePath_src:$filePath_src should set correctlly..."
-			exit 1 
+			filePath_src="$filePath/$2"
 		fi
 
 		fileReplace1="$dir_ccm/$2/$fileName1"
