@@ -36,7 +36,6 @@ echo "param 5:"$5
 timestamp=$(TZ='Asia/Singapore' date +"%H%M%S")
 echo "timestamp:"$timestamp
 
-
 if [ "$1" = "ccm" ] ; then
 		echo "ccm test..."
 		dir_ccm="/home/root/primax/10.1.13.207/ccm_db"
@@ -47,9 +46,9 @@ if [ "$1" = "ccm" ] ; then
 		fileName1="ISP_param.db"
 		fileName2="ISP_mapping.db"
 
-		if [ "$5" = "src" ] ; then
+		if [ "$2" = "src" ] ; then
 			filePath_src="$filePath/src"
-		elif [ "$5" = "mtk" ] ; then
+		elif [ "$2" = "mtk" ] ; then
 			filePath_src="$filePath/mtk"
 		else
 			echo "filePath_src:$filePath_src should set correctlly..."
