@@ -65,7 +65,6 @@ if [ "$1" = "ccm" ] ; then
 		md5sum $fileTarget1
 		md5sum $fileReplace2
 		md5sum $fileTarget2
-
 fi
 
 # copy to
