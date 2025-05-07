@@ -39,7 +39,7 @@ echo "timestamp:"$timestamp
 
 if [ "$1" = "ccm" ] ; then
 		echo "ccm test..."
-		dir_ccm="/home/root/primax/10.1.13.207/ccm_DB"
+		dir_ccm="/home/root/primax/10.1.13.207/ccm_db"
 		dir_iq_dev="/usr/share/mtkcam/DataSet/SQLiteModule/db"
 
 		filePath="tuning_DB/imx214_mipi_raw"
@@ -53,12 +53,12 @@ if [ "$1" = "ccm" ] ; then
 			filePath_src="$filePath/mtk"
 		else
 			echo "filePath_src:$filePath_src should set correctlly..."
-			return 
+			exit 1 
 		fi
 
-		fileReplace1="$dir_iq_new/$filePath_src/$fileName1"
+		fileReplace1="$dir_ccm/$filePath_src/$fileName1"
 		fileTarget1="$dir_iq_dev/$filePath/$fileName1"
-		fileReplace2="$dir_iq_new/$filePath_src/$fileName2"
+		fileReplace2="$dir_ccm/$filePath_src/$fileName2"
 		fileTarget2="$dir_iq_dev/$filePath/$fileName2"
 
 		echo "cp -f $fileReplace1 $fileTarget1"
