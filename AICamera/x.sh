@@ -48,6 +48,8 @@ if [ "$1" = "ccm" ] ; then
 			filePath_src="$filePath/src"
 		elif [ "$2" = "mtk" ] ; then
 			filePath_src="$filePath/mtk"
+		elif [ "$2" = "org" ] ; then
+			filePath_src="$filePath/org"
 		else
 			echo "filePath_src:$filePath_src should set correctlly..."
 			exit 1 
