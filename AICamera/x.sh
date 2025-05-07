@@ -321,6 +321,8 @@ if [ "$1" = "aic" ] ; then
 			elif [ "$4" = "ccm2" ] ; then
 				filePath="tuning_DB/imx214_mipi_raw"
 				fileName="ISP_mapping.db"
+			else
+				echo "not match..."
 			fi
 			fileReplace="$dir_iq_new/$filePath/$fileName"
 
@@ -349,6 +351,8 @@ if [ "$1" = "aic" ] ; then
 			elif [ "$4" = "ccm2" ] ; then
 				filePath="tuning_DB/imx214_mipi_raw"
 				fileName="ISP_mapping.db"
+			else
+				echo "not match..."
 			fi
 			fileReplace="$dir_iq_old/$filePath/$fileName"
 		fi
