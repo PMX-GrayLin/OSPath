@@ -297,8 +297,6 @@ if [ "$1" = "aic" ] ; then
 		dir_iq_old="/home/root/primax/10.1.13.207/IQ_DB/db_origin"
 		dir_iq_dev="/usr/share/mtkcam/DataSet/SQLiteModule/db"
 
-/usr/share/mtkcam/DataSet/SQLiteModule/db/tuning_DB/imx214_mipi_raw
-
 		if [ "$3" = "new" ] ; then
 			echo "update new DB..."
 			if [ "$4" = "os" ] ; then
