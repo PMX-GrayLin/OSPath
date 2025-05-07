@@ -40,9 +40,7 @@ if [ "$1" = "ccm" ] ; then
 		echo "ccm test..."
 		dir_ccm="/home/root/primax/10.1.13.207/ccm_db"
 		dir_iq_dev="/usr/share/mtkcam/DataSet/SQLiteModule/db"
-
 		filePath="tuning_DB/imx214_mipi_raw"
-		filePath_src="tuning_DB/imx214_mipi_raw"
 		fileName1="ISP_param.db"
 		fileName2="ISP_mapping.db"
 
@@ -55,9 +53,9 @@ if [ "$1" = "ccm" ] ; then
 			exit 1 
 		fi
 
-		fileReplace1="$dir_ccm/$filePath_src/$fileName1"
+		fileReplace1="$dir_ccm/$2/$fileName1"
 		fileTarget1="$dir_iq_dev/$filePath/$fileName1"
-		fileReplace2="$dir_ccm/$filePath_src/$fileName2"
+		fileReplace2="$dir_ccm/$2/$fileName2"
 		fileTarget2="$dir_iq_dev/$filePath/$fileName2"
 
 		echo "cp -f $fileReplace1 $fileTarget1"
