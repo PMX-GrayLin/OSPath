@@ -297,6 +297,8 @@ if [ "$1" = "aic" ] ; then
 		dir_iq_old="/home/root/primax/10.1.13.207/IQ_DB/db_origin"
 		dir_iq_dev="/usr/share/mtkcam/DataSet/SQLiteModule/db"
 
+/usr/share/mtkcam/DataSet/SQLiteModule/db/tuning_DB/imx214_mipi_raw
+
 		if [ "$3" = "new" ] ; then
 			echo "update new DB..."
 			if [ "$4" = "os" ] ; then
@@ -315,6 +317,12 @@ if [ "$1" = "aic" ] ; then
 				filePath="tone"
 				fileName="ParameterDB_tone.db"
 				echo "tone DB..."
+			elif [ "$4" = "ccm1" ] ; then
+				filePath="tuning_DB/imx214_mipi_raw"
+				fileName="ISP_param.db"
+			elif [ "$4" = "ccm2" ] ; then
+				filePath="tuning_DB/imx214_mipi_raw"
+				fileName="ISP_mapping.db"
 			fi
 			fileReplace="$dir_iq_new/$filePath/$fileName"
 
@@ -337,6 +345,12 @@ if [ "$1" = "aic" ] ; then
 				filePath="tone"
 				fileName="ParameterDB_tone.db"
 				echo "tone DB..."
+			elif [ "$4" = "ccm1" ] ; then
+				filePath="tuning_DB/imx214_mipi_raw"
+				fileName="ISP_param.db"
+			elif [ "$4" = "ccm2" ] ; then
+				filePath="tuning_DB/imx214_mipi_raw"
+				fileName="ISP_mapping.db"
 			fi
 			fileReplace="$dir_iq_old/$filePath/$fileName"
 		fi
