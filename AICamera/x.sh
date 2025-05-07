@@ -250,6 +250,9 @@ if [ "$1" = "aic" ] ; then
 		elif [ "$3" = "dp" ] ; then
 			cmd="gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! v4l2convert output-io-mode=dmabuf-import ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false"
 
+		elif [ "$3" = "mtx" ] ; then
+			cmd="gst-launch-1.0 rtspsrc location=rtsp://localhost:8554/mystream latency=10 drop-on-latency=true ! rtph264depay ! h264parse ! v4l2h264dec extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! v4l2convert ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false"
+
 		else
 
 			cmd="gst-launch-1.0 -v v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=2048,height=1536 ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
@@ -318,9 +321,21 @@ if [ "$1" = "aic" ] ; then
 			elif [ "$4" = "ccm1" ] ; then
 				filePath="tuning_DB/imx214_mipi_raw"
 				fileName="ISP_param.db"
+				if [ "$5" = "src" ] ; then
+					filePath="$filePath/src"
+				elif [ "$5" = "mtk" ] ; then
+					filePath="$filePath/mtk"		
+				fi
+
 			elif [ "$4" = "ccm2" ] ; then
 				filePath="tuning_DB/imx214_mipi_raw"
 				fileName="ISP_mapping.db"
+				if [ "$5" = "src" ] ; then
+					filePath="$filePath/src"
+				elif [ "$5" = "mtk" ] ; then
+					filePath="$filePath/mtk"		
+				fi
+
 			else
 				echo "not match..."
 			fi
