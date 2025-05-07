@@ -50,7 +50,10 @@ if [ "$1" = "ccm" ] ; then
 		if [ "$5" = "src" ] ; then
 			filePath_src="$filePath/src"
 		elif [ "$5" = "mtk" ] ; then
-			filePath_src="$filePath/mtk"		
+			filePath_src="$filePath/mtk"
+		else
+			echo "filePath_src:$filePath_src should set correctlly..."
+			return 
 		fi
 
 		fileReplace1="$dir_iq_new/$filePath_src/$fileName1"
