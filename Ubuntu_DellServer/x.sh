@@ -400,6 +400,9 @@ if [ "$1" = "cp" ] ; then
 		cp -rf $3 $path 
 	elif [ "$2" = "h" ] ; then
 		path="$HOME"
+		cp -rf $3 $path
+	elif [ "$2" = "ccm" ] ; then
+		path="/mnt/disk2/FTP/Public/gray/aicamera/ccm_db"
 		cp -rf $3 $path 
 	fi
 	echo "copy $3 to $path"
