@@ -36,6 +36,10 @@ echo "param 5:"$5
 timestamp=$(TZ='Asia/Singapore' date +"%H%M%S")
 echo "timestamp:"$timestamp
 
+if [ "$1" = "fixt" ] ; then
+	find . -exec touch {} +
+fi
+
 if [ "$1" = "ccm" ] ; then
 		echo "ccm test..."
 		dir_ccm="/home/root/primax/10.1.13.207/ccm_db"
