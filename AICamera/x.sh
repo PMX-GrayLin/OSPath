@@ -245,7 +245,7 @@ if [ "$1" = "aic" ] ; then
 			vision_box_DualCam &
 
 		elif [ "$3" = "tt" ] ; then
-			pkill vision_box
+			pkill test
 			sleep 1
 			./test &
 
