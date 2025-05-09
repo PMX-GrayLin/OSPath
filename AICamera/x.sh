@@ -244,6 +244,11 @@ if [ "$1" = "aic" ] ; then
 			sleep 3
 			vision_box_DualCam &
 
+		elif [ "$3" = "tt" ] ; then
+			pkill vision_box
+			sleep 1
+			./test &
+
 		elif [ "$3" = "net" ] ; then
 			systemctl restart systemd-networkd
 
