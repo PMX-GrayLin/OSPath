@@ -395,15 +395,17 @@ fi
 # copy to
 if [ "$1" = "cp" ] ; then
 
-	if [ "$2" = "ftp" ] ; then
-		path="/mnt/disk2/FTP/Public/gray"
-		cp -rf $3 $path 
-	elif [ "$2" = "h" ] ; then
+	if [ "$2" = "h" ] ; then
 		path="$HOME"
-		cp -rf $3 $path 
+	elif [ "$2" = "ftp" ] ; then
+		path="/mnt/disk2/FTP/Public/gray"
+	elif [ "$2" = "aic" ] ; then
+		path="/mnt/disk2/FTP/Public/gray/aicamera"
+	elif [ "$2" = "ccm" ] ; then
+		path="/mnt/disk2/FTP/Public/gray/aicamera/ccm_db"
 	fi
-	echo "copy $3 to $path"
-
+	echo "cp -rf $3 $path"
+	cp -rf $3 $path 
 fi
 
 # gedit

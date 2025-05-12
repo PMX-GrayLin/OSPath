@@ -36,6 +36,41 @@ echo "param 5:"$5
 timestamp=$(TZ='Asia/Singapore' date +"%H%M%S")
 echo "timestamp:"$timestamp
 
+if [ "$1" = "fixt" ] ; then
+	find . -exec touch {} +
+fi
+
+if [ "$1" = "ccm" ] ; then
+		echo "ccm test..."
+		dir_ccm="/home/root/primax/10.1.13.207/ccm_db"
+		dir_iq_dev="/usr/share/mtkcam/DataSet/SQLiteModule/db"
+		filePath="tuning_DB/imx214_mipi_raw"
+		fileName1="ISP_param.db"
+		fileName2="ISP_mapping.db"
+
+		if [ -z "$2" ]; then
+			echo "filePath_src:$filePath_src should be set correctlly..."
+			exit 1
+		else
+			filePath_src="$filePath/$2"
+		fi
+
+		fileReplace1="$dir_ccm/$2/$fileName1"
+		fileTarget1="$dir_iq_dev/$filePath/$fileName1"
+		fileReplace2="$dir_ccm/$2/$fileName2"
+		fileTarget2="$dir_iq_dev/$filePath/$fileName2"
+
+		echo "cp -f $fileReplace1 $fileTarget1"
+		cp -f $fileReplace1 $fileTarget1
+		echo "cp -f $fileReplace2 $fileTarget2"
+		cp -f $fileReplace2 $fileTarget2
+		sync
+		md5sum $fileReplace1
+		md5sum $fileTarget1
+		md5sum $fileReplace2
+		md5sum $fileTarget2
+fi
+
 # copy to
 if [ "$1" = "cp" ] ; then
 
@@ -167,6 +202,10 @@ if [ "$1" = "aic" ] ; then
 			echo "gpioget /dev/gpiochip0 0 1"
 			gpioget /dev/gpiochip0 0 1
 
+		elif [ "$3" = "triger" ] ; then
+			echo "gpioget /dev/gpiochip0 17 70"
+			gpioget /dev/gpiochip0 17 70
+
 		elif [ "$3" = "do" ] ; then
 			echo "gpioset 0 3=$4 7=$4"
 			gpioset 0 3=$4 7=$4
@@ -204,6 +243,11 @@ if [ "$1" = "aic" ] ; then
 			pkill vision_box
 			sleep 3
 			vision_box_DualCam &
+
+		elif [ "$3" = "tt" ] ; then
+			pkill test
+			sleep 1
+			./test &
 
 		elif [ "$3" = "net" ] ; then
 			systemctl restart systemd-networkd
@@ -245,6 +289,9 @@ if [ "$1" = "aic" ] ; then
        		# cmd="gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=1280,height=720,format=YUY2 ! waylandsink 2>&1 1>/dev/null &"
 			cmd="gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! v4l2convert output-io-mode=dmabuf-import ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false"
 			# cmd="gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! v4l2convert output-io-mode=dmabuf-import ! video/x-raw,width=1920,height=1080 ! fpsdisplaysink video-sink=waylandsink sync=false"
+
+		elif [ "$3" = "mtx" ] ; then
+			cmd="gst-launch-1.0 rtspsrc location=rtsp://localhost:8554/mystream latency=10 drop-on-latency=true ! rtph264depay ! h264parse ! v4l2h264dec extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! v4l2convert ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false"
 
 		else
 
@@ -311,6 +358,8 @@ if [ "$1" = "aic" ] ; then
 				filePath="tone"
 				fileName="ParameterDB_tone.db"
 				echo "tone DB..."
+			else
+				echo "not match..."
 			fi
 			fileReplace="$dir_iq_new/$filePath/$fileName"
 
@@ -333,6 +382,8 @@ if [ "$1" = "aic" ] ; then
 				filePath="tone"
 				fileName="ParameterDB_tone.db"
 				echo "tone DB..."
+			else
+				echo "not match..."
 			fi
 			fileReplace="$dir_iq_old/$filePath/$fileName"
 		fi
