@@ -77,7 +77,7 @@ alias ytb='DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image'
 
 alias yt='x yt'
 alias aic='x aic'
-alias aicb='x aic us && x bb b primax'
+alias aicb='x aic us && x aic tcus && x bb b primax'
 alias aicbv='x aic us && x bb ocv primax'
 alias aicbt='x aic tcus && x bb oct primax'                                 # build test code 
 
