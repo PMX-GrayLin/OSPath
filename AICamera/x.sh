@@ -92,7 +92,7 @@ fi
 
 if [ "$1" = "ot" ] ; then
 
-	i2cbus=5
+	i2cbus=7
 	if [ "$2" = "ck" ] ; then
 		echo "i2cdetect -r -y $i2cbus"
 		i2cdetect -r -y $i2cbus
