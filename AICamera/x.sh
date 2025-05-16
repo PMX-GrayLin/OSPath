@@ -268,7 +268,14 @@ if [ "$1" = "aic" ] ; then
 			cmd="gst-launch-1.0 -e -v v4l2src device="/dev/video137" ! image/jpeg,width=2048,height=1536,framerate=30/1 ! jpegdec ! videoconvert ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
 
 		elif [ "$3" = "gige" ] ; then
-			cmd="gst-launch-1.0 aravissrc camera-name="id1" ! videoconvert ! video/x-raw,format=NV12 ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
+			
+			if [ "$3" = "dual" ] ; then
+				cmd="gst-launch-1.0 aravissrc camera-name="id1" ! videoconvert ! video/x-raw,format=NV12,width=3072,height=2048 ! tee name=t t. ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true t. ! queue ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
+			elif [ "$3" = "x" ] ; then
+				cmd=''
+			else
+				cmd="gst-launch-1.0 aravissrc camera-name="id1" ! videoconvert ! video/x-raw,format=NV12 ! queue ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
+			fi
 
 		elif [ "$3" = "png" ] ; then
 			filename="snapshot_${timestamp}.png"
