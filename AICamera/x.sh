@@ -267,9 +267,11 @@ if [ "$1" = "aic" ] ; then
 		third_arg=${3:-cis}
 
 		if [ "$third_arg" = "usb" ] ; then
+			echo "usb..."
 			cmd="gst-launch-1.0 -e -v v4l2src device="/dev/video137" ! image/jpeg,width=2048,height=1536,framerate=30/1 ! jpegdec ! videoconvert ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
 
 		elif [ "$third_arg" = "gige" ] ; then
+			echo "gige..."
 			
 			if [ "$4" = "tee" ] ; then
 				cmd="gst-launch-1.0 aravissrc camera-name="id1" ! videoconvert ! videorate ! video/x-raw,format=NV12 ! tee name=t t. ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true t. ! queue ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! h264parse config-interval=1 ! rtspclientsink location=rtsp://localhost:8554/mystream"
@@ -295,6 +297,7 @@ if [ "$1" = "aic" ] ; then
 			cmd="gst-launch-1.0 rtspsrc location=rtsp://localhost:8554/mystream latency=10 drop-on-latency=true ! rtph264depay ! h264parse ! v4l2h264dec extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! v4l2convert ! video/x-raw,width=1920,height=1080 ! fpsdisplaysink video-sink=waylandsink sync=false"
 
 		elif [ "$third_arg" = "cis" ] ; then
+			echo "cis..."
 			declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
 
 			if [ "$4" = "tee" ] ; then
