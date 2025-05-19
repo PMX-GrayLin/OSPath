@@ -276,7 +276,7 @@ if [ "$1" = "aic" ] ; then
 			if [ "$4" = "tee" ] ; then
 				cmd="gst-launch-1.0 aravissrc camera-name="id1" ! videoconvert ! videorate ! video/x-raw,format=NV12 ! tee name=t t. ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true t. ! queue ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! h264parse config-interval=1 ! rtspclientsink location=rtsp://localhost:8554/mystream"
 			elif [ "$4" = "dp" ] ; then
-				cmd='gst-launch-1.0 aravissrc camera-name=id1 ! videoconvert ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true'
+				cmd='gst-launch-1.0 aravissrc camera-name=id1 ! videoconvert ! video/x-raw,width=1536,height=1024 ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true'
 			else
 				cmd="gst-launch-1.0 aravissrc camera-name="id1" ! videoconvert ! videorate ! video/x-raw,format=NV12 ! queue ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! h264parse config-interval=1 ! rtspclientsink location=rtsp://localhost:8554/mystream"
 			fi
