@@ -250,6 +250,9 @@ if [ "$1" = "aic" ] ; then
 		elif [ "$3" = "net" ] ; then
 			systemctl restart systemd-networkd
 
+		elif [ "$3" = "gige" ] ; then
+			arv-tool-0.8 control DeviceReset
+
 		elif [ "$3" = "all" ] ; then
 			pkill vision_box
 			pkill test
