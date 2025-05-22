@@ -214,7 +214,7 @@ if [ "$1" = "aic" ] ; then
 			echo "check version..."
 			cat /etc/primax_version
 			echo ""
-			echo "check process..."
+			echo "check process... ps aux | grep -E \"vision_box_DualCam|mediamtx|test|gst\""
 			ps aux | grep -E "vision_box_DualCam|mediamtx|test|gst"
 		fi
 
