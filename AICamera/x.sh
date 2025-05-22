@@ -251,6 +251,7 @@ if [ "$1" = "aic" ] ; then
 			systemctl restart systemd-networkd
 
 		elif [ "$3" = "gige" ] ; then
+			echo "arv-tool-0.8 control DeviceReset"
 			arv-tool-0.8 control DeviceReset
 
 		elif [ "$3" = "all" ] ; then
