@@ -248,7 +248,7 @@ if [ "$1" = "aic" ] ; then
 		elif [ "$3" = "fw2" ] ; then
 			pkill test
 			sleep 1
-			~primax/test &
+			~/primax/test &
 
 		elif [ "$3" = "net" ] ; then
 			systemctl restart systemd-networkd
@@ -260,7 +260,7 @@ if [ "$1" = "aic" ] ; then
 
 			sleep 3
 			vision_box_DualCam &
-			~primax/test &
+			~/primax/test &
 			mediamtx /etc/mediamtx/mediamtx.yml&
 		fi
 
