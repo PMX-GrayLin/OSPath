@@ -234,6 +234,7 @@ if [ "$1" = "aic" ] ; then
 
 	elif [ "$2" = "rs" ] ; then
 		echo "restart $3..."
+		
 		if [ "$3" = "mtx" ] ; then
 			pkill mediamtx
 			sleep 1
@@ -244,21 +245,23 @@ if [ "$1" = "aic" ] ; then
 			sleep 3
 			vision_box_DualCam &
 
-		elif [ "$3" = "tt" ] ; then
+		elif [ "$3" = "fw2" ] ; then
 			pkill test
 			sleep 1
-			./test &
+			~primax/test &
 
 		elif [ "$3" = "net" ] ; then
 			systemctl restart systemd-networkd
 
 		elif [ "$3" = "all" ] ; then
-			pkill mediamtx
 			pkill vision_box
+			pkill test
+			pkill mediamtx
 
 			sleep 3
-			mediamtx /etc/mediamtx/mediamtx.yml&
 			vision_box_DualCam &
+			~primax/test &
+			mediamtx /etc/mediamtx/mediamtx.yml&
 		fi
 
 	elif [ "$2" = "gst" ] ; then
