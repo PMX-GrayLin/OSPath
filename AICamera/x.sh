@@ -168,7 +168,6 @@ if [ "$1" = "aic" ] ; then
 				# udevadm info -a -p $(udevadm info -q path -n ${VIDEO_DEV[0]})
 				# udevadm info -a -p $(udevadm info -q path -n ${VIDEO_DEV[1]})
 				# udevadm info -a -p $(udevadm info -q path -n ${VIDEO_DEV[2]})
-
 			fi
 
 		elif [ "$3" = "net" ] ; then
@@ -481,17 +480,14 @@ if [ "$1" = "aic" ] ; then
 		# rsync -avz -e "ssh" gray.lin@10.1.13.207:/mnt/disk2/FTP/Public/gray/aicamera /home/root/primax/ftp
 
 	elif [ "$2" = "stress" ] ; then
-		if [ "$3" = "-fw" ] ; then
+		if [ "$3" = "on" ] ; then
 			stress-ng --cpu 8 &
 			genio-stress-gpu &
-			cd /home/root/primax/ai/test_npu_boundary_folder
-			./test_boundary.sh &
-		else
-			vision_box_DualCam &
-			stress-ng --cpu 8 &
-			genio-stress-gpu &
-			cd /home/root/primax/ai/test_npu_boundary_folder
-			./test_boundary.sh &
+			/home/root/primax/ai/test_npu_boundary_folder/test_boundary.sh &
+		if [ "$3" = "off" ] ; then
+			pkill stress-ng
+			pkill genio-stress-gpu
+			pkill test_boundary
 		fi
 
 	elif [ "$2" = "ll" ] ; then
