@@ -209,6 +209,22 @@ if [ "$1" = "aic" ] ; then
 			echo "gpioset 0 3=$4 7=$4"
 			gpioset 0 3=$4 7=$4
 
+		elif [ "$3" = "led" ] ; then
+			echo "led 1 : gpioset 0 79=$4 80=$4"
+			gpioset 0 79=$4 80=$4
+			sleep 0.5
+			echo "led 2 : gpioset 0 81=$4 82=$4"
+			gpioset 0 81=$4 82=$4
+			sleep 0.5
+			echo "led 3 : gpioset 0 114=$4 115=$4"
+			gpioset 0 114=$4 115=$4
+			sleep 0.5
+			echo "led 4 : gpioset 0 116=$4 117=$4"
+			gpioset 0 116=$4 117=$4
+			sleep 0.5
+			echo "led 5 : gpioset 0 119=$4 120=$4"
+			gpioset 0 119=$4 120=$4
+
 		else
 			echo "check version..."
 			cat /etc/primax_version
@@ -487,7 +503,7 @@ if [ "$1" = "aic" ] ; then
 		elif [ "$3" = "off" ] ; then
 			pkill stress-ng
 			pkill genio-stress-gpu
-			pkill test_boundary
+			pkill -f test_boundary.sh
 		fi
 
 	elif [ "$2" = "ll" ] ; then
