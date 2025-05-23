@@ -27,9 +27,9 @@ wheeltec_ip="192.168.1.196"
 # ai camera
 
 # AICamera_ip="192.168.1.13"
-AICamera_ip="192.168.1.65"
+# AICamera_ip="192.168.1.65"
 # AICamera_ip="192.168.1.66"
-# AICamera_ip="192.168.1.67"
+AICamera_ip="192.168.1.67"
 # AICamera_ip="192.168.1.68"
 # AICamera_ip="192.168.1.69"
 # AICamera_ip="192.168.1.70"
@@ -40,8 +40,8 @@ AICamera_ip="192.168.1.65"
 # AICamera_ip="192.168.1.179"
 # AICamera_ip="192.168.1.131"
 # AICamera_ip="192.168.1.181"
-# AICamera_ip="192.168.1.205"
-# AICamera_ip="192.168.1.153"
+# AICamera_ip="192.168.1.190"
+# AICamera_ip="192.168.1.218"
 
 DellServer_ip="10.1.13.207"
 
@@ -116,6 +116,7 @@ if [ "$1" == "scp" ] ; then
 			scp ./$4 $user@$AICamera_ip:$remoteFolder$5
 			# sshpass scp ./$4 $user@$AICamera_ip:$remoteFolder/$5
 		elif [ "$3" == "down" ] ; then
+			echo "sshpass scp $user@$AICamera_ip:$remoteFolder$4 ."
 			sshpass scp $user@$AICamera_ip:$remoteFolder$4 .
 		fi
 	fi

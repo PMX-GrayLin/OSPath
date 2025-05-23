@@ -506,53 +506,6 @@ if [ "$1" = "aic" ] ; then
 			pkill -f test_boundary.sh
 		fi
 
-	elif [ "$2" = "ll" ] ; then
-		echo "liquid lens..."
-
-		i2cdetect -r -y 5
-    	i2cset -f -y 5 0x77 0x03 0x03
-		i2cset -f -y 5 0x77 0x04 0xC0
-		i2cset -f -y 5 0x77 0x05 0xFF
-		i2cset -f -y 5 0x77 0x09 0x02
-		sleep 0.5
-
-		i2cset -f -y 5 0x77 0x04 0x00
-		i2cset -f -y 5 0x77 0x05 0x00
-		i2cset -f -y 5 0x77 0x09 0x02
-		sleep 0.5
-
-		while true
-		do
-			i=0
-			while true
-			do
-				i=$(($i+10))
-				if [ $i -ge 255 ]; then
-					break;
-				fi
-				echo "input:$i"
-				i2cset -f -y 5 0x77 0x04 0xC0
-				i2cset -f -y 5 0x77 0x05 $i
-				i2cset -f -y 5 0x77 0x09 0x02
-				sleep 1
-			done
-
-			i=255
-			while true
-			do
-				i=$(($i-10))
-				if [ $i -le 0 ]; then
-					i=0
-					break;
-				fi
-				echo "input:$i"
-				i2cset -f -y 5 0x77 0x04 0xC0
-				i2cset -f -y 5 0x77 0x05 $i
-				i2cset -f -y 5 0x77 0x09 0x02
-				sleep 1
-			done
-		done
-
 	fi
 fi
 
