@@ -499,7 +499,7 @@ if [ "$1" = "aic" ] ; then
 		if [ "$3" = "on" ] ; then
 			stress-ng --cpu 8 &
 			genio-stress-gpu &
-			/home/root/primax/ai/test_npu_boundary_folder/test_boundary.sh &
+			/home/root/primax/script/test_npu/test_boundary.sh &
 		elif [ "$3" = "off" ] ; then
 			pkill stress-ng
 			pkill genio-stress-gpu
