@@ -225,6 +225,15 @@ if [ "$1" = "aic" ] ; then
 			echo "led 5 : gpioset 0 119=$4 120=$4"
 			gpioset 0 119=$4 120=$4
 
+		elif [ "$3" = "gige" ] ; then
+			exho "arv-tool-0.8 control ExposureAuto"
+			arv-tool-0.8 control ExposureAuto
+			echo "arv-tool-0.8 control ExposureTime"
+			arv-tool-0.8 control ExposureTime
+			echo "arv-tool-0.8 control Gain"
+			arv-tool-0.8 control Gain
+			echo "arv-tool-0.8 control GainAuto"
+			arv-tool-0.8 control GainAuto
 		else
 			echo "check version..."
 			cat /etc/primax_version
@@ -328,7 +337,7 @@ if [ "$1" = "aic" ] ; then
 				# cmd="gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! v4l2convert output-io-mode=dmabuf-import ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false"
 				cmd="gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! videoconvert ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false"
 			else
-				cmd="gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! videorate ! video/x-raw,width=2048,height=1536 ! queue ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! h264parse config-interval=1 ! rtspclientsink location=rtsp://localhost:8554/mystream"
+				cmd="gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! video/x-raw,width=2048,height=1536 ! queue ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! h264parse config-interval=1 ! rtspclientsink location=rtsp://localhost:8554/mystream"
 			fi
 
 		fi
