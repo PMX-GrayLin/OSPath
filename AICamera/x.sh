@@ -226,14 +226,15 @@ if [ "$1" = "aic" ] ; then
 			gpioset 0 119=$4 120=$4
 
 		elif [ "$3" = "gige" ] ; then
-			exho "arv-tool-0.8 control ExposureAuto"
+			echo "arv-tool-0.8 control ExposureAuto"
 			arv-tool-0.8 control ExposureAuto
 			echo "arv-tool-0.8 control ExposureTime"
 			arv-tool-0.8 control ExposureTime
-			echo "arv-tool-0.8 control Gain"
-			arv-tool-0.8 control Gain
 			echo "arv-tool-0.8 control GainAuto"
 			arv-tool-0.8 control GainAuto
+			echo "arv-tool-0.8 control Gain"
+			arv-tool-0.8 control Gain
+
 		else
 			echo "check version..."
 			cat /etc/primax_version
