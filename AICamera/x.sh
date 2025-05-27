@@ -494,13 +494,16 @@ if [ "$1" = "aic" ] ; then
 		# rm test*
 		# wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/test
 		
-		if [ "$3" = "rsync" ] ; then
-			# Sync from remote → local
-			rsync -avz -e ssh gray.lin@10.1.13.207:/mnt/disk2/FTP/Public/gray/aicamera/ /home/root/primax/10.1.13.207/
+		if [ "$3" = "sync" ] ; then
 
-			# Then sync from local → remote
-			rsync -avz -e ssh /home/root/primax/10.1.13.207/ gray.lin@10.1.13.207:/mnt/disk2/FTP/Public/gray/aicamera/
-
+			if [ "$4" = "down" ] ; then
+				# Sync from remote → local
+				rsync -avz -e ssh gray.lin@10.1.13.207:/mnt/disk2/FTP/Public/gray/aicamera/ /home/root/primax/10.1.13.207/
+			elif [ "$4" = "up" ] ; then
+				# Then sync from local → remote
+				rsync -avz -e ssh /home/root/primax/10.1.13.207/ gray.lin@10.1.13.207:/mnt/disk2/FTP/Public/gray/aicamera/
+			fi
+			
 		else
 			# all file in folder to aicamera
 			wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$local_dir" --no-parent --cut-dirs=3	
