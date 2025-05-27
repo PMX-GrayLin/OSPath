@@ -312,6 +312,19 @@ if [ "$1" = "aic" ] ; then
 				cmd="gst-launch-1.0 aravissrc camera-name=id1 ! videoconvert ! video/x-raw,format=NV12 ! queue ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! h264parse config-interval=1 ! rtspclientsink location=rtsp://localhost:8554/mystream"
 			fi
 
+		elif [ "$third_arg" = "gige2" ] ; then
+			echo "gige2..."
+			
+			if [ "$4" = "tee" ] ; then
+				cmd="gst-launch-1.0 aravissrc camera-name=id2 ! videoconvert ! video/x-raw,format=NV12 ! tee name=t t. ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true t. ! queue ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! h264parse config-interval=1 ! rtspclientsink location=rtsp://localhost:8554/mystream"
+			elif [ "$4" = "dp" ] ; then
+				cmd='gst-launch-1.0 aravissrc camera-name=id2 ! videoconvert ! video/x-raw,format=NV12,width=1536,height=1024 ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true'
+			elif [ "$4" = "dp2" ] ; then
+				cmd='gst-launch-1.0 aravissrc camera-name=id2 ! videoconvert ! video/x-raw,format=NV12,width=3072,height=2048 ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true'
+			else
+				cmd="gst-launch-1.0 aravissrc camera-name=id2 ! videoconvert ! video/x-raw,format=NV12 ! queue ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! h264parse config-interval=1 ! rtspclientsink location=rtsp://localhost:8554/mystream"
+			fi
+
 		elif [ "$third_arg" = "png" ] ; then
 			filename="snapshot_${timestamp}.png"
 			cmd="gst-launch-1.0 -e v4l2src device=${VIDEO_DEV[0]} num-buffers=1 ! video/x-raw,width=2048,height=1536 ! pngenc ! filesink location="${filename}""
@@ -492,15 +505,15 @@ if [ "$1" = "aic" ] ; then
 		if [ "$3" = "sync" ] ; then
 
 			if [ "$4" = "down" ] ; then
-				# Sync from remote → local
-				rsync -avz -e ssh gray.lin@10.1.13.207:/mnt/disk2/FTP/Public/gray/aicamera/ /home/root/primax/10.1.13.207/
+				# Sync from ftp server → aicamera
+				rsync -avz -e ssh gray.lin@$ftp_host:/mnt/disk2/FTP/Public/gray/aicamera/ /home/root/primax/$ftp_host/
 			elif [ "$4" = "up" ] ; then
-				# Then sync from local → remote
-				rsync -avz -e ssh /home/root/primax/10.1.13.207/ gray.lin@10.1.13.207:/mnt/disk2/FTP/Public/gray/aicamera/
+				# Then sync from aicamera → ftp server
+				rsync -avz -e ssh /home/root/primax/$ftp_host/ gray.lin@$ftp_host:/mnt/disk2/FTP/Public/gray/aicamera/
 			fi
 
 		else
-			# all file in folder to aicamera
+			# all file in ftp folder to aicamera
 			wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$local_dir" --no-parent --cut-dirs=3	
 
 			cp $ftp_host/vision_box_DualCam .
