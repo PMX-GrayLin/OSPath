@@ -527,14 +527,12 @@ if [ "$1" = "aic" ] ; then
 		if [ "$3" = "on" ] ; then
 			stress-ng --cpu 8 &
 			genio-stress-gpu &
-			/home/root/primax/script/test_npu/test_boundary.sh &
-			x aic gst gige dp &
-			x aic gst gige2 dp &
-
+			/home/root/primax/10.1.13.207/stress_npu/stress_npu.sh &
+			gst-launch-1.0 aravissrc camera-name=id1 ! videoconvert ! video/x-raw,format=NV12,width=1536,height=1024 ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true &
+			gst-launch-1.0 aravissrc camera-name=id2 ! videoconvert ! video/x-raw,format=NV12,width=1536,height=1024 ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true &
 		elif [ "$3" = "off" ] ; then
-			pkill stress-ng
-			pkill genio-stress-gpu
-			pkill -f test_boundary.sh
+			pkill stress
+			pkill neuronrt
 			pkill gst
 		fi
 
