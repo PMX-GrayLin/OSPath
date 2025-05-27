@@ -1,9 +1,12 @@
+
+# Loop through all parameters passed to the script
+echo xDir = $xDir
 echo "param 0:"$0
-echo "param 1:"$1
-echo "param 2:"$2
-echo "param 3:"$3
-echo "param 4:"$4
-echo "param 5:"$5
+i=1
+for arg in "$@"; do
+    echo "param $i: $arg"
+    ((i++))
+done
 
 xDir=~/OSPath/MAC
 RNFolder=~/Work/Prj_RN

@@ -24,13 +24,15 @@ gitBackupFile="1588961756_2020_05_08_12.9.3"
 jksDir="$dockderDir/jenkins"
 jksDir_Home="/var/lib/docker/volumes/jenkins_vHome/_data"
 
+# Loop through all parameters passed to the script
 echo xDir = $xDir
 echo "param 0:"$0
-echo "param 1:"$1
-echo "param 2:"$2
-echo "param 3:"$3
-echo "param 4:"$4
-echo "param 5:"$5
+i=1
+for arg in "$@"; do
+    echo "param $i: $arg"
+    ((i++))
+done
+
 echo "PROJ_ROOT:"$PROJ_ROOT
 echo "BUILD_DIR:"$BUILD_DIR
 
