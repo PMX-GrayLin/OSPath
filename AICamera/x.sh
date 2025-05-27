@@ -23,13 +23,21 @@ gitBackupFile="1588961756_2020_05_08_12.9.3"
 jksDir="$dockderDir/jenkins"
 jksDir_Home="/var/lib/docker/volumes/jenkins_vHome/_data"
 
+# Loop through all parameters passed to the script
 echo xDir = $xDir
-echo "param 0:"$0
-echo "param 1:"$1
-echo "param 2:"$2
-echo "param 3:"$3
-echo "param 4:"$4
-echo "param 5:"$5
+i=1
+for arg in "$@"; do
+    echo "param $i: $arg"
+    ((i++))
+done
+
+# echo xDir = $xDir
+# echo "param 0:"$0
+# echo "param 1:"$1
+# echo "param 2:"$2
+# echo "param 3:"$3
+# echo "param 4:"$4
+# echo "param 5:"$5
 
 # timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
 # timestamp=$(date +"%H%M%S")
@@ -527,7 +535,7 @@ if [ "$1" = "aic" ] ; then
 			stress-ng --cpu 8 &
 			genio-stress-gpu &
 			/home/root/primax/script/test_npu/test_boundary.sh &
-			
+
 		elif [ "$3" = "off" ] ; then
 			pkill stress-ng
 			pkill genio-stress-gpu
