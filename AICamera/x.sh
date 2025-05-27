@@ -172,13 +172,13 @@ if [ "$1" = "aic" ] ; then
 
 		elif [ "$3" = "net" ] ; then
 			echo "net..."
-			echo " systemctl status systemd-networkd =========="
+			echo "========== systemctl status systemd-networkd =========="
 			systemctl status systemd-networkd
-			echo " systemctl status NetworkManager =========="
+			echo "========== systemctl status NetworkManager =========="
 			systemctl status NetworkManager
-			echo " ip addr show eth0 =========="
+			echo "========== ip addr show eth0 =========="
 			ip addr show eth0
-			echo " fw_printenv | grep eth =========="
+			echo "========== fw_printenv | grep eth =========="
 			fw_printenv | grep eth
 
 		elif [ "$3" = "i2c" ] ; then
@@ -493,17 +493,21 @@ if [ "$1" = "aic" ] ; then
 		pkill test
 		# rm test*
 		# wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/test
-
-		# all file in folder
-		wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$local_dir" --no-parent --cut-dirs=3	
-
-		cp $ftp_host/vision_box_DualCam .
-		cp $ftp_host/test .
-		chmod 777 vision_box_DualCam
-		chmod 777 test
 		
-		# need password
-		# rsync -avz -e "ssh" gray.lin@10.1.13.207:/mnt/disk2/FTP/Public/gray/aicamera /home/root/primax/ftp
+		if [ "$3" = "sync" ] ; then
+			# need password
+			rsync -avz -e "ssh" gray.lin@10.1.13.207:/mnt/disk2/FTP/Public/gray/aicamera /home/root/primax/ftp
+
+		else
+			# all file in folder
+			wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$local_dir" --no-parent --cut-dirs=3	
+
+			cp $ftp_host/vision_box_DualCam .
+			cp $ftp_host/test .
+			chmod 777 vision_box_DualCam
+			chmod 777 test
+		fi
+
 
 	elif [ "$2" = "stress" ] ; then
 		if [ "$3" = "on" ] ; then
@@ -573,9 +577,9 @@ if [ "$1" = "eth0" ] ; then
 		systemctl restart systemd-networkd
 
 	else
-		echo "ip addr show eth0 =========="
+		echo "========== ip addr show eth0 =========="
 		ip addr show eth0
-		echo " cat /etc/systemd/network/00-eth0.network  =========="
+		echo "cat /etc/systemd/network/00-eth0.network  =========="
 		cat /etc/systemd/network/00-eth0.network
 	fi
 fi
