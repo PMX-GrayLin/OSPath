@@ -1,7 +1,7 @@
 
 # Loop through all parameters passed to the script
-echo xDir = $xDir
-echo "param 0:"$0
+echo "xDir = $xDir"
+echo "param 0: $0"
 i=1
 for arg in "$@"; do
     echo "param $i: $arg"
