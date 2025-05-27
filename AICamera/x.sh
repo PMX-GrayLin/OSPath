@@ -487,12 +487,7 @@ if [ "$1" = "aic" ] ; then
 		cd ~/primax
 
 		pkill vision_box
-		# rm vision_box_DualCam*
-		# wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/vision_box_DualCam
-
 		pkill test
-		# rm test*
-		# wget ftp://gray.lin:Zx03310331@10.1.13.207/$dir_ftp/test
 		
 		if [ "$3" = "sync" ] ; then
 
@@ -503,7 +498,7 @@ if [ "$1" = "aic" ] ; then
 				# Then sync from local → remote
 				rsync -avz -e ssh /home/root/primax/10.1.13.207/ gray.lin@10.1.13.207:/mnt/disk2/FTP/Public/gray/aicamera/
 			fi
-			
+
 		else
 			# all file in folder to aicamera
 			wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$local_dir" --no-parent --cut-dirs=3	
@@ -513,7 +508,6 @@ if [ "$1" = "aic" ] ; then
 			chmod 777 vision_box_DualCam
 			chmod 777 test
 		fi
-
 
 	elif [ "$2" = "stress" ] ; then
 		if [ "$3" = "on" ] ; then
