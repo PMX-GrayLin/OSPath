@@ -496,7 +496,7 @@ if [ "$1" = "aic" ] ; then
 		
 		if [ "$3" = "sync" ] ; then
 			# need password
-			rsync -avz -e "ssh" gray.lin@10.1.13.207:/mnt/disk2/FTP/Public/gray/aicamera /home/root/primax/ftp
+			rsync -avz -e "ssh" gray.lin@10.1.13.207:/mnt/disk2/FTP/Public/gray/aicamera/ /home/root/primax/10.1.13.207
 
 		else
 			# all file in folder
