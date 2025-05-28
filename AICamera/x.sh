@@ -455,7 +455,7 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "pwm" ] ; then
 		echo "pwm..."
 		dir_pwm="/sys/devices/platform/soc/10048000.pwm/pwm/pwmchip0"
-		pwmTarget="$dir_pwm/pwm2"
+		pwmTarget="$dir_pwm/pwm0"
 		pwmPeriod=200000	# 5 kHz
 
 		if [ "$3" = "enable" ] ; then
@@ -530,10 +530,15 @@ if [ "$1" = "aic" ] ; then
 			/home/root/primax/10.1.13.207/stress_npu/stress_npu.sh &
 			gst-launch-1.0 aravissrc camera-name=id1 ! videoconvert ! video/x-raw,format=NV12,width=1536,height=1024 ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true &
 			gst-launch-1.0 aravissrc camera-name=id2 ! videoconvert ! video/x-raw,format=NV12,width=1536,height=1024 ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true &
+			curl http://localhost:8765/fw/pwm/1/100
+			curl http://localhost:8765/fw/pwm/2/100
 		elif [ "$3" = "off" ] ; then
 			pkill stress
 			pkill neuronrt
 			pkill gst
+			curl http://localhost:8765/fw/pwm/1/0
+			curl http://localhost:8765/fw/pwm/2/0
+
 		fi
 
 	fi
