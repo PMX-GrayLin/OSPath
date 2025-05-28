@@ -455,7 +455,7 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "pwm" ] ; then
 		echo "pwm..."
 		dir_pwm="/sys/devices/platform/soc/10048000.pwm/pwm/pwmchip0"
-		pwmTarget="$dir_pwm/pwm1"
+		pwmTarget="$dir_pwm/pwm2"
 		pwmPeriod=200000	# 5 kHz
 
 		if [ "$3" = "enable" ] ; then
