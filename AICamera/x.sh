@@ -453,7 +453,7 @@ if [ "$1" = "aic" ] ; then
 		sync
 
 	elif [ "$2" = "pwm" ] ; then
-
+		echo "pwm..."
 		dir_pwm="/sys/devices/platform/soc/10048000.pwm/pwm/pwmchip0"
 		pwmTarget="$dir_pwm/pwm1"
 		pwmPeriod=200000	# 5 kHz
