@@ -108,7 +108,6 @@ if [ "$1" = "ot" ] ; then
 		i2ctransfer -y $i2cbus w2@0x68 0x4E 0x00 r525
 
 	fi
-
 fi
 
 # AICamera 
@@ -117,14 +116,6 @@ if [ "$1" = "aic" ] ; then
 
 	if [ "$2" = "jobs" ] ; then
 		pm2 list
-
-	elif [ "$2" = "pid" ] ; then
-		ps -C vision_box_DualCam
-
-	elif [ "$2" = "sig1" ] ; then
-		kill -USR1 $(ps -C vision_box_DualCam)
-	elif [ "$2" = "sig2" ] ; then
-		kill -USR2 $(ps -C vision_box_DualCam)
 
 	elif [ "$2" = "ck" ] ; then
 		echo "check feature..."
@@ -207,26 +198,6 @@ if [ "$1" = "aic" ] ; then
 		elif [ "$3" = "triger" ] ; then
 			echo "gpioget /dev/gpiochip0 17 70"
 			gpioget /dev/gpiochip0 17 70
-
-		elif [ "$3" = "do" ] ; then
-			echo "gpioset 0 3=$4 7=$4"
-			gpioset 0 3=$4 7=$4
-
-		elif [ "$3" = "led" ] ; then
-			echo "led 1 : gpioset 0 79=$4 80=$4"
-			gpioset 0 79=$4 80=$4
-			sleep 0.5
-			echo "led 2 : gpioset 0 81=$4 82=$4"
-			gpioset 0 81=$4 82=$4
-			sleep 0.5
-			echo "led 3 : gpioset 0 114=$4 115=$4"
-			gpioset 0 114=$4 115=$4
-			sleep 0.5
-			echo "led 4 : gpioset 0 116=$4 117=$4"
-			gpioset 0 116=$4 117=$4
-			sleep 0.5
-			echo "led 5 : gpioset 0 119=$4 120=$4"
-			gpioset 0 119=$4 120=$4
 
 		elif [ "$3" = "gige" ] ; then
 			echo "arv-tool-0.8 control ExposureAuto"
@@ -451,32 +422,6 @@ if [ "$1" = "aic" ] ; then
 		md5sum $fileTarget
 		sync
 
-	elif [ "$2" = "pwm" ] ; then
-		echo "pwm..."
-		dir_pwm="/sys/devices/platform/soc/10048000.pwm/pwm/pwmchip0"
-		pwmTarget="$dir_pwm/pwm0"
-		pwmPeriod=200000	# 5 kHz
-
-		if [ "$3" = "enable" ] ; then
-			cd $dir_pwm
-			echo 0 > /sys/class/pwm/pwmchip0/export
-			echo 1 > /sys/class/pwm/pwmchip0/export
-			sleep 0.5 
-			echo $pwmPeriod > $pwmTarget/period
-		elif [ "$3" = "25" ] ; then
-			duty=$((pwmPeriod / 4))
-			echo $duty > "$pwmTarget/duty_cycle"
-		elif [ "$3" = "50" ] ; then
-			duty=$((pwmPeriod / 2))  # 50% duty
-			echo $duty > "$pwmTarget/duty_cycle"
-		elif [ "$3" = "100" ] ; then
-			duty=$pwmPeriod
-			echo $duty > "$pwmTarget/duty_cycle"
-		elif [ "$3" = "on" ] ; then
-			echo 1 > $pwmTarget/enable
-		elif [ "$3" = "off" ] ; then
-			echo 0 > $pwmTarget/enable
-		fi
 
 	elif [ "$2" = "kill" ] ; then
 
@@ -522,6 +467,57 @@ if [ "$1" = "aic" ] ; then
 			chmod 777 vision_box_DualCam
 			chmod 777 test
 		fi
+
+	elif [ "$2" = "do" ] ; then
+		echo "gpioset 0 3=$3 7=$3"
+		gpioset 0 3=$3 7=$3
+
+	elif [ "$2" = "led" ] ; then
+		echo "led 1 : gpioset 0 79=$3 80=$3"
+		gpioset 0 79=$3 80=$3
+		sleep 0.5
+		echo "led 2 : gpioset 0 81=$3 82=$3"
+		gpioset 0 81=$3 82=$3
+		sleep 0.5
+		echo "led 3 : gpioset 0 114=$3 115=$3"
+		gpioset 0 114=$3 115=$3
+		sleep 0.5
+		echo "led 4 : gpioset 0 116=$3 117=$3"
+		gpioset 0 116=$3 117=$3
+		sleep 0.5
+		echo "led 5 : gpioset 0 119=$3 120=$3"
+		gpioset 0 119=$3 120=$3
+
+	elif [ "$2" = "pwm" ] ; then
+		echo "pwm..."
+		ps aux | grep test
+		echo "ex : aic pwm 1 50"
+		curl http://localhost:8765/fw/pwm/$3/$4
+
+		# dir_pwm="/sys/devices/platform/soc/10048000.pwm/pwm/pwmchip0"
+		# pwmTarget="$dir_pwm/pwm0"
+		# pwmPeriod=200000	# 5 kHz
+
+		# if [ "$3" = "enable" ] ; then
+		# 	cd $dir_pwm
+		# 	echo 0 > /sys/class/pwm/pwmchip0/export
+		# 	echo 1 > /sys/class/pwm/pwmchip0/export
+		# 	sleep 0.5 
+		# 	echo $pwmPeriod > $pwmTarget/period
+		# elif [ "$3" = "25" ] ; then
+		# 	duty=$((pwmPeriod / 4))
+		# 	echo $duty > "$pwmTarget/duty_cycle"
+		# elif [ "$3" = "50" ] ; then
+		# 	duty=$((pwmPeriod / 2))  # 50% duty
+		# 	echo $duty > "$pwmTarget/duty_cycle"
+		# elif [ "$3" = "100" ] ; then
+		# 	duty=$pwmPeriod
+		# 	echo $duty > "$pwmTarget/duty_cycle"
+		# elif [ "$3" = "on" ] ; then
+		# 	echo 1 > $pwmTarget/enable
+		# elif [ "$3" = "off" ] ; then
+		# 	echo 0 > $pwmTarget/enable
+		# fi
 
 	elif [ "$2" = "stress" ] ; then
 		if [ "$3" = "on" ] ; then
@@ -588,6 +584,7 @@ if [ "$1" = "eth0" ] ; then
 			sed -i '/^\[Network\]/,/^$/d' /etc/systemd/network/00-eth0.network
 			echo -e "[Network]\nAddress=$lan.$ip_last_num/24\nGateway=$lan.1\nDNS=8.8.8.8" | tee -a /etc/systemd/network/00-eth0.network
 		fi
+		echo "write to /etc/systemd/network/00-eth0.network"
 
 	elif [ "$2" = "dhcp" ] ; then
 		echo "reset to dhcp..."
