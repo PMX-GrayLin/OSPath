@@ -25,7 +25,7 @@ jksDir_Home="/var/lib/docker/volumes/jenkins_vHome/_data"
 
 # Loop through all parameters passed to the script
 echo "param 0: $0"
-i=0
+i=1
 for arg in "$@"; do
     echo "param $i: $arg"
     ((i++))
@@ -1011,7 +1011,7 @@ if [ "$1" = "git" ] ; then
 			cp -rf $gitDir/config/gitlab.rb $gitDir_Config
 		elif [ "$3" = "out" ] ; then
 			sudo chmod 755 $gitDir_ConfigR
-sudo chmod 666 $gitDir_Config/gitlab.rb
+			sudo chmod 666 $gitDir_Config/gitlab.rb
 			sudo chmod 666 $gitDir_ConfigR/gitlab.yml 
 			cp $gitDir_Config/gitlab.rb $gitDir/config/
 			cp $gitDir_ConfigR/gitlab.yml $gitDir/config
@@ -1052,14 +1052,14 @@ sudo chmod 666 $gitDir_Config/gitlab.rb
 		if [ "$3" = "1" ] ; then
 			echo "========== step 1 : stop connectivity services ==========" 
 			# docker exec -it gitlab gitlab-ctl stop unicorn
-docker exec -it gitlab gitlab-ctl stop puma
+			docker exec -it gitlab gitlab-ctl stop puma
 			docker exec -it gitlab gitlab-ctl stop sidekiq
 			docker exec -it gitlab gitlab-ctl status
 		elif [ "$3" = "2" ] ; then
 			echo "========== step 2 : restore from backup tar : $gitBackupFile ==========" 
 			docker exec -it gitlab gitlab-backup restore BACKUP=$gitBackupFile
 
-# gitlab-backup restore BACKUP=1643394275_2022_01_28_14.1.6
+			# gitlab-backup restore BACKUP=1643394275_2022_01_28_14.1.6
 			# GitLab 12.1 and earlier
 			# docker exec -it gitlab gitlab-rake gitlab:backup:restore BACKUP=$gitBackupFile
 		elif [ "$3" = "3" ] ; then
