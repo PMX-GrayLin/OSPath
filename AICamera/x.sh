@@ -527,27 +527,28 @@ if [ "$1" = "aic" ] ; then
 
 	elif [ "$2" = "stress" ] ; then
 		if [ "$3" = "on" ] ; then
-			stress-ng --cpu 8 &
-			genio-stress-gpu &
-			chmod 777 /home/root/primax/10.1.13.207/stress_npu/stress_npu.sh
-			/home/root/primax/10.1.13.207/stress_npu/stress_npu.sh &
+			curl http://localhost:8765/fw/pwm/1/100
 			if [ "$product" = "ai_camera_plus" ] ; then
 				declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
 				gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! videoconvert ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false
 			else
+				curl http://localhost:8765/fw/pwm/2/100
 				gst-launch-1.0 aravissrc camera-name=id1 ! videoconvert ! video/x-raw,format=NV12,width=1536,height=1024 ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true &
 				gst-launch-1.0 aravissrc camera-name=id2 ! videoconvert ! video/x-raw,format=NV12,width=1536,height=1024 ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true &
 			fi
+			stress-ng --cpu 8 &
+			genio-stress-gpu &
+			chmod 777 /home/root/primax/10.1.13.207/stress_npu/stress_npu.sh
+			/home/root/primax/10.1.13.207/stress_npu/stress_npu.sh &
 			
-			curl http://localhost:8765/fw/pwm/1/100
-			curl http://localhost:8765/fw/pwm/2/100
 		elif [ "$3" = "off" ] ; then
 			pkill stress
 			pkill neuronrt
 			pkill gst
 			curl http://localhost:8765/fw/pwm/1/0
-			curl http://localhost:8765/fw/pwm/2/0
-
+			if [ "$product" != "ai_camera_plus" ] ; then
+				curl http://localhost:8765/fw/pwm/2/0
+			fi
 		fi
 
 	fi
