@@ -37,6 +37,9 @@ done
 timestamp=$(TZ='Asia/Singapore' date +"%H%M%S")
 echo "timestamp:"$timestamp
 
+product=$(fw_printenv | grep product)
+echo "product:"$product
+
 if [ "$1" = "fixt" ] ; then
 	find . -exec touch {} +
 fi
