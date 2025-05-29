@@ -24,15 +24,14 @@ jksDir="$dockderDir/jenkins"
 jksDir_Home="/var/lib/docker/volumes/jenkins_vHome/_data"
 
 # Loop through all parameters passed to the script
-echo "xDir = $xDir"
 echo "param 0: $0"
-i=1
+i=0
 for arg in "$@"; do
     echo "param $i: $arg"
     ((i++))
 done
 
-timestamp=$(TZ='Asia/Singapore' date +"%H%M%S")
+timestamp=$(TZ='UTC-8' date +"%H%M%S")
 echo "timestamp:"$timestamp
 
 product=$(fw_printenv | grep '^product=' | cut -d '=' -f2)
