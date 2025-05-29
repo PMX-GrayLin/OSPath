@@ -32,13 +32,11 @@ for arg in "$@"; do
     ((i++))
 done
 
-# timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
-# timestamp=$(date +"%H%M%S")
 timestamp=$(TZ='Asia/Singapore' date +"%H%M%S")
 echo "timestamp:"$timestamp
 
-product=$(fw_printenv | grep product)
-echo "product:"$product
+product=$(fw_printenv | grep '^product=' | cut -d '=' -f2)
+echo "product: $product"
 
 if [ "$1" = "fixt" ] ; then
 	find . -exec touch {} +
