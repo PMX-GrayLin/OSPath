@@ -35,6 +35,7 @@ timestamp=$(TZ='UTC-8' date +"%H%M%S")
 echo "timestamp:"$timestamp
 
 product=$(fw_printenv | grep '^product=' | cut -d '=' -f2)
+# ai_camera_plus or vision_hub_plus 
 echo "product:$product"
 
 if [ "$1" = "fixt" ] ; then
@@ -521,13 +522,13 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "stress" ] ; then
 		if [ "$3" = "on" ] ; then
 			curl http://localhost:8765/fw/pwm/1/100
-			if [ "$product" = "ai_camera_plus" ] ; then
-				declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
-				gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! videoconvert ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false
-			else
+			if [ "$product" = "vision_hub_plus" ] ; then
 				curl http://localhost:8765/fw/pwm/2/100
 				gst-launch-1.0 aravissrc camera-name=id1 ! videoconvert ! video/x-raw,format=NV12,width=1536,height=1024 ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true &
 				gst-launch-1.0 aravissrc camera-name=id2 ! videoconvert ! video/x-raw,format=NV12,width=1536,height=1024 ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true &
+			else
+				declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
+				gst-launch-1.0 v4l2src device=${VIDEO_DEV[0]} ! videoconvert ! video/x-raw,width=1280,height=720 ! fpsdisplaysink video-sink=waylandsink sync=false
 			fi
 			stress-ng --cpu 8 &
 			genio-stress-gpu &
@@ -539,7 +540,7 @@ if [ "$1" = "aic" ] ; then
 			pkill neuronrt
 			pkill gst
 			curl http://localhost:8765/fw/pwm/1/0
-			if [ "$product" != "ai_camera_plus" ] ; then
+			if [ "$product" = "vision_hub_plus" ] ; then
 				curl http://localhost:8765/fw/pwm/2/0
 			fi
 		fi
