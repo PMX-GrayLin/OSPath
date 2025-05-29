@@ -529,6 +529,7 @@ if [ "$1" = "aic" ] ; then
 		if [ "$3" = "on" ] ; then
 			stress-ng --cpu 8 &
 			genio-stress-gpu &
+			chmod 777 /home/root/primax/10.1.13.207/stress_npu/stress_npu.sh
 			/home/root/primax/10.1.13.207/stress_npu/stress_npu.sh &
 			if [ "$product" = "ai_camera_plus" ] ; then
 				declare -a VIDEO_DEV=(`v4l2-ctl --list-devices | grep mtk-v4l2-camera -A 3 | grep video | tr -d "\n"`)
