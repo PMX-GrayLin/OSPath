@@ -210,8 +210,11 @@ if [ "$1" = "aic" ] ; then
 			arv-tool-0.8 control Gain
 
 		else
-			echo "check version..."
+			echo "check version...cat /etc/primax_version"
 			cat /etc/primax_version
+			echo ""
+			echo "check build commit ...cat ~/misc/primax_version"
+			cat ~/misc/primax_version
 			echo ""
 			echo "check process... ps aux | grep -E \"vision_box_DualCam|mediamtx|test|gst\""
 			ps aux | grep -E "vision_box_DualCam|mediamtx|test|gst"
