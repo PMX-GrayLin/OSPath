@@ -74,6 +74,7 @@ alias env3='export BUILD_DIR=$PROJ_ROOT/build'
 alias env_mtk='env1 && env2 && env3 && MACHINE=genio-700-evk'
 alias spe='git branch && spp && env_mtk'                                    # set project env
 alias spe2='spp && env_mtk'                                                 # set project env
+alias ghash="echo \"$(git rev-parse --abbrev-ref HEAD) - $(git rev-parse HEAD)\" > build_commit"
 alias ytb='DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image'
 alias ytb2='x bb c primax && DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image'
 
