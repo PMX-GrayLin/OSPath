@@ -17,9 +17,6 @@ u18dir=$dockderDir/Ubuntu1804
 BCTTestDir=~/Work/MFi-HomeKit/BCT
 # echo "u18dir:$u18dir"
 
-# adkPath="/Users/graylin/Work/MFi-HomeKit/HomeKit ADK 4.0"
-# adkPath="/Users/graylin/Work/MFi-HomeKit/HomeKit ADK 5.1"
-# adkPath="/Users/graylin/Work/MFi-HomeKit/HomeKit ADK 5.2"
 adkPath="/Users/graylin/Work/MFi-HomeKit/HomeKit ADK 5.3"
 
 currentDateTime=`date "+%m%d%H%M"`
@@ -32,7 +29,7 @@ wheeltec_ip="192.168.1.196"
 # AICamera_ip="192.168.1.13"
 AICamera_ip="192.168.1.65"
 # AICamera_ip="192.168.1.66"
-AICamera_ip="192.168.1.67"
+# AICamera_ip="192.168.1.67"
 # AICamera_ip="192.168.1.68"
 # AICamera_ip="192.168.1.70"
 # AICamera_ip="192.168.1.80"
