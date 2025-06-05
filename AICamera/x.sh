@@ -213,8 +213,8 @@ if [ "$1" = "aic" ] ; then
 			echo "check version...cat /etc/primax_version"
 			cat /etc/primax_version
 			echo ""
-			echo "check build commit ...cat ~/misc/primax_version"
-			cat ~/misc/primax_version
+			echo "check build commit ...cat ~/misc/build_commit"
+			cat ~/misc/build_commit
 			echo ""
 			echo "check process... ps aux | grep -E \"vision_box_DualCam|mediamtx|test|gst\""
 			ps aux | grep -E "vision_box_DualCam|mediamtx|test|gst"
