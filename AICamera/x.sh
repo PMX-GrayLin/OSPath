@@ -43,7 +43,7 @@ if [ "$1" = "fixt" ] ; then
 fi
 
 if [ "$1" = "ccm" ] ; then
-		echo "ccm test..."
+		echo "ccm..."
 		dir_ccm="/home/root/primax/10.1.13.207/ccm_db"
 		dir_iq_dev="/usr/share/mtkcam/DataSet/SQLiteModule/db"
 		filePath="tuning_DB/imx214_mipi_raw"
@@ -85,7 +85,7 @@ if [ "$1" = "cp" ] ; then
 fi
 
 if [ "$1" = "gst" ] ; then
-	echo "gst pipeline test..."
+	echo "gst pipeline..."
 	if [ "$2" = "1" ] ; then
 		cmd=""
 	fi
@@ -210,8 +210,8 @@ if [ "$1" = "aic" ] ; then
 			echo "check build commit... cat ~/primax/misc/build_commit"
 			cat ~/primax/misc/build_commit
 			echo ""
-			echo "check process... ps aux | grep -E \"vision_box_DualCam|mediamtx|test|gst\""
-			ps aux | grep -E "vision_box_DualCam|mediamtx|test|gst"
+			echo "check process... ps aux | grep -E \"vision_box_DualCam|mediamtx|fw_daemon|gst\""
+			ps aux | grep -E "vision_box_DualCam|mediamtx|fw_daemon|gst"
 		fi
 
 	elif [ "$2" = "us" ] ; then
@@ -239,9 +239,9 @@ if [ "$1" = "aic" ] ; then
 			vision_box_DualCam &
 
 		elif [ "$3" = "fw2" ] ; then
-			pkill test
+			pkill fw_daemon
 			sleep 1
-			~/primax/test &
+			~/primax/fw_daemon &
 
 		elif [ "$3" = "net" ] ; then
 			systemctl restart systemd-networkd
@@ -252,12 +252,12 @@ if [ "$1" = "aic" ] ; then
 
 		elif [ "$3" = "all" ] ; then
 			pkill vision_box
-			pkill test
+			pkill fw_daemon
 			pkill mediamtx
 
 			sleep 3
 			vision_box_DualCam &
-			~/primax/test &
+			~/primax/fw_daemon &
 			mediamtx /etc/mediamtx/mediamtx.yml&
 		fi
 
@@ -424,7 +424,7 @@ if [ "$1" = "aic" ] ; then
 
 		if [ "$3" = "fw" ] ; then
 			pkill vision_box
-			pkill test
+			pkill fw_daemon
 
 		elif [ "$3" = "gst" ] ; then
 			pkill gst-launch-1.0
@@ -443,7 +443,7 @@ if [ "$1" = "aic" ] ; then
 		cd ~/primax
 
 		pkill vision_box
-		pkill test
+		pkill fw_daemon
 		
 		if [ "$3" = "sync" ] ; then
 
@@ -460,9 +460,9 @@ if [ "$1" = "aic" ] ; then
 			wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$local_dir" --no-parent --cut-dirs=3	
 
 			cp $ftp_host/vision_box_DualCam .
-			cp $ftp_host/test .
+			cp $ftp_host/fw_daemon .
 			chmod 777 vision_box_DualCam
-			chmod 777 test
+			chmod 777 fw_daemon
 		fi
 
 	elif [ "$2" = "do" ] ; then
@@ -487,7 +487,7 @@ if [ "$1" = "aic" ] ; then
 
 	elif [ "$2" = "pwm" ] ; then
 		echo "pwm..."
-		ps aux | grep test
+		ps aux | grep fw_daemon
 		echo "ex : aic pwm 1 50"
 		curl http://localhost:8765/fw/pwm/$3/$4
 
@@ -624,7 +624,7 @@ elif [ "$1" = "tv" ] ; then
 	$cmd
 
 elif [ "$1" = "tt" ] ; then
-	echo "call test..."
+	echo "call fw_daemon..."
 	cmd="curl http://localhost:8765/fw/$2"
 	echo "$cmd"
 	$cmd
