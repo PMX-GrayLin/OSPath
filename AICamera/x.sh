@@ -210,8 +210,8 @@ if [ "$1" = "aic" ] ; then
 			echo "check build commit... cat ~/primax/misc/build_commit"
 			cat ~/primax/misc/build_commit
 			echo ""
-			echo "check process... ps aux | grep -E \"vision_box_DualCam|mediamtx|fw_daemon|gst\""
-			ps aux | grep -E "vision_box_DualCam|mediamtx|fw_daemon|gst"
+			echo "check process... ps aux | grep -E \"vision_box|mediamtx|fw_daemon|gst\""
+			ps aux | grep -E --color=auto "vision_box|mediamtx|fw_daemon|gst"
 		fi
 
 	elif [ "$2" = "us" ] ; then
