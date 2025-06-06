@@ -200,20 +200,14 @@ if [ "$1" = "aic" ] ; then
 			gpioget /dev/gpiochip0 17 70
 
 		elif [ "$3" = "gige" ] ; then
-			echo "arv-tool-0.8 control ExposureAuto"
-			arv-tool-0.8 control ExposureAuto
-			echo "arv-tool-0.8 control ExposureTime"
-			arv-tool-0.8 control ExposureTime
-			echo "arv-tool-0.8 control GainAuto"
-			arv-tool-0.8 control GainAuto
-			echo "arv-tool-0.8 control Gain"
-			arv-tool-0.8 control Gain
+			echo "arv-tool-0.8 control Width Height ExposureAuto ExposureTime GainAuto Gain"
+			arv-tool-0.8 control Width Height ExposureAuto ExposureTime GainAuto Gain
 
 		else
-			echo "check version...cat /etc/primax_version"
+			echo "check version... cat /etc/primax_version"
 			cat /etc/primax_version
 			echo ""
-			echo "check build commit ...cat ~/primax/misc/build_commit"
+			echo "check build commit... cat ~/primax/misc/build_commit"
 			cat ~/primax/misc/build_commit
 			echo ""
 			echo "check process... ps aux | grep -E \"vision_box_DualCam|mediamtx|test|gst\""
