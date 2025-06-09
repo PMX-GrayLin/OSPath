@@ -494,11 +494,14 @@ if [ "$1" = "aic" ] ; then
 		echo "led 3 : gpioset 0 114=$status_red 115=$status_green"
 		gpioset 0 114=$status_red 115=$status_green
 		sleep 0.5
-		echo "led 4 : gpioset 0 116=$status_red 117=$status_green"
-		gpioset 0 116=$status_red 117=$status_green
-		sleep 0.5
-		echo "led 5 : gpioset 0 119=$status_red 120=$status_green"
-		gpioset 0 119=$status_red 120=$status_green
+
+		if [ "$product" == "vision_hub_plus" ] then
+			echo "led 4 : gpioset 0 116=$status_red 117=$status_green"
+			gpioset 0 116=$status_red 117=$status_green
+			sleep 0.5
+			echo "led 5 : gpioset 0 119=$status_red 120=$status_green"
+			gpioset 0 119=$status_red 120=$status_green
+		fi
 
 	elif [ "$2" = "pwm" ] ; then
 		echo "pwm..."
