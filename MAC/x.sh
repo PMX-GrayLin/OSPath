@@ -34,7 +34,7 @@ AICamera_ip="192.168.1.65"
 # AICamera_ip="192.168.1.70"
 # AICamera_ip="192.168.1.80"
 # AICamera_ip="192.168.1.99"
-# AICamera_ip="192.168.1.136"
+AICamera_ip="192.168.1.136"
 # AICamera_ip="192.168.1.151"
 # AICamera_ip="192.168.1.190"
 

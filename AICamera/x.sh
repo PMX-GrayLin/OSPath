@@ -570,7 +570,7 @@ if [ "$1" = "eth0" ] ; then
 	if [ "$2" = "static" ] ; then
 		ip_last_num=99
 
-		if [ "$3" = "" ] ; then
+		if [ "$3" != "" ] ; then
 			lan="192.168.$3"
 			echo "set static IP to $lan.$ip_last_num"
 			sed -i '/^\[Network\]/,/^$/d' /etc/systemd/network/00-eth0.network
