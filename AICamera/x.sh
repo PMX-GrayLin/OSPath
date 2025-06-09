@@ -472,43 +472,29 @@ if [ "$1" = "aic" ] ; then
 	elif [ "$2" = "led" ] ; then
 		echo "led..."
 		if [ "$3" = "green" ] ; then
-			echo "led 1 : gpioset 0 79=$3"
-			gpioset 0 79=$3
-			sleep 0.5
-			echo "led 2 : gpioset 0 81=$3"
-			gpioset 0 81=$3
-			sleep 0.5
-			echo "led 3 : gpioset 0 114=$3"
-			gpioset 0 114=$3
-			sleep 0.5
-			echo "led 4 : gpioset 0 116=$3"
-			gpioset 0 116=$3
-			sleep 0.5
-			echo "led 5 : gpioset 0 119=$3"
-			gpioset 0 119=$3
-
+			status_green=1 status_red=0
 		elif [ "$3" = "red" ] ; then
-
+			status_green=0 status_red=1
 		elif [ "$3" = "orange" ] ; then
-			echo "led 1 : gpioset 0 79=$3 80=$3"
-			gpioset 0 79=$3 80=$3
-			sleep 0.5
-			echo "led 2 : gpioset 0 81=$3 82=$3"
-			gpioset 0 81=$3 82=$3
-			sleep 0.5
-			echo "led 3 : gpioset 0 114=$3 115=$3"
-			gpioset 0 114=$3 115=$3
-			sleep 0.5
-			echo "led 4 : gpioset 0 116=$3 117=$3"
-			gpioset 0 116=$3 117=$3
-			sleep 0.5
-			echo "led 5 : gpioset 0 119=$3 120=$3"
-			gpioset 0 119=$3 120=$3
-
+			status_green=1 status_red=1
 		else
-
+			status_green=0 status_red=0
 		fi
 
+		echo "led 1 : gpioset 0 79=$status_green 80=$status_red"
+		gpioset 0 79=$status_green 80=$status_red
+		sleep 0.5
+		echo "led 2 : gpioset 0 81=$status_green 82=$status_red"
+		gpioset 0 81=$status_green 82=$status_red
+		sleep 0.5
+		echo "led 3 : gpioset 0 114=$status_green 115=$status_red"
+		gpioset 0 114=$status_green 115=$status_red
+		sleep 0.5
+		echo "led 4 : gpioset 0 116=$status_green 117=$status_red"
+		gpioset 0 116=$status_green 117=$status_red
+		sleep 0.5
+		echo "led 5 : gpioset 0 119=$status_green 120=$status_red"
+		gpioset 0 119=$status_green 120=$status_red
 
 	elif [ "$2" = "pwm" ] ; then
 		echo "pwm..."
