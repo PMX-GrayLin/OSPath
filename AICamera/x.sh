@@ -470,20 +470,45 @@ if [ "$1" = "aic" ] ; then
 		gpioset 0 3=$3 7=$3
 
 	elif [ "$2" = "led" ] ; then
-		echo "led 1 : gpioset 0 79=$3 80=$3"
-		gpioset 0 79=$3 80=$3
-		sleep 0.5
-		echo "led 2 : gpioset 0 81=$3 82=$3"
-		gpioset 0 81=$3 82=$3
-		sleep 0.5
-		echo "led 3 : gpioset 0 114=$3 115=$3"
-		gpioset 0 114=$3 115=$3
-		sleep 0.5
-		echo "led 4 : gpioset 0 116=$3 117=$3"
-		gpioset 0 116=$3 117=$3
-		sleep 0.5
-		echo "led 5 : gpioset 0 119=$3 120=$3"
-		gpioset 0 119=$3 120=$3
+		echo "led..."
+		if [ "$3" = "green" ] ; then
+			echo "led 1 : gpioset 0 79=$3"
+			gpioset 0 79=$3
+			sleep 0.5
+			echo "led 2 : gpioset 0 81=$3"
+			gpioset 0 81=$3
+			sleep 0.5
+			echo "led 3 : gpioset 0 114=$3"
+			gpioset 0 114=$3
+			sleep 0.5
+			echo "led 4 : gpioset 0 116=$3"
+			gpioset 0 116=$3
+			sleep 0.5
+			echo "led 5 : gpioset 0 119=$3"
+			gpioset 0 119=$3
+
+		elif [ "$3" = "red" ] ; then
+
+		elif [ "$3" = "orange" ] ; then
+			echo "led 1 : gpioset 0 79=$3 80=$3"
+			gpioset 0 79=$3 80=$3
+			sleep 0.5
+			echo "led 2 : gpioset 0 81=$3 82=$3"
+			gpioset 0 81=$3 82=$3
+			sleep 0.5
+			echo "led 3 : gpioset 0 114=$3 115=$3"
+			gpioset 0 114=$3 115=$3
+			sleep 0.5
+			echo "led 4 : gpioset 0 116=$3 117=$3"
+			gpioset 0 116=$3 117=$3
+			sleep 0.5
+			echo "led 5 : gpioset 0 119=$3 120=$3"
+			gpioset 0 119=$3 120=$3
+
+		else
+
+		fi
+
 
 	elif [ "$2" = "pwm" ] ; then
 		echo "pwm..."
