@@ -503,7 +503,7 @@ if [ "$1" = "aic" ] ; then
 		gpioset 0 114=$status_red 115=$status_green
 		sleep 0.5
 
-		if [ "$product" == "vision_hub_plus" ] then
+		if [ "$product" == "vision_hub_plus" ] ; then
 			echo "led 4 : gpioset 0 116=$status_red 117=$status_green"
 			gpioset 0 116=$status_red 117=$status_green
 			sleep 0.5
