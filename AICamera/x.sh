@@ -135,7 +135,7 @@ if [ "$1" = "aic" ] ; then
 		elif [ "$3" = "pkg" ] ; then
 			echo "opkg list-installed..."
 			if [ "$4" != "" ] ; then
-				opkg list-installed | grep $4
+				opkg list-installed | grep --color=auto $4
 			else
 				opkg list-installed
 			fi
@@ -181,7 +181,7 @@ if [ "$1" = "aic" ] ; then
 			echo "========== ip addr show eth0 =========="
 			ip addr show eth0
 			echo "========== fw_printenv | grep eth =========="
-			fw_printenv | grep eth
+			fw_printenv | grep --color=auto eth
 
 		elif [ "$3" = "i2c" ] ; then
 			echo "ls /dev/i2c-*"
