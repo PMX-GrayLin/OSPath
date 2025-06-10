@@ -448,7 +448,8 @@ if [ "$1" = "aic" ] ; then
 		dir_ftp="Public/gray"
 		dir_local="ftp"
 
-		cd ~/primax
+		# cd ~/primax
+		cd /mnt/reserved	
 
 		pkill vision_box
 		pkill fw_daemon
@@ -465,7 +466,7 @@ if [ "$1" = "aic" ] ; then
 
 		else
 			# all file in ftp folder to aicamera
-			wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$local_dir" --no-parent --cut-dirs=3	
+			wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$dir_local" --no-parent --cut-dirs=3	
 
 			cp $ftp_host/vision_box_DualCam .
 			cp $ftp_host/fw_daemon .
