@@ -132,6 +132,14 @@ if [ "$1" = "aic" ] ; then
 			echo "cat /sys/class/drm/card0-DP-1/status"
 			cat /sys/class/drm/card0-DP-1/status
 
+		elif [ "$3" = "pkg" ] ; then
+			echo "opkg list-installed..."
+			if [ "$4" != "" ] ; then
+				opkg list-installed | grep $4
+			else
+				opkg list-installed
+			fi
+
 		elif [ "$3" = "tof" ] ; then
 			echo "tof sensor..."
 			echo "i2cdetect -r -y 1"
