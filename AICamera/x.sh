@@ -39,6 +39,7 @@ product=$(fw_printenv | grep '^product=' | cut -d '=' -f2)
 echo "product:$product"
 
 hostname_prefix=$(hostname | awk -F'-' '{print $1}')
+# aicamera or visionhub
 echo "hostname_prefix:$hostname_prefix"
 
 if [ "$1" = "fixt" ] ; then
