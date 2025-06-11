@@ -44,25 +44,18 @@ echo "hostname_prefix:$hostname_prefix"
 
 is_aicamera() {
   if [[ "$hostname_prefix" == "aicamera" || "$product" == "ai_camera_plus" ]]; then
-	echo "aicamera"
-    return 1
+	return 0  # true: it is an aicamera
   else
-	echo "not aicamera"
-    return 0
+	return 1  # false: not an aicamera
   fi
 }
 is_visionhub() {
   if [[ "$hostname_prefix" == "visionhub" || "$product" == "visionhub" ]]; then
-	echo "visionhub"
-    return 1
+	return 0  # true: it is an visionhub
   else
-  	echo "not visionhub"
-    return 0
+	return 1  # false: not an visionhub
   fi
 }
-
-is_aicamera
-is_visionhub
 
 if [ "$1" = "fixt" ] ; then
 	find . -exec touch {} +
