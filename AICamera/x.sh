@@ -38,6 +38,9 @@ product=$(fw_printenv | grep '^product=' | cut -d '=' -f2)
 # ai_camera_plus or vision_hub_plus 
 echo "product:$product"
 
+hostname_prefix=$(hostname | awk -F'-' '{print $1}')
+echo "hostname_prefix:$hostname_prefix"
+
 if [ "$1" = "fixt" ] ; then
 	find . -exec touch {} +
 fi
@@ -542,6 +545,8 @@ if [ "$1" = "aic" ] ; then
 		# fi
 
 	elif [ "$2" = "stress" ] ; then
+		echo "run stress..."
+		dir_npu="/mnt/reserved/10.1.13.207/stress_npu"
 		if [ "$3" = "on" ] ; then
 			curl http://localhost:8765/fw/pwm/1/100
 			if [ "$product" = "vision_hub_plus" ] ; then
@@ -554,8 +559,8 @@ if [ "$1" = "aic" ] ; then
 			fi
 			stress-ng --cpu 8 &
 			genio-stress-gpu &
-			chmod 777 /home/root/primax/10.1.13.207/stress_npu/stress_npu.sh
-			/home/root/primax/10.1.13.207/stress_npu/stress_npu.sh &
+			chmod 777 $dir_npu/stress_npu/stress_npu.sh
+			$dir_npu/stress_npu.sh &
 			
 		elif [ "$3" = "off" ] ; then
 			pkill stress
