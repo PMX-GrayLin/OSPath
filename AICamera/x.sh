@@ -61,6 +61,9 @@ is_visionhub() {
   fi
 }
 
+is_aicamera
+is_visionhub
+
 if [ "$1" = "fixt" ] ; then
 	find . -exec touch {} +
 fi
