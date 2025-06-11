@@ -44,8 +44,10 @@ echo "hostname_prefix:$hostname_prefix"
 
 is_aicamera() {
   if [[ "$hostname_prefix" == "aicamera" || "$product" == "ai_camera_plus" ]]; then
+	echo "aicamera"
     return 1
   else
+	echo "not aicamera"
     return 0
   fi
 }
