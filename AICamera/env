@@ -18,11 +18,11 @@ alias d--='cd $OLDPWD'                      # dir previous dir
 alias d-2='cd ../..'                                                                                
 alias d-3='cd ../../..'                                                                             
 alias dpmx='cd ~/primax'                    # dir primax
-alias dftp='cd ~/primax/10.1.13.207'        # dir ftp sync folder
 alias dnet='cd /etc/systemd/network'
 alias dinit='cd /etc/init.d'
 alias diq='cd /usr/share/mtkcam/DataSet/SQLiteModule/db/tuning_DB/'
 alias dr='cd /mnt/reserved'
+alias dftp='cd /mnt/reserved/10.1.13.207'   # dir ftp sync folder
 
 # update
 alias ue='source ~/.bashrc'     # update env
