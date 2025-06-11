@@ -64,7 +64,7 @@ alias dpwiq2='cd $BUILD_DIR/workspace/sources/mtk-camisp-mw/mtkcam-yocto/custom/
 alias ue='source ~/.bashrc'     # update env
 alias ux='x ux'                 # update x.sh
 alias ua='ux && ue'             # update all
-alias uyt='dppmxsys && cd home/root/OSPath/AICamera/ && cp -f ~/OSPath/AICamera/env . && cp -f ~/OSPath/AICamera/x.sh . && dpb'
+alias uyt='dppmxsys && cd home/root/OSPath/AICamera/ && cp -f ~/OSPath/AICamera/env . && cp -f ~/OSPath/AICamera/x.sh . && dpb && cp -rf ~/OSPath /mnt/disk2/FTP/Public/gray'
 
 # env
 alias spp='export PROJ_ROOT=`pwd`'                                          # set yocto project path
