@@ -445,11 +445,9 @@ if [ "$1" = "aic" ] ; then
 		ftp_user="gray.lin"
 		ftp_pass="Zx03310331"
 		ftp_host="10.1.13.207"
-		dir_ftp="Public/gray"
-		dir_local="ftp"
-
-		# cd ~/primax
-		cd /mnt/reserved	
+		dir_ftp="Public/gray/aicamera"
+		dir_local="/mnt/reserved"
+		dir_exec=~/"primax"
 
 		pkill vision_box
 		pkill fw_daemon
@@ -458,20 +456,20 @@ if [ "$1" = "aic" ] ; then
 
 			if [ "$4" = "down" ] ; then
 				# Sync from ftp server → aicamera
-				rsync -avz -e ssh gray.lin@$ftp_host:/mnt/disk2/FTP/Public/gray/aicamera/ /home/root/primax/$ftp_host/
+				rsync -avz -e ssh gray.lin@$ftp_host:/mnt/disk2/FTP/$dir_ftp $dir_local/$ftp_host/
 			elif [ "$4" = "up" ] ; then
 				# Then sync from aicamera → ftp server
-				rsync -avz -e ssh /home/root/primax/$ftp_host/ gray.lin@$ftp_host:/mnt/disk2/FTP/Public/gray/aicamera/
+				rsync -avz -e ssh $dir_local/$ftp_host/ gray.lin@$ftp_host:/mnt/disk2/FTP/$dir_ftp
 			fi
 
 		else
 			# all file in ftp folder to aicamera
-			wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp/aicamera" --directory-prefix="$dir_local" --no-parent --cut-dirs=3	
+			wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp" --directory-prefix="" --no-parent --cut-dirs=3	
 
-			cp $ftp_host/vision_box_DualCam .
-			cp $ftp_host/fw_daemon .
-			chmod 777 vision_box_DualCam
-			chmod 777 fw_daemon
+			cp -f $dir_local/$ftp_host/vision_box_DualCam $dir_exec
+			cp -f $dir_local/$ftp_host/fw_daemon $dir_exec
+			chmod 777 $dir_exec/vision_box_DualCam
+			chmod 777 $dir_exec/fw_daemon
 		fi
 
 	elif [ "$2" = "do" ] ; then
