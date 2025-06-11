@@ -42,6 +42,21 @@ hostname_prefix=$(hostname | awk -F'-' '{print $1}')
 # aicamera or visionhub
 echo "hostname_prefix:$hostname_prefix"
 
+is_aicamera() {
+  if [[ "$hostname_prefix" == "aicamera" || "$product" == "ai_camera_plus" ]]; then
+    return 1
+  else
+    return 0
+  fi
+}
+is_visionhub() {
+  if [[ "$hostname_prefix" == "visionhub" || "$product" == "visionhub" ]]; then
+    return 1
+  else
+    return 0
+  fi
+}
+
 if [ "$1" = "fixt" ] ; then
 	find . -exec touch {} +
 fi
@@ -506,7 +521,7 @@ if [ "$1" = "aic" ] ; then
 		gpioset 0 114=$status_red 115=$status_green
 		sleep 0.5
 
-		if [ "$product" == "vision_hub_plus" ] ; then
+		if is_visionhub ; then
 			echo "led 4 : gpioset 0 116=$status_red 117=$status_green"
 			gpioset 0 116=$status_red 117=$status_green
 			sleep 0.5
@@ -550,7 +565,7 @@ if [ "$1" = "aic" ] ; then
 		dir_npu="/mnt/reserved/10.1.13.207/stress_npu"
 		if [ "$3" = "on" ] ; then
 			curl http://localhost:8765/fw/pwm/1/100
-			if [ "$product" = "vision_hub_plus" ] ; then
+			if is_visionhub ; then
 				curl http://localhost:8765/fw/pwm/2/100
 				gst-launch-1.0 aravissrc camera-name=id1 ! videoconvert ! video/x-raw,format=NV12,width=1536,height=1024 ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true &
 				gst-launch-1.0 aravissrc camera-name=id2 ! videoconvert ! video/x-raw,format=NV12,width=1536,height=1024 ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true &
@@ -568,7 +583,7 @@ if [ "$1" = "aic" ] ; then
 			pkill neuronrt
 			pkill gst
 			curl http://localhost:8765/fw/pwm/1/0
-			if [ "$product" = "vision_hub_plus" ] ; then
+			if is_visionhub ; then
 				curl http://localhost:8765/fw/pwm/2/0
 			fi
 		fi
