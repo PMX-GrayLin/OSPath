@@ -3,14 +3,6 @@ xDir=~/"OSPath/AICamera"
 # docker
 dockderDir=~/"Docker"
 
-# redmine
-redDir="$dockderDir/redmine"
-redDir_Home="/var/lib/docker/volumes/redmine_vHome/_data"
-redDir_Files="/var/lib/docker/volumes/redmine_vFiles/_data"
-redDir_Config="/var/lib/docker/volumes/redmine_vConfig/_data"
-redDir_Mysql="/var/lib/docker/volumes/redmine_vMysql/_data"
-redDir_Postgres="/var/lib/docker/volumes/redmine_vPostgres/_data"
-
 # gitlab
 gitDir="$dockderDir/gitlab"
 gitDir_Data="/var/lib/docker/volumes/gitlab_vData/_data"
@@ -18,10 +10,6 @@ gitDir_Config="/var/lib/docker/volumes/gitlab_vConfig/_data"
 gitDir_ConfigR="/var/lib/docker/volumes/gitlab_vConfig_r/_data"
 gitDir_Logs="/var/lib/docker/volumes/gitlab_vLogs/_data"
 gitBackupFile="1588961756_2020_05_08_12.9.3"
-
-# jenkins
-jksDir="$dockderDir/jenkins"
-jksDir_Home="/var/lib/docker/volumes/jenkins_vHome/_data"
 
 # Loop through all parameters passed to the script
 echo "param 0: $0"
@@ -101,6 +89,13 @@ if [ "$1" = "cp" ] ; then
 	fi
 	echo "copy $3 to $path"
 
+fi
+
+if [ "$1" = "ps" ] ; then
+	if [ "$2" != "" ] ; then
+		echo "ps aux | grep $2"
+		ps aux | grep $2
+	fi
 fi
 
 if [ "$1" = "gst" ] ; then
@@ -914,105 +909,6 @@ if [ "$1" = "ssh" ] ; then
 	fi
 fi
 
-# redmine
-if [ "$1" = "red" ] ; then
-
-	if [ "$2" = "up" ] ; then
-		docker-compose -f "$redDir/docker-compose-red.yml" up -d
-		# docker-compose -f "$redDir/docker-compose-red.yml" up
-	elif [ "$2" = "down" ] ; then
-		docker-compose -f "$redDir/docker-compose-red.yml" down
-	elif [ "$2" = "start" ] ; then
-		docker-compose -f "$redDir/docker-compose-red.yml" start
-	elif [ "$2" = "stop" ] ; then
-		docker-compose -f "$redDir/docker-compose-red.yml" stop
-	elif [ "$2" = "bash" ] ; then
-		echo "========== docker exec -it redmine /bin/bash =========="
-		docker exec -ti redmine /bin/bash
-	elif [ "$2" = "chmod" ] ; then
-		sudo chmod 777 $redDir_Config/
-		sudo chmod 777 $redDir_Config/configuration.yml
-		sudo chmod 777 $redDir/data.yml
-		sudo chmod 777 $redDir/configuration.yml
-		sudo chmod 777 $redDir_Files/
-		sudo chmod 777 $redDir_Postgres/
-		sudo chmod 777 $redDir_Postgres/redmine.sqlc
-
-	elif [ "$2" = "config" ] ; then
-		echo "========== docker exec -it redmine /bin/bash =========="
-		if [ "$3" = "in" ] ; then
-			sudo chmod 777 $redDir_Config
-			sudo cp $redDir/configuration.yml $redDir_Config
-		elif [ "$3" = "out" ] ; then
-			sudo cp $redDir_Config/configuration.yml.example $redDir/configuration.yml.example
-			sudo chmod  666 $redDir/configuration.yml.example
-		elif [ "$3" = "code" ] ; then
-			code $redDir/configuration.yml 
-			code $redDir/configuration.yml.example
-		else
-			echo ">> param 3 should be 'in' or 'out'"
-		fi
-
-	elif [ "$2" = "files" ] ; then
-		if [ "$3" = "in" ] ; then
-			sudo chmod 777 $redDir_Mysql
-			sudo cp $nasDir/redmine/redmine_backup_mysql.sql $redDir_Mysql
-			sudo chmod 777 $redDir_Files
-			sudo cp $nasDir/redmine/redmine_backup_files.tar.gz $redDir_Files
-		elif [ "$3" = "out" ] ; then
-			echo ">> do nothing"
-		else
-			echo ">> param 3 should be 'in' or 'out'"
-		fi
-
-	elif [ "$2" = "data" ] ; then
-		# data.yml file
-		if [ "$3" = "in" ] ; then
-			sudo cp $redDir/data.yml $redDir_Home/db/
-		elif [ "$3" = "out" ] ; then
-			sudo cp $redDir_Home/db/data.yml $redDir/
-		elif [ "$3" = "install" ] ; then
-			# install yaml_db
-			docker exec -it redmine bundle install
-		else
-			echo ">> param 3 should be 'in' or 'out'"
-		fi
-	elif [ "$2" = "mysql" ] ; then
-		# mysql bash
-		echo "========== docker exec -it mysql /bin/bash =========="
-		docker exec -ti mysql /bin/bash
-	elif [ "$2" = "psql" ] ; then
-		# postgres bash
-		echo "========== docker exec -it postgres /bin/bash =========="
-		docker exec -ti postgres /bin/bash
-	elif [ "$2" = "log" ] ; then
-		echo "========== docker logs -tf redmine =========="
-		docker logs -tf redmine
-	elif [ "$2" = "backup" ] ; then
-		# use pg_dump
-		docker exec -it postgres pg_dump -U postgres -Fc --file=var/lib/postgresql/redmine.sqlc redmine
-
-		# use yaml_db
-		docker exec -it redmine rake db:data:dump
-	elif [ "$2" = "restore" ] ; then
-		# use pg_dump >> not work yet
-		# docker exec -it postgres pg_dump -U postgres -Fc --file=var/lib/postgresql/redmine.sqlc redmine
-
-		# use yaml_db
-		docker exec -it redmine rake db:data:load
-	elif [ "$2" = "compose" ] ; then
-		# open compose file
-		code $redDir/docker-compose-red.yml
-
-	elif [ "$2" = "gem" ] ; then
-		sudo chmod 777 $redDir_Home/Gemfile
-		code $redDir_Home/Gemfile
-	else
-		echo "param 2 not match"
-		exit -1
-	fi
-fi
-
 # gitlab
 if [ "$1" = "git" ] ; then
 	if [ "$2" = "up" ] ; then
@@ -1142,26 +1038,6 @@ if [ "$1" = "git" ] ; then
 		echo "# ssl cert folder" 
 		echo "/etc/gitlab/ssl/"
 		
-	else
-		echo "param 2 not match"
-		exit -1
-	fi
-fi
-
-# jenkins
-if [ "$1" = "jks" ] ; then
-
-	if [ "$2" = "up" ] ; then
-		docker-compose -f "$jksDir/docker-compose-jenkins.yml" up -d
-		# docker-compose -f "$jksDir/docker-compose-jenkins.yml" up
-	elif [ "$2" = "down" ] ; then
-		docker-compose -f "$jksDir/docker-compose-jenkins.yml" down
-	elif [ "$2" = "bash" ] ; then
-		echo "========== docker exec -it -u root jenkins /bin/bash =========="
-		docker exec -it -u root jenkins /bin/bash
-elif [ "$2" = "log" ] ; then
-		echo "========== docker logs -tf jenkins =========="
-		docker logs -tf jenkins
 	else
 		echo "param 2 not match"
 		exit -1

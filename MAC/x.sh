@@ -33,7 +33,7 @@ AICamera_ip="192.168.1.65"
 # AICamera_ip="192.168.1.68"
 # AICamera_ip="192.168.1.80"
 # AICamera_ip="192.168.1.99"
-# AICamera_ip="192.168.1.136"
+# AICamera_ip="192.168.1.177"
 # AICamera_ip="192.168.1.151"
 
 DellServer_ip="10.1.13.207"
