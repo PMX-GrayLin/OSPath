@@ -30,6 +30,6 @@ alias ue='source ~/.bashrc'     # update env
 alias ux='x ux'                 # update x.sh
 alias ua='ux && ue'             # update all
 
-# git 
+# git
 alias gx='cd ~ && rm -r OSPath && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \; && cd ~'
 alias gx2='cd ~ && git clone https://github.com/PMX-GrayLin/OSPath.git && cd OSPath && find . -name "*.sh" -exec chmod +x {} \; && cd ~'

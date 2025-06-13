@@ -646,27 +646,16 @@ if [ "$1" = "eth0" ] ; then
 fi
 
 # Test
-if [ "$1" = "tt1" ] ; then
-	echo "curl http://localhost:8765/temperature"
-	curl http://localhost:8765/temperature
-elif [ "$1" = "tt2" ] ; then
-	echo "curl http://localhost:8765/temperatures"
-	curl http://localhost:8765/temperatures
-elif [ "$1" = "tt3" ] ; then
-	echo "curl http://localhost:8765/temperature_array"
-	curl http://localhost:8765/temperature_array
-elif [ "$1" = "tv" ] ; then
+if [ "$1" = "tv" ] ; then
 	echo "call vision_box..."
 	cmd="curl http://localhost:9876/fw/$2"
 	echo "$cmd"
 	$cmd
-
-elif [ "$1" = "tt" ] ; then
+elif [[ "$1" = "tt" || "$1" = "tf"]] ; then
 	echo "call fw_daemon..."
 	cmd="curl http://localhost:8765/fw/$2"
 	echo "$cmd"
 	$cmd
-
 fi
 
 # system related 
