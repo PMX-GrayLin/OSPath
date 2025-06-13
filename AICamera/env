@@ -22,7 +22,8 @@ alias dnet='cd /etc/systemd/network'
 alias dinit='cd /etc/init.d'
 alias diq='cd /usr/share/mtkcam/DataSet/SQLiteModule/db/tuning_DB/'
 alias dr='cd /mnt/reserved'
-alias dftp='cd /mnt/reserved/10.1.13.207'   # dir ftp sync folder
+alias dftp='cd /mnt/reserved/10.1.13.207'                               # dir ftp sync folder
+alias dfe='cd /home/root/backend_data/vision-sensor-frontend/'          # dir frontend
 
 # update
 alias ue='source ~/.bashrc'     # update env
