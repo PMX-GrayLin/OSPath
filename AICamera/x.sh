@@ -648,12 +648,12 @@ fi
 # Test
 if [ "$1" = "tv" ]; then
 	echo "call vision_box..."
-	url="curl http://localhost:9876/fw/$2"
+	url="http://localhost:9876/fw/$2"
 	echo "curl $url"
 	curl $url
 elif [[ "$1" = "tt" || "$1" = "tf" ]]; then
 	echo "call fw_daemon..."
-	url="curl http://localhost:8765/fw/$2"
+	url="http://localhost:8765/fw/$2"
 	echo "curl $url"
 	curl $url
 fi
