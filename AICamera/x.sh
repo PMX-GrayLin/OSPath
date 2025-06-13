@@ -651,7 +651,7 @@ if [ "$1" = "tv" ] ; then
 	cmd="curl http://localhost:9876/fw/$2"
 	echo "$cmd"
 	$cmd
-elif [[ "$1" = "tt" || "$1" = "tf"]] ; then
+elif [ ["$1" = "tt"] || ["$1" = "tf"] ] ; then
 	echo "call fw_daemon..."
 	cmd="curl http://localhost:8765/fw/$2"
 	echo "$cmd"
