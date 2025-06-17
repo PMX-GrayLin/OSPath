@@ -231,12 +231,19 @@ if [ "$1" = "aic" ]; then
 			echo "check process... ps aux | grep -E --color=auto \"vision_box|mediamtx|fw_daemon|gst\""
 			ps aux | grep -E --color=auto "vision_box|mediamtx|fw_daemon|gst"
 		fi
+	
+	elif [ "$2" = "u" ]; then
+		echo "update..."
+		dir_local_ftp="/mnt/reserved/10.1.13.207"
+		dir_target="/home/root/backend_data"
+		dir_backend="$dir_target/vision-sensor-backend"
+		dir_frontend="$dir_target/vision-sensor-frontend"
 
-	elif [ "$2" = "us" ]; then
-		echo "update primax src in U22"
-		cd ~/primax/apps/vision_box_DualCam
-		git reset --hard HEAD
-		git pull
+		if [ "$3" = "be" ]; then
+			echo "backend..."
+		elif [ "$3" = "fe" ]; then
+			echo "frontend"
+		fi
 
 	elif [ "$2" = "c" ]; then
 		echo "clean..."
@@ -253,7 +260,7 @@ if [ "$1" = "aic" ]; then
 		
 		elif [ "$3" = "fw" ]; then
 			pkill vision_box
-			sleep 3
+			sleep 1
 			vision_box_DualCam &
 
 		elif [ "$3" = "fw2" ]; then
