@@ -24,6 +24,8 @@ alias diq='cd /usr/share/mtkcam/DataSet/SQLiteModule/db/tuning_DB/'
 alias dr='cd /mnt/reserved'
 alias dftp='cd /mnt/reserved/10.1.13.207'                               # dir ftp sync folder
 alias dfe='cd /home/root/backend_data/vision-sensor-frontend/'          # dir frontend
+alias dbe='cd /home/root/backend_data/vision-sensor-back/'              # dir backend
+alias dad='cd /home/root/backend_data/'                                 # dir AD
 
 # update
 alias ue='source ~/.bashrc'     # update env
