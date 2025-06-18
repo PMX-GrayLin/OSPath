@@ -534,34 +534,34 @@ if [ "$1" = "aic" ]; then
 
 	elif [ "$2" = "pwm" ]; then
 		echo "pwm..."
-		ps aux | grep fw_daemon
-		echo "ex : aic pwm 1 50"
-		curl http://localhost:8765/fw/pwm/$3/$4
+		# ps aux | grep fw_daemon
+		# echo "ex : aic pwm 1 50"
+		# curl http://localhost:8765/fw/pwm/$3/$4
 
-		# dir_pwm="/sys/devices/platform/soc/10048000.pwm/pwm/pwmchip0"
-		# pwmTarget="$dir_pwm/pwm0"
-		# pwmPeriod=200000	# 5 kHz
+		dir_pwm="/sys/devices/platform/soc/10048000.pwm/pwm/pwmchip0"
+		pwmTarget="$dir_pwm/pwm0"
+		pwmPeriod=200000	# 5 kHz
 
-		# if [ "$3" = "enable" ]; then
-		# 	cd $dir_pwm
-		# 	echo 0 > /sys/class/pwm/pwmchip0/export
-		# 	echo 1 > /sys/class/pwm/pwmchip0/export
-		# 	sleep 0.5 
-		# 	echo $pwmPeriod > $pwmTarget/period
-		# elif [ "$3" = "25" ]; then
-		# 	duty=$((pwmPeriod / 4))
-		# 	echo $duty > "$pwmTarget/duty_cycle"
-		# elif [ "$3" = "50" ]; then
-		# 	duty=$((pwmPeriod / 2))  # 50% duty
-		# 	echo $duty > "$pwmTarget/duty_cycle"
-		# elif [ "$3" = "100" ]; then
-		# 	duty=$pwmPeriod
-		# 	echo $duty > "$pwmTarget/duty_cycle"
-		# elif [ "$3" = "on" ]; then
-		# 	echo 1 > $pwmTarget/enable
-		# elif [ "$3" = "off" ]; then
-		# 	echo 0 > $pwmTarget/enable
-		# fi
+		if [ "$3" = "enable" ]; then
+			cd $dir_pwm
+			echo 0 > /sys/class/pwm/pwmchip0/export
+			echo 1 > /sys/class/pwm/pwmchip0/export
+			sleep 0.5 
+			echo $pwmPeriod > $pwmTarget/period
+		elif [ "$3" = "25" ]; then
+			duty=$((pwmPeriod / 4))
+			echo $duty > "$pwmTarget/duty_cycle"
+		elif [ "$3" = "50" ]; then
+			duty=$((pwmPeriod / 2))  # 50% duty
+			echo $duty > "$pwmTarget/duty_cycle"
+		elif [ "$3" = "100" ]; then
+			duty=$pwmPeriod
+			echo $duty > "$pwmTarget/duty_cycle"
+		elif [ "$3" = "on" ]; then
+			echo 1 > $pwmTarget/enable
+		elif [ "$3" = "off" ]; then
+			echo 0 > $pwmTarget/enable
+		fi
 
 	elif [ "$2" = "stress" ]; then
 		echo "run stress..."
