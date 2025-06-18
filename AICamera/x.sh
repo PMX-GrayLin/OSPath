@@ -545,7 +545,7 @@ if [ "$1" = "aic" ]; then
 		if [ "$3" = "enable" ]; then
 			cd $dir_pwm
 			echo 0 > /sys/class/pwm/pwmchip0/export
-			echo 1 > /sys/class/pwm/pwmchip0/export
+			# echo 1 > /sys/class/pwm/pwmchip0/export
 			sleep 0.5 
 			echo $pwmPeriod > $pwmTarget/period
 		elif [ "$3" = "25" ]; then
