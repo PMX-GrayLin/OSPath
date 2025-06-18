@@ -243,6 +243,7 @@ if [ "$1" = "aic" ]; then
 			echo "backend..."
 		elif [ "$3" = "fe" ]; then
 			echo "frontend"
+			cp -f $dir_local_ftp/ad*.* $dir_frontend
 		fi
 
 	elif [ "$2" = "c" ]; then
