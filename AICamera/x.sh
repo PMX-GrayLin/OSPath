@@ -242,8 +242,11 @@ if [ "$1" = "aic" ]; then
 		if [ "$3" = "be" ]; then
 			echo "backend..."
 		elif [ "$3" = "fe" ]; then
-			echo "frontend"
-			cp -f $dir_local_ftp/ad*.* $dir_frontend
+			echo "frontend..."
+			cd $dir_frontend
+			rm -r $dir_frontend/build/
+			cp -f $dir_local_ftp/ad_frontend.tar.gz .
+			tar -zxvf ad_frontend.tar.gz
 		fi
 
 	elif [ "$2" = "c" ]; then
