@@ -241,12 +241,15 @@ if [ "$1" = "aic" ]; then
 		dir_target="/home/root/backend_data"
 		dir_backend="$dir_target/vision-sensor-backend"
 		dir_frontend="$dir_target/vision-sensor-frontend"
-
+		
+		cd $dir_target
 		if [ "$3" = "be" ]; then
 			echo "backend..."
+			cp -f $dir_local_ftp/AD/vision-sensor-backend.tar.gz .
+			rm -r vision-sensor-backend/
+			tar -zxvf vision-sensor-backend.tar.gz
 		elif [ "$3" = "fe" ]; then
 			echo "frontend..."
-			cd $dir_target
 			cp -f $dir_local_ftp/AD/vision-sensor-frontend.tar.gz .
 			rm -r vision-sensor-frontend/
 			tar -zxvf vision-sensor-frontend.tar.gz
