@@ -86,6 +86,9 @@ if [ "$1" = "cp" ]; then
 	if [ "$2" = "h" ]; then
 		path="$HOME"
 		cp -rf $3 $path 
+	if [ "$2" = "ftp" ]; then
+		path="/mnt/reserved/10.1.13.207"
+		cp -rf $3 $path 
 	fi
 	echo "copy $3 to $path"
 
