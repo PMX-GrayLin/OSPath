@@ -243,10 +243,10 @@ if [ "$1" = "aic" ]; then
 			echo "backend..."
 		elif [ "$3" = "fe" ]; then
 			echo "frontend..."
-			cd $dir_frontend
-			rm -r $dir_frontend/build/
-			cp -f $dir_local_ftp/ad_frontend.tar.gz .
-			tar -zxvf ad_frontend.tar.gz
+			cd $dir_target
+			cp -f $dir_local_ftp/AD/vision-sensor-frontend.tar.gz .
+			rm -r vision-sensor-frontend/
+			tar -zxvf vision-sensor-frontend.tar.gz
 		fi
 
 	elif [ "$2" = "c" ]; then
