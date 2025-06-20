@@ -149,12 +149,22 @@ if [ "$1" = "aic" ] ; then
 		git pull
 
 	elif [ "$2" = "v++" ]; then
-		echo "increment version..."
+		echo "version ++ ..."
 		primax_version_file="$PROJ_ROOT/src/meta-primax/recipes-primax/primax-version/files/primax_version"
 		ver=$(cat "$primax_version_file")
 		prefix=$(echo "$ver" | cut -d. -f1-2)
 		patch=$(echo "$ver" | cut -d. -f3)
 		new_patch=$(printf "%02d" $((10#$patch + 1)))
+		echo "$prefix.$new_patch" > "$primax_version_file"
+		echo "Updated version: $prefix.$new_patch"
+
+	elif [ "$2" = "v--" ]; then
+		echo "version -- ..."
+		primax_version_file="$PROJ_ROOT/src/meta-primax/recipes-primax/primax-version/files/primax_version"
+		ver=$(cat "$primax_version_file")
+		prefix=$(echo "$ver" | cut -d. -f1-2)
+		patch=$(echo "$ver" | cut -d. -f3)
+		new_patch=$(printf "%02d" $((10#$patch - 1)))
 		echo "$prefix.$new_patch" > "$primax_version_file"
 		echo "Updated version: $prefix.$new_patch"
 
