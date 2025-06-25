@@ -38,7 +38,7 @@ is_aicamera() {
   fi
 }
 is_visionhub() {
-  if [[ "$hostname_prefix" == "visionhub" || "$product" == "visionhub" ]]; then
+  if [[ "$hostname_prefix" == "visionhub" || "$product" == "vision_hub_plus" ]]; then
 	return 0  # true: it is an visionhub
   else
 	return 1  # false: not an visionhub
