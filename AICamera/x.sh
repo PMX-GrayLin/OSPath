@@ -866,11 +866,20 @@ fi
 # tar
 if [ "$1" = "zip" ]; then
     echo " zip $2 to $3.tar.gz =========="
-    tar -czvf "$3.tar.gz" "$2"
+    tar -zcvf "$3.tar.gz" "$2"
 fi
-if [ "$1" = "unzip" ]; then
-		echo " unzip file =========="
-		tar -xzvf $2
+if [ "$1" = "unzip" ] ; then
+    echo ">>>> unzip file: $2"
+
+    if [[ "$2" == *.tar.gz || "$2" == *.tgz ]]; then
+		echo "tar -zxvf "$2""
+        tar -zxvf "$2"
+    elif [[ "$2" == *.tar.bz2 || "$2" == *.tbz || "$2" == *.tbz2 ]]; then
+		echo "tar -jxvf "$2""
+        tar -jxvf "$2"
+    else
+        echo "Unsupported file format: $2"
+    fi
 fi
 
 # chmod
