@@ -1099,6 +1099,6 @@ fi
 # file / folder size
 if [ "$1" == "size" ] ; then
 	echo "du -sh $2"
-	du -sh $2
+	sudo du -sh $2
 fi
 
