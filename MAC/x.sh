@@ -25,15 +25,11 @@ currentDateTime=`date "+%m%d%H%M"`
 wheeltec_ip="192.168.1.196"
 
 # ai camera
-
-# AICamera_ip="192.168.1.17"
-# AICamera_ip="192.168.1.65"
-AICamera_ip="192.168.1.66"
-# AICamera_ip="192.168.1.80"
-# AICamera_ip="192.168.1.99"
-# AICamera_ip="192.168.1.136"
-# AICamera_ip="192.168.1.140"
-# AICamera_ip="192.168.1.191"
+AICamera_ip="192.168.1.65"
+# AICamera_ip="192.168.1.66"
+# AICamera_ip="192.168.1.67"
+# AICamera_ip="192.168.2.99"
+AICamera_ip="aicamera-d14b.local"
 
 DellServer_ip="10.1.13.207"
 
