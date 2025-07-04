@@ -193,6 +193,8 @@ if [ "$1" = "aic" ]; then
 			systemctl status NetworkManager
 			echo "========== ip addr show eth0 =========="
 			ip addr show eth0
+			echo "========== networkctl status eth0 =========="
+			networkctl status eth0
 			echo "========== fw_printenv | grep eth =========="
 			fw_printenv | grep --color=auto eth
 

@@ -28,11 +28,12 @@ wheeltec_ip="192.168.1.196"
 AICamera_ip="192.168.1.65"
 AICamera_ip="192.168.1.66"
 # AICamera_ip="192.168.1.67"
+# AICamera_ip="192.168.1.99"
 # AICamera_ip="192.168.2.99"
 # AICamera_ip="aicamera-d14b"
 # AICamera_ip="aicamera-d14b.local"
 # AICamera_ip="visionhub-d14b"
-# AICamera_ip="visionhub-d14b.local"
+AICamera_ip="visionhub-d14b.local"
 
 DellServer_ip="10.1.13.207"
 
@@ -914,6 +915,7 @@ fi
 
 if [ "$1" == "ping" ] ; then
 	if [ "$2" == "aic" ] ; then
+		echo "ping $AICamera_ip ..."
 		ping $AICamera_ip
 	fi
 fi
