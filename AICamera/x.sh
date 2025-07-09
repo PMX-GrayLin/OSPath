@@ -169,11 +169,10 @@ if [ "$1" = "aic" ]; then
 			echo "camera..."
 
 			if [ "$4" = "usb" ]; then
-			    VIDEO_DEV=137
-				echo "v4l2-ctl --device=${VIDEO_DEV} --list-formats-ext"
-				v4l2-ctl --device=${VIDEO_DEV} --list-formats-ext
-				echo "v4l2-ctl --device=${VIDEO_DEV} --list-ctrls"
-				v4l2-ctl --device=${VIDEO_DEV} --list-ctrls
+				echo "v4l2-ctl --device=${device_uvc} --list-formats-ext"
+				v4l2-ctl --device=${$device_uvc} --list-formats-ext
+				echo "v4l2-ctl --device=${$device_uvc} --list-ctrls"
+				v4l2-ctl --device=${$device_uvc} --list-ctrls
 			elif [ "$4" = "l" ]; then
 				echo"v4l2-ctl --list-devices"
 				v4l2-ctl --list-devices
@@ -318,11 +317,11 @@ if [ "$1" = "aic" ]; then
 		if [ "$3" = "usb" ]; then
 			echo "usb..."
 			if [ "$4" = "tee" ]; then
-				cmd="gst-launch-1.0 -e -v v4l2src device="/dev/video5" ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! tee name=t ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true     t. ! queue ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
+				cmd="gst-launch-1.0 -e -v v4l2src device=$device_uvc ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! tee name=t ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true     t. ! queue ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
 			elif [ "$4" = "dp" ]; then
-				cmd="gst-launch-1.0 -e -v v4l2src device="/dev/video137" ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true"
+				cmd="gst-launch-1.0 -e -v v4l2src device=$device_uvc ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true"
 			else
-				cmd="gst-launch-1.0 -e -v v4l2src device="/dev/video137" ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
+				cmd="gst-launch-1.0 -e -v v4l2src device=$device_uvc ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
 			fi
 
 		elif [ "$3" = "gige" ]; then
