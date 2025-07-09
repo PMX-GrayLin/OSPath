@@ -30,6 +30,13 @@ hostname_prefix=$(hostname | awk -F'-' '{print $1}')
 # aicamera or visionhub
 echo "hostname_prefix:$hostname_prefix"
 
+# Load device path from config
+device_uvc=$(cat ~/primax/misc/camera_uvc.conf)
+if [ -z "$DEVICE_UVC" ]; then
+  device_uvc="/dev/video137"
+fi
+echo "device_uvc:$device_uvc"
+
 is_aicamera() {
   if [[ "$hostname_prefix" == "aicamera" || "$product" == "ai_camera_plus" ]]; then
 	return 0  # true: it is an aicamera
