@@ -32,7 +32,7 @@ echo "hostname_prefix:$hostname_prefix"
 
 # Load device path from config
 device_uvc=$(cat ~/primax/misc/camera_uvc.conf)
-if [ -z "$DEVICE_UVC" ]; then
+if [ -z "$device_uvc" ]; then
   device_uvc="/dev/video137"
 fi
 echo "device_uvc:$device_uvc"
