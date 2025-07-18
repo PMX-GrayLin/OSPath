@@ -36,6 +36,15 @@ done
 echo "PROJ_ROOT:"$PROJ_ROOT
 echo "BUILD_DIR:"$BUILD_DIR
 
+if [ -f ~/tmp/p1 ]; then
+    p1=$(cat ~/tmp/p1)
+	echo "p1:$p1"
+fi
+if [ -f ~/tmp/p2 ]; then
+    p2=$(cat ~/tmp/p2)
+	echo "p2:$p2"
+fi
+
 # Test
 if [ "$1" = "tt" ] ; then
 	cd ~
