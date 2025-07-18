@@ -37,6 +37,15 @@ if [ -z "$device_uvc" ]; then
 fi
 echo "device_uvc:$device_uvc"
 
+if [ -f ~/tmp/p1 ]; then
+    p1=$(cat ~/tmp/p1)
+	echo "p1:$p1"
+fi
+if [ -f ~/tmp/p2 ]; then
+    p2=$(cat ~/tmp/p2)
+	echo "p2:$p2"
+fi
+
 is_aicamera() {
   if [[ "$hostname_prefix" == "aicamera" || "$product" == "ai_camera_plus" ]]; then
 	return 0  # true: it is an aicamera
