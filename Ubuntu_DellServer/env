@@ -83,8 +83,8 @@ alias spe2='spp && env_mtk'                                                 # se
 alias ghash='echo "$(git rev-parse HEAD)" > $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/sysroot/home/root/primax/misc/build_commit'
 alias ytb='ghash && DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image'
 alias ytb2='ghash && x bb c primax && DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image'
-alias sp1='echo `pwd` > /tmp/p1'
-alias sp2='echo `pwd` > /tmp/p2'
+alias sp1='mkdir -p ~/tmp && echo `pwd` > ~/tmp/p1'
+alias sp2='echo `pwd` > ~/tmp/p2'
 
 alias yt='x yt'
 alias aic='x aic'
