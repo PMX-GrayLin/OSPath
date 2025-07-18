@@ -33,7 +33,7 @@ AICamera_ip="192.168.1.65"
 AICamera_ip="aicamera-d14b.local"
 # AICamera_ip="visionhub-d14b"
 # AICamera_ip="visionhub-d14b.local"
-# AICamera_ip="192.168.1.136"
+AICamera_ip="192.168.1.64"
 
 
 DellServer_ip="10.1.13.207"

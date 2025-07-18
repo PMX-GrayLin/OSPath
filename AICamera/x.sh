@@ -705,15 +705,15 @@ if [ "$1" = "sys" ]; then
 		#ls /etc/init.d
 	elif [ "$2" = "info" ]; then
 		echo "========== System info =========="
-		echo "==== Ubuntu version ===="
+		echo "==== Ubuntu version ( cat /etc/os-release )===="
 		cat /etc/os-release
-		echo "==== Kernel version ===="
+		echo "==== Kernel version ( uname -a )===="
 		uname -a
-		echo "==== CPU info ===="
+		echo "==== CPU info ( lscpu )===="
 		lscpu
-		echo "==== Memory info ===="
+		echo "==== Memory info ( free -mh )===="
 		free -mh
-		echo "==== Disk info ===="
+		echo "==== Disk info ( df -h --total ) ===="
 		df -h --total
 	elif [ "$2" = "users" ]; then
 		# awk -F: '{ print $1}' /etc/passwd
@@ -728,9 +728,6 @@ if [ "$1" = "sys" ]; then
 
 	elif [ "$2" = "user" ]; then
 		id -nG $3
-	elif [ "$2" = "net" ]; then
-		echo "========== nmap -A 192.168.100.* =========="
-		nmap -A 192.168.100.*
 	else
 		echo "param 3 not match"
 		exit -1
