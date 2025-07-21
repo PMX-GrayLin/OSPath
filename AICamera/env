@@ -6,6 +6,7 @@ alias p3='python3'
 
 # AI Camera
 alias aic='x aic'
+alias restful='x tf'
 
 # edit
 alias ex="nano ~/OSPath/$InHost/x.sh"
