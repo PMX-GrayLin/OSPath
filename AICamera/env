@@ -29,6 +29,10 @@ alias dfe='cd /home/root/backend_data/vision-sensor-frontend/'          # dir fr
 alias dbe='cd /home/root/backend_data/vision-sensor-backend/'           # dir backend
 alias dad='cd /home/root/backend_data/'                                 # dir AD
 
+alias ep='[ -f ~/tmp/p1 ] && export p1=$(cat ~/tmp/p1); [ -f ~/tmp/p2 ] && export p2=$(cat ~/tmp/p2)'
+alias sp1='mkdir -p ~/tmp && echo `pwd` > ~/tmp/p1 && ep'
+alias sp2='mkdir -p ~/tmp && echo `pwd` > ~/tmp/p2 && ep'
+
 # update
 alias ue='source ~/.bashrc'     # update env
 alias ux='x ux'                 # update x.sh
