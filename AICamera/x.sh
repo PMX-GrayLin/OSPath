@@ -1216,9 +1216,20 @@ if [ "$1" == "ux" ]; then
 	sudo chmod 777 AICamera/x.sh
 fi
 
+# find content
+if [ "$1" == "grep" ] ; then
+	grep -r $2 .
+fi
+
 # find
 if [ "$1" == "find" ]; then
 	echo "find . -name \"$2\""
 	find . -name "$2" 
+fi
+
+# file / folder size
+if [ "$1" == "size" ] ; then
+	echo "du -sh $2"
+	sudo du -sh $2
 fi
 
