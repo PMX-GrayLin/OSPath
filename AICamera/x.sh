@@ -242,8 +242,8 @@ if [ "$1" = "aic" ]; then
 			echo "check build date... cat ~/primax/misc/build_date"
 			cat ~/primax/misc/build_date
 			echo ""
-			echo "check process... ps aux | grep -E --color=auto \"vision_box|mediamtx|fw_daemon|gst\""
-			ps aux | grep -E --color=auto "vision_box|mediamtx|fw_daemon|gst"
+			echo "check process... ps aux | grep -E --color=auto \"vision_box|mediamtx|fw|gst\""
+			ps aux | grep -E --color=auto "vision_box|mediamtx|fw|gst"
 		fi
 	
 	elif [ "$2" = "u" ]; then
