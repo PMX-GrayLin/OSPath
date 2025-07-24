@@ -188,8 +188,8 @@ if [ "$1" = "aic" ] ; then
 		cp -f $dir_work/primax-1.0/src/Test_C_yocto/fw_daemon "$dir_ftp/aicamera/"
 
 	else
-		echo "param 2 not match"
-		exit -1
+		primax_version_file="$PROJ_ROOT/src/meta-primax/recipes-primax/primax-version/files/primax_version"
+		echo "primax_version : $(cat "$primax_version_file")"
 	fi
 fi
 
