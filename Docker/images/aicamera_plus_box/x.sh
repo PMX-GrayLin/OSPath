@@ -122,7 +122,7 @@ fi
 if [ "$1" = "aic" ] ; then
 
 	echo "========== PROJ_ROOT:$PROJ_ROOT =========="
-	aicDir="$dockderDir/AICameraG2"
+	aicDir="$dockderDir/aicamera_plus_box"
 
 	if [ "$2" = "dk" ] ; then
 		echo "========== docker cmd =========="
