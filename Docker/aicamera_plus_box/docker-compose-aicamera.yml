@@ -1,8 +1,8 @@
 
 services:
   ubuntu:
-    image: graygray/aicamerag2
-    container_name: aicamerag2
+    image: graygray/aicamera_plus_box
+    container_name: aicamera_plus_box
     stdin_open: true  # Keep the container running and open for interactive mode
     tty: true  # Allocate a pseudo-TTY (useful for running bash)
     command: /bin/bash  # Run bash as the command

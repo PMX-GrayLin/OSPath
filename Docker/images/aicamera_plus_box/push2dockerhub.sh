@@ -1,1 +1,1 @@
-docker push graygray/aicamerag2
+docker push graygray/aicamera_plus_box
