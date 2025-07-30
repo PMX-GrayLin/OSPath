@@ -24,16 +24,24 @@ gitBackupFile="1588961756_2020_05_08_12.9.3"
 jksDir="$dockderDir/jenkins"
 jksDir_Home="/var/lib/docker/volumes/jenkins_vHome/_data"
 
-echo xDir = $xDir
-echo "param 0:"$0
-echo "param 1:"$1
-echo "param 2:"$2
-echo "param 3:"$3
-echo "param 4:"$4
-echo "param 5:"$5
-echo "param 5:"$5
+# Loop through all parameters passed to the script
+echo "xDir = $xDir"
+echo "param 0: $0"
+i=1
+for arg in "$@"; do
+    echo "param $i: $arg"
+    ((i++))
+done
+
 echo "PROJ_ROOT:"$PROJ_ROOT
 echo "BUILD_DIR:"$BUILD_DIR
+
+if [ -f ~/tmp/p1 ]; then
+	echo "p1:$p1"
+fi
+if [ -f ~/tmp/p2 ]; then
+	echo "p2:$p2"
+fi
 
 # Test
 if [ "$1" = "tt" ] ; then
@@ -53,17 +61,36 @@ fi
 if [ "$1" = "bb" ] ; then
 	echo "BitBake..."
 	if [  "$2" = "c" ] ; then
-		echo "clean recipe..., $3"
+		echo "clean recipe... $3"
 		# bitbake -c cleansstate $3
 		bitbake -c cleanall $3
 		
 	elif [ "$2" = "b" ] ; then
-		echo "build recipe..., $3"
-		# bitbake -D $3
+		echo "build recipe... $3"
 		bitbake $3
 
+	elif [ "$2" = "ocv" ] ; then
+		echo "only compile recipe... $3, bitbake $3 -c compile"
+	    # make build tag
+		WORKDIR="$BUILD_DIR/tmp/work/armv8a-poky-linux/primax/1.0-r0"
+		touch "$WORKDIR/temp/tag_ignoreBuild_test"
+
+		bitbake $3 -c compile
+
+		rm "$WORKDIR/temp/tag_ignoreBuild"*
+
+	elif [ "$2" = "oct" ] ; then
+		echo "only compile recipe... $3, bitbake $3 -c compile"
+	    # make build tag
+		WORKDIR="$BUILD_DIR/tmp/work/armv8a-poky-linux/primax/1.0-r0"
+		touch "$WORKDIR/temp/tag_ignoreBuild_visionBox"
+
+		bitbake $3 -c compile
+
+		rm "$WORKDIR/temp/tag_ignoreBuild"*
+
 	elif [ "$2" = "i" ] ; then
-		echo "check recipe info..., $3"
+		echo "check recipe info... $3"
 		bitbake -e $3 | grep -E "^SRC_URI=|^FILE=|^PV="
 	
 	elif [ "$2" = "l" ] ; then
@@ -108,40 +135,61 @@ if [ "$1" = "aic" ] ; then
 			echo "docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down"
 			docker-compose -f "$aicDir/docker-compose-aicamerag2.yml" down
 		elif [ "$3" = "bash" ] ; then
-			echo "========== docker exec -it -u root u22_aicamerag2 /bin/bash =========="
-			# docker exec -it -u root u22_aicamerag2 /bin/bash
-			docker exec -it u22_aicamerag2 /bin/bash
+			echo "========== docker exec -it -u root aicamerag2 /bin/bash =========="
+			# docker exec -it -u root aicamerag2 /bin/bash
+			docker exec -it aicamerag2 /bin/bash
 		elif [ "$3" = "log" ] ; then
 			echo "========== docker logs -tf jenkins =========="
-			docker logs -tf u22_aicamerag2
+			docker logs -tf aicamerag2
 		fi
 
-	elif [ "$2" = "us" ] ; then
-		echo "========== update yocto primax src =========="
-		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/vision_box_DualCam
-		git reset --hard HEAD
+	elif [ "$2" = "ust" ] ; then
+		echo "========== update Test_C_yocto src =========="
+		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
+		# git reset --hard HEAD
 		git pull
 
-		# cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/Test_C_yocto
+	elif [ "$2" = "usv" ] ; then
+		echo "========== update vision_box_DualCam src =========="
+		cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src/vision_box_DualCam
 		# git reset --hard HEAD
-		# git pull
+		git pull
+
+	elif [ "$2" = "v++" ]; then
+		echo "version ++ ..."
+		primax_version_file="$PROJ_ROOT/src/meta-primax/recipes-primax/primax-version/files/primax_version"
+		ver=$(cat "$primax_version_file")
+		prefix=$(echo "$ver" | cut -d. -f1-2)
+		patch=$(echo "$ver" | cut -d. -f3)
+		new_patch=$(printf "%02d" $((10#$patch + 1)))
+		echo "$prefix.$new_patch" > "$primax_version_file"
+		echo "Updated version: $prefix.$new_patch"
+
+	elif [ "$2" = "v--" ]; then
+		echo "version -- ..."
+		primax_version_file="$PROJ_ROOT/src/meta-primax/recipes-primax/primax-version/files/primax_version"
+		ver=$(cat "$primax_version_file")
+		prefix=$(echo "$ver" | cut -d. -f1-2)
+		patch=$(echo "$ver" | cut -d. -f3)
+		new_patch=$(printf "%02d" $((10#$patch - 1)))
+		echo "$prefix.$new_patch" > "$primax_version_file"
+		echo "Updated version: $prefix.$new_patch"
 
 	elif [ "$2" = "ftp" ] ; then
 		echo "========== update files to FTP =========="
-		dir_ftp="/mnt/disk2/FTP/Public/gray/"
-		dir_work="$PROJ_ROOT/build/tmp/work/armv8a-poky-linux/primax/1.0-r0"
-		cp -f $dir_work/temp/log.do_compile $dir_ftp
-		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam $dir_ftp
+		dir_ftp="/mnt/disk2/FTP/Public/gray"
 
-		# dir_image="$PROJ_ROOT/build/tmp//deploy/images/genio-700-evk"
-		# cp -f $dir_image/fitImage $dir_ftp
-		# cp -f $dir_image/modules-genio-700-evk.tgz $dir_ftp
+		targetPlatform="armv8a-poky-linux"
+		# targetPlatform="genio_700_evk-poky-linux"
 
-		dir_ko="$PROJ_ROOT/build/tmp/work/genio_700_evk-poky-linux/st-tof-module/1.0-r0/image/lib/modules"
-		cp -f $dir_ko/st_tof_module.ko $dir_ftp
+		dir_work="$PROJ_ROOT/build/tmp/work/$targetPlatform/primax/1.0-r0"
+		cp -f $dir_work/temp/log.do_compile $dir_ftp/
+		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam "$dir_ftp/aicamera/"
+		cp -f $dir_work/primax-1.0/src/Test_C_yocto/fw_daemon "$dir_ftp/aicamera/"
+
 	else
-		echo "param 2 not match"
-		exit -1
+		primax_version_file="$PROJ_ROOT/src/meta-primax/recipes-primax/primax-version/files/primax_version"
+		echo "primax_version : $(cat "$primax_version_file")"
 	fi
 fi
 
@@ -165,16 +213,34 @@ if [ "$1" = "yt" ] ; then
 		bitbake virtual/kernel -c menuconfig
 
 	elif [ "$2" = "f" ] ; then
-		echo "genio-flash..."
-		genio-flash
-		# aiot-flash
 
-	elif [ "$2" = "fk" ] ; then
-		echo "genio-flash kernel..."
-		genio-flash kernel
+		dtbos_ai="--load-dtbo gpu-mali.dtbo --load-dtbo apusys.dtbo"
+		dtbos_codec="--load-dtbo video.dtbo"
+		dtbos_cam="--load-dtbo camera-imx214-csi0.dtbo"
+		dtbos_dp="--load-dtbo display-dp.dtbo"		
 
-	elif [ "$2" = "fdp" ] ; then
-		genio-flash -i rity-demo-image --load-dtbo display-dp.dtbo kernel mmc0boot1
+		if [ "$3" = "cam" ] ; then
+			echo "===== genio-flash $dtbos_cam $dtbos_codec ====="
+			genio-flash $dtbos_cam $dtbos_codec
+		elif [ "$3" = "dp" ] ; then
+			echo "===== genio-flash $dtbos_dp ====="
+			genio-flash $dtbos_dp
+		elif [ "$3" = "k" ] ; then
+			if [ "$4" = "dp" ] ; then
+				echo "genio-flash --load-dtbo display-dp.dtbo kernel mmc0boot1..."
+				genio-flash --load-dtbo display-dp.dtbo kernel mmc0boot1
+			else 
+				echo "genio-flash kernel..."
+				genio-flash kernel
+			fi
+		elif [ "$3" = "all" ] ; then
+			echo "===== genio-flash $dtbos_ai $dtbos_codec $dtbos_cam $dtbos_dp ====="
+			genio-flash $dtbos_ai $dtbos_codec $dtbos_cam $dtbos_dp
+		else
+			echo "===== genio-flash ====="
+			genio-flash
+			#aiot-flash
+		fi
 
 	elif [ "$2" = "repo" ] ; then
 		echo "repo..."
@@ -191,16 +257,16 @@ if [ "$1" = "yt" ] ; then
 		git reset --hard HEAD
 		git pull
 
-	elif [ "$2" = "k" ] ; then
-		echo "========== kernel =========="
-		# if [  "$2" = "dts" ] ; then
+	elif [ "$2" = "dtb2dts" ] ; then
+		echo "========== dtc -I dtb -O dts -o $3.dts $3.dtb =========="
+		dtc -I dtb -O dts -o $3.dts $3.dtb
 
-		# elif [ "$2" = "us" ] ; then
-
-		# fi
+	elif [ "$2" = "dts2dtb" ] ; then
+		echo "========== dtc -I dts -O dtb -o $3.dtb $3.dts =========="
+		dtc -I dts -O dtb -o $3.dtb $3.dts
 
 	else
-		echo "priject env vars..."
+		echo "project env vars..."
 		echo "PROJ_ROOT:${PROJ_ROOT}"
 		echo "TEMPLATECONF:${TEMPLATECONF}"
 		echo "BUILD_DIR:${BUILD_DIR}"
@@ -323,15 +389,16 @@ if [ "$1" = "sys" ] ; then
 		#ls /etc/init.d
 	elif [ "$2" = "info" ] ; then
 		echo "========== System info =========="
-		echo "==== Ubuntu version ===="
+		echo "==== Ubuntu version ( cat /etc/os-release )===="
 		cat /etc/os-release
-		echo "==== Kernel version ===="
+		echo "==== Kernel version ( uname -a )===="
 		uname -a
-		echo "==== CPU info ===="
+		echo "==== CPU info ( lscpu )===="
 		lscpu
-		echo "==== Memory info ===="
+		echo "==== Memory info ( free -mh )===="
 		free -mh
-		echo "==== Disk info ===="
+		echo "==== Disk info ( df -h --total ) ===="
+		# df -h --total
 		df -h --total | grep sd
 	elif [ "$2" = "users" ] ; then
 		# awk -F: '{ print $1}' /etc/passwd
@@ -353,6 +420,22 @@ if [ "$1" = "sys" ] ; then
 		echo "param 3 not match"
 		exit -1
 	fi
+fi
+
+# copy to
+if [ "$1" = "cp" ] ; then
+
+	if [ "$2" = "h" ] ; then
+		path="$HOME"
+	elif [ "$2" = "ftp" ] ; then
+		path="/mnt/disk2/FTP/Public/gray"
+	elif [ "$2" = "aic" ] ; then
+		path="/mnt/disk2/FTP/Public/gray/aicamera"
+	elif [ "$2" = "ccm" ] ; then
+		path="/mnt/disk2/FTP/Public/gray/aicamera/ccm_db"
+	fi
+	echo "cp -rf $3 $path"
+	cp -rf $3 $path 
 fi
 
 # gedit
@@ -426,44 +509,6 @@ if [ "$1" = "ftp" ] ; then
 		echo "ex : sudo setfacl -Rdm g:SAC_EE:rwx DirName/"
 		echo "sudo setfacl -Rdm g:$4:rwx $3"
 		sudo setfacl -Rdm g:$4:rwx $3
-	elif [ "$2" = "user+" ] ; then
-		if [ -n "$3" ] ; then
-			if [ "$4" = "sidee" ] ; then
-				# SAC EE team group
-				sudo useradd  -m $3 -g "SAC_EE" -s /bin/bash
-			elif [ "$4" = "sidme" ] ; then
-				# SAC ME team group
-				sudo useradd  -m $3 -g "SAC_ME" -s /bin/bash
-			elif [ "$4" = "all" ] ; then
-				# all ftp available group
-				sudo useradd  -m $3 -G "SAC_EE,SAC_ME,SAC_SW,docker" -s /bin/bash
-			elif [ "$4" = "sidsw" ] ; then
-				# SAC SW team group for default
-				sudo useradd  -m $3 -g "SAC_SW" -s /bin/bash
-				sudo usermod -aG docker $3
-			else
-				# CCPSW team group for default
-				sudo useradd -m $3 -g "CCP" -s /bin/bash
-				sudo usermod -aG docker $3
-
-				# make a yocto build dir & user link
-				sudo mkdir /mnt/disk2/yocto_build_folder/$3
-				sudo chown $3:CCP /mnt/disk2/yocto_build_folder/$3
-				cd /home/$3
-				sudo ln -s /mnt/disk2/yocto_build_folder/$3 yocto_build_folder
-				sudo chown $3:CCP yocto_build_folder
-			fi
-			echo "$3:$3" | sudo chpasswd
-			sudo chage -d 0 $3
-			sudo chage -l $3 | head -n 3
-		else
-			echo "param 3 needed"
-		fi
-	elif [ "$2" = "user-" ] ; then
-		sudo userdel -r $3
-		sudo rm -r /mnt/disk2/yocto_build_folder/$3
-elif [ "$2" = "user+g" ] ; then
-		sudo usermod -aG $3 $4
 	elif [ "$2" = "config" ] ; then
 		code /etc/vsftpd.conf
 	else
@@ -494,7 +539,6 @@ if [ "$1" = "user" ] ; then
 		fi
 	elif [ "$2" = "-" ] ; then
 		sudo userdel -r $3
-		#sudo rm -r /mnt/disk2/yocto_build_folder/$3
 
 	elif [ "$2" = "+g" ] ; then
 		sudo usermod -aG $3 $4
@@ -503,11 +547,24 @@ if [ "$1" = "user" ] ; then
 
 		if [ -n "$3" ] ; then
 			# make a yocto build dir & user link
-			sudo mkdir /mnt/disk2/yocto_build_folder/$3
-			sudo chown $3:$mainGroup /mnt/disk2/yocto_build_folder/$3
+			buildfolder="/mnt/disk2/yocto_build_folder"
+			mkdir $buildfolder/$3
+			cp $buildfolder/misc/step* $buildfolder/$3
+			sudo chown $3:$mainGroup $buildfolder/$3
+			sudo chown $3:$mainGroup $buildfolder/$3/step*
 			cd /home/$3
 			sudo ln -s /mnt/disk2/yocto_build_folder/$3 yocto_build_folder
 			sudo chown $3:$mainGroup yocto_build_folder
+		else 
+			echo "param 3 needed"
+		fi
+
+	elif [ "$2" = "-yt" ] ; then
+
+		if [ -n "$3" ] ; then
+			# make a yocto build dir & user link
+			buildfolder="/mnt/disk2/yocto_build_folder"
+			sudo rm -r $buildfolder/$3
 		else 
 			echo "param 3 needed"
 		fi
@@ -547,11 +604,21 @@ fi
 # tar
 if [ "$1" = "zip" ] ; then
 		echo ">>>> zip $2 to $3.tar.gz"
-		tar -czvf $3.tar.gz $2
+		echo "tar -zcvf $3.tar.gz $2"
+		tar -zcvf $3.tar.gz $2
 fi
 if [ "$1" = "unzip" ] ; then
-		echo ">>>> unzip file"
-		tar -xzvf $2
+    echo ">>>> unzip file: $2"
+
+    if [[ "$2" == *.tar.gz || "$2" == *.tgz ]]; then
+		echo "tar -zxvf "$2""
+        tar -zxvf "$2"
+    elif [[ "$2" == *.tar.bz2 || "$2" == *.tbz || "$2" == *.tbz2 ]]; then
+		echo "tar -jxvf "$2""
+        tar -jxvf "$2"
+    else
+        echo "Unsupported file format: $2"
+    fi
 fi
 
 # chmod
@@ -1033,11 +1100,13 @@ fi
 
 # find file
 if [ "$1" == "find" ] ; then
+	echo "find . -name $2"
 	find . -name $2
 fi
 
 # file / folder size
 if [ "$1" == "size" ] ; then
-	du -sh $2
+	echo "du -sh $2"
+	sudo du -sh $2
 fi
 
