@@ -502,6 +502,7 @@ if [ "$1" = "aic" ]; then
 		dir_exec=~/"primax"
 
 		cd $dir_local
+		pkill fw_watchdog.sh
 		pkill vision_box
 		pkill fw_daemon
 		

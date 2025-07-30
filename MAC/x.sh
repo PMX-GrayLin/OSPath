@@ -27,13 +27,13 @@ wheeltec_ip="192.168.1.196"
 # ai camera
 AICamera_ip="192.168.1.65"
 # AICamera_ip="192.168.1.66"
-# AICamera_ip="192.168.1.67"
+# AICamera_ip="192.168.1.68"
 # AICamera_ip="192.168.2.99"
-# AICamera_ip="aicamera-d14b"
-AICamera_ip="aicamera-d14b.local"
+AICamera_ip="aicamera-d14b"
+# AICamera_ip="aicamera-d14b.local"
 # AICamera_ip="visionhub-d14b"
 # AICamera_ip="visionhub-d14b.local"
-# AICamera_ip="192.168.1.120"
+# AICamera_ip="192.168.1.139"
 
 
 DellServer_ip="10.1.13.207"

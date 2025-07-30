@@ -266,7 +266,7 @@ if [ "$1" = "yt" ] ; then
 		dtc -I dts -O dtb -o $3.dtb $3.dts
 
 	else
-		echo "priject env vars..."
+		echo "project env vars..."
 		echo "PROJ_ROOT:${PROJ_ROOT}"
 		echo "TEMPLATECONF:${TEMPLATECONF}"
 		echo "BUILD_DIR:${BUILD_DIR}"
