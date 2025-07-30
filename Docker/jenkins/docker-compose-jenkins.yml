@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   jenkins:
@@ -13,6 +12,7 @@ services:
       - "50000:50000" # For Jenkins agent connections
     volumes:
       - jenkins_home:/var/jenkins_home
+      - /home/gray.lin/.ssh/:/root/.ssh/
       - /var/run/docker.sock:/var/run/docker.sock  # Optional: for Docker inside Jenkins
     environment:
       - TZ=Asia/Taipei
