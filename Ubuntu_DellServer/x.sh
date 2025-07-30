@@ -122,25 +122,26 @@ fi
 if [ "$1" = "aic" ] ; then
 
 	echo "========== PROJ_ROOT:$PROJ_ROOT =========="
-	aicDir="$dockderDir/AICameraG2"
 
 	if [ "$2" = "dk" ] ; then
+		prjString="aicamera_plus_box"
+		prjDockderDir="$dockderDir/$prjString"
 		echo "========== docker cmd =========="
 
 		if [ "$3" = "up" ] ; then
-			echo "docker-compose -f "$aicDir/docker-compose-aicamera_plus_box.yml" up -d"
-			docker-compose -f "$aicDir/docker-compose-aicamera_plus_box.yml" up -d
-			# docker-compose -f "$aicDir/docker-compose-aicamera_plus_box.yml" up
+			echo "docker-compose -f "$prjDockderDir/docker-compose-$prjString.yml" up -d"
+			docker-compose -f "$prjDockderDir/docker-compose-$prjString.yml" up -d
+			# docker-compose -f "$aicDir/docker-compose-$prjString.yml" up
 		elif [ "$3" = "down" ] ; then
-			echo "docker-compose -f "$aicDir/docker-compose-aicamera_plus_box.yml" down"
-			docker-compose -f "$aicDir/docker-compose-aicamera_plus_box.yml" down
+			echo "docker-compose -f "$prjDockderDir/docker-compose-$prjString.yml" down"
+			docker-compose -f "$prjDockderDir/docker-compose-$prjString.yml" down
 		elif [ "$3" = "bash" ] ; then
-			echo "========== docker exec -it -u root aicamera_plus_box /bin/bash =========="
-			# docker exec -it -u root aicamera_plus_box /bin/bash
-			docker exec -it aicamera_plus_box /bin/bash
+			echo "========== docker exec -it -u root $prjString /bin/bash =========="
+			# docker exec -it -u root $prjString /bin/bash
+			docker exec -it $prjString /bin/bash
 		elif [ "$3" = "log" ] ; then
 			echo "========== docker logs -tf jenkins =========="
-			docker logs -tf aicamera_plus_box
+			docker logs -tf $prjString
 		fi
 
 	elif [ "$2" = "ust" ] ; then
