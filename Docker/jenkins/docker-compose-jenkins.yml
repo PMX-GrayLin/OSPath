@@ -13,8 +13,9 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home
       - /home/gray.lin/.ssh/:/root/.ssh/
-      - /usr/bin/docker:/usr/bin/docker
+      - /home/gray.lin/OSPath/Docker/images/aicamera_plus_box/:/root/aicamera_plus_box/
       - /usr/local/bin/docker-compose:/usr/bin/docker-compose
+      - /usr/bin/docker:/usr/bin/docker
       - /var/run/docker.sock:/var/run/docker.sock  # Optional: for Docker inside Jenkins
     environment:
       - TZ=Asia/Taipei
