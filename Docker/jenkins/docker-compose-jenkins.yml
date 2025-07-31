@@ -9,7 +9,7 @@ services:
     #restart: unless-stopped
     ports:
       - '30003:8080'   # Jenkins Web UI
-      - "50000:50000" # For Jenkins agent connections
+      #- "50000:50000" # For Jenkins agent connections
     volumes:
       - jenkins_home:/var/jenkins_home
       - /home/gray.lin/.ssh/:/root/.ssh/
