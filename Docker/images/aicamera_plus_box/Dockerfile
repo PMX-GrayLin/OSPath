@@ -44,7 +44,8 @@ RUN apt-get update && apt-get install -y \
     libsdl1.2-dev \
     pylint \
     xterm \
-    mesa-common-dev 
+    mesa-common-dev \
+    gfortran
     #&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     #&& apt-get clean
 
