@@ -439,6 +439,13 @@ if [ "$1" = "cp" ] ; then
 	cp -rf $3 $path 
 fi
 
+if [ "$1" = "ps" ]; then
+	if [ "$2" != "" ]; then
+		echo "ps aux | grep $2"
+		ps aux | grep $2
+	fi
+fi
+
 # gedit
 if [ "$1" = "ge" ] ; then
 	if [ "$2" = "x" ] ; then
