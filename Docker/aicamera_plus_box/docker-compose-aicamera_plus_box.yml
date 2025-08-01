@@ -19,7 +19,8 @@ services:
     #   - TMPDIR=/var/jenkins_home/tmp
     volumes:
       - /mnt/disk2/yocto_build_folder/docker:/tmp
-      - /mnt/disk2/FTP/Public/Jenkins/:/ftp
+      - /mnt/disk2/FTP/Public/Jenkins/:/
+      - /usr/sbin/:/usr/sbin/
 
 #volumes:
 #  vHome:
