@@ -100,4 +100,3 @@ RUN git config --global user.email "gray.lin@primax.com.tw" && \
     echo "source ~/env" >> ~/.bashrc
 
 CMD ["/bin/bash"]
-ㄈ
