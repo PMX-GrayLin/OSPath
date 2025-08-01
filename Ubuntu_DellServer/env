@@ -1,6 +1,7 @@
 InHost="Ubuntu_DellServer"
 PATH=~/OSPath/$InHost:$PATH
 PATH=~/bin:$PATH
+PATH=~:$PATH
 
 alias x='x.sh'
 alias p3='python3'
