@@ -52,8 +52,7 @@ RUN apt-get update && apt-get install -y \
     libssl1.1 \
     parted \
     ldconfig \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && apt-get clean
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install Python 3.9 and pip
 RUN apt-get install -y python3.9 python3.9-distutils \
