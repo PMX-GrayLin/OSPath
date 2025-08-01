@@ -281,6 +281,7 @@ if [ "$1" = "aic" ]; then
 
 	elif [ "$2" = "rs" ]; then
 		echo "restart $3..."
+		pkill fw_watchdog
 		
 		if [ "$3" = "mtx" ]; then
 			pkill mediamtx
