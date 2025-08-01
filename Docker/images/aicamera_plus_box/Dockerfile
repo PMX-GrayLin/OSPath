@@ -97,7 +97,6 @@ RUN git config --global user.email "gray.lin@primax.com.tw" && \
     git config --global color.ui auto && \
     ssh-keyscan github.com >> ~/.ssh/known_hosts && \
     ssh-keyscan gitlab.com >> ~/.ssh/known_hosts && \
-    git lfs install \
     echo "source ~/env" >> ~/.bashrc
 
 CMD ["/bin/bash"]
