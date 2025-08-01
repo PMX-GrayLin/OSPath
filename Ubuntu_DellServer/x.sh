@@ -959,7 +959,8 @@ if [ "$1" = "dk" ] ; then
 		else
 			# list containers
 			echo "========== docker container ls ========== " 
-			docker container ls
+			#docker container ls
+			docker container ls --format "table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}"
 		fi
 		
 	elif [ "$2" = "v" ] ; then
