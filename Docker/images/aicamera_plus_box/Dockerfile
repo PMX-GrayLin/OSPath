@@ -51,8 +51,7 @@ RUN apt-get update && apt-get install -y \
     e2fsprogs \
     libssl1.1 \
     parted \
-    ldconfig \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    ldconfig
 
 # Install Python 3.9 and pip
 RUN apt-get install -y python3.9 python3.9-distutils \
@@ -72,6 +71,7 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1
 #RUN PATH="${HOME}/.bin:${PATH}"
 RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo
 RUN chmod a+rx /usr/local/bin/repo
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Create a new user called 'user'
 RUN useradd -m -d /home/gray.lin -s /bin/bash gray.lin && \
