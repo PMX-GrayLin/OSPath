@@ -45,7 +45,9 @@ RUN apt-get update && apt-get install -y \
     pylint \
     xterm \
     mesa-common-dev \
-    gfortran
+    gfortran \
+    git-lfs \
+    lbzip2
     #&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     #&& apt-get clean
 
@@ -93,6 +95,7 @@ USER gray.lin
 RUN git config --global user.email "gray.lin@primax.com.tw" && \
     git config --global user.name "Gray.Lin" && \
     git config --global color.ui auto && \
+    git lfs install \
     ssh-keyscan github.com >> ~/.ssh/known_hosts && \
     ssh-keyscan gitlab.com >> ~/.ssh/known_hosts && \
     echo "source ~/env" >> ~/.bashrc
