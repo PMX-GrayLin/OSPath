@@ -49,9 +49,8 @@ RUN apt-get update && apt-get install -y \
     git-lfs \
     lbzip2 \
     e2fsprogs \
-    libssl1.1 \
-    parted \
-    ldconfig
+    libssl-dev \
+    parted
 
 # Install Python 3.9 and pip
 RUN apt-get install -y python3.9 python3.9-distutils \
