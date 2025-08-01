@@ -47,7 +47,11 @@ RUN apt-get update && apt-get install -y \
     mesa-common-dev \
     gfortran \
     git-lfs \
-    lbzip2
+    lbzip2 \
+    e2fsprogs \
+    libssl1.1 \
+    parted \
+    ldconfig \
     #&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     #&& apt-get clean
 
