@@ -20,7 +20,6 @@ services:
     volumes:
       - /mnt/disk2/yocto_build_folder/docker:/tmp
       - /mnt/disk2/FTP/Public/Jenkins:/ftp
-      - /sbin/resize2fs:/sbin/resize2fs 
 
 #volumes:
 #  vHome:
