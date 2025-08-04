@@ -6,17 +6,17 @@ services:
     privileged: true
     user: root
     restart: always
-    network_mode: host
+    # network_mode: host
     ports:
       - '30003:8080'   # Jenkins Web UI
-      #- "50000:50000" # For Jenkins agent connections
+      - "50000:50000" # For Jenkins agent connections
     volumes:
       - jenkins_home:/var/jenkins_home
       - /home/gray.lin/.ssh/:/root/.ssh/
       - /home/gray.lin/OSPath/Docker/aicamera_plus_box/:/root/aicamera_plus_box/
       - /usr/local/bin/docker-compose:/usr/bin/docker-compose
       - /usr/bin/docker:/usr/bin/docker
-      - /var/run/docker.sock:/var/run/docker.sock  # Optional: for Docker inside Jenkins
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - TZ=Asia/Taipei
       #- JAVA_OPTS=-Djenkins.install.runSetupWizard=false  # Optional: skip setup wizard
