@@ -6,6 +6,7 @@ services:
     privileged: true
     user: root
     restart: always
+    network_mode: host
     ports:
       - '30003:8080'   # Jenkins Web UI
       #- "50000:50000" # For Jenkins agent connections

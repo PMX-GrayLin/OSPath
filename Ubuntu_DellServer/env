@@ -32,10 +32,8 @@ alias dftp='cd /mnt/disk2/FTP/Public/gray'                                      
 alias dftpaic='cd /mnt/disk2/FTP/Public/gray/aicamera'                                                         # dir FTP
 alias dftpccm='cd /mnt/disk2/FTP/Public/gray/aicamera/ccm_db'                                                         # dir FTP
 alias dg2='cd /home/gray.lin/C_AI-Camera-G2_FW_Yocto'                                               # dir AI Camera G2
-#alias dplus='cd /mnt/disk2/yocto_build_folder/gray/C_AI-Camera-G2_FW_Yocto'                         # dir AI Camera Plus
-alias dplus='cd /mnt/disk2/yocto_build_folder/gray/ai_camera_plus_box'                              # dir AI Camera Plus Box
-#alias dvh='cd /mnt/disk2/yocto_build_folder/gray/VisionHub'                                         # dir Vision Hub
-alias dvh='cd /mnt/disk2/yocto_build_folder/gray/vision_hub_plus'                                         # dir Vision Hub
+alias dplus='cd /mnt/disk2/yocto_build_folder/gray/ai_camera_plus_box'                              # dir AI Camera Plus Box                               # dir Vision Hub
+alias dvh='cd /mnt/disk2/yocto_build_folder/gray/vision_hub_plus'                                   # dir Vision Hub
 
 # dir yocto related
 alias dytb='cd /mnt/disk2/yocto_build_folder/gray'                                                  # dir yocto build                                   # dir home
