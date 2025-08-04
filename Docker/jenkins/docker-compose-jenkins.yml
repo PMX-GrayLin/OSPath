@@ -19,6 +19,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - TZ=Asia/Taipei
+      - JAVA_OPTS=-Dmail.debug=true
       #- JAVA_OPTS=-Djenkins.install.runSetupWizard=false  # Optional: skip setup wizard
       #- JAVA_OPTS=-Dhudson.security.HudsonPrivateSecurityRealm.ID_REGEX=[a-zA-Z0-9_.@-]+
 
