@@ -17,9 +17,12 @@ services:
       - /usr/local/bin/docker-compose:/usr/bin/docker-compose
       - /usr/bin/docker:/usr/bin/docker
       - /var/run/docker.sock:/var/run/docker.sock
+      - /mnt/disk2/yocto_build_folder/docker:/var/jenkins_home/workspace
+      - /mnt/disk2/yocto_build_folder/docker/jenkins_home:/tmp
+
     environment:
       - TZ=Asia/Taipei
-      # - JAVA_OPTS=-Dmail.debug=true
+      #- JAVA_OPTS=-Dmail.debug=true
       #- JAVA_OPTS=-Djenkins.install.runSetupWizard=false  # Optional: skip setup wizard
       #- JAVA_OPTS=-Dhudson.security.HudsonPrivateSecurityRealm.ID_REGEX=[a-zA-Z0-9_.@-]+
 
