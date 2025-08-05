@@ -14,8 +14,6 @@ services:
     environment:
       - TZ=Asia/Taipei
     #   - JAVA_OPTS="-Dhudson.security.HudsonPrivateSecurityRealm.ID_REGEX=[a-zA-Z0-9_.@-]+"
-    #   - TMP=/var/jenkins_home/tmp
-    #   - TEMP=/var/jenkins_home/tmp
     #   - TMPDIR=/var/jenkins_home/tmp
     volumes:
       - /mnt/disk2/yocto_build_folder/docker:/tmp
