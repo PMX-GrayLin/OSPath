@@ -16,7 +16,7 @@ services:
     #   - JAVA_OPTS="-Dhudson.security.HudsonPrivateSecurityRealm.ID_REGEX=[a-zA-Z0-9_.@-]+"
     #   - TMPDIR=/var/jenkins_home/tmp
     volumes:
-      - /mnt/disk2/yocto_build_folder/docker:/tmp
+      - /mnt/disk2/yocto_build_folder/docker:/docker
       - /mnt/disk2/FTP/Public/Jenkins:/ftp
       - /usr/sbin/partclone.extfs:/usr/sbin/partclone.extfs
       - /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1:/usr/lib/x86_64-linux-gnu/libcrypto.so.1.1

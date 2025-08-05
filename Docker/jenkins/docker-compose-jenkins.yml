@@ -11,14 +11,12 @@ services:
       - '30003:8080'    # Jenkins Web UI
       - "50000:50000"   # For Jenkins agent connections
     volumes:
-      # - jenkins_home:/var/jenkins_home
       - /home/gray.lin/.ssh/:/root/.ssh/
       - /home/gray.lin/OSPath/Docker/aicamera_plus_box/:/root/aicamera_plus_box/
       - /usr/local/bin/docker-compose:/usr/bin/docker-compose
       - /usr/bin/docker:/usr/bin/docker
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/disk2/yocto_build_folder/docker/jenkins/jenkins_home:/var/jenkins_home
-      - /mnt/disk2/yocto_build_folder/docker:/var/jenkins_home/workspace
 
     environment:
       - TZ=Asia/Taipei
@@ -26,5 +24,3 @@ services:
       #- JAVA_OPTS=-Djenkins.install.runSetupWizard=false  # Optional: skip setup wizard
       #- JAVA_OPTS=-Dhudson.security.HudsonPrivateSecurityRealm.ID_REGEX=[a-zA-Z0-9_.@-]+
 
-# volumes:
-#   jenkins_home:
