@@ -17,7 +17,7 @@ services:
       - /usr/local/bin/docker-compose:/usr/bin/docker-compose
       - /usr/bin/docker:/usr/bin/docker
       - /var/run/docker.sock:/var/run/docker.sock
-      - /mnt/disk2/yocto_build_folder/docker:/var/jenkins_home/workspace
+      # - /mnt/disk2/yocto_build_folder/docker:/var/jenkins_home/workspace
       - /mnt/disk2/yocto_build_folder/docker/jenkins_home:/j_home
 
     environment:
