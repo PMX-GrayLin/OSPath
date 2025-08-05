@@ -17,7 +17,7 @@ services:
       - /usr/bin/docker:/usr/bin/docker
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/disk2/yocto_build_folder/docker/jenkins/jenkins_home:/var/jenkins_home
-      - /mnt/disk2/yocto_build_folder/docker:/docker
+      - /mnt/disk2/yocto_build_folder/docker:/home
 
     environment:
       - TZ=Asia/Taipei
