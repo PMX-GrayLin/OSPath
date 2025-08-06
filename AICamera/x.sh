@@ -305,6 +305,11 @@ if [ "$1" = "aic" ]; then
 			echo "arv-tool-0.8 control DeviceReset"
 			arv-tool-0.8 control DeviceReset
 
+		elif [ "$3" = "utility" ]; then
+			echo "/usr/bin/python3 /home/root/primax/misc/utility_gui.py &"
+			pkill -f utility_gui.py
+			/usr/bin/python3 /home/root/primax/misc/utility_gui.py &
+
 		elif [ "$3" = "all" ]; then
 			pkill vision_box
 			pkill fw_daemon
