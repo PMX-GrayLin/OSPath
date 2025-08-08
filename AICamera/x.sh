@@ -283,7 +283,7 @@ if [ "$1" = "aic" ]; then
 
 	elif [ "$2" = "rs" ]; then
 		echo "restart $3..."
-		pkill fw_watchdog
+		pkill fw_watchdog.sh
 		
 		if [ "$3" = "mtx" ]; then
 			pkill mediamtx
@@ -491,6 +491,7 @@ if [ "$1" = "aic" ]; then
 	elif [ "$2" = "kill" ]; then
 
 		if [ "$3" = "fw" ]; then
+			pkill fw_watchdog.sh
 			pkill vision_box
 			pkill fw_daemon
 
