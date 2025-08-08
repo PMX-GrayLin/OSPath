@@ -37,6 +37,13 @@ RUN apt-get update && apt-get install -y \
     chrpath \
     socat \
     cpio \
+    python3 \
+    python3-pip \
+    python3-pexpect \
+    python3-git \
+    python3-jinja2 \
+    python3-subunit \
+    libstdc++-12-dev \
     xz-utils \
     debianutils \
     iputils-ping \
@@ -53,21 +60,15 @@ RUN apt-get update && apt-get install -y \
     parted
 
 # Install Python 3.9 and pip
-RUN apt-get install -y python3.9 python3.9-distutils \
-&& curl -sS https://bootstrap.pypa.io/get-pip.py | python3.9
+#RUN apt-get install -y python3.9 python3.9-distutils \
+#&& curl -sS https://bootstrap.pypa.io/get-pip.py | python3.9
 
 # Set Python 3.9 as the default python3
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1
-
-    # python3 \
-    # python3-pip \
-    # python3-pexpect \
-    # python3-git \
-    # python3-jinja2 \
-    # python3-subunit \
+#RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1
 
 #RUN mkdir -p ~/.bin
 #RUN PATH="${HOME}/.bin:${PATH}"
+
 RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo
 RUN chmod a+rx /usr/local/bin/repo
 #RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
