@@ -534,6 +534,19 @@ if [ "$1" = "aic" ]; then
 			chmod 777 $dir_exec/fw_daemon
 		fi
 
+	elif [ "$2" = "ftp2" ]; then
+			echo "update files from ftp..."
+
+			# FTP details
+			ftp_user="ftpuser"
+			ftp_pass="RzcNtyyb"
+			ftp_host="1.34.53.139"
+
+			dir_ftp="upload/ramen/fw"
+			dir_local="/mnt/reserved"
+			cd $dir_local
+			wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp" --no-parent --cut-dirs=3
+
 	elif [ "$2" = "do" ]; then
 		echo "gpioset 0 3=$3 7=$3"
 		gpioset 0 3=$3 7=$3
