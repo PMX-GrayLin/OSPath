@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     xz-utils debianutils iputils-ping python3-git python3-jinja2 \
     libegl1-mesa libelf-dev libsdl1.2-dev lz4 pylint xterm \
     python3-subunit mesa-common-dev libstdc++-12-dev \
-    curl \
+    curl locales \
  && rm -rf /var/lib/apt/lists/*
 
 # Set up repo tool
@@ -32,8 +32,10 @@ ENV PATH="/root/bin:${PATH}"
 RUN useradd -m -d /home/gray.lin -s /bin/bash gray.lin && \
     echo "gray.lin:zxcv1234" | chpasswd && \
     echo "%sudo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
-    adduser gray.lin sudo
-    
+    adduser gray.lin  && \
+    locale-gen en_US.UTF-8 && \
+    update-locale LANG=en_US.UTF-8
+
 # Automatically extract tar archives with ADD
 ADD ./ssh.tar.gz /home/gray.lin
 ADD ./x.sh /home/gray.lin
