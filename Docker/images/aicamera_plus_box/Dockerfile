@@ -51,7 +51,8 @@ RUN apt-get update && apt-get install -y \
     lbzip2 \
     e2fsprogs \
     libssl-dev \
-    parted
+    parted \
+    libsqlite3-dev
 
 # Install Python 3.9 and pip
 #RUN apt-get install -y python3.9 python3.9-distutils \
