@@ -32,7 +32,6 @@ ENV PATH="/root/bin:${PATH}"
 RUN useradd -m -d /home/gray.lin -s /bin/bash gray.lin && \
     echo "gray.lin:zxcv1234" | chpasswd && \
     echo "%sudo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
-    adduser gray.lin  && \
     locale-gen en_US.UTF-8 && \
     update-locale LANG=en_US.UTF-8
 
