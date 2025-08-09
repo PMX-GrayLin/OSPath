@@ -37,12 +37,12 @@ RUN apt-get update && apt-get install -y \
     chrpath \
     socat \
     cpio \
-    python3 \
-    python3-pip \
-    python3-pexpect \
-    python3-git \
-    python3-jinja2 \
-    python3-subunit \
+    # python3 \
+    # python3-pip \
+    # python3-pexpect \
+    # python3-git \
+    # python3-jinja2 \
+    # python3-subunit \
     libstdc++-12-dev \
     xz-utils \
     debianutils \
@@ -62,13 +62,32 @@ RUN apt-get update && apt-get install -y \
 # Install Python 3.9 and pip
 #RUN apt-get install -y python3.9 python3.9-distutils \
 #&& curl -sS https://bootstrap.pypa.io/get-pip.py | python3.9
-
 # Set Python 3.9 as the default python3
 #RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1
 
+# Build Python 3.8.18 (example)
+RUN cd /tmp && \
+    wget https://www.python.org/ftp/python/3.8.18/Python-3.8.18.tgz && \
+    tar -xzf Python-3.8.18.tgz && \
+    cd Python-3.8.18 && \
+    ./configure --enable-optimizations && \
+    make -j$(nproc) && \
+    make altinstall && \
+    ln -sf /usr/local/bin/python3.8 /usr/local/bin/python3
+
+# Install Python packages via pip (works with your 3.8)
+RUN python3 -m pip install --upgrade pip && \
+    pip install pexpect gitpython jinja2 python-subunit
+    
+# RUN apt-get remove -y python3 && \
+#     cd /tmp && \
+#     wget https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tgz && \
+#     tar -xzf Python-3.8.0.tgz && \
+#     cd Python-3.8.0 && \
+#     ./configure && make && make install
+
 #RUN mkdir -p ~/.bin
 #RUN PATH="${HOME}/.bin:${PATH}"
-
 RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo
 RUN chmod a+rx /usr/local/bin/repo
 #RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
