@@ -67,9 +67,9 @@ RUN apt-get update && apt-get install -y \
 
 # Build Python 3.8.18 (example)
 RUN cd /tmp && \
-    wget https://www.python.org/ftp/python/3.8.18/Python-3.9.1.tgz && \
-    tar -xzf Python-3.9.1.tgz && \
-    cd Python-3.9.1 && \
+    wget https://www.python.org/ftp/python/3.8.18/Python-3.9.0.tgz && \
+    tar -xzf Python-3.9.0.tgz && \
+    cd Python-3.9.0 && \
     ./configure --enable-optimizations && \
     make -j$(nproc) && \
     make altinstall && \
