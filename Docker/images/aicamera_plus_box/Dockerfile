@@ -37,12 +37,6 @@ RUN apt-get update && apt-get install -y \
     chrpath \
     socat \
     cpio \
-    # python3 \
-    # python3-pip \
-    # python3-pexpect \
-    # python3-git \
-    # python3-jinja2 \
-    # python3-subunit \
     libstdc++-12-dev \
     xz-utils \
     debianutils \
@@ -79,6 +73,13 @@ RUN cd /tmp && \
 RUN python3 -m pip install --upgrade pip && \
     pip install pexpect gitpython jinja2 python-subunit
     
+    # python3 \
+    # python3-pip \
+    # python3-pexpect \
+    # python3-git \
+    # python3-jinja2 \
+    # python3-subunit \
+
 # RUN apt-get remove -y python3 && \
 #     cd /tmp && \
 #     wget https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tgz && \
