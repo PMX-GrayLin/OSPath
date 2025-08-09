@@ -88,16 +88,19 @@ ADD ./env /home/gray.lin
 
 RUN mv /home/gray.lin/ssh /home/gray.lin/.ssh && \
     chmod 400 /home/gray.lin/.ssh/id_rsa && \
-    chmod 777 /home/gray.lin/x.sh
+    chmod 777 /home/gray.lin/x.sh && \
+    mkdir -p /home/gray.lin/build
 
 # Set the new user as the default user
 USER gray.lin
+WORKDIR /home/gray.lin/build
 
 # ENV PATH="/home/gray.lin:$PATH"
 
 RUN git config --global user.email "gray.lin@primax.com.tw" && \
     git config --global user.name "Gray.Lin" && \
     git config --global color.ui auto && \
+    git config --global --add safe.directory '*' && \
     ssh-keyscan github.com >> ~/.ssh/known_hosts && \
     ssh-keyscan gitlab.com >> ~/.ssh/known_hosts && \
     echo "source ~/env" >> ~/.bashrc
