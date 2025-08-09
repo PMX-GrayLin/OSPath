@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     xz-utils debianutils iputils-ping python3-git python3-jinja2 \
     libegl1-mesa libelf-dev libsdl1.2-dev lz4 pylint xterm \
     python3-subunit mesa-common-dev libstdc++-12-dev \
-    curl locales \
+    curl locales file pzstd unzstd zstd gfortran \
  && rm -rf /var/lib/apt/lists/*
 
 # Set up repo tool
