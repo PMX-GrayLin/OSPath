@@ -32,10 +32,8 @@ ENV PATH="/root/bin:${PATH}"
 RUN useradd -m -d /home/gray.lin -s /bin/bash gray.lin && \
     echo "gray.lin:zxcv1234" | chpasswd && \
     echo "%sudo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
-    adduser gray.lin sudo && \
-    locale-gen en_US.UTF-8 && \
-    update-locale LANG=en_US.UTF-8
-
+    adduser gray.lin sudo
+    
 # Automatically extract tar archives with ADD
 ADD ./ssh.tar.gz /home/gray.lin
 ADD ./x.sh /home/gray.lin
