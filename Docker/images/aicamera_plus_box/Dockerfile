@@ -67,13 +67,13 @@ RUN apt-get update && apt-get install -y \
 
 # Build Python 3.8.18 (example)
 RUN cd /tmp && \
-    wget https://www.python.org/ftp/python/3.8.18/Python-3.8.18.tgz && \
-    tar -xzf Python-3.8.18.tgz && \
-    cd Python-3.8.18 && \
+    wget https://www.python.org/ftp/python/3.8.18/Python-3.9.1.tgz && \
+    tar -xzf Python-3.9.1.tgz && \
+    cd Python-3.9.1 && \
     ./configure --enable-optimizations && \
     make -j$(nproc) && \
     make altinstall && \
-    ln -sf /usr/local/bin/python3.8 /usr/local/bin/python3
+    ln -sf /usr/local/bin/python3.9 /usr/local/bin/python3
 
 # Install Python packages via pip (works with your 3.8)
 RUN python3 -m pip install --upgrade pip && \
