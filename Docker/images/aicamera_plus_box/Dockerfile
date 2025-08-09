@@ -52,7 +52,12 @@ RUN apt-get update && apt-get install -y \
     e2fsprogs \
     libssl-dev \
     parted \
-    libsqlite3-dev
+    # Python build deps
+    libssl-dev zlib1g-dev libbz2-dev \
+    libreadline-dev libsqlite3-dev \
+    libncurses5-dev libncursesw5-dev \
+    xz-utils tk-dev libffi-dev liblzma-dev \
+    llvm make
 
 # Install Python 3.9 and pip
 #RUN apt-get install -y python3.9 python3.9-distutils \
@@ -62,13 +67,13 @@ RUN apt-get update && apt-get install -y \
 
 # Build Python 3.8.18 (example)
 RUN cd /tmp && \
-    wget https://www.python.org/ftp/python/3.9.11/Python-3.9.11.tgz && \
-    tar -xzf Python-3.9.11.tgz && \
-    cd Python-3.9.11 && \
+    wget https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz && \
+    tar -xzf Python-3.9.0.tgz && \
+    cd Python-3.9.0 && \
     ./configure --enable-optimizations && \
     make -j$(nproc) && \
     make altinstall && \
-    ln -sf /usr/local/bin/python3.11 /usr/local/bin/python3
+    ln -sf /usr/local/bin/python3.9 /usr/local/bin/python3
 
 # Install Python packages via pip (works with your 3.8)
 RUN python3 -m pip install --upgrade pip && \
