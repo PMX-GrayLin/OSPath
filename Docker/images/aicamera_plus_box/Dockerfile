@@ -9,7 +9,7 @@ ENV TZ=Asia/Taiwan
 SHELL ["/bin/bash", "-c"]
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl wget build-essential \
+    curl wget ca-certificates build-essential \
     libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev \
     libncurses5-dev libncursesw5-dev tk-dev libffi-dev liblzma-dev \
     llvm make xz-utils \
