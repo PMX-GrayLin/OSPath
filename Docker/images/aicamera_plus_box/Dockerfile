@@ -45,6 +45,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     socat cpio libstdc++-12-dev xz-utils debianutils iputils-ping \
     libegl1-mesa libsdl1.2-dev pylint xterm mesa-common-dev gfortran \
     git-lfs lbzip2 e2fsprogs parted \
+    openssh-client \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy Python from build stage
