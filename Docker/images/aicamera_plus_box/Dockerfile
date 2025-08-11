@@ -1,7 +1,7 @@
 # ===============================
 # Stage 1: Build Python 3.9 + pip
 # ===============================
-FROM ubuntu:22.04 AS python-build
+FROM ubuntu:20.04 AS python-build
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Taiwan
@@ -28,7 +28,7 @@ RUN cd /tmp && \
 # ===============================
 # Stage 2: Final runtime image
 # ===============================
-FROM ubuntu:22.04
+FROM ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Taiwan \
