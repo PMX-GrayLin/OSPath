@@ -1,7 +1,7 @@
 # ===============================
 # Stage 1: Build Python 3.9 + pip
 # ===============================
-FROM ubuntu:20.04 AS python-build
+FROM ubuntu:22.04 AS python-build
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Taiwan
@@ -28,7 +28,7 @@ RUN cd /tmp && \
 # ===============================
 # Stage 2: Final runtime image
 # ===============================
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Taiwan \
@@ -42,7 +42,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     software-properties-common \
     libelf-dev dpkg-dev sudo curl locales file lz4 nano tree zstd \
     gawk wget git diffstat unzip texinfo gcc build-essential chrpath \
-    socat cpio libstdc++-9-dev xz-utils debianutils iputils-ping \
+    socat cpio libstdc++-12-dev xz-utils debianutils iputils-ping \
     libegl1-mesa libsdl1.2-dev pylint xterm mesa-common-dev gfortran \
     git-lfs lbzip2 e2fsprogs parted \
     openssh-client \
