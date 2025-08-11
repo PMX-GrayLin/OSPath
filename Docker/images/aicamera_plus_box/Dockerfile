@@ -17,9 +17,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Build Python from source
 RUN cd /tmp && \
-    wget https://www.python.org/ftp/python/3.9.19/Python-3.9.19.tgz && \
-    tar -xzf Python-3.9.19.tgz && \
-    cd Python-3.9.19 && \
+    wget https://www.python.org/ftp/python/3.9.21/Python-3.9.21.tgz && \
+    tar -xzf Python-3.9.21.tgz && \
+    cd Python-3.9.21 && \
     ./configure --enable-optimizations && \
     make -j$(nproc) && \
     make altinstall && \
