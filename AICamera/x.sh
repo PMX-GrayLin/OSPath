@@ -233,15 +233,16 @@ if [ "$1" = "aic" ]; then
 			arv-tool-0.8 control Width Height ExposureAuto ExposureTime GainAuto Gain
 
 		else
-			echo "check version... cat /etc/primax_version"
+			echo "check version... ( cat /etc/primax_version )"
 			cat /etc/primax_version
 			echo ""
-			echo "check build date... cat ~/primax/misc/build_date"
+			echo "check build date... ( cat ~/primax/misc/build_date )"
 			cat ~/primax/misc/build_date
 			echo ""
-			echo "check build number... cat ~/primax/misc/build_number"
+			echo "check build number... ( cat ~/primax/misc/build_number )"
 			cat ~/primax/misc/build_number
-			echo "check build commit... cat ~/primax/misc/build_commit"
+			echo ""
+			echo "check build commit... ( cat ~/primax/misc/build_commit )"
 			cat ~/primax/misc/build_commit
 			echo ""
 			echo "check process... ps aux | grep -E --color=auto \"vision_box|mediamtx|fw|gst\""
