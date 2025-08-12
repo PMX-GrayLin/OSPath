@@ -38,7 +38,8 @@ ENV TZ=Asia/Taiwan \
 SHELL ["/bin/bash", "-c"]
 
 # Runtime dependencies only (no build tools)
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN dpkg --add-architecture i386 && apt-get update && \
+    apt-get install -y --no-install-recommends \
     software-properties-common \
     libelf-dev dpkg-dev sudo curl locales file lz4 nano tree zstd \
     gawk wget git diffstat unzip texinfo gcc build-essential chrpath \
