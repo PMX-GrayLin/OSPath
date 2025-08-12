@@ -46,6 +46,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libegl1-mesa libsdl1.2-dev pylint xterm mesa-common-dev gfortran \
     git-lfs lbzip2 e2fsprogs parted \
     openssh-client \
+    libc6:i386 libncurses5:i386 libstdc++6:i386 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy Python from build stage
