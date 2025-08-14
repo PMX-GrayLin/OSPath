@@ -38,7 +38,8 @@ ENV TZ=Asia/Taiwan \
 SHELL ["/bin/bash", "-c"]
 
 # Runtime dependencies only (no build tools)
-RUN dpkg --add-architecture i386 && apt-get update && \
+RUN echo "deb http://security.ubuntu.com/ubuntu focal-security main" | sudo tee /etc/apt/sources.list.d/focal-security.list && \
+    dpkg --add-architecture i386 && apt-get update && \
     apt-get install -y --no-install-recommends \
     software-properties-common \
     libelf-dev dpkg-dev sudo curl locales file lz4 nano tree zstd \
@@ -47,6 +48,7 @@ RUN dpkg --add-architecture i386 && apt-get update && \
     libegl1-mesa libsdl1.2-dev pylint xterm mesa-common-dev gfortran \
     git-lfs lbzip2 e2fsprogs parted \
     openssh-client \
+    partclone libssl1.1 \
     libc6:i386 libncurses5:i386 libstdc++6:i386 \
     && rm -rf /var/lib/apt/lists/*
 
