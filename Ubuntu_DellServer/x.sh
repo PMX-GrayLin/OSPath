@@ -125,23 +125,22 @@ if [ "$1" = "aic" ] ; then
 
 	if [ "$2" = "dk" ] ; then
 		prjString="aicamera_plus_box"
+		prjService="build_aicamera"
 		prjDockderDir="$dockderDir/$prjString"
 		echo "========== docker cmd =========="
 
 		if [ "$3" = "up" ] ; then
 			echo "docker-compose -f "$prjDockderDir/docker-compose-$prjString.yml" up -d"
 			docker-compose -f "$prjDockderDir/docker-compose-$prjString.yml" up -d
-			# docker-compose -f "$aicDir/docker-compose-$prjString.yml" up
 		elif [ "$3" = "down" ] ; then
 			echo "docker-compose -f "$prjDockderDir/docker-compose-$prjString.yml" down"
 			docker-compose -f "$prjDockderDir/docker-compose-$prjString.yml" down
 		elif [ "$3" = "bash" ] ; then
-			echo "========== docker exec -it -u root $prjString /bin/bash =========="
-			# docker exec -it -u root $prjString /bin/bash
-			docker exec -it $prjString /bin/bash
+			echo "========== docker exec -it -u root $prjService /bin/bash =========="
+			docker exec -it $prjService /bin/bash
 		elif [ "$3" = "log" ] ; then
 			echo "========== docker logs -tf jenkins =========="
-			docker logs -tf $prjString
+			docker logs -tf $prjService
 		fi
 
 	elif [ "$2" = "ust" ] ; then
