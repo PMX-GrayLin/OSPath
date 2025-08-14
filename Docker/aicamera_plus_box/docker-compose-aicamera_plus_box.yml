@@ -18,8 +18,8 @@ services:
     volumes:
       - /mnt/disk2/yocto_build_folder/docker:/home/gray.lin/build
       - /mnt/disk2/FTP/Public/Jenkins:/ftp
-      - /usr/sbin/partclone.extfs:/usr/sbin/partclone.extfs
-      - /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1:/usr/lib/x86_64-linux-gnu/libcrypto.so.1.1
+      # - /usr/sbin/partclone.extfs:/usr/sbin/partclone.extfs
+      # - /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1:/usr/lib/x86_64-linux-gnu/libcrypto.so.1.1
 
 #volumes:
 #  vHome:
