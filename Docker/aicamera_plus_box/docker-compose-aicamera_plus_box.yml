@@ -1,8 +1,8 @@
 
 services:
-  ubuntu:
+  aicamera:
     image: graygray/aicamera_plus_box
-    container_name: aicamera_plus_box
+    container_name: build_aicamera
     stdin_open: true  # Keep the container running and open for interactive mode
     tty: true  # Allocate a pseudo-TTY (useful for running bash)
     command: /bin/bash  # Run bash as the command
@@ -13,13 +13,24 @@ services:
       - '54322:22'
     environment:
       - TZ=Asia/Taipei
-    #   - JAVA_OPTS="-Dhudson.security.HudsonPrivateSecurityRealm.ID_REGEX=[a-zA-Z0-9_.@-]+"
-    #   - TMPDIR=/var/jenkins_home/tmp
     volumes:
       - /mnt/disk2/yocto_build_folder/docker:/home/gray.lin/build
       - /mnt/disk2/FTP/Public/Jenkins:/ftp
       # - /usr/sbin/partclone.extfs:/usr/sbin/partclone.extfs
       # - /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1:/usr/lib/x86_64-linux-gnu/libcrypto.so.1.1
 
-#volumes:
-#  vHome:
+  visionhub:
+    image: graygray/aicamera_plus_box
+    container_name: build_visionhub
+    stdin_open: true  # Keep the container running and open for interactive mode
+    tty: true  # Allocate a pseudo-TTY (useful for running bash)
+    command: /bin/bash  # Run bash as the command
+    privileged: true
+    restart: always
+    ports:
+      - '54332:22'
+    environment:
+      - TZ=Asia/Taipei
+    volumes:
+      - /mnt/disk2/yocto_build_folder/docker:/home/gray.lin/build
+      - /mnt/disk2/FTP/Public/Jenkins:/ftp
