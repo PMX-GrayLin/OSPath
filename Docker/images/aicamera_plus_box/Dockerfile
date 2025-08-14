@@ -38,7 +38,7 @@ ENV TZ=Asia/Taiwan \
 SHELL ["/bin/bash", "-c"]
 
 # Runtime dependencies only (no build tools)
-RUN echo "deb http://security.ubuntu.com/ubuntu focal-security main" | sudo tee /etc/apt/sources.list.d/focal-security.list && \
+RUN echo "deb http://security.ubuntu.com/ubuntu focal-security main" | tee /etc/apt/sources.list.d/focal-security.list && \
     dpkg --add-architecture i386 && apt-get update && \
     apt-get install -y --no-install-recommends \
     software-properties-common \
