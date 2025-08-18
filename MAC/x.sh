@@ -32,7 +32,7 @@ AICamera_ip="192.168.1.65"
 AICamera_ip="aicamera-d14b"
 AICamera_ip="aicamera-d14b.local"
 # AICamera_ip="visionhub-d14b"
-# AICamera_ip="visionhub-d14b.local"
+AICamera_ip="visionhub-d14b.local"
 # AICamera_ip="192.168.1.253"
 
 
