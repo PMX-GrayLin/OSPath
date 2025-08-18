@@ -85,6 +85,7 @@ alias bCommit='echo "$(git rev-parse HEAD)" > $PROJ_ROOT/src/meta-primax/recipes
 alias bDate='echo "$(date "+%Y%m%d-%H%M")" > $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/sysroot/home/root/primax/misc/build_date'
 alias ytb='bDate && bCommit && DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image'
 alias ytb2='bDate && bCommit && x bb c primax && DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image'
+alias ytb_docker='bCommit && DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image'
 
 alias ep='[ -f ~/tmp/p1 ] && export p1=$(cat ~/tmp/p1); [ -f ~/tmp/p2 ] && export p2=$(cat ~/tmp/p2)'
 alias sp1='mkdir -p ~/tmp && echo `pwd` > ~/tmp/p1 && ep'
