@@ -236,12 +236,12 @@ if [ "$1" = "aic" ]; then
 			echo "check version... ( cat /etc/primax_version )"
 			cat /etc/primax_version
 			echo ""
-			echo "check build date... ( cat ~/primax/misc/build_date )"
-			cat ~/primax/misc/build_date
-			echo ""
 			echo "check build number... ( cat ~/primax/misc/build_number )"
 			build_number=$(cat ~/primax/misc/build_number)
 			echo "#$build_number"
+			echo ""
+			echo "check build date... ( cat ~/primax/misc/build_date )"
+			cat ~/primax/misc/build_date
 			echo ""
 			echo "check build commit... ( cat ~/primax/misc/build_commit )"
 			cat ~/primax/misc/build_commit
