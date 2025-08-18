@@ -240,7 +240,7 @@ if [ "$1" = "aic" ]; then
 			cat ~/primax/misc/build_date
 			echo ""
 			echo "check build number... ( cat ~/primax/misc/build_number )"
-			build_number=cat ~/primax/misc/build_number
+			build_number=$(cat ~/primax/misc/build_number)
 			echo "#$build_number"
 			echo ""
 			echo "check build commit... ( cat ~/primax/misc/build_commit )"
