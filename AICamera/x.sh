@@ -761,6 +761,25 @@ if [ "$1" = "sys" ]; then
 	fi
 fi
 
+if [ "$1" = "srm" ]; then
+	echo "set route metric..."
+    if [ $# -lt 3 ]; then
+        echo "Usage: $0 srp <lan_id> <metric>"
+        exit 1
+    fi
+
+    lan_id="$2"
+    metric="$3"
+    iface="eth0"
+    gateway="192.168.${lan_id}.1"
+
+    echo "Setting default route via $gateway on $iface with metric $metric"
+    # Remove existing default route for this gateway+iface if present
+    ip route del default via "$gateway" dev "$iface" 2>/dev/null
+    # Add new default route
+    ip route add default via "$gateway" dev "$iface" metric "$metric"
+fi
+
 # gedit
 if [ "$1" = "ge" ]; then
 	if [ "$2" = "x" ]; then
