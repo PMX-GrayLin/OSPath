@@ -16,8 +16,6 @@ services:
     volumes:
       - /mnt/disk2/yocto_build_folder/docker:/home/gray.lin/build
       - /mnt/disk2/FTP/Public/Jenkins:/ftp
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
       
   visionhub:
     image: graygray/aicamera_plus_box
@@ -34,5 +32,3 @@ services:
     volumes:
       - /mnt/disk2/yocto_build_folder/docker:/home/gray.lin/build
       - /mnt/disk2/FTP/Public/Jenkins:/ftp
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro

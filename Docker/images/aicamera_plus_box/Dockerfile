@@ -47,9 +47,11 @@ RUN echo "deb http://security.ubuntu.com/ubuntu focal-security main" | tee /etc/
     socat cpio libstdc++-12-dev xz-utils debianutils iputils-ping \
     libegl1-mesa libsdl1.2-dev pylint xterm mesa-common-dev gfortran \
     git-lfs lbzip2 e2fsprogs parted \
-    openssh-client \
-    partclone libssl1.1 \
+    openssh-client partclone libssl1.1 \
     libc6:i386 libncurses5:i386 libstdc++6:i386 \
+    tzdata \
+    && ln -fs /usr/share/zoneinfo/Asia/Taipei /etc/localtime \
+    && dpkg-reconfigure -f noninteractive tzdata \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy Python from build stage
