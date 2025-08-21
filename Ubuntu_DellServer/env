@@ -83,6 +83,7 @@ alias spe2='spp && env_mtk'                                                 # se
 #alias bCommit='echo "$(git rev-parse --abbrev-ref HEAD) - $(git rev-parse HEAD)" > $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/sysroot/home/root/primax/misc/build_commit'
 alias bCommit='echo "$(git rev-parse HEAD)" > $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/sysroot/home/root/primax/misc/build_commit'
 alias bDate='echo "$(date "+%Y%m%d-%H%M")" > $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/sysroot/home/root/primax/misc/build_date'
+alias ytp='dpr && ./pack_image.bash'
 alias ytb='bDate && bCommit && DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image'
 alias ytb2='bDate && bCommit && x bb c primax && DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image'
 alias ytb_docker='bCommit && DISTRO=rity-demo MACHINE=genio-700-evk bitbake rity-demo-image'
