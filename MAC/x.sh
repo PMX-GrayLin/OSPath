@@ -9,20 +9,14 @@ for arg in "$@"; do
 done
 
 xDir=~/OSPath/MAC
-RNFolder=~/Work/Prj_RN
-piDir=~/Work/pi4
-
-dockderDir=~/"Docker"
-u18dir=$dockderDir/Ubuntu1804
-BCTTestDir=~/Work/MFi-HomeKit/BCT
-# echo "u18dir:$u18dir"
-
-adkPath="/Users/graylin/Work/MFi-HomeKit/HomeKit ADK 5.3"
 
 currentDateTime=`date "+%m%d%H%M"`
 
 # wheeltec
 wheeltec_ip="192.168.1.196"
+
+# dell server
+DellServer_ip="10.1.13.207"
 
 # ai camera
 AICamera_ip="192.168.1.65"
@@ -32,11 +26,9 @@ AICamera_ip="192.168.1.65"
 AICamera_ip="aicamera-d14b"
 AICamera_ip="aicamera-d14b.local"
 # AICamera_ip="visionhub-d14b"
-AICamera_ip="visionhub-d14b.local"
-# AICamera_ip="192.168.1.149"
+# AICamera_ip="visionhub-d14b.local"
+# AICamera_ip="192.168.1.182"
 
-
-DellServer_ip="10.1.13.207"
 
 # nfs
 if [ "$1" == "nfs" ] ; then
@@ -53,7 +45,7 @@ if [ "$1" == "nfs" ] ; then
 
 fi
 
-# SSH
+# ssh
 if [ "$1" == "ssh" ] ; then
 
 	if [ "$2" == "dell" ] ; then
@@ -123,156 +115,10 @@ if [ "$1" == "lan" ] ; then
 	fi
 fi
 
-# ADK
-if [ "$1" == "adk" ] ; then
-
-	buildType=Debug
-	# buildType=Test
-	# buildType=Release
-
-	if [ "$2" == "update" ] ; then
-		rsync -av --delete -e "ssh" "/Users/graylin/Work/MFi-HomeKit/adk_pi/" "pi@raspberrypi.local:/home/pi/x_adk/"
-		# rsync -av --delete -e "ssh" "pi@raspberrypi.local:/home/pi/x_adk/" "/Users/graylin/Work/MFi-HomeKit/adk_pi/"
-	elif [ "$2" == "b" ] ; then
-		# build
-		echo "build path : $adkPath"
-		cd "$adkPath"
-		if [ "$3" == "app" ] ; then
-			echo "build app >>>>"
-			make USE_WAC=1 BUILD_TYPE=$buildType TARGET=Raspi apps
-			# make USE_WAC=1 USE_HW_AUTH=1 BUILD_TYPE=$buildType TARGET=Raspi apps
-		elif [ "$3" == "sc" ] ; then
-			echo "build setup code >>>>"
-			# setup code
-			# 5 >> Lighting
-			# 6 >> Locks *
-			# 17 >> IP Cameras *
-			# 18 >> Video Doorbells *
-			accCategory=0
-			if [ -n "$4" ] ; then
-				accCategory=$4
-			else 
-				accCategory=18
-			fi
-			echo "build setup code >>>> category $accCategory"
-
-			# deploy to device via ssh
-			# ./Tools/provision_raspi.sh --wac --category $accCategory pi@raspberrypi.local:~/.HomeKitStore
-
-			# generate local
-			# 4.0
-			# ./Tools/provision_raspi.sh --wac --category $accCategory ~/.HomeKitStore
-			# ./Tools/provision_raspi.sh --wac --nfc --category $accCategory ~/.HomeKitStore
-
-			# 5.1, 5.2
-			./Tools/provision_posix.sh --wac --nfc --category $accCategory --product-data 1E903F6D20F2B2D8 \
-			--mfi-token DF0DBBE5-F6F1-4786-8E6E-DFC0EB764B28 MYGrME4CAQECAQEERjBEAiBq/VghvdwObWRuSlmevmhldF4vfcjq/ZbXKxJftw5P/wIgVGBjfiN/8YOZs9Hb40AIoUkWMMrrVFQggVoXW5L9wWUwWQIBAgIBAQRRMU8wCQIBZgIBAQQBATAQAgFlAgEBBAjL5CdgeAEAADAWAgIAyQIBAQQNMTAwMjc3LTczMDU0MjAYAgFnAgEBBBDUP3MGTj1OCZ88goIKcYPs \
-			pi@raspberrypi.local:~/.HomeKitStore
-
-		elif [ "$3" == "c" ] ; then
-			echo "clean >>>>"
-			make TARGET=Raspi clean
-		else
-			echo "param 3 not match"
-			exit -1
-		fi
-
-	elif [ "$2" == "cp" ] ; then
-
-		cd "$adkPath"
-		exefile=""
-		if [ -z "$3"  ] ; then
-			echo "param 3 empty"
-			exit -1
-		elif [ "$3" == "lb" ] ; then
-			exefile="Lightbulb"
-		elif [ "$3" == "vd" ] ; then
-			exefile="VideoDoorbell"
-		elif [ "$3" == "ipc" ] ; then
-			exefile="IPCamera"
-		elif [ "$3" == "ipcer" ] ; then
-			exefile="IPCameraEventRecorder"	
-		elif [ "$3" == "sl" ] ; then
-			exefile="SeaLion"	
-		else
-			echo "param 3 not match"
-			exit -1
-		fi
-
-		echo "install $exefile.OpenSSL >>>>"
-
-		# adk's script
-		# ./Tools/install.sh \
-		# -d raspi \
-		# -a Output/Raspi-armv6k-unknown-linux-gnueabihf/$buildType/IP/Applications/$exefile.OpenSSL \
-		# -n raspberrypi \
-		# -p raspberry
-
-		# also work, but need password input
-		# scp Output/Raspi-armv6k-unknown-linux-gnueabihf/$buildType/IP/Applications/$exefile.OpenSSL pi@raspberrypi.local:~
-
-  expect <<EOF
-  set timeout -1
-  spawn scp Output/Raspi-armv6k-unknown-linux-gnueabihf/$buildType/IP/Applications/$exefile.OpenSSL pi@raspberrypi.local:~
-  expect {
-      "password:"  { send "raspberry\n"; exp_continue }
-      eof
-  }
-  lassign [wait] pid spawnID osError value
-  exit \$value
-EOF
-
-	elif [ "$2" == "ux" ] ; then
-  expect <<EOF
-  set timeout -1
-  spawn scp /Users/graylin/Work/MFi-HomeKit/RaspberryPi/x.sh pi@raspberrypi.local:~/Gray
-  expect {
-      "password:"  { send "raspberry\n"; exp_continue }
-      eof
-  }
-  lassign [wait] pid spawnID osError value
-  exit \$value
-EOF
-
-	elif [ "$2" == "bct" ] ; then
-
-		workingDirString="BCT-Belkin-Sealion-WiFi-$currentDateTime"
-
-		if [ "$3" == "" ] ; then
-			interface="en0"
-		else 
-			interface="$3"
-		fi
-
-		# if [ "$4" == "" ] ; then
-		# 	interface="en0"
-		# else 
-		# 	interface="$3"
-		# fi
-
-		echo "run BCT Test... -I $interface"
-
-		cd $BCTTestDir
-		mkdir $workingDirString
-		cp BonjourConformanceTest ./$workingDirString/
-		cd $workingDirString
-		sudo ./BonjourConformanceTest -I $interface -D -F Result-Belkin-Sealion-WiFi.txt -Aip 169.254.90.249 -Amac 6C:70:9F:D7:54:04
-		rm BonjourConformanceTest
-	else
-		echo "param 2 not match"
-		exit -1
-	fi
-		
-fi
-
 # vs code
 if [ "$1" == "code" ] ; then
 	if [ "$2" == "x" ] ; then
-		if [ "$3" == "pi" ] ; then
-			code "$piDir/x.sh"
-		else
-			code "$xDir/x.sh"
-		fi
+		code "$xDir/x.sh"
 	elif [ "$2" == ".rc" ] ; then
 		echo "edit ~/.zshrc"
 		code ~/.zshrc
@@ -357,6 +203,9 @@ if [ "$1" == "f" ] ; then
 	if [ "$2" == "code" ] ; then
 		# vs code snippet folders
 		open ~/"Library/Application Support/Code/User/snippets"
+
+	else
+		open .
 	fi
 fi
 
@@ -445,45 +294,6 @@ if [ "$1" == "patch" ] ; then
 		echo "diff -uN originFile newFile > patchFile"
 		
 	fi 
-
-fi
-
-# restore code
-if [ "$1" == "rs" ] ; then
-
-	echo "restore code"
-	echo "RNFolder:"$RNFolder
-	SrcFolder=$RNFolder/backup
-	DstFolder=$RNFolder/PmxHome/node_modules
-
-	echo "SrcFolder:"$SrcFolder
-	echo "DstFolder:"$DstFolder
-
-	# vlcplayer
-	cp -f -r $SrcFolder/react-native-yz-vlcplayer $DstFolder
-
-	# pjsip
-	cp -f -r $SrcFolder/react-native-pjsip $DstFolder
-	rm $DstFolder/react-native-pjsip/ios/VialerPJSIP.framework
-
-fi
-
-# backup code
-if [ "$1" == "bk" ] ; then
-
-	echo "backup code"
-	echo "RNFolder:"$RNFolder
-	SrcFolder=$RNFolder/PmxHome/node_modules
-	DstFolder=$RNFolder/backup
-
-	echo "SrcFolder:"$SrcFolder
-	echo "DstFolder:"$DstFolder
-
-	# vlcplayer
-	cp -f -r $SrcFolder/react-native-yz-vlcplayer $DstFolder
-
-	# pjsip
-	cp -f -r $SrcFolder/react-native-pjsip $DstFolder
 
 fi
 
@@ -627,25 +437,6 @@ if [ "$1" == "rn" ] ; then
 		fi
 	fi
 
-fi
-
-# ubuntu 18.04 in docker
-if [ "$1" == "u18" ] ; then
-
-	if [ "$2" == "up" ] ; then
-		docker-compose -f "$u18dir/docker-compose.yml" up -d
-	elif [ "$2" == "down" ] ; then
-		docker-compose -f "$u18dir/docker-compose.yml" down
-	elif [ "$2" == "bash" ] ; then
-		echo "========== docker exec -it -u root jenkins /bin/bash =========="
-		docker exec -it -u root Ubuntu18 /bin/bash
-	elif [ "$2" == "log" ] ; then
-		echo "========== docker logs -tf jenkins =========="
-		docker logs -tf Ubuntu18
-	else
-		echo "param 2 not match"
-		exit -1
-	fi
 fi
 
 # docker
@@ -904,14 +695,25 @@ if [ "$1" == "pj" ] ; then
 	fi
 	
 fi
+
 # tar
 if [ "$1" = "zip" ] ; then
 		echo ">>>> zip $2 to $3.tar.gz"
-		tar -czvf $3.tar.gz $2
+		echo "tar -zcvf $3.tar.gz $2"
+		tar -zcvf $3.tar.gz $2
 fi
 if [ "$1" = "unzip" ] ; then
-		echo ">>>> unzip file"
-		tar -xzvf $2
+    echo ">>>> unzip file: $2"
+
+    if [[ "$2" == *.tar.gz || "$2" == *.tgz ]]; then
+		echo "tar -zxvf "$2""
+        tar -zxvf "$2"
+    elif [[ "$2" == *.tar.bz2 || "$2" == *.tbz || "$2" == *.tbz2 ]]; then
+		echo "tar -jxvf "$2""
+        tar -jxvf "$2"
+    else
+        echo "Unsupported file format: $2"
+    fi
 fi
 
 if [ "$1" == "ping" ] ; then
@@ -921,104 +723,12 @@ if [ "$1" == "ping" ] ; then
 	fi
 fi
 
-# RB5
-if [ "$1" == "pi" ] ; then
-
-	if [ "$2" == "ux" ] ; then
-		echo "update x.sh...."
-
-expect <<EOF
-  set timeout -1
-  spawn scp $piDir/x.sh pi@raspberrypi.local:~/Gray
-  expect {
-      "password:"  { send "raspberry\n"; exp_continue }
-      eof
-  }
-  lassign [wait] pid spawnID osError value
-  exit \$value
-EOF
-
-	fi
-fi
-
-# Raspberry pi
-if [ "$1" == "pi" ] ; then
-
-	if [ "$2" == "ux" ] ; then
-		echo "update x.sh...."
-
-expect <<EOF
-  set timeout -1
-  spawn scp $piDir/x.sh pi@raspberrypi.local:~/Gray
-  expect {
-      "password:"  { send "raspberry\n"; exp_continue }
-      eof
-  }
-  lassign [wait] pid spawnID osError value
-  exit \$value
-EOF
-
-	elif [ "$2" == "wpas" ] ; then
-		echo "wpas...."
-		if [ "$3" == "fd" ] ; then	
-			echo "file download...."
-
-# expect <<EOF
-#   set timeout -1
-#   spawn scp pi@raspberrypi.local:/etc/wpa_supplicant/wpa_supplicant.conf $piDir/ 
-#   expect {
-#       "password:"  { send "raspberry\n"; exp_continue }
-#       eof
-#   }
-#   lassign [wait] pid spawnID osError value
-#   exit \$value
-# EOF			
-
-		elif [ "$3" == "fu" ] ; then
-			echo "file upload...."
-
-		else 
-			echo "...."
-		fi
-
-	else
-		echo "...."
-  	fi
-
-fi
-
-# Old ==========================================================================
-
-#build related command
-if [ "$1" == "b" ] ; then
-	echo "build...."
-	
-
-	echo "build....done"
-	
-fi
-
-# flash related command
-if [ "$1" == "f" ] ; then
-	echo "flash...."
-	
- 
-	echo "flash....done"
-fi
-
 # edit x
 if [ "$1" == "ex" ] ; then
 	echo "edit x...."
 	cd $prjRoot/myPath
 	gedit x
 	echo "edit x....done"
-fi
-
-# reboot
-if [ "$1" == "r" ] ; then
-	echo "reboot...."
-	adb shell reboot
-	echo "reboot....done"
 fi
 
 # file / folder size
