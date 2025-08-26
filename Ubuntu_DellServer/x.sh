@@ -1120,6 +1120,6 @@ fi
 
 # tree -L3
 if [ "$1" == "tree" ] ; then
-	echo "tree -L3 $2"
+	echo "tree -L 3 $2"
 	tree -L3 $2
 fi
