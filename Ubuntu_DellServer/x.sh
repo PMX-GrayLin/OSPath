@@ -1118,3 +1118,8 @@ if [ "$1" == "size" ] ; then
 	sudo du -sh $2
 fi
 
+# tree -L3
+if [ "$1" == "tree" ] ; then
+	echo "tree -L3 $2"
+	tree -L3 $2
+fi
