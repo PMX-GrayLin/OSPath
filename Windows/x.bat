@@ -1,17 +1,23 @@
 @echo off
+REM ===============================
+REM Batch Script Argument Printer
+REM ===============================
 
-cd %~dp0
+REM Change to script directory (uncomment if needed)
+REM cd /d "%~dp0"
 
-set arg1=%1
-set arg2=%2
-set arg3=%3
-set arg4=%4
-set arg5=%5
-echo %arg1%
-echo %arg2%
-echo %arg3%
-echo %arg4%
-echo %arg5%
+setlocal enabledelayedexpansion
+
+set count=0
+for %%A in (%*) do (
+    set /a count+=1
+    echo Argument !count!: %%A
+)
+
+echo.
+echo Total arguments: %count%
+
+endlocal
 
 set live_current="C:\Users\gray.lin\STM32CubeIDE\workspace_1.13.2\.metadata\.plugins\com.st.stm32cube.ide.mcu.livewatch\saved_expr.dat"
 set live_backup="D:\prj\STM\liveview\saved_expr_%arg4%.dat"
