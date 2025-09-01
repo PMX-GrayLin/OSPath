@@ -1,4 +1,4 @@
-@echo off
+@REM @echo off
 REM ===============================
 REM Batch Script Argument Printer
 REM ===============================
@@ -11,17 +11,33 @@ setlocal enabledelayedexpansion
 set count=0
 for %%A in (%*) do (
     set /a count+=1
+    set "arg!count!=%%~A"
     echo Argument !count!: %%A
 )
 
 echo.
-echo Total arguments: %count%
+echo Total arguments: !count!
+
+REM Example usage of arg1 / arg2 after loop
+if /i "!arg1!"=="iq" (
+    if /i "!arg2!"=="s1" (
+        cd /d "D:\project\MediaToolKit_IoTYocto_240522"
+        call 01_cct_setup.bat
+        call 02_NDD_preview_8395.bat
+    )
+
+    if /i "!arg2!"=="s2" (
+        cd "D:\project\MediaToolKit_IoTYocto_240522\svn\install"
+        call 4.0.MTKToolCustom.bat
+    )
+
+)
 
 endlocal
 
+
 set live_current="C:\Users\gray.lin\STM32CubeIDE\workspace_1.13.2\.metadata\.plugins\com.st.stm32cube.ide.mcu.livewatch\saved_expr.dat"
 set live_backup="D:\prj\STM\liveview\saved_expr_%arg4%.dat"
-
 if "%arg1%"=="stm" (
     if "%arg2%"=="live" (
         if "%arg3%"=="load" (
