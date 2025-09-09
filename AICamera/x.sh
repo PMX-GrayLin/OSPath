@@ -170,9 +170,9 @@ if [ "$1" = "aic" ]; then
 
 			if [ "$4" = "usb" ]; then
 				echo "v4l2-ctl --device=${device_uvc} --list-formats-ext"
-				v4l2-ctl --device=${$device_uvc} --list-formats-ext
-				echo "v4l2-ctl --device=${$device_uvc} --list-ctrls"
-				v4l2-ctl --device=${$device_uvc} --list-ctrls
+				v4l2-ctl --device=${device_uvc} --list-formats-ext
+				echo "v4l2-ctl --device=${device_uvc} --list-ctrls"
+				v4l2-ctl --device=${device_uvc} --list-ctrls
 			elif [ "$4" = "l" ]; then
 				echo"v4l2-ctl --list-devices"
 				v4l2-ctl --list-devices
