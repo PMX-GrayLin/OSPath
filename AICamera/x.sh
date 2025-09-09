@@ -168,7 +168,7 @@ if [ "$1" = "aic" ]; then
 		elif [ "$3" = "cam" ]; then
 			echo "camera..."
 
-			if [ "$4" = "usb" ]; then
+			if [ "$4" = "uvc" ]; then
 				echo "v4l2-ctl --device=${device_uvc} --list-formats-ext"
 				v4l2-ctl --device=${device_uvc} --list-formats-ext
 				echo "v4l2-ctl --device=${device_uvc} --list-ctrls"
