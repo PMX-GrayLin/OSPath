@@ -506,38 +506,61 @@ if [ "$1" = "aic" ]; then
 	elif [ "$2" = "ftp" ]; then
 		echo "update files from ftp..."
 
-		# FTP details
+		# FTP/SSH details
 		ftp_user="gray.lin"
 		ftp_pass="Zx03310331"
 		ftp_host="10.1.13.207"
-		dir_ftp="Public/gray/aicamera"
+		dir_ftp="/mnt/disk2/FTP/Public/gray/aicamera"
 		dir_local="/mnt/reserved"
 		dir_exec=~/"primax"
 
-		cd $dir_local
+		cd "$dir_local" || exit 1
 		pkill fw_watchdog.sh
 		pkill vision_box
 		pkill fw_daemon
-		
-		if [ "$3" = "sync" ]; then
 
-			if [ "$4" = "down" ]; then
-				# Sync from ftp server → aicamera
-				rsync -avz -e ssh gray.lin@$ftp_host:/mnt/disk2/FTP/$dir_ftp $dir_local/$ftp_host/
-			elif [ "$4" = "up" ]; then
-				# Then sync from aicamera → ftp server
-				rsync -avz -e ssh $dir_local/$ftp_host/ gray.lin@$ftp_host:/mnt/disk2/FTP/$dir_ftp
-			fi
+		if [ "$3" = "up" ]; then
+			# from aicamera → ftp server
+			rsync -avz -e ssh "$dir_local/$ftp_host/" "$ftp_user@$ftp_host:$dir_ftp/"
 
 		else
-			# all file in ftp folder to aicamera
-			wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp" --no-parent --cut-dirs=3	
+			# from ftp server → aicamera
+			cmd="rsync -avz -e ssh \
+				--exclude 'IQ_DB/' --exclude 'hikrobot/' \
+				$ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
 
-			cp -f $dir_local/$ftp_host/vision_box_DualCam $dir_exec
-			cp -f $dir_local/$ftp_host/fw_daemon $dir_exec
-			chmod 777 $dir_exec/vision_box_DualCam
-			chmod 777 $dir_exec/fw_daemon
+			if [ "$4" = "all" ]; then
+				cmd="rsync -avz -e ssh \
+					$ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
+			fi
+
+			echo "Running: $cmd"
+			eval $cmd
+
+			cp -f "$dir_local/$ftp_host/vision_box_DualCam" "$dir_exec"
+			cp -f "$dir_local/$ftp_host/fw_daemon" "$dir_exec"
+			chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
 		fi
+
+		# if [ "$3" = "sync" ]; then
+
+		# 	if [ "$4" = "down" ]; then
+		# 		# Sync from ftp server → aicamera
+		# 		rsync -avz -e ssh gray.lin@$ftp_host:/mnt/disk2/FTP/$dir_ftp $dir_local/$ftp_host/
+		# 	elif [ "$4" = "up" ]; then
+		# 		# Then sync from aicamera → ftp server
+		# 		rsync -avz -e ssh $dir_local/$ftp_host/ gray.lin@$ftp_host:/mnt/disk2/FTP/$dir_ftp
+		# 	fi
+
+		# else
+		# 	# all file in ftp folder to aicamera
+		# 	wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp" --no-parent --cut-dirs=3	
+
+		# 	cp -f $dir_local/$ftp_host/vision_box_DualCam $dir_exec
+		# 	cp -f $dir_local/$ftp_host/fw_daemon $dir_exec
+		# 	chmod 777 $dir_exec/vision_box_DualCam
+		# 	chmod 777 $dir_exec/fw_daemon
+		# fi
 
 	elif [ "$2" = "ftp2" ]; then
 			echo "update files from ftp..."
