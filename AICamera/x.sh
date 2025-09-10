@@ -529,7 +529,7 @@ if [ "$1" = "aic" ]; then
 				--exclude 'IQ_DB/' --exclude 'hikrobot/' \
 				$ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
 
-			if [ "$4" = "all" ]; then
+			if [ "$3" = "all" ]; then
 				cmd="rsync -avz -e ssh \
 					$ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
 			fi
