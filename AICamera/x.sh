@@ -519,27 +519,6 @@ if [ "$1" = "aic" ]; then
 		pkill vision_box
 		pkill fw_daemon
 
-		if [ "$3" = "up" ]; then
-			# from aicamera → ftp server
-			rsync -avz -e ssh "$dir_local/$ftp_host/" "$ftp_user@$ftp_host:$dir_ftp/"
-
-		else
-			# from ftp server → aicamera
-			cmd="rsync -avz -e ssh --exclude 'IQ_DB/' --exclude 'hikrobot/' \
-			$ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
-
-			if [ "$3" = "all" ]; then
-				cmd="rsync -avz -e ssh $ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
-			fi
-
-			echo "Running: $cmd"
-			eval $cmd
-
-			cp -f "$dir_local/$ftp_host/vision_box_DualCam" "$dir_exec"
-			cp -f "$dir_local/$ftp_host/fw_daemon" "$dir_exec"
-			chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
-		fi
-
 		if [ "$3" = "sync" ]; then
 			if [ "$4" = "up" ]; then
 				# from aicamera → ftp server
