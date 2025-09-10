@@ -546,14 +546,12 @@ if [ "$1" = "aic" ]; then
 			cmd="wget -m -nH --cut-dirs=3 --no-parent \
 				--user=\"$ftp_user\" --password=\"$ftp_pass\" \
 				ftp://$ftp_host/$dir_ftp/ \
-				-P $dir_local/$ftp_host/ \
 				--exclude-directories=IQ_DB,hikrobot"
 
 			if [ "$4" = "all" ]; then
 				cmd="wget -m -nH --cut-dirs=3 --no-parent \
 					--user=\"$ftp_user\" --password=\"$ftp_pass\" \
-					ftp://$ftp_host/$dir_ftp/ \
-					-P $dir_local/$ftp_host/"
+					ftp://$ftp_host/$dir_ftp/"
 			fi
 
 			echo "Running: $cmd"
