@@ -541,6 +541,7 @@ if [ "$1" = "aic" ]; then
 			fi
 
 		else
+			dir_ftp="/Public/gray/aicamera"
 
 			cmd="wget -m -nH --cut-dirs=3 --no-parent \
 				--user=\"$ftp_user\" --password=\"$ftp_pass\" \
