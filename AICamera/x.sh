@@ -548,7 +548,7 @@ if [ "$1" = "aic" ]; then
 				ftp://$ftp_host/$dir_ftp/ \
 				--exclude-directories=$dir_ftp/IQ_DB,$dir_ftp/hikrobot"
 
-			if [ "$4" = "all" ]; then
+			if [ "$3" = "all" ]; then
 				cmd="wget --mirror --cut-dirs=3 --no-parent \
 					--user=\"$ftp_user\" --password=\"$ftp_pass\" \
 					ftp://$ftp_host/$dir_ftp/"
