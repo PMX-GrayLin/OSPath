@@ -491,7 +491,6 @@ if [ "$1" = "aic" ]; then
 		md5sum $fileTarget
 		sync
 
-
 	elif [ "$2" = "kill" ]; then
 
 		if [ "$3" = "fw" ]; then
@@ -560,14 +559,6 @@ if [ "$1" = "aic" ]; then
 			cp -f "$dir_local/$ftp_host/vision_box_DualCam" "$dir_exec"
 			cp -f "$dir_local/$ftp_host/fw_daemon" "$dir_exec"
 			chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
-
-			# # all file in ftp folder to aicamera
-			# wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp" --no-parent --cut-dirs=3	
-
-			# cp -f $dir_local/$ftp_host/vision_box_DualCam $dir_exec
-			# cp -f $dir_local/$ftp_host/fw_daemon $dir_exec
-			# chmod 777 $dir_exec/vision_box_DualCam
-			# chmod 777 $dir_exec/fw_daemon
 		fi
 
 	elif [ "$2" = "ftp2" ]; then
