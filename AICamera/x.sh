@@ -543,7 +543,7 @@ if [ "$1" = "aic" ]; then
 		else
 			dir_ftp="Public/gray/aicamera"
 
-			cmd="wget -m -nH --cut-dirs=3 --no-parent \
+			cmd="wget -m --cut-dirs=3 --no-parent \
 				--user=\"$ftp_user\" --password=\"$ftp_pass\" \
 				ftp://$ftp_host/$dir_ftp/ \
 				--exclude-directories=IQ_DB,hikrobot"
