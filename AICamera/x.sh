@@ -954,9 +954,16 @@ if [ "$1" = "chown" ]; then
 fi
 
 # tar
-if [ "$1" = "zip" ]; then
-    echo " zip $2 to $3.tar.gz =========="
-    tar -zcvf "$3.tar.gz" "$2"
+if [ "$1" = "zip" ] ; then
+	if [ "$4" = "bz2" ] ; then
+		echo ">>>> bz2 $2 to $3.tar.bz2"
+		echo "tar -jcvf $3.tar.bz2 $2"
+		tar -jcvf "$3.tar.bz2" "$2"
+	else
+		echo ">>>> zip $2 to $3.tar.gz"
+		echo "tar -zcvf $3.tar.gz $2"
+		tar -zcvf $3.tar.gz $2
+	fi
 fi
 if [ "$1" = "unzip" ] ; then
     echo ">>>> unzip file: $2"
