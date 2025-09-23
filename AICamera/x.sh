@@ -519,27 +519,44 @@ if [ "$1" = "aic" ]; then
 		pkill fw_daemon
 
 		if [ "$3" = "sync" ]; then
-			if [ "$4" = "up" ]; then
-				# from aicamera → ftp server
-				rsync -avz -e ssh "$dir_local/$ftp_host/" "$ftp_user@$ftp_host:$dir_ftp/"
-			elif [ "$4" = "down" ]; then
-				# from ftp server → aicamera
-				cmd="rsync -avz -e ssh --exclude 'IQ_DB/' --exclude 'hikrobot/' \
-				$ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
+			case "$4" in
+				up)
+					# from aicamera → ftp server
+					rsync -avz -e ssh "$dir_local/$ftp_host/" \
+						"$ftp_user@$ftp_host:$dir_ftp/"
+					;;
+				down)
+					# from ftp server → aicamera
+					cmd="rsync -avz -e ssh --exclude 'IQ_DB/' --exclude 'hikrobot/' \
+						$ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
 
-				if [ "$5" = "all" ]; then
-					cmd="rsync -avz -e ssh $ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
-				fi
+					if [ "$5" = "all" ]; then
+						cmd="rsync -avz -e ssh \
+							$ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
+					fi
 
-				echo "Running: $cmd"
-				eval $cmd
+					echo "Running: $cmd"
+					eval $cmd
 
-				cp -f "$dir_local/$ftp_host/vision_box_DualCam" "$dir_exec"
-				cp -f "$dir_local/$ftp_host/fw_daemon" "$dir_exec"
-				chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
+					cp -f "$dir_local/$ftp_host/vision_box_DualCam" "$dir_exec"
+					cp -f "$dir_local/$ftp_host/fw_daemon" "$dir_exec"
+					chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
+					;;
+			esac
+
+		elif [ "$3" = "up" ]; then
+			# Upload a specific file → ftp server
+			file_to_upload="$4"
+			if [ -z "$file_to_upload" ]; then
+				echo "Error: No file specified to upload."
+				exit 1
 			fi
+			echo "Uploading $file_to_upload → $ftp_host:$dir_ftp/"
+			rsync -avz -e ssh "$file_to_upload" \
+				"$ftp_user@$ftp_host:$dir_ftp/"
 
 		else
+			# wget mode (mirror from FTP)
 			dir_ftp="Public/gray/aicamera"
 
 			cmd="wget -m --cut-dirs=3 --no-parent \
@@ -560,6 +577,7 @@ if [ "$1" = "aic" ]; then
 			cp -f "$dir_local/$ftp_host/fw_daemon" "$dir_exec"
 			chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
 		fi
+	fi
 
 	elif [ "$2" = "ftp2" ]; then
 			echo "update files from ftp..."
