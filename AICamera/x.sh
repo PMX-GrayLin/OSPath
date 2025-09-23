@@ -513,31 +513,26 @@ if [ "$1" = "aic" ]; then
 		dir_local="/mnt/reserved"
 		dir_exec=~/"primax"
 
-		cd "$dir_local" || exit 1
 		pkill fw_watchdog.sh
 		pkill vision_box
 		pkill fw_daemon
 
 		if [ "$3" = "sync" ]; then
+			cd "$dir_local" || exit 1
 			case "$4" in
 				up)
-					# from aicamera → ftp server
 					rsync -avz -e ssh "$dir_local/$ftp_host/" \
 						"$ftp_user@$ftp_host:$dir_ftp/"
 					;;
 				down)
-					# from ftp server → aicamera
 					cmd="rsync -avz -e ssh --exclude 'IQ_DB/' --exclude 'hikrobot/' \
 						$ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
-
 					if [ "$5" = "all" ]; then
 						cmd="rsync -avz -e ssh \
 							$ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
 					fi
-
 					echo "Running: $cmd"
 					eval $cmd
-
 					cp -f "$dir_local/$ftp_host/vision_box_DualCam" "$dir_exec"
 					cp -f "$dir_local/$ftp_host/fw_daemon" "$dir_exec"
 					chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
@@ -545,11 +540,6 @@ if [ "$1" = "aic" ]; then
 			esac
 
 		elif [ "$3" = "up" ]; then
-
-			# Go back to the original path (where script was invoked)
-			curr_path="$(pwd)"
-			cd "$curr_path" || exit 1
-
 			file_to_upload="$4"
 			if [ -z "$file_to_upload" ]; then
 				echo "Error: No file specified to upload."
@@ -564,31 +554,26 @@ if [ "$1" = "aic" ]; then
 
 			echo "Uploading $abs_path → $ftp_host:$dir_ftp/"
 			rsync -avz -e ssh "$abs_path" "$ftp_user@$ftp_host:$dir_ftp/"
-			echo "Uploading $abs_path → $ftp_host:$dir_ftp/"
-			rsync -avz -e ssh "$abs_path" "$ftp_user@$ftp_host:$dir_ftp/"
-		else
-			# wget mode (mirror from FTP)
-			dir_ftp="Public/gray/aicamera"
 
+		else
+			cd "$dir_local" || exit 1
+			dir_ftp="Public/gray/aicamera"
 			cmd="wget -m --cut-dirs=3 --no-parent \
 				--user=\"$ftp_user\" --password=\"$ftp_pass\" \
 				ftp://$ftp_host/$dir_ftp/ \
 				--exclude-directories=$dir_ftp/IQ_DB,$dir_ftp/hikrobot"
-
 			if [ "$3" = "all" ]; then
 				cmd="wget --mirror --cut-dirs=3 --no-parent \
 					--user=\"$ftp_user\" --password=\"$ftp_pass\" \
 					ftp://$ftp_host/$dir_ftp/"
 			fi
-
 			echo "Running: $cmd"
 			eval $cmd
-
 			cp -f "$dir_local/$ftp_host/vision_box_DualCam" "$dir_exec"
 			cp -f "$dir_local/$ftp_host/fw_daemon" "$dir_exec"
 			chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
 		fi
-
+		
 	elif [ "$2" = "ftp2" ]; then
 			echo "update files from ftp..."
 
