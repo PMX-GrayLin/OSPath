@@ -546,20 +546,25 @@ if [ "$1" = "aic" ]; then
 
 		elif [ "$3" = "up" ]; then
 			file_to_upload="$4"
-				if [ -z "$file_to_upload" ]; then
-					echo "Error: No file specified to upload."
-					exit 1
-				fi
+			if [ -z "$file_to_upload" ]; then
+				echo "Error: No file specified to upload."
+				exit 1
+			fi
 
-				# Resolve to absolute path
-				abs_path="$(readlink -f "$file_to_upload")"
-				if [ ! -f "$abs_path" ]; then
-					echo "Error: File not found: $abs_path"
-					exit 1
-				fi
+			# Go back to the original path (where script was invoked)
+			curr_path="$(pwd)"
+			cd "$curr_path" || exit 1
 
-    echo "Uploading $abs_path → $ftp_host:$dir_ftp/"
-    rsync -avz -e ssh "$abs_path" "$ftp_user@$ftp_host:$dir_ftp/"
+			abs_path="$(readlink -f "$file_to_upload")"
+			if [ ! -f "$abs_path" ]; then
+				echo "Error: File not found: $abs_path"
+				exit 1
+			fi
+
+			echo "Uploading $abs_path → $ftp_host:$dir_ftp/"
+			rsync -avz -e ssh "$abs_path" "$ftp_user@$ftp_host:$dir_ftp/"
+			echo "Uploading $abs_path → $ftp_host:$dir_ftp/"
+			rsync -avz -e ssh "$abs_path" "$ftp_user@$ftp_host:$dir_ftp/"
 		else
 			# wget mode (mirror from FTP)
 			dir_ftp="Public/gray/aicamera"
