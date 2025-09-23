@@ -545,15 +545,16 @@ if [ "$1" = "aic" ]; then
 			esac
 
 		elif [ "$3" = "up" ]; then
+
+			# Go back to the original path (where script was invoked)
+			curr_path="$(pwd)"
+			cd "$curr_path" || exit 1
+
 			file_to_upload="$4"
 			if [ -z "$file_to_upload" ]; then
 				echo "Error: No file specified to upload."
 				exit 1
 			fi
-
-			# Go back to the original path (where script was invoked)
-			curr_path="$(pwd)"
-			cd "$curr_path" || exit 1
 
 			abs_path="$(readlink -f "$file_to_upload")"
 			if [ ! -f "$abs_path" ]; then
