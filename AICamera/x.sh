@@ -545,16 +545,21 @@ if [ "$1" = "aic" ]; then
 			esac
 
 		elif [ "$3" = "up" ]; then
-			# Upload a specific file → ftp server
 			file_to_upload="$4"
-			if [ -z "$file_to_upload" ]; then
-				echo "Error: No file specified to upload."
-				exit 1
-			fi
-			echo "Uploading $file_to_upload → $ftp_host:$dir_ftp/"
-			rsync -avz -e ssh "$file_to_upload" \
-				"$ftp_user@$ftp_host:$dir_ftp/"
+				if [ -z "$file_to_upload" ]; then
+					echo "Error: No file specified to upload."
+					exit 1
+				fi
 
+				# Resolve to absolute path
+				abs_path="$(readlink -f "$file_to_upload")"
+				if [ ! -f "$abs_path" ]; then
+					echo "Error: File not found: $abs_path"
+					exit 1
+				fi
+
+    echo "Uploading $abs_path → $ftp_host:$dir_ftp/"
+    rsync -avz -e ssh "$abs_path" "$ftp_user@$ftp_host:$dir_ftp/"
 		else
 			# wget mode (mirror from FTP)
 			dir_ftp="Public/gray/aicamera"
