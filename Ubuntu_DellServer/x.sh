@@ -436,9 +436,9 @@ if [ "$1" = "cp" ] ; then
 	elif [ "$2" = "ccm" ] ; then
 		path="/mnt/disk2/FTP/Public/gray/aicamera/ccm_db"
 	elif [ "$2" = "p1" ] ; then
-		path="$p1"
+		path=$p1
 	elif [ "$2" = "p2" ] ; then
-		path="$p2"
+		path=$p2
 	fi
 	echo "cp -rf $3 $path"
 	cp -rf $3 $path 
