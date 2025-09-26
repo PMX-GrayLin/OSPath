@@ -448,8 +448,8 @@ if [ "$1" = "cp" ]; then
         echo "cp -rf \"$3\" \"$path/$fname\""
         cp -rf "$3" "$path/$fname"
     else
-        echo "cp -rf \"$3\" \"$path/\""
-        cp -rf "$3" "$path/"
+        echo "cp -rf \"$3\" \"$path/$3\""
+        cp -rf "$3" "$path/$3"
     fi
 fi
 
