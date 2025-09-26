@@ -1131,3 +1131,12 @@ if [ "$1" == "tree" ] ; then
 	echo "tree -L 3 $2"
 	tree -L 3 $2
 fi
+
+# diff
+if [ "$1" == "diff" ] ; then
+	echo "p1:$p1"
+	echo "p2:$p2"
+	echo "compare file:$2"
+
+	diff $p1/$2 $p2/$2
+fi
