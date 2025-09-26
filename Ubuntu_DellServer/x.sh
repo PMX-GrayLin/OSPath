@@ -440,8 +440,8 @@ if [ "$1" = "cp" ] ; then
 	elif [ "$2" = "p2" ] ; then
 		path=$p2
 	fi
-	echo "cp -rf $3 $path/$2"
-	cp -rf $3 $path/$2
+	echo "cp -rf $3 $path/$3"
+	cp -rf $3 $path/$3
 fi
 
 if [ "$1" = "ps" ]; then
