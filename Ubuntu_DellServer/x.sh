@@ -430,24 +430,30 @@ if [ "$1" = "cp" ]; then
     fi
 
     case "$2" in
-        h)     path="$HOME" ;;
-        ftp)   path="/mnt/disk2/FTP/Public/gray" ;;
-        ftp2)  path="/mnt/disk2/FTP/Public/gray/privateImage" ;;
-        aic)   path="/mnt/disk2/FTP/Public/gray/aicamera" ;;
-        ccm)   path="/mnt/disk2/FTP/Public/gray/aicamera/ccm_db" ;;
-        p1)    path="$p1" ;;
-        p2)    path="$p2" ;;
+        h)     path="$HOME";   use_basename=1 ;;
+        ftp)   path="/mnt/disk2/FTP/Public/gray";   use_basename=1 ;;
+        ftp2)  path="/mnt/disk2/FTP/Public/gray/privateImage"; use_basename=1 ;;
+        aic)   path="/mnt/disk2/FTP/Public/gray/aicamera"; use_basename=1 ;;
+        ccm)   path="/mnt/disk2/FTP/Public/gray/aicamera/ccm_db"; use_basename=1 ;;
+        p1)    path="$p1"; use_basename=0 ;;
+        p2)    path="$p2"; use_basename=0 ;;
         *)
             echo "Unknown target: $2"
             exit 1
             ;;
     esac
 
-    fname=$(basename "$3")
-    echo "cp -rf \"$3\" \"$path/$fname\""
-    cp -rf "$3" "$path/$fname"
+    if [ "$use_basename" -eq 1 ]; then
+        fname=$(basename "$3")
+        echo "cp -rf \"$3\" \"$path/$fname\""
+        cp -rf "$3" "$path/$fname"
+    else
+        echo "cp -rf \"$3\" \"$path/\""
+        cp -rf "$3" "$path/"
+    fi
 fi
 
+# ps
 if [ "$1" = "ps" ]; then
 	if [ "$2" != "" ]; then
 		echo "ps aux | grep $2"
