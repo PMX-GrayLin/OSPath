@@ -272,16 +272,11 @@ if [ "$1" = "aic" ]; then
 
 	elif [ "$2" = "c" ]; then
 		echo "clean..."
-		cd ~/primax
-		rm fw_*.png fw_*.jpg fw_*.bmp
+		cd /home/root/primax
+		rm *.png *.jpg *.bmp
 
 	elif [ "$2" = "rp" ]; then
 		echo "run .py..."
-		if [ "$3" = "wifi" ]; then
-			python3 /home/root/primax/misc/wifi_scan_ui.py&
-		elif [ "$3" = "status" ]; then
-			python3 /home/root/primax/misc/network_status_ui.py&
-		fi
 
 	elif [ "$2" = "rs" ]; then
 		echo "restart $3..."
@@ -573,7 +568,7 @@ if [ "$1" = "aic" ]; then
 			cp -f "$dir_local/$ftp_host/fw_daemon" "$dir_exec"
 			chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
 		fi
-		
+
 	elif [ "$2" = "ftp2" ]; then
 			echo "update files from ftp..."
 
