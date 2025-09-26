@@ -422,26 +422,30 @@ if [ "$1" = "sys" ] ; then
 	fi
 fi
 
-# copy to
-if [ "$1" = "cp" ] ; then
+# cp
+if [ "$1" = "cp" ]; then
+    if [ -z "$2" ] || [ -z "$3" ]; then
+        echo "Usage: $0 cp <target> <file/dir>"
+        exit 1
+    fi
 
-	if [ "$2" = "h" ] ; then
-		path="$HOME"
-	elif [ "$2" = "ftp" ] ; then
-		path="/mnt/disk2/FTP/Public/gray"
-	elif [ "$2" = "ftp2" ] ; then
-		path="/mnt/disk2/FTP/Public/gray/privateImage"
-	elif [ "$2" = "aic" ] ; then
-		path="/mnt/disk2/FTP/Public/gray/aicamera"
-	elif [ "$2" = "ccm" ] ; then
-		path="/mnt/disk2/FTP/Public/gray/aicamera/ccm_db"
-	elif [ "$2" = "p1" ] ; then
-		path=$p1
-	elif [ "$2" = "p2" ] ; then
-		path=$p2
-	fi
-	echo "cp -rf $3 $path/$3"
-	cp -rf $3 $path/$3
+    case "$2" in
+        h)     path="$HOME" ;;
+        ftp)   path="/mnt/disk2/FTP/Public/gray" ;;
+        ftp2)  path="/mnt/disk2/FTP/Public/gray/privateImage" ;;
+        aic)   path="/mnt/disk2/FTP/Public/gray/aicamera" ;;
+        ccm)   path="/mnt/disk2/FTP/Public/gray/aicamera/ccm_db" ;;
+        p1)    path="$p1" ;;
+        p2)    path="$p2" ;;
+        *)
+            echo "Unknown target: $2"
+            exit 1
+            ;;
+    esac
+
+    fname=$(basename "$3")
+    echo "cp -rf \"$3\" \"$path/$fname\""
+    cp -rf "$3" "$path/$fname"
 fi
 
 if [ "$1" = "ps" ]; then
