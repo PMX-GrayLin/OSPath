@@ -507,7 +507,7 @@ if [ "$1" = "aic" ]; then
 
 		dir_prj="aicamera"
 		if is_visionhub ; then
-			dir_ftp="visionhub"
+			dir_prj="visionhub"
 		fi
 
 		dir_ftp="/mnt/disk2/FTP/Public/gray/$dir_prj"
