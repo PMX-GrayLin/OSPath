@@ -575,7 +575,6 @@ if [ "$1" = "user" ] ; then
 			sudo chown $3:$mainGroup $buildfolder/$3
 			sudo chown $3:$mainGroup $buildfolder/$3/step*
 			cd /home/$3
-			rm yocto_build
 			sudo ln -s $buildfolder/$3 yocto_build
 			sudo chown $3:$mainGroup yocto_build
 		else 
