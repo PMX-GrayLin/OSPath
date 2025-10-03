@@ -522,12 +522,10 @@ if [ "$1" = "aic" ]; then
 			cd "$dir_local" || exit 1
 			case "$4" in
 				up)
-					rsync -avz -e ssh "$dir_local/$ftp_host/" \
-						"$ftp_user@$ftp_host:$dir_ftp/"
+					rsync -avz -e ssh "$dir_local/$ftp_host/" "$ftp_user@$ftp_host:$dir_ftp/"
 					;;
 				down)
-					cmd="rsync -avz -e ssh --exclude 'IQ_DB/' --exclude 'hikrobot/' \
-						$ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
+					cmd="rsync -avz -e ssh --exclude 'IQ_DB/' --exclude 'hikrobot/' $ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
 					if [ "$5" = "all" ]; then
 						cmd="rsync -avz -e ssh \
 							$ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
@@ -559,14 +557,9 @@ if [ "$1" = "aic" ]; then
 		else
 			cd "$dir_local" || exit 1
 			dir_ftp="Public/gray/$dir_prj"
-			cmd="wget -m --cut-dirs=3 --no-parent \
-				--user=\"$ftp_user\" --password=\"$ftp_pass\" \
-				ftp://$ftp_host/$dir_ftp/ \
-				--exclude-directories=$dir_ftp/IQ_DB,$dir_ftp/hikrobot"
+			cmd="wget -m --cut-dirs=3 --no-parent --user=\"$ftp_user\" --password=\"$ftp_pass\" ftp://$ftp_host/$dir_ftp/ --exclude-directories=$dir_ftp/IQ_DB,$dir_ftp/hikrobot"
 			if [ "$3" = "all" ]; then
-				cmd="wget --mirror --cut-dirs=3 --no-parent \
-					--user=\"$ftp_user\" --password=\"$ftp_pass\" \
-					ftp://$ftp_host/$dir_ftp/"
+				cmd="wget --mirror --cut-dirs=3 --no-parent --user=\"$ftp_user\" --password=\"$ftp_pass\" ftp://$ftp_host/$dir_ftp/"
 			fi
 			echo "Running: $cmd"
 			eval $cmd
