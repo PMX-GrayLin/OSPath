@@ -181,7 +181,7 @@ if [ "$1" = "aic" ] ; then
 
 		targetPlatform="armv8a-poky-linux"
 		dir_work="$PROJ_ROOT/build/tmp/work/$targetPlatform/primax/1.0-r0"
-		
+
 		cp -f $dir_work/temp/log.do_compile $dir_ftp/
 		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam "$dir_ftp/$project_string/"
 		cp -f $dir_work/primax-1.0/src/Test_C_yocto/fw_daemon "$dir_ftp/$project_string/"
@@ -569,14 +569,15 @@ if [ "$1" = "user" ] ; then
 
 		if [ -n "$3" ] ; then
 			# make a yocto build dir & user link
-			buildfolder="/mnt/disk2/yocto_build_folder"
-			mkdir $buildfolder/$3
+			buildfolder="/mnt/disk3/yocto_build"
+			mkdir -p $buildfolder/$3
 			cp $buildfolder/misc/step* $buildfolder/$3
 			sudo chown $3:$mainGroup $buildfolder/$3
 			sudo chown $3:$mainGroup $buildfolder/$3/step*
 			cd /home/$3
-			sudo ln -s /mnt/disk2/yocto_build_folder/$3 yocto_build_folder
-			sudo chown $3:$mainGroup yocto_build_folder
+			rm yocto_build
+			sudo ln -s $buildfolder/$3 yocto_build
+			sudo chown $3:$mainGroup yocto_build
 		else 
 			echo "param 3 needed"
 		fi
