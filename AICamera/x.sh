@@ -504,7 +504,12 @@ if [ "$1" = "aic" ]; then
 		ftp_user="gray.lin"
 		ftp_pass="Zx03310331"
 		ftp_host="10.1.13.207"
+
 		dir_ftp="/mnt/disk2/FTP/Public/gray/aicamera"
+		if is_visionhub ; then
+			dir_ftp="/mnt/disk2/FTP/Public/gray/visionhub"
+		fi
+
 		dir_local="/mnt/reserved"
 		dir_exec=~/"primax"
 
