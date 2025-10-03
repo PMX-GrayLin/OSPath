@@ -527,8 +527,7 @@ if [ "$1" = "aic" ]; then
 				down)
 					cmd="rsync -avz -e ssh --exclude 'IQ_DB/' --exclude 'hikrobot/' $ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
 					if [ "$5" = "all" ]; then
-						cmd="rsync -avz -e ssh \
-							$ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
+						cmd="rsync -avz -e ssh $ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
 					fi
 					echo "Running: $cmd"
 					eval $cmd
