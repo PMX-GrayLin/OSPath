@@ -180,16 +180,11 @@ if [ "$1" = "aic" ] ; then
 		dir_ftp="/mnt/disk2/FTP/Public/gray"
 
 		targetPlatform="armv8a-poky-linux"
-
-		dir_prj="aicamera"
-		if is_visionhub ; then
-			dir_prj="visionhub"
-		fi
-
 		dir_work="$PROJ_ROOT/build/tmp/work/$targetPlatform/primax/1.0-r0"
+		
 		cp -f $dir_work/temp/log.do_compile $dir_ftp/
-		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam "$dir_ftp/$dir_prj/"
-		cp -f $dir_work/primax-1.0/src/Test_C_yocto/fw_daemon "$dir_ftp/$dir_prj/"
+		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam "$dir_ftp/$project_string/"
+		cp -f $dir_work/primax-1.0/src/Test_C_yocto/fw_daemon "$dir_ftp/$project_string/"
 
 	else
 		primax_version_file="$PROJ_ROOT/src/meta-primax/recipes-primax/primax-version/files/primax_version"
