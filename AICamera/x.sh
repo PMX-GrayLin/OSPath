@@ -505,11 +505,12 @@ if [ "$1" = "aic" ]; then
 		ftp_pass="Zx03310331"
 		ftp_host="10.1.13.207"
 
-		dir_ftp="/mnt/disk2/FTP/Public/gray/aicamera"
+		dir_prj="aicamera"
 		if is_visionhub ; then
-			dir_ftp="/mnt/disk2/FTP/Public/gray/visionhub"
+			dir_ftp="visionhub"
 		fi
 
+		dir_ftp="/mnt/disk2/FTP/Public/gray/$dir_prj"
 		dir_local="/mnt/reserved"
 		dir_exec=~/"primax"
 
@@ -557,7 +558,7 @@ if [ "$1" = "aic" ]; then
 
 		else
 			cd "$dir_local" || exit 1
-			dir_ftp="Public/gray/aicamera"
+			dir_ftp="Public/gray/$dir_prj"
 			cmd="wget -m --cut-dirs=3 --no-parent \
 				--user=\"$ftp_user\" --password=\"$ftp_pass\" \
 				ftp://$ftp_host/$dir_ftp/ \
