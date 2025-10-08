@@ -587,6 +587,9 @@ if [ "$1" = "user" ] ; then
 			# make a yocto build dir & user link
 			buildfolder="/mnt/disk2/yocto_build_folder"
 			sudo rm -r $buildfolder/$3
+			buildfolder="/mnt/disk3/yocto_build"
+			sudo rm -r $buildfolder/$3
+
 		else 
 			echo "param 3 needed"
 		fi
