@@ -553,35 +553,6 @@ if [ "$1" = "aic" ]; then
 			echo "Uploading $abs_path → $ftp_host:$dir_ftp/"
 			rsync -avz -e ssh "$abs_path" "$ftp_user@$ftp_host:$dir_ftp/"
 
-		elif [ "$3" = "up2" ]; then
-			file_to_upload="$4"
-			if [ -z "$file_to_upload" ]; then
-				echo "Error: No file specified to upload."
-				exit 1
-			fi
-
-			abs_path="$(readlink -f "$file_to_upload")"
-			if [ ! -f "$abs_path" ]; then
-				echo "Error: File not found: $abs_path"
-				exit 1
-			fi
-
-			# my MAC M2
-			host_PC="MAC206554.local"
-			user_PC="test"              # your Mac username
-			dir_PC="/Users/test/Downloads"
-
-			echo "Uploading $abs_path to $user_PC@$host_PC:$dir_PC ..."
-
-			# Use scp to transfer file
-			scp -o StrictHostKeyChecking=no "$abs_path" "${user_PC}@${host_PC}:${dir_PC}/"
-			if [ $? -eq 0 ]; then
-				echo "Upload successful!"
-			else
-				echo "Upload failed!"
-				exit 1
-			fi
-
 		else
 			cd "$dir_local" || exit 1
 			dir_ftp="Public/gray/$dir_prj"
@@ -1054,6 +1025,45 @@ if [ "$1" = "ssh" ]; then
 	else
 		echo "param 2 not match"
 		exit -1
+	fi
+fi
+
+# scp
+if [ "$1" = "scp" ]; then
+
+	if [ "$2" = "up" ]; then
+
+		if [ "$3" = "mac" ]; then
+		# upload to MAC PC
+
+			file_to_upload="$4"
+			if [ -z "$file_to_upload" ]; then
+				echo "Error: No file specified to upload."
+				exit 1
+			fi
+
+			abs_path="$(readlink -f "$file_to_upload")"
+			if [ ! -f "$abs_path" ]; then
+				echo "Error: File not found: $abs_path"
+				exit 1
+			fi
+
+			# my MAC M2
+			host_PC="MAC206554.local"
+			user_PC="test"              # your Mac username
+			dir_PC="/Users/test/Downloads"
+
+			echo "Uploading $abs_path to $user_PC@$host_PC:$dir_PC ..."
+
+			# Use scp to transfer file
+			scp -o StrictHostKeyChecking=no "$abs_path" "${user_PC}@${host_PC}:${dir_PC}/"
+			if [ $? -eq 0 ]; then
+				echo "Upload successful!"
+			else
+				echo "Upload failed!"
+				exit 1
+			fi
+		fi
 	fi
 fi
 
