@@ -427,8 +427,8 @@ if [ "$1" = "aic" ]; then
 
 	elif [ "$2" = "iq" ]; then
 		echo "=== IQ DB Operation ==="
-		dir_iq_new="/home/root/primax/10.1.13.207/IQ_DB/db_new"
-		dir_iq_old="/home/root/primax/10.1.13.207/IQ_DB/db_origin"
+		dir_iq_new="/mnt/reserved/10.1.13.207/IQ_DB/db_new"
+		dir_iq_old="/mnt/reserved/10.1.13.207/IQ_DB/db_origin"
 		dir_iq_dev="/usr/share/mtkcam/DataSet/SQLiteModule/db"
 
 		copy_db() {
