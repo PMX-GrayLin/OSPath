@@ -1139,7 +1139,7 @@ fi
 
 # file / folder size
 if [ "$1" == "size" ] ; then
-	if [ "$2" = "d" ] ; then
+	if [ "$3" = "d" ] ; then
 		echo "sudo du -h --max-depth=1 $2 | sort -h" 
 		sudo du -h --max-depth=1 $2 | sort -h
 	else
