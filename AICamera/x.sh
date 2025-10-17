@@ -426,65 +426,67 @@ if [ "$1" = "aic" ]; then
 		v4l2-ctl -d ${VIDEO_DEV[0]} --list-ctrls
 
 	elif [ "$2" = "iq" ]; then
-		echo "IQ..."
+		echo "=== IQ DB Operation ==="
 		dir_iq_new="/home/root/primax/10.1.13.207/IQ_DB/db_new"
 		dir_iq_old="/home/root/primax/10.1.13.207/IQ_DB/db_origin"
 		dir_iq_dev="/usr/share/mtkcam/DataSet/SQLiteModule/db"
 
-		if [ "$3" = "new" ]; then
-			echo "update new DB..."
-			if [ "$4" = "os" ]; then
-				filePath="tuning_DB/imx214_mipi_raw"
-				fileName="ISP_param.db"
-				echo "OB & Shading DB : $filePath/$fileName ..."
-			elif [ "$4" = "ae" ]; then
-				filePath="ae"
-				fileName="ParameterDB_ae.db"
-				echo "ae DB : $filePath/$fileName ..."
-			elif [ "$4" = "awb" ]; then
-				filePath="awb"
-				fileName="ParameterDB_awb.db"
-				echo "awb DB : $filePath/$fileName ..."
-			elif [ "$4" = "tone" ]; then
-				filePath="tone"
-				fileName="ParameterDB_tone.db"
-				echo "tone DB..."
-			else
-				echo "not match..."
-			fi
-			fileReplace="$dir_iq_new/$filePath/$fileName"
+		copy_db() {
+			local src_dir="$1"
+			local file_path="$2"
+			local file_name="$3"
+			local src_file="$src_dir/$file_path/$file_name"
+			local dst_file="$dir_iq_dev/$file_path/$file_name"
 
+			echo "→ Copying: $file_name"
+			echo "   From: $src_file"
+			echo "   To:   $dst_file"
+			mkdir -p "$(dirname "$dst_file")"
+			cp -f "$src_file" "$dst_file" && sync
+
+			echo "   MD5 (src): $(md5sum "$src_file" | awk '{print $1}')"
+			echo "   MD5 (dst): $(md5sum "$dst_file" | awk '{print $1}')"
+			echo ""
+		}
+
+		if [ "$3" = "new" ]; then
+			echo "[Action] Update to NEW DB..."
+			src_base="$dir_iq_new"
 		elif [ "$3" = "old" ]; then
-			echo "restore old DB..."
-			if [ "$4" = "os" ]; then
-				filePath="tuning_DB/imx214_mipi_raw"
-				fileName="ISP_param.db"
-				echo "OB & Shading DB : $filePath/$fileName ..."
-				cp -f "$dir_iq_old/tuning_DB/imx214_mipi_raw/ISP_param.db" "$dir_iq_dev/tuning_DB/imx214_mipi_raw/ISP_param.db"
-			elif [ "$4" = "ae" ]; then
-				filePath="ae"
-				fileName="ParameterDB_ae.db"
-				echo "ae DB : $filePath/$fileName ..."
-			elif [ "$4" = "awb" ]; then
-				filePath="awb"
-				fileName="ParameterDB_awb.db"
-				echo "awb DB : $filePath/$fileName ..."
-			elif [ "$4" = "tone" ]; then
-				filePath="tone"
-				fileName="ParameterDB_tone.db"
-				echo "tone DB..."
-			else
-				echo "not match..."
-			fi
-			fileReplace="$dir_iq_old/$filePath/$fileName"
+			echo "[Action] Restore OLD DB..."
+			src_base="$dir_iq_old"
+		else
+			echo "❌ Invalid argument: must be 'new' or 'old'"
+			exit 1
 		fi
 
-		fileTarget="$dir_iq_dev/$filePath/$fileName"
-		echo "cp -f $fileReplace $fileTarget"
-		cp -f $fileReplace $fileTarget
-		md5sum $fileReplace
-		md5sum $fileTarget
-		sync
+		case "$4" in
+			os)
+				copy_db "$src_base" "tuning_DB/imx214_mipi_raw" "ISP_param.db"
+				;;
+			ae)
+				copy_db "$src_base" "ae" "ParameterDB_ae.db"
+				;;
+			awb)
+				copy_db "$src_base" "awb" "ParameterDB_awb.db"
+				;;
+			tone)
+				copy_db "$src_base" "tone" "ParameterDB_tone.db"
+				;;
+			all)
+				echo "[Action] Applying all DBs (os, ae, awb, tone)..."
+				copy_db "$src_base" "tuning_DB/imx214_mipi_raw" "ISP_param.db"
+				copy_db "$src_base" "ae" "ParameterDB_ae.db"
+				copy_db "$src_base" "awb" "ParameterDB_awb.db"
+				copy_db "$src_base" "tone" "ParameterDB_tone.db"
+				;;
+			*)
+				echo "❌ Invalid DB type: use one of [os | ae | awb | tone | all]"
+				exit 1
+				;;
+		esac
+
+		echo "✅ IQ DB operation complete."
 
 	elif [ "$2" = "kill" ]; then
 
