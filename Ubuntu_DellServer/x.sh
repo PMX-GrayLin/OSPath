@@ -1208,5 +1208,5 @@ backup_build() {
 if [ "$1" == "bb" ] ; then
 	echo "backup_builds"
 	backup_build "aicamera"
-	# backup_build "visionhub"
+	backup_build "visionhub"
 fi
