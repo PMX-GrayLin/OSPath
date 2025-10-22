@@ -1161,12 +1161,6 @@ if [ "$1" == "diff" ] ; then
 	diff $p1/$2 $p2/$2
 fi
 
-if [ "$1" == "bb" ] ; then
-	echo "backup_builds"
-	backup_build "aicamera"
-	# backup_build "visionhub"
-fi
-
 backup_build() {
     local BASE_DIR="/mnt/disk2/FTP/Public/Jenkins"
     local SRC_FOLDER="$1"
@@ -1210,3 +1204,9 @@ backup_build() {
 
     echo "✅ Backup complete!"
 }
+
+if [ "$1" == "bb" ] ; then
+	echo "backup_builds"
+	backup_build "aicamera"
+	# backup_build "visionhub"
+fi
