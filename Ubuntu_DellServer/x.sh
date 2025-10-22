@@ -432,10 +432,9 @@ if [ "$1" = "cp" ]; then
     case "$2" in
         h)     path="$HOME";   use_basename=1 ;;
         ftp)   path="/mnt/disk2/FTP/Public/gray";   use_basename=1 ;;
-        pi)  path="/mnt/disk2/FTP/Public/gray/privateImage"; use_basename=1 ;;
+        ftppi)  path="/mnt/disk2/FTP/Public/gray/privateImage"; use_basename=1 ;;
         ftpaic)   path="/mnt/disk2/FTP/Public/gray/aicamera"; use_basename=1 ;;
 		ftpvh)   path="/mnt/disk2/FTP/Public/gray/visionhub"; use_basename=1 ;;
-        ftpccm)   path="/mnt/disk2/FTP/Public/gray/aicamera/ccm_db"; use_basename=1 ;;
         p1)    path="$p1"; use_basename=0 ;;
         p2)    path="$p2"; use_basename=0 ;;
         *)

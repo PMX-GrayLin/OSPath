@@ -48,6 +48,7 @@ alias dpr='cd $PROJ_ROOT'                                                       
 alias dpb='cd $PROJ_ROOT/build'                                                                     # dir project build path
 alias dps='cd $PROJ_ROOT/src'                                                                       # dir project src path
 alias dpi='cd $BUILD_DIR/tmp/deploy/images/genio-700-evk'                                           # dir project build image path
+alias dpi2='cd $BUILD_DIR/tmp/deploy/images/00.0B.04'                                               # dir project packed OTA image path
 alias dppmx='cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax'                                   # dir project primax
 alias dppmxsrc='cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src'           # dir project primax src
 alias dppmxsys='cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/sysroot'       # dir project primax sysroot
