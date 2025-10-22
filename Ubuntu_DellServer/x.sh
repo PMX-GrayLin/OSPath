@@ -35,6 +35,7 @@ done
 
 echo "PROJ_ROOT:"$PROJ_ROOT
 echo "BUILD_DIR:"$BUILD_DIR
+echo "project_string:"$project_string
 
 if [ -f ~/tmp/p1 ]; then
 	echo "p1:$p1"
@@ -1159,3 +1160,53 @@ if [ "$1" == "diff" ] ; then
 	echo "compare file:$2"
 	diff $p1/$2 $p2/$2
 fi
+
+if [ "$1" == "bb" ] ; then
+	echo "backup_builds"
+	backup_build "aicamera"
+	# backup_build "visionhub"
+fi
+
+backup_build() {
+    local BASE_DIR="/mnt/disk2/FTP/Public/Jenkins"
+    local SRC_FOLDER="$1"
+    local DST_DIR="$BASE_DIR/backup_images/$SRC_FOLDER"
+    local SRC_PATH="$BASE_DIR/$SRC_FOLDER"
+
+    if [ -z "$SRC_FOLDER" ]; then
+        echo "❌ Usage: backup_latest_folder <SRC_FOLDER>"
+        return 1
+    fi
+
+    if [ ! -d "$SRC_PATH" ]; then
+        echo "❌ Source folder not found: $SRC_PATH"
+        return 1
+    fi
+
+    # Find newest subfolder
+    local NEWEST_FOLDER
+    NEWEST_FOLDER=$(ls -td "$SRC_PATH"/*/ 2>/dev/null | head -n 1)
+
+    if [ -z "$NEWEST_FOLDER" ]; then
+        echo "⚠️  No subfolders found in $SRC_PATH"
+        return 1
+    fi
+
+    local FOLDER_NAME
+    FOLDER_NAME=$(basename "$NEWEST_FOLDER")
+
+    echo "📂 Newest folder: $FOLDER_NAME"
+
+    mkdir -p "$DST_DIR"
+
+    # Skip if already exists in backup
+    if [ -d "$DST_DIR/$FOLDER_NAME" ]; then
+        echo "⚠️  Folder already exists in backup: $DST_DIR/$FOLDER_NAME"
+        return 0
+    fi
+
+    echo "➡️  Copying $SRC_PATH/$FOLDER_NAME → $DST_DIR/$FOLDER_NAME ..."
+    cp -a "$SRC_PATH/$FOLDER_NAME" "$DST_DIR/"
+
+    echo "✅ Backup complete!"
+}
