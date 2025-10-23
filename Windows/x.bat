@@ -49,7 +49,7 @@ if /i "!arg1!"=="iq" (
     if /i "!arg2!"=="2raw" (
         echo [IQ:OB2] convert packed_word to raw...
         cd /d "!base_dir!\Packedword2Raw_IoT_v250307
-        python3 BatchRun.py
+        python BatchRun.py
     )
 
 )
