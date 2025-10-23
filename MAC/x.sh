@@ -23,12 +23,12 @@ AICamera_ip="192.168.1.65"
 # AICamera_ip="192.168.1.66"
 # AICamera_ip="192.168.1.68"
 # AICamera_ip="192.168.2.99"
-AICamera_ip="aicamera-d14b"
-AICamera_ip="aicamera-d14b.local"
+# AICamera_ip="aicamera-d14b"
+# AICamera_ip="aicamera-d14b.local"
+AICamera_ip="aicamera-0687.local"
 # AICamera_ip="visionhub-d14b"
-AICamera_ip="visionhub-d14b.local"
-AICamera_ip="192.168.1.20"
-
+# AICamera_ip="visionhub-d14b.local"
+AICamera_ip="192.168.1.108"
 
 # nfs
 if [ "$1" == "nfs" ] ; then
@@ -112,6 +112,57 @@ if [ "$1" == "lan" ] ; then
 		lan="192.168.$3.0/24"
 		echo "nmap -sn "$lan""
 		nmap -sn "$lan"
+	fi
+fi
+
+# system related 
+if [ "$1" = "sys" ] ; then
+	if [ "$2" = "service" ] ; then
+		echo "========== Service info =========="
+		echo "(macOS doesn't use 'service --status-all')"
+		echo "Listing loaded LaunchDaemons and LaunchAgents..."
+		echo "---- System Services ----"
+		launchctl list | head -n 30
+		echo "---- User Services ----"
+		launchctl list gui/$(id -u) | head -n 30
+
+	elif [ "$2" = "info" ] ; then
+		echo "========== System info =========="
+		echo "==== macOS version ( sw_vers ) ===="
+		sw_vers
+		echo "==== Kernel version ( uname -a ) ===="
+		uname -a
+		echo "==== CPU info ( sysctl -n machdep.cpu.* ) ===="
+		sysctl -n machdep.cpu.brand_string
+		sysctl -n machdep.cpu.core_count
+		sysctl -n machdep.cpu.thread_count
+		echo "==== Memory info ( vm_stat ) ===="
+		vm_stat | grep "free\|active\|inactive\|speculative"
+		echo "==== Disk info ( df -h ) ===="
+		df -h | grep /dev/
+
+	elif [ "$2" = "users" ] ; then
+		echo "========== Logged-in Users =========="
+		who
+		echo "========== All Local Users =========="
+		dscl . list /Users | grep -v '^_'
+
+	elif [ "$2" = "user" ] ; then
+		echo "========== User Groups =========="
+		id -Gn $3
+
+	elif [ "$2" = "net" ] ; then
+		echo "========== Network Scan =========="
+		echo "nmap is not preinstalled on macOS, use 'brew install nmap' first."
+		if command -v nmap >/dev/null 2>&1; then
+			nmap -A 192.168.100.*
+		else
+			echo "nmap not found."
+		fi
+
+	else
+		echo "param 3 not match"
+		exit 1
 	fi
 fi
 
@@ -698,9 +749,15 @@ fi
 
 # tar
 if [ "$1" = "zip" ] ; then
+	if [ "$4" = "bz2" ] ; then
+		echo ">>>> bz2 $2 to $3.tar.bz2"
+		echo "tar -jcvf $3.tar.bz2 $2"
+		tar -jcvf "$3.tar.bz2" "$2"
+	else
 		echo ">>>> zip $2 to $3.tar.gz"
 		echo "tar -zcvf $3.tar.gz $2"
 		tar -zcvf $3.tar.gz $2
+	fi
 fi
 if [ "$1" = "unzip" ] ; then
     echo ">>>> unzip file: $2"

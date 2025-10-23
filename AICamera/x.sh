@@ -229,8 +229,8 @@ if [ "$1" = "aic" ]; then
 			gpioget /dev/gpiochip0 17 70
 
 		elif [ "$3" = "gige" ]; then
-			echo "arv-tool-0.8 control Width Height ExposureAuto ExposureTime GainAuto Gain"
-			arv-tool-0.8 control Width Height ExposureAuto ExposureTime GainAuto Gain
+			echo "arv-tool-0.8 control DeviceUserID Width Height ExposureAuto ExposureTime GainAuto Gain TriggerMode TriggerSource TriggerActivation TriggerDelay LineDebouncerTime LineSelector=Line1 LineInverter LineSource StrobeEnable StrobeLineDuration StrobeLineDelay StrobeLinePreDelay"
+			arv-tool-0.8 control DeviceUserID Width Height ExposureAuto ExposureTime GainAuto Gain TriggerMode TriggerSource TriggerActivation TriggerDelay LineDebouncerTime LineSelector=Line1 LineInverter LineSource StrobeEnable StrobeLineDuration StrobeLineDelay StrobeLinePreDelay
 
 		else
 			echo "check version... ( cat /etc/primax_version )"
@@ -272,16 +272,11 @@ if [ "$1" = "aic" ]; then
 
 	elif [ "$2" = "c" ]; then
 		echo "clean..."
-		cd ~/primax
-		rm fw_*.png fw_*.jpg fw_*.bmp
+		cd /home/root/primax
+		rm *.png *.jpg *.bmp
 
 	elif [ "$2" = "rp" ]; then
 		echo "run .py..."
-		if [ "$3" = "wifi" ]; then
-			python3 /home/root/primax/misc/wifi_scan_ui.py&
-		elif [ "$3" = "status" ]; then
-			python3 /home/root/primax/misc/network_status_ui.py&
-		fi
 
 	elif [ "$2" = "rs" ]; then
 		echo "restart $3..."
@@ -431,66 +426,67 @@ if [ "$1" = "aic" ]; then
 		v4l2-ctl -d ${VIDEO_DEV[0]} --list-ctrls
 
 	elif [ "$2" = "iq" ]; then
-		echo "IQ..."
-		dir_iq_new="/home/root/primax/10.1.13.207/IQ_DB/db_new"
-		dir_iq_old="/home/root/primax/10.1.13.207/IQ_DB/db_origin"
+		echo "=== IQ DB Operation ==="
+		dir_iq_new="/mnt/reserved/10.1.13.207/IQ_DB/db_new"
+		dir_iq_old="/mnt/reserved/10.1.13.207/IQ_DB/db_origin"
 		dir_iq_dev="/usr/share/mtkcam/DataSet/SQLiteModule/db"
 
-		if [ "$3" = "new" ]; then
-			echo "update new DB..."
-			if [ "$4" = "os" ]; then
-				filePath="tuning_DB/imx214_mipi_raw"
-				fileName="ISP_param.db"
-				echo "OB & Shading DB : $filePath/$fileName ..."
-			elif [ "$4" = "ae" ]; then
-				filePath="ae"
-				fileName="ParameterDB_ae.db"
-				echo "ae DB : $filePath/$fileName ..."
-			elif [ "$4" = "awb" ]; then
-				filePath="awb"
-				fileName="ParameterDB_awb.db"
-				echo "awb DB : $filePath/$fileName ..."
-			elif [ "$4" = "tone" ]; then
-				filePath="tone"
-				fileName="ParameterDB_tone.db"
-				echo "tone DB..."
-			else
-				echo "not match..."
-			fi
-			fileReplace="$dir_iq_new/$filePath/$fileName"
+		copy_db() {
+			local src_dir="$1"
+			local file_path="$2"
+			local file_name="$3"
+			local src_file="$src_dir/$file_path/$file_name"
+			local dst_file="$dir_iq_dev/$file_path/$file_name"
 
+			echo "→ Copying: $file_name"
+			echo "   From: $src_file"
+			echo "   To:   $dst_file"
+			mkdir -p "$(dirname "$dst_file")"
+			cp -f "$src_file" "$dst_file" && sync
+
+			echo "   MD5 (src): $(md5sum "$src_file" | awk '{print $1}')"
+			echo "   MD5 (dst): $(md5sum "$dst_file" | awk '{print $1}')"
+			echo ""
+		}
+
+		if [ "$3" = "new" ]; then
+			echo "[Action] Update to NEW DB..."
+			src_base="$dir_iq_new"
 		elif [ "$3" = "old" ]; then
-			echo "restore old DB..."
-			if [ "$4" = "os" ]; then
-				filePath="tuning_DB/imx214_mipi_raw"
-				fileName="ISP_param.db"
-				echo "OB & Shading DB : $filePath/$fileName ..."
-				cp -f "$dir_iq_old/tuning_DB/imx214_mipi_raw/ISP_param.db" "$dir_iq_dev/tuning_DB/imx214_mipi_raw/ISP_param.db"
-			elif [ "$4" = "ae" ]; then
-				filePath="ae"
-				fileName="ParameterDB_ae.db"
-				echo "ae DB : $filePath/$fileName ..."
-			elif [ "$4" = "awb" ]; then
-				filePath="awb"
-				fileName="ParameterDB_awb.db"
-				echo "awb DB : $filePath/$fileName ..."
-			elif [ "$4" = "tone" ]; then
-				filePath="tone"
-				fileName="ParameterDB_tone.db"
-				echo "tone DB..."
-			else
-				echo "not match..."
-			fi
-			fileReplace="$dir_iq_old/$filePath/$fileName"
+			echo "[Action] Restore OLD DB..."
+			src_base="$dir_iq_old"
+		else
+			echo "❌ Invalid argument: must be 'new' or 'old'"
+			exit 1
 		fi
 
-		fileTarget="$dir_iq_dev/$filePath/$fileName"
-		echo "cp -f $fileReplace $fileTarget"
-		cp -f $fileReplace $fileTarget
-		md5sum $fileReplace
-		md5sum $fileTarget
-		sync
+		case "$4" in
+			os)
+				copy_db "$src_base" "tuning_DB/imx214_mipi_raw" "ISP_param.db"
+				;;
+			ae)
+				copy_db "$src_base" "ae" "ParameterDB_ae.db"
+				;;
+			awb)
+				copy_db "$src_base" "awb" "ParameterDB_awb.db"
+				;;
+			tone)
+				copy_db "$src_base" "tone" "ParameterDB_tone.db"
+				;;
+			all)
+				echo "[Action] Applying all DBs (os, ae, awb, tone)..."
+				copy_db "$src_base" "tuning_DB/imx214_mipi_raw" "ISP_param.db"
+				copy_db "$src_base" "ae" "ParameterDB_ae.db"
+				copy_db "$src_base" "awb" "ParameterDB_awb.db"
+				copy_db "$src_base" "tone" "ParameterDB_tone.db"
+				;;
+			*)
+				echo "❌ Invalid DB type: use one of [os | ae | awb | tone | all]"
+				exit 1
+				;;
+		esac
 
+		echo "✅ IQ DB operation complete."
 
 	elif [ "$2" = "kill" ]; then
 
@@ -506,37 +502,71 @@ if [ "$1" = "aic" ]; then
 	elif [ "$2" = "ftp" ]; then
 		echo "update files from ftp..."
 
-		# FTP details
+		# FTP/SSH details
 		ftp_user="gray.lin"
 		ftp_pass="Zx03310331"
 		ftp_host="10.1.13.207"
-		dir_ftp="Public/gray/aicamera"
+
+		dir_prj="aicamera"
+		if is_visionhub ; then
+			dir_prj="visionhub"
+		fi
+
+		dir_ftp="/mnt/disk2/FTP/Public/gray/$dir_prj"
 		dir_local="/mnt/reserved"
 		dir_exec=~/"primax"
 
-		cd $dir_local
 		pkill fw_watchdog.sh
 		pkill vision_box
 		pkill fw_daemon
-		
-		if [ "$3" = "sync" ]; then
 
-			if [ "$4" = "down" ]; then
-				# Sync from ftp server → aicamera
-				rsync -avz -e ssh gray.lin@$ftp_host:/mnt/disk2/FTP/$dir_ftp $dir_local/$ftp_host/
-			elif [ "$4" = "up" ]; then
-				# Then sync from aicamera → ftp server
-				rsync -avz -e ssh $dir_local/$ftp_host/ gray.lin@$ftp_host:/mnt/disk2/FTP/$dir_ftp
+		if [ "$3" = "sync" ]; then
+			cd "$dir_local" || exit 1
+			case "$4" in
+				up)
+					rsync -avz -e ssh "$dir_local/$ftp_host/" "$ftp_user@$ftp_host:$dir_ftp/"
+					;;
+				down)
+					cmd="rsync -avz -e ssh --exclude 'IQ_DB/' --exclude 'hikrobot/' $ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
+					if [ "$5" = "all" ]; then
+						cmd="rsync -avz -e ssh $ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
+					fi
+					echo "Running: $cmd"
+					eval $cmd
+					cp -f "$dir_local/$ftp_host/vision_box_DualCam" "$dir_exec"
+					cp -f "$dir_local/$ftp_host/fw_daemon" "$dir_exec"
+					chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
+					;;
+			esac
+
+		elif [ "$3" = "up" ]; then
+			file_to_upload="$4"
+			if [ -z "$file_to_upload" ]; then
+				echo "Error: No file specified to upload."
+				exit 1
 			fi
 
-		else
-			# all file in ftp folder to aicamera
-			wget --mirror --user="$ftp_user" --password="$ftp_pass" "ftp://$ftp_host/$dir_ftp" --no-parent --cut-dirs=3	
+			abs_path="$(readlink -f "$file_to_upload")"
+			if [ ! -f "$abs_path" ]; then
+				echo "Error: File not found: $abs_path"
+				exit 1
+			fi
 
-			cp -f $dir_local/$ftp_host/vision_box_DualCam $dir_exec
-			cp -f $dir_local/$ftp_host/fw_daemon $dir_exec
-			chmod 777 $dir_exec/vision_box_DualCam
-			chmod 777 $dir_exec/fw_daemon
+			echo "Uploading $abs_path → $ftp_host:$dir_ftp/"
+			rsync -avz -e ssh "$abs_path" "$ftp_user@$ftp_host:$dir_ftp/"
+
+		else
+			cd "$dir_local" || exit 1
+			dir_ftp="Public/gray/$dir_prj"
+			cmd="wget -m --cut-dirs=3 --no-parent --user=\"$ftp_user\" --password=\"$ftp_pass\" ftp://$ftp_host/$dir_ftp/ --exclude-directories=$dir_ftp/IQ_DB,$dir_ftp/hikrobot"
+			if [ "$3" = "all" ]; then
+				cmd="wget --mirror --cut-dirs=3 --no-parent --user=\"$ftp_user\" --password=\"$ftp_pass\" ftp://$ftp_host/$dir_ftp/"
+			fi
+			echo "Running: $cmd"
+			eval $cmd
+			cp -f "$dir_local/$ftp_host/vision_box_DualCam" "$dir_exec"
+			cp -f "$dir_local/$ftp_host/fw_daemon" "$dir_exec"
+			chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
 		fi
 
 	elif [ "$2" = "ftp2" ]; then
@@ -932,9 +962,16 @@ if [ "$1" = "chown" ]; then
 fi
 
 # tar
-if [ "$1" = "zip" ]; then
-    echo " zip $2 to $3.tar.gz =========="
-    tar -zcvf "$3.tar.gz" "$2"
+if [ "$1" = "zip" ] ; then
+	if [ "$4" = "bz2" ] ; then
+		echo ">>>> bz2 $2 to $3.tar.bz2"
+		echo "tar -jcvf $3.tar.bz2 $2"
+		tar -jcvf "$3.tar.bz2" "$2"
+	else
+		echo ">>>> zip $2 to $3.tar.gz"
+		echo "tar -zcvf $3.tar.gz $2"
+		tar -zcvf $3.tar.gz $2
+	fi
 fi
 if [ "$1" = "unzip" ] ; then
     echo ">>>> unzip file: $2"
@@ -990,6 +1027,45 @@ if [ "$1" = "ssh" ]; then
 	else
 		echo "param 2 not match"
 		exit -1
+	fi
+fi
+
+# scp
+if [ "$1" = "scp" ]; then
+
+	if [ "$2" = "up" ]; then
+
+		if [ "$3" = "mac" ]; then
+		# upload to MAC PC
+
+			file_to_upload="$4"
+			if [ -z "$file_to_upload" ]; then
+				echo "Error: No file specified to upload."
+				exit 1
+			fi
+
+			abs_path="$(readlink -f "$file_to_upload")"
+			if [ ! -f "$abs_path" ]; then
+				echo "Error: File not found: $abs_path"
+				exit 1
+			fi
+
+			# my MAC M2
+			host_PC="MAC206554.local"
+			user_PC="test"              # your Mac username
+			dir_PC="/Users/test/Downloads"
+
+			echo "Uploading $abs_path to $user_PC@$host_PC:$dir_PC ..."
+
+			# Use scp to transfer file
+			scp -o StrictHostKeyChecking=no "$abs_path" "${user_PC}@${host_PC}:${dir_PC}/"
+			if [ $? -eq 0 ]; then
+				echo "Upload successful!"
+			else
+				echo "Upload failed!"
+				exit 1
+			fi
+		fi
 	fi
 fi
 

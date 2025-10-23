@@ -35,6 +35,7 @@ done
 
 echo "PROJ_ROOT:"$PROJ_ROOT
 echo "BUILD_DIR:"$BUILD_DIR
+echo "project_string:"$project_string
 
 if [ -f ~/tmp/p1 ]; then
 	echo "p1:$p1"
@@ -180,12 +181,11 @@ if [ "$1" = "aic" ] ; then
 		dir_ftp="/mnt/disk2/FTP/Public/gray"
 
 		targetPlatform="armv8a-poky-linux"
-		# targetPlatform="genio_700_evk-poky-linux"
-
 		dir_work="$PROJ_ROOT/build/tmp/work/$targetPlatform/primax/1.0-r0"
+
 		cp -f $dir_work/temp/log.do_compile $dir_ftp/
-		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam "$dir_ftp/aicamera/"
-		cp -f $dir_work/primax-1.0/src/Test_C_yocto/fw_daemon "$dir_ftp/aicamera/"
+		cp -f $dir_work/primax-1.0/src/vision_box_DualCam/vision_box_DualCam "$dir_ftp/$project_string/"
+		cp -f $dir_work/primax-1.0/src/Test_C_yocto/fw_daemon "$dir_ftp/$project_string/"
 
 	else
 		primax_version_file="$PROJ_ROOT/src/meta-primax/recipes-primax/primax-version/files/primax_version"
@@ -422,24 +422,38 @@ if [ "$1" = "sys" ] ; then
 	fi
 fi
 
-# copy to
-if [ "$1" = "cp" ] ; then
+# cp
+if [ "$1" = "cp" ]; then
+    if [ -z "$2" ] || [ -z "$3" ]; then
+        echo "Usage: $0 cp <target> <file/dir>"
+        exit 1
+    fi
 
-	if [ "$2" = "h" ] ; then
-		path="$HOME"
-	elif [ "$2" = "ftp" ] ; then
-		path="/mnt/disk2/FTP/Public/gray"
-	elif [ "$2" = "ftp2" ] ; then
-		path="/mnt/disk2/FTP/Public/gray/privateImage"
-	elif [ "$2" = "aic" ] ; then
-		path="/mnt/disk2/FTP/Public/gray/aicamera"
-	elif [ "$2" = "ccm" ] ; then
-		path="/mnt/disk2/FTP/Public/gray/aicamera/ccm_db"
-	fi
-	echo "cp -rf $3 $path"
-	cp -rf $3 $path 
+    case "$2" in
+        h)     path="$HOME";   use_basename=1 ;;
+        ftp)   path="/mnt/disk2/FTP/Public/gray";   use_basename=1 ;;
+        ftppi)  path="/mnt/disk2/FTP/Public/gray/privateImage"; use_basename=1 ;;
+        ftpaic)   path="/mnt/disk2/FTP/Public/gray/aicamera"; use_basename=1 ;;
+		ftpvh)   path="/mnt/disk2/FTP/Public/gray/visionhub"; use_basename=1 ;;
+        p1)    path="$p1"; use_basename=0 ;;
+        p2)    path="$p2"; use_basename=0 ;;
+        *)
+            echo "Unknown target: $2"
+            exit 1
+            ;;
+    esac
+
+    if [ "$use_basename" -eq 1 ]; then
+        fname=$(basename "$3")
+        echo "cp -rf \"$3\" \"$path/$fname\""
+        cp -rf "$3" "$path/$fname"
+    else
+        echo "cp -rf \"$3\" \"$path/$3\""
+        cp -rf "$3" "$path/$3"
+    fi
 fi
 
+# ps
 if [ "$1" = "ps" ]; then
 	if [ "$2" != "" ]; then
 		echo "ps aux | grep $2"
@@ -556,14 +570,14 @@ if [ "$1" = "user" ] ; then
 
 		if [ -n "$3" ] ; then
 			# make a yocto build dir & user link
-			buildfolder="/mnt/disk2/yocto_build_folder"
-			mkdir $buildfolder/$3
+			buildfolder="/mnt/disk3/yocto_build"
+			mkdir -p $buildfolder/$3
 			cp $buildfolder/misc/step* $buildfolder/$3
 			sudo chown $3:$mainGroup $buildfolder/$3
 			sudo chown $3:$mainGroup $buildfolder/$3/step*
 			cd /home/$3
-			sudo ln -s /mnt/disk2/yocto_build_folder/$3 yocto_build_folder
-			sudo chown $3:$mainGroup yocto_build_folder
+			sudo ln -s $buildfolder/$3 yocto_build
+			sudo chown $3:$mainGroup yocto_build
 		else 
 			echo "param 3 needed"
 		fi
@@ -574,6 +588,9 @@ if [ "$1" = "user" ] ; then
 			# make a yocto build dir & user link
 			buildfolder="/mnt/disk2/yocto_build_folder"
 			sudo rm -r $buildfolder/$3
+			buildfolder="/mnt/disk3/yocto_build"
+			sudo rm -r $buildfolder/$3
+
 		else 
 			echo "param 3 needed"
 		fi
@@ -612,9 +629,15 @@ fi
 
 # tar
 if [ "$1" = "zip" ] ; then
+	if [ "$4" = "bz2" ] ; then
+		echo ">>>> bz2 $2 to $3.tar.bz2"
+		echo "tar -jcvf $3.tar.bz2 $2"
+		tar -jcvf "$3.tar.bz2" "$2"
+	else
 		echo ">>>> zip $2 to $3.tar.gz"
 		echo "tar -zcvf $3.tar.gz $2"
 		tar -zcvf $3.tar.gz $2
+	fi
 fi
 if [ "$1" = "unzip" ] ; then
     echo ">>>> unzip file: $2"
@@ -1116,12 +1139,73 @@ fi
 
 # file / folder size
 if [ "$1" == "size" ] ; then
-	echo "du -sh $2"
-	sudo du -sh $2
+	if [ "$3" = "d" ] ; then
+		echo "sudo du -h --max-depth=1 $2 | sort -h" 
+		sudo du -h --max-depth=1 $2 | sort -h
+	else
+		echo "du -sh --no-dereference $2"
+		sudo du --no-dereference -sh $2
+	fi
 fi
 
 # tree -L3
 if [ "$1" == "tree" ] ; then
 	echo "tree -L 3 $2"
 	tree -L 3 $2
+fi
+
+# diff
+if [ "$1" == "diff" ] ; then
+	echo "compare file:$2"
+	diff $p1/$2 $p2/$2
+fi
+
+backup_build() {
+    local BASE_DIR="/mnt/disk2/FTP/Public/Jenkins"
+    local SRC_FOLDER="$1"
+    local DST_DIR="$BASE_DIR/backup_images/$SRC_FOLDER"
+    local SRC_PATH="$BASE_DIR/$SRC_FOLDER"
+
+    if [ -z "$SRC_FOLDER" ]; then
+        echo "❌ Usage: backup_latest_folder <SRC_FOLDER>"
+        return 1
+    fi
+
+    if [ ! -d "$SRC_PATH" ]; then
+        echo "❌ Source folder not found: $SRC_PATH"
+        return 1
+    fi
+
+    # Find newest subfolder
+    local NEWEST_FOLDER
+    NEWEST_FOLDER=$(ls -td "$SRC_PATH"/*/ 2>/dev/null | head -n 1)
+
+    if [ -z "$NEWEST_FOLDER" ]; then
+        echo "⚠️  No subfolders found in $SRC_PATH"
+        return 1
+    fi
+
+    local FOLDER_NAME
+    FOLDER_NAME=$(basename "$NEWEST_FOLDER")
+
+    echo "📂 Newest folder: $FOLDER_NAME"
+
+    mkdir -p "$DST_DIR"
+
+    # Skip if already exists in backup
+    if [ -d "$DST_DIR/$FOLDER_NAME" ]; then
+        echo "⚠️  Folder already exists in backup: $DST_DIR/$FOLDER_NAME"
+        return 0
+    fi
+
+    echo "➡️  Copying $SRC_PATH/$FOLDER_NAME → $DST_DIR/$FOLDER_NAME ..."
+    cp -a "$SRC_PATH/$FOLDER_NAME" "$DST_DIR/"
+
+    echo "✅ Backup complete!"
+}
+
+if [ "$1" == "bb" ] ; then
+	echo "backup_builds"
+	backup_build "aicamera"
+	backup_build "visionhub"
 fi

@@ -31,10 +31,16 @@ alias d-4='cd ../../../..'
 alias djks='cd /mnt/disk2/FTP/Public/Jenkins'
 alias dftp='cd /mnt/disk2/FTP/Public/gray'
 alias dftpaic='cd /mnt/disk2/FTP/Public/gray/aicamera'
-alias dftpccm='cd /mnt/disk2/FTP/Public/gray/aicamera/ccm_db'
-alias dg2='cd /home/gray.lin/C_AI-Camera-G2_FW_Yocto'                                               # dir AI Camera G2
-alias dplus='cd /mnt/disk2/yocto_build_folder/gray/ai_camera_plus_box'                              # dir AI Camera Plus Box                               # dir Vision Hub
-alias dvh='cd /mnt/disk2/yocto_build_folder/gray/vision_hub_plus'                                   # dir Vision Hub
+alias dftpvh='cd /mnt/disk2/FTP/Public/gray/visionhub'
+alias dg2='cd /home/gray.lin/C_AI-Camera-G2_FW_Yocto'
+dpaic() {
+    cd /mnt/disk3/yocto_build/gray.lin/C_AI-Camera-Plus_FW_Yocto/ || return
+    export project_string="aicamera"
+}
+dpvh() {
+    cd /mnt/disk3/yocto_build/gray.lin/C_Vision-Hub-Plus_FW_Yocto/ || return
+    export project_string="visionhub"
+}
 
 # dir yocto related
 alias dytb='cd /mnt/disk2/yocto_build_folder/gray'                                                  # dir yocto build                                   # dir home
@@ -42,6 +48,7 @@ alias dpr='cd $PROJ_ROOT'                                                       
 alias dpb='cd $PROJ_ROOT/build'                                                                     # dir project build path
 alias dps='cd $PROJ_ROOT/src'                                                                       # dir project src path
 alias dpi='cd $BUILD_DIR/tmp/deploy/images/genio-700-evk'                                           # dir project build image path
+alias dpi2='cd $BUILD_DIR/tmp/deploy/images/00.0B.04'                                               # dir project packed OTA image path
 alias dppmx='cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax'                                   # dir project primax
 alias dppmxsrc='cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/src'           # dir project primax src
 alias dppmxsys='cd $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/sysroot'       # dir project primax sysroot
@@ -80,7 +87,6 @@ alias env3='export BUILD_DIR=$PROJ_ROOT/build'
 alias env_mtk='env1 && env2 && env3 && MACHINE=genio-700-evk'
 alias spe='git branch && spp && env_mtk'                                    # set project env
 alias spe2='spp && env_mtk'                                                 # set project env
-#alias bCommit='echo "$(git rev-parse --abbrev-ref HEAD) - $(git rev-parse HEAD)" > $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/sysroot/home/root/primax/misc/build_commit'
 alias bCommit='echo "$(git rev-parse HEAD)" > $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/sysroot/home/root/primax/misc/build_commit'
 alias bDate='echo "$(date "+%Y%m%d-%H%M")" > $PROJ_ROOT/src/meta-primax/recipes-primax/primax/files/primax-1.0/sysroot/home/root/primax/misc/build_date'
 alias ytp='dpr && ./pack_image.bash'
