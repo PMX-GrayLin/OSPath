@@ -1,13 +1,9 @@
 @echo off
-REM ===============================
-REM Batch Script Argument Printer
-REM ===============================
-
-REM Change to script directory (uncomment if needed)
-REM cd /d "%~dp0"
-
 setlocal enabledelayedexpansion
 
+:: -----------------------------
+:: Parse all command-line args
+:: -----------------------------
 set count=0
 for %%A in (%*) do (
     set /a count+=1
@@ -18,54 +14,67 @@ for %%A in (%*) do (
 echo.
 echo Total arguments: !count!
 
-REM Example usage of arg1 / arg2 after loop
+:: -----------------------------
+:: IQ Command Section
+:: Usage: script.bat iq s1|s2|ob1|ob2
+:: -----------------------------
 if /i "!arg1!"=="iq" (
     set "base_dir=D:\project\MediaToolKit_IoTYocto_240522"
 
     if /i "!arg2!"=="s1" (
-        cd /d "%base_dir%"
+        echo [IQ:S1] Running setup...
+        cd /d "!base_dir!"
         call 01_cct_setup.bat
         call 02_NDD_preview_8395.bat
     )
 
     if /i "!arg2!"=="s2" (
-        cd /d "%base_dir%\svn\install"
+        echo [IQ:S2] Running install...
+        cd /d "!base_dir!\svn\install"
         call 4.0.MTKToolCustom.bat
     )
 
     if /i "!arg2!"=="ob1" (
-        cd /d "%base_dir%\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
+        echo [IQ:OB1] Init ISP7...
+        cd /d "!base_dir!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
         call 01_init_ISP7_IoTYocto.bat
     )
+
     if /i "!arg2!"=="ob2" (
-        cd /d "%base_dir%\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
+        echo [IQ:OB2] Dump raw...
+        cd /d "!base_dir!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
         call 03_Dump_raw_minsatgain_ISP7_IoTYocto.bat
     )
-
-
 )
 
 endlocal
 
+:: -----------------------------
+:: STM Section (after endlocal)
+:: -----------------------------
+set "live_current=C:\Users\gray.lin\STM32CubeIDE\workspace_1.13.2\.metadata\.plugins\com.st.stm32cube.ide.mcu.livewatch\saved_expr.dat"
+set "live_backup=D:\prj\STM\liveview\saved_expr_%4%.dat"
 
-set live_current="C:\Users\gray.lin\STM32CubeIDE\workspace_1.13.2\.metadata\.plugins\com.st.stm32cube.ide.mcu.livewatch\saved_expr.dat"
-set live_backup="D:\prj\STM\liveview\saved_expr_%arg4%.dat"
-if "%arg1%"=="stm" (
-    if "%arg2%"=="live" (
-        if "%arg3%"=="load" (
+if /i "%1"=="stm" (
+    if /i "%2"=="live" (
+        if /i "%3"=="load" (
+            echo [STM] Loading backup...
             copy "%live_backup%" "%live_current%"
         )
 
-        if "%arg3%"=="save" (
+        if /i "%3"=="save" (
+            echo [STM] Saving backup...
             copy "%live_current%" "%live_backup%"
         )
     )
-) 
-
-if "%arg1%"=="code" (
-
-    if "%arg2%"=="stmlive" (
-        code C:\Users\gray.lin\STM32CubeIDE\workspace_1.13.2\.metadata\.plugins\com.st.stm32cube.ide.mcu.livewatch\saved_expr.dat
-    )
 )
 
+:: -----------------------------
+:: VSCode Section
+:: -----------------------------
+if /i "%1"=="code" (
+    if /i "%2"=="stmlive" (
+        echo [CODE] Opening saved_expr.dat in VSCode...
+        code "C:\Users\gray.lin\STM32CubeIDE\workspace_1.13.2\.metadata\.plugins\com.st.stm32cube.ide.mcu.livewatch\saved_expr.dat"
+    )
+)
