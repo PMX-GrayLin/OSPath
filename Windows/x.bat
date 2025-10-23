@@ -20,16 +20,27 @@ echo Total arguments: !count!
 
 REM Example usage of arg1 / arg2 after loop
 if /i "!arg1!"=="iq" (
+    set base_dir="D:\project\MediaToolKit_IoTYocto_240522"
     if /i "!arg2!"=="s1" (
-        cd /d "D:\project\MediaToolKit_IoTYocto_240522"
+        cd /d "%base_dir%"
         call 01_cct_setup.bat
         call 02_NDD_preview_8395.bat
     )
 
     if /i "!arg2!"=="s2" (
-        cd "D:\project\MediaToolKit_IoTYocto_240522\svn\install"
+        cd /d "%base_dir%\svn\install"
         call 4.0.MTKToolCustom.bat
     )
+
+    if /i "!arg2!"=="ob1" (
+        cd /d "%base_dir%\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
+        call 01_init_ISP7_IoTYocto.bat
+    )
+    if /i "!arg2!"=="ob2" (
+        cd /d "%base_dir%\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
+        call 03_Dump_raw_minsatgain_ISP7_IoTYocto.bat
+    )
+
 
 )
 
