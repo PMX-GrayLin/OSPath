@@ -52,7 +52,6 @@ if /i "!arg1!"=="iq" (
         python3 BatchRun.py
     )
 
-    D:\project\MediaToolKit_IoTYocto_240522\Packedword2Raw_IoT_v250307
 )
 
 endlocal
