@@ -45,6 +45,14 @@ if /i "!arg1!"=="iq" (
         cd /d "!base_dir!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
         call 03_Dump_raw_ob_ISP7_IoTYocto.bat
     )
+
+    if /i "!arg2!"=="2raw" (
+        echo [IQ:OB2] convert packed_word to raw...
+        cd /d "!base_dir!\Packedword2Raw_IoT_v250307
+        python3 BatchRun.py
+    )
+
+    D:\project\MediaToolKit_IoTYocto_240522\Packedword2Raw_IoT_v250307
 )
 
 endlocal
