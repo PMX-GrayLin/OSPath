@@ -1204,7 +1204,7 @@ backup_build() {
     echo "✅ Backup complete!"
 }
 
-if [ "$1" == "bb" ] ; then
+if [ "$1" == "bpb" ] ; then
 	echo "backup_builds"
 	backup_build "aicamera"
 	backup_build "visionhub"
