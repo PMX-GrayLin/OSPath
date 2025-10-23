@@ -43,7 +43,7 @@ if /i "!arg1!"=="iq" (
     if /i "!arg2!"=="ob2" (
         echo [IQ:OB2] Dump raw...
         cd /d "!base_dir!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
-        call 03_Dump_raw_minsatgain_ISP7_IoTYocto.bat
+        call 03_Dump_raw_ob_ISP7_IoTYocto.bat
     )
 )
 
