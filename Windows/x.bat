@@ -20,7 +20,8 @@ echo Total arguments: !count!
 
 REM Example usage of arg1 / arg2 after loop
 if /i "!arg1!"=="iq" (
-    set base_dir="D:\project\MediaToolKit_IoTYocto_240522"
+    set "base_dir=D:\project\MediaToolKit_IoTYocto_240522"
+
     if /i "!arg2!"=="s1" (
         cd /d "%base_dir%"
         call 01_cct_setup.bat
