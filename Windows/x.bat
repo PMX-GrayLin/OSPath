@@ -1,4 +1,4 @@
-@REM @echo off
+@echo off
 REM ===============================
 REM Batch Script Argument Printer
 REM ===============================
