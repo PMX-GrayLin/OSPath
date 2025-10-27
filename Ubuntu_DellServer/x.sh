@@ -627,30 +627,37 @@ if [ "$1" = "chown" ] ; then
 	fi
 fi
 
-# tar
 if [ "$1" = "zip" ] ; then
 	if [ "$4" = "bz2" ] ; then
 		echo ">>>> bz2 $2 to $3.tar.bz2"
 		echo "tar -jcvf $3.tar.bz2 $2"
 		tar -jcvf "$3.tar.bz2" "$2"
+	elif [ "$4" = "zip" ] ; then
+		echo ">>>> zip $2 to $3.zip"
+		echo "zip -r $3.zip $2"
+		zip -r "$3.zip" "$2"
 	else
-		echo ">>>> zip $2 to $3.tar.gz"
+		echo ">>>> gzip $2 to $3.tar.gz"
 		echo "tar -zcvf $3.tar.gz $2"
-		tar -zcvf $3.tar.gz $2
+		tar -zcvf "$3.tar.gz" "$2"
 	fi
 fi
-if [ "$1" = "unzip" ] ; then
-    echo ">>>> unzip file: $2"
 
-    if [[ "$2" == *.tar.gz || "$2" == *.tgz ]]; then
-		echo "tar -zxvf "$2""
-        tar -zxvf "$2"
-    elif [[ "$2" == *.tar.bz2 || "$2" == *.tbz || "$2" == *.tbz2 ]]; then
-		echo "tar -jxvf "$2""
-        tar -jxvf "$2"
-    else
-        echo "Unsupported file format: $2"
-    fi
+if [ "$1" = "unzip" ] ; then
+	echo ">>>> unzip file: $2"
+
+	if [[ "$2" == *.tar.gz || "$2" == *.tgz ]]; then
+		echo "tar -zxvf \"$2\""
+		tar -zxvf "$2"
+	elif [[ "$2" == *.tar.bz2 || "$2" == *.tbz || "$2" == *.tbz2 ]]; then
+		echo "tar -jxvf \"$2\""
+		tar -jxvf "$2"
+	elif [[ "$2" == *.zip ]]; then
+		echo "unzip \"$2\""
+		unzip "$2"
+	else
+		echo "Unsupported file format: $2"
+	fi
 fi
 
 # chmod
