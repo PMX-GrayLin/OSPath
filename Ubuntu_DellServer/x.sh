@@ -1135,6 +1135,7 @@ fi
 
 # find content
 if [ "$1" == "grep" ] ; then
+	echo "grep -r $2 ."
 	grep -r $2 .
 fi
 
