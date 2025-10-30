@@ -45,6 +45,12 @@ if /i "!arg1!"=="iq" (
         cd /d "!base_dir!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
         call 03_Dump_raw_ob_ISP7_IoTYocto.bat
     )
+    if /i "!arg2!"=="iso" (
+        echo [IQ:OB2] Dump raw...
+        cd /d "!base_dir!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
+        call 03_Dump_raw_miniso_ISP7_IoTYocto.bat
+    )
+
 
     if /i "!arg2!"=="2raw" (
         echo [IQ:OB2] convert packed_word to raw...
