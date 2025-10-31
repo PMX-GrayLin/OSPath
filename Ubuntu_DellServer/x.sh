@@ -627,6 +627,7 @@ if [ "$1" = "chown" ] ; then
 	fi
 fi
 
+# zip
 if [ "$1" = "zip" ] ; then
 	if [ "$4" = "bz2" ] ; then
 		echo ">>>> bz2 $2 to $3.tar.bz2"
@@ -642,7 +643,6 @@ if [ "$1" = "zip" ] ; then
 		tar -zcvf "$3.tar.gz" "$2"
 	fi
 fi
-
 if [ "$1" = "unzip" ] ; then
 	echo ">>>> unzip file: $2"
 
