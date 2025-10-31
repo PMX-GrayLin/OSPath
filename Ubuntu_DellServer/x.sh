@@ -1164,8 +1164,8 @@ fi
 
 # diff
 if [ "$1" == "diff" ] ; then
-	echo "compare file:$2"
-	diff $p1/$2 $p2/$2
+	echo "diff -rq $2 $3"
+	diff -rq $2 $3
 fi
 
 backup_build() {
