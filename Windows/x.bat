@@ -21,36 +21,40 @@ echo Total arguments: !count!
 if /i "!arg1!"=="iq" (
     set "base_dir=D:\project\MediaToolKit_IoTYocto_240522"
 
-    if /i "!arg2!"=="s1" (
-        echo [IQ:S1] Running setup...
+    if /i "!arg2!"=="init" (
+        echo Running init batch...
         cd /d "!base_dir!"
         call 01_cct_setup.bat
         call 02_NDD_preview_8395.bat
     )
 
-    if /i "!arg2!"=="s2" (
-        echo [IQ:S2] Running install...
+    if /i "!arg2!"=="rui" (
+        echo Running ui...
         cd /d "!base_dir!\svn\install"
         call 4.0.MTKToolCustom.bat
     )
 
-    if /i "!arg2!"=="ob1" (
-        echo [IQ:OB1] Init ISP7...
+    if /i "!arg2!"=="drinit" (
+        echo Dump raw init...
         cd /d "!base_dir!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
         call 01_init_ISP7_IoTYocto.bat
     )
 
-    if /i "!arg2!"=="ob2" (
-        echo [IQ:OB2] Dump raw...
+    if /i "!arg2!"=="drob" (
+        echo Dump raw ob...
         cd /d "!base_dir!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
         call 03_Dump_raw_ob_ISP7_IoTYocto.bat
     )
-    if /i "!arg2!"=="iso" (
-        echo [IQ:OB2] Dump raw...
+    if /i "!arg2!"=="driso" (
+        echo Dump raw iso...
         cd /d "!base_dir!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
         call 03_Dump_raw_miniso_ISP7_IoTYocto.bat
     )
-
+    if /i "!arg2!"=="drsat" (
+        echo Dump raw saturation...
+        cd /d "!base_dir!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
+        call 03_Dump_raw_minsatgain_ISP7_IoTYocto.bat
+    )
 
     if /i "!arg2!"=="2raw" (
         echo [IQ:OB2] convert packed_word to raw...
