@@ -204,6 +204,15 @@ if [ "$1" = "aic" ]; then
 			echo "========== fw_printenv | grep eth =========="
 			fw_printenv | grep --color=auto eth
 
+		elif [ "$3" = "wifi" ]; then
+			echo "wifi..."
+			echo "=== Wi-Fi Link Info ==="
+			echo "iw dev wlan0 link"
+			iw dev wlan0 link
+			echo "=== IP Info ==="
+			echo "ip addr show wlan0"
+			ip addr show wlan0
+
 		elif [ "$3" = "i2c" ]; then
 			echo "ls /dev/i2c-*"
 			ls /dev/i2c-*
@@ -235,7 +244,7 @@ if [ "$1" = "aic" ]; then
 		elif [ "$3" = "rtc" ]; then
 			echo "hwclock -r -f /dev/rtc1"
 			hwclock -r -f /dev/rtc1
-			
+
 		else
 			echo "check version... ( cat /etc/primax_version )"
 			cat /etc/primax_version
