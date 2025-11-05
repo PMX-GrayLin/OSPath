@@ -232,6 +232,10 @@ if [ "$1" = "aic" ]; then
 			echo "arv-tool-0.8 control DeviceUserID Width Height ExposureAuto ExposureTime GainAuto Gain TriggerMode TriggerSource TriggerActivation TriggerDelay LineDebouncerTime LineSelector=Line1 LineInverter LineSource StrobeEnable StrobeLineDuration StrobeLineDelay StrobeLinePreDelay"
 			arv-tool-0.8 control DeviceUserID Width Height ExposureAuto ExposureTime GainAuto Gain TriggerMode TriggerSource TriggerActivation TriggerDelay LineDebouncerTime LineSelector=Line1 LineInverter LineSource StrobeEnable StrobeLineDuration StrobeLineDelay StrobeLinePreDelay
 
+		elif [ "$3" = "rtc" ]; then
+			echo "hwclock -r -f /dev/rtc1"
+			hwclock -r -f /dev/rtc1
+			
 		else
 			echo "check version... ( cat /etc/primax_version )"
 			cat /etc/primax_version
