@@ -470,7 +470,8 @@ if [ "$1" = "aic" ]; then
 			echo "[Action] Restore OLD DB..."
 			src_base="$dir_iq_old"
 		elif [ "$3" = "unzip" ]; then
-			echo "[Action] update dbs in folder..."
+			echo "[Action] update DBs in folder..."
+			rm -rf "$dir_iq/db_new"
 			unzip "$dir_iq/db_new.zip"
 			mv "$dir_iq/db/" "$dir_iq/db_new"
 			exit 0
