@@ -22,11 +22,11 @@ DellServer_ip="10.1.13.207"
 AICamera_ip="192.168.1.65"
 # AICamera_ip="192.168.2.99"
 # AICamera_ip="aicamera-d14b"
-AICamera_ip="aicamera-d14b.local"
-# AICamera_ip="aicamera-0687.local"
+# AICamera_ip="aicamera-d14b.local"
+AICamera_ip="aicamera-0687.local"
 # AICamera_ip="visionhub-d14b"
 # AICamera_ip="visionhub-d14b.local"
-# AICamera_ip="192.168.1.68"
+# AICamera_ip="192.168.1.224"
 
 # nfs
 if [ "$1" == "nfs" ] ; then

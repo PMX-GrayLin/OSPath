@@ -440,8 +440,9 @@ if [ "$1" = "aic" ]; then
 
 	elif [ "$2" = "iq" ]; then
 		echo "=== IQ DB Operation ==="
-		dir_iq_new="/mnt/reserved/10.1.13.207/IQ_DB/db_new"
-		dir_iq_old="/mnt/reserved/10.1.13.207/IQ_DB/db_origin"
+		dir_iq="/mnt/reserved/10.1.13.207/IQ_DB"
+		dir_iq_new="$dir_iq/db_new"
+		dir_iq_old="$dir_iq/db_origin"
 		dir_iq_dev="/usr/share/mtkcam/DataSet/SQLiteModule/db"
 
 		copy_db() {
@@ -468,6 +469,9 @@ if [ "$1" = "aic" ]; then
 		elif [ "$3" = "old" ]; then
 			echo "[Action] Restore OLD DB..."
 			src_base="$dir_iq_old"
+		elif [ "$3" = "unzip" ]; then
+			echo "[Action] update dbs in folder..."
+			unzip "$dir_iq/db_new.zip" -d "$dir_iq/"
 		else
 			echo "❌ Invalid argument: must be 'new' or 'old'"
 			exit 1
