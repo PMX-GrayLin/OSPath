@@ -472,6 +472,7 @@ if [ "$1" = "aic" ]; then
 		elif [ "$3" = "unzip" ]; then
 			echo "[Action] update dbs in folder..."
 			unzip "$dir_iq/db_new.zip"
+			mv "$dir_iq/db/" "$dir_iq/db_new"
 			exit 0
 		else
 			echo "❌ Invalid argument: must be 'new' or 'old'"
