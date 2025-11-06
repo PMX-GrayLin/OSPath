@@ -473,7 +473,7 @@ if [ "$1" = "aic" ]; then
 			echo "[Action] update DBs in folder..."
 			rm -rf "$dir_iq/db_new"
 			unzip "$dir_iq/db_new.zip"
-			mv "$dir_iq/db/" "$dir_iq/db_new"
+			mv "$dir_iq/db" "$dir_iq/db_new"
 			exit 0
 		else
 			echo "❌ Invalid argument: must be 'new' or 'old'"
