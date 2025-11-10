@@ -204,6 +204,15 @@ if [ "$1" = "aic" ]; then
 			echo "========== fw_printenv | grep eth =========="
 			fw_printenv | grep --color=auto eth
 
+		elif [ "$3" = "wifi" ]; then
+			echo "wifi..."
+			echo "=== Wi-Fi Link Info ==="
+			echo "iw dev wlan0 link"
+			iw dev wlan0 link
+			echo "=== IP Info ==="
+			echo "ip addr show wlan0"
+			ip addr show wlan0
+
 		elif [ "$3" = "i2c" ]; then
 			echo "ls /dev/i2c-*"
 			ls /dev/i2c-*
@@ -231,6 +240,10 @@ if [ "$1" = "aic" ]; then
 		elif [ "$3" = "gige" ]; then
 			echo "arv-tool-0.8 control DeviceUserID Width Height ExposureAuto ExposureTime GainAuto Gain TriggerMode TriggerSource TriggerActivation TriggerDelay LineDebouncerTime LineSelector=Line1 LineInverter LineSource StrobeEnable StrobeLineDuration StrobeLineDelay StrobeLinePreDelay"
 			arv-tool-0.8 control DeviceUserID Width Height ExposureAuto ExposureTime GainAuto Gain TriggerMode TriggerSource TriggerActivation TriggerDelay LineDebouncerTime LineSelector=Line1 LineInverter LineSource StrobeEnable StrobeLineDuration StrobeLineDelay StrobeLinePreDelay
+
+		elif [ "$3" = "rtc" ]; then
+			echo "hwclock -r -f /dev/rtc1"
+			hwclock -r -f /dev/rtc1
 
 		else
 			echo "check version... ( cat /etc/primax_version )"
@@ -427,8 +440,9 @@ if [ "$1" = "aic" ]; then
 
 	elif [ "$2" = "iq" ]; then
 		echo "=== IQ DB Operation ==="
-		dir_iq_new="/mnt/reserved/10.1.13.207/IQ_DB/db_new"
-		dir_iq_old="/mnt/reserved/10.1.13.207/IQ_DB/db_origin"
+		dir_iq="/mnt/reserved/10.1.13.207/IQ_DB"
+		dir_iq_new="$dir_iq/db_new"
+		dir_iq_old="$dir_iq/db_origin"
 		dir_iq_dev="/usr/share/mtkcam/DataSet/SQLiteModule/db"
 
 		copy_db() {
@@ -455,6 +469,19 @@ if [ "$1" = "aic" ]; then
 		elif [ "$3" = "old" ]; then
 			echo "[Action] Restore OLD DB..."
 			src_base="$dir_iq_old"
+		elif [ "$3" = "unzip" ]; then
+			echo "[Action] update DBs in folder..."
+
+			rm -rf "$dir_iq/db_new"
+			# mkdir -p "$dir_iq/db_new"
+
+			# Unzip safely, converting backslashes to slashes and overwriting automatically
+			unzip -o "$dir_iq/db_new.zip"
+			# unzip -o "$dir_iq/db_new.zip" -d "$dir_iq/db_new"
+			mv "$dir_iq/db" "$dir_iq/db_new"
+
+			echo "[Info] Extraction completed to $dir_iq/db_new"
+			exit 0
 		else
 			echo "❌ Invalid argument: must be 'new' or 'old'"
 			exit 1
