@@ -26,7 +26,7 @@ if /i "!arg1!"=="iq" (
         cd /d "!base_dir!"
         call 01_cct_setup.bat
         call 02_NDD_preview_8395.bat
-        echo to Run video streaming device...
+        echo to Run Streaming on device...
     )
 
     if /i "!arg2!"=="rui" (
@@ -39,7 +39,7 @@ if /i "!arg1!"=="iq" (
         echo Dump raw init...
         cd /d "!base_dir!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
         call 01_init_ISP7_IoTYocto.bat
-        echo to Run video streaming device...
+        echo to Run Streaming on device...
     )
 
     if /i "!arg2!"=="drob" (
