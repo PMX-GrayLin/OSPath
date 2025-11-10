@@ -26,6 +26,7 @@ if /i "!arg1!"=="iq" (
         cd /d "!base_dir!"
         call 01_cct_setup.bat
         call 02_NDD_preview_8395.bat
+        echo to Run video streaming device...
     )
 
     if /i "!arg2!"=="rui" (
@@ -38,6 +39,7 @@ if /i "!arg1!"=="iq" (
         echo Dump raw init...
         cd /d "!base_dir!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
         call 01_init_ISP7_IoTYocto.bat
+        echo to Run video streaming device...
     )
 
     if /i "!arg2!"=="drob" (
@@ -60,6 +62,30 @@ if /i "!arg1!"=="iq" (
         echo [IQ:OB2] convert packed_word to raw...
         cd /d "!base_dir!\Packedword2Raw_IoT_v250307
         python BatchRun.py
+    )
+
+    if /i "!arg2!"=="ftp" (
+        echo Preparing to upload DB to FTP...
+        cd /d "!base_dir!\svn\install\DataSet\SQLiteModule"
+
+        echo Zipping db folder...
+        powershell -Command "Compress-Archive -Path 'db' -DestinationPath 'db_new.zip' -Force"
+
+        echo Uploading db_new.zip to FTP server...
+        > "%temp%\ftp_commands.txt" (
+            echo open 10.1.13.207
+            echo gray.lin
+            echo Zx03310331
+            echo binary
+            echo cd /Public/gray/aicamera/IQ_DB/
+            echo put db_new.zip
+            echo bye
+        )
+
+        ftp -s:"%temp%\ftp_commands.txt"
+        del "%temp%\ftp_commands.txt"
+
+        echo Upload complete.
     )
 
 )
