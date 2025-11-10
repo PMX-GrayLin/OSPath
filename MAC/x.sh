@@ -26,7 +26,7 @@ AICamera_ip="192.168.1.65"
 AICamera_ip="aicamera-0687.local"
 # AICamera_ip="visionhub-d14b"
 # AICamera_ip="visionhub-d14b.local"
-# AICamera_ip="192.168.1.224"
+# AICamera_ip="192.168.1.45"
 
 # nfs
 if [ "$1" == "nfs" ] ; then
