@@ -476,8 +476,7 @@ if [ "$1" = "aic" ]; then
 			# mkdir -p "$dir_iq/db_new"
 
 			# Unzip safely, converting backslashes to slashes and overwriting automatically
-			unzip -o "$dir_iq/db_new.zip"
-			# unzip -o "$dir_iq/db_new.zip" -d "$dir_iq/db_new"
+			unzip -o "$dir_iq/db_new.zip" -d "$dir_iq"
 			mv "$dir_iq/db" "$dir_iq/db_new"
 
 			echo "[Info] Extraction completed to $dir_iq/db_new"
