@@ -473,10 +473,12 @@ if [ "$1" = "aic" ]; then
 			echo "[Action] update DBs in folder..."
 
 			rm -rf "$dir_iq/db_new"
-			mkdir -p "$dir_iq/db_new"
+			# mkdir -p "$dir_iq/db_new"
 
 			# Unzip safely, converting backslashes to slashes and overwriting automatically
-			unzip -o "$dir_iq/db_new.zip" -d "$dir_iq/db_new"
+			unzip -o "$dir_iq/db_new.zip"
+			# unzip -o "$dir_iq/db_new.zip" -d "$dir_iq/db_new"
+			mv "$dir_iq/db" "$dir_iq/db_new"
 
 			echo "[Info] Extraction completed to $dir_iq/db_new"
 			exit 0
