@@ -501,10 +501,12 @@ if [ "$1" = "aic" ]; then
 				;;
 			all)
 				echo "[Action] Applying all DBs (os, ae, awb, tone)..."
-				copy_db "$src_base" "tuning_DB/imx214_mipi_raw" "ISP_param.db"
-				copy_db "$src_base" "ae" "ParameterDB_ae.db"
-				copy_db "$src_base" "awb" "ParameterDB_awb.db"
-				copy_db "$src_base" "tone" "ParameterDB_tone.db"
+				cp -rf $dir_iq_new $dir_iq_dev
+
+				# copy_db "$src_base" "tuning_DB/imx214_mipi_raw" "ISP_param.db"
+				# copy_db "$src_base" "ae" "ParameterDB_ae.db"
+				# copy_db "$src_base" "awb" "ParameterDB_awb.db"
+				# copy_db "$src_base" "tone" "ParameterDB_tone.db"
 				;;
 			*)
 				echo "❌ Invalid DB type: use one of [os | ae | awb | tone | all]"
