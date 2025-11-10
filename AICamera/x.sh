@@ -471,9 +471,14 @@ if [ "$1" = "aic" ]; then
 			src_base="$dir_iq_old"
 		elif [ "$3" = "unzip" ]; then
 			echo "[Action] update DBs in folder..."
+
 			rm -rf "$dir_iq/db_new"
-			unzip "$dir_iq/db_new.zip"
-			mv "$dir_iq/db" "$dir_iq/db_new"
+			mkdir -p "$dir_iq/db_new"
+
+			# Unzip safely, converting backslashes to slashes and overwriting automatically
+			unzip -o -j "$dir_iq/db_new.zip" -d "$dir_iq/db_new"
+
+			echo "[Info] Extraction completed to $dir_iq/db_new"
 			exit 0
 		else
 			echo "❌ Invalid argument: must be 'new' or 'old'"

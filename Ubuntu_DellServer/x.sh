@@ -578,7 +578,7 @@ if [ "$1" = "user" ] ; then
 			cd /home/$3
 			sudo ln -s $buildfolder/$3 yocto_build
 			sudo chown $3:$mainGroup yocto_build
-		else 
+		else
 			echo "param 3 needed"
 		fi
 
