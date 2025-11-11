@@ -502,6 +502,7 @@ if [ "$1" = "aic" ]; then
 			all)
 				echo "[Action] Applying all DBs (os, ae, awb, tone)..."
 				echo "cp -rf $dir_iq_new $dir_iq_dev"
+				rm -r $dir_iq_dev
 				cp -rf $dir_iq_new $dir_iq_dev
 
 				# copy_db "$src_base" "tuning_DB/imx214_mipi_raw" "ISP_param.db"
