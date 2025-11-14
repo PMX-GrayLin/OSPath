@@ -553,6 +553,7 @@ if [ "$1" = "aic" ]; then
 				;;
 		esac
 
+		systemctl restart camd
 		echo "✅ IQ DB operation complete."
 
 	elif [ "$2" = "kill" ]; then
