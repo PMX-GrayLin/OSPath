@@ -552,7 +552,8 @@ if [ "$1" = "aic" ]; then
 				exit 1
 				;;
 		esac
-
+		
+		echo "Restarting camd service..."
 		systemctl restart camd
 		echo "✅ IQ DB operation complete."
 
