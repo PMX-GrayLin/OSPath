@@ -501,7 +501,7 @@ if [ "$1" = "aic" ]; then
 			setprop vendor.debug.p1.pureraw_dump 10
 			mkdir -p /data/vendor/p2_dump
 			setprop vendor.debug.p2f.dump.enable 1
-			setprop vendor.debug.p2f.dump.mode 1
+			setprop vendor.debug.p2f.dump.mode 2
 			setprop vendor.debug.p2f.dump.start  5
 			setprop vendor.debug.p2f.dump.count 10
 			setprop vendor.debug.p2f.dump.in 15
