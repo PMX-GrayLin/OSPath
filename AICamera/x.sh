@@ -481,6 +481,43 @@ if [ "$1" = "aic" ]; then
 
 			echo "[Info] Extraction completed to $dir_iq/db_new"
 			exit 0
+		elif [ "$3" = "ndd2" ]; then
+			curl http://localhost:8765/fw/gst/start
+			sleep 3
+			setprop vendor.debug.ndd.prv_ready 1
+			sleep 3
+			curl http://localhost:8765/fw/gst/stop
+			sleep 3
+			setprop vendor.debug.camera.close.manual 1
+			echo "wait for 3~5 min..."
+			exit 0
+
+		elif [ "$3" = "dump" ]; then
+
+			echo "[Action] Enable raw dump..."
+			rm -rf /data/vendor/raw/
+			mkdir -p /data/vendor/raw/
+			setprop vendor.debug.feature.forceEnableIMGO 1
+			setprop vendor.debug.p1.pureraw_dump 10
+			mkdir -p /data/vendor/p2_dump
+			setprop vendor.debug.p2f.dump.enable 1
+			setprop vendor.debug.p2f.dump.mode 2
+			setprop vendor.debug.p2f.dump.start  5
+			setprop vendor.debug.p2f.dump.count 10
+			setprop vendor.debug.p2f.dump.in 15
+			setprop vendor.debug.p2f.dump.out 15
+			
+			setprop persist.mtk.camera.log_level 5
+   			setprop vendor.debug.camera.log 5
+   			setprop vendor.debug.camera.ulog.level 5
+
+			systemctl restart camd
+			curl http://localhost:8765/fw/gst/start
+			sleep 10
+			curl http://localhost:8765/fw/gst/stop
+
+			exit 0
+
 		else
 			echo "❌ Invalid argument: must be 'new' or 'old'"
 			exit 1
@@ -501,17 +538,23 @@ if [ "$1" = "aic" ]; then
 				;;
 			all)
 				echo "[Action] Applying all DBs (os, ae, awb, tone)..."
-				copy_db "$src_base" "tuning_DB/imx214_mipi_raw" "ISP_param.db"
-				copy_db "$src_base" "ae" "ParameterDB_ae.db"
-				copy_db "$src_base" "awb" "ParameterDB_awb.db"
-				copy_db "$src_base" "tone" "ParameterDB_tone.db"
+				echo "cp -rf $dir_iq_new $dir_iq_dev"
+				rm -r $dir_iq_dev
+				cp -rf $dir_iq_new $dir_iq_dev
+
+				# copy_db "$src_base" "tuning_DB/imx214_mipi_raw" "ISP_param.db"
+				# copy_db "$src_base" "ae" "ParameterDB_ae.db"
+				# copy_db "$src_base" "awb" "ParameterDB_awb.db"
+				# copy_db "$src_base" "tone" "ParameterDB_tone.db"
 				;;
 			*)
 				echo "❌ Invalid DB type: use one of [os | ae | awb | tone | all]"
 				exit 1
 				;;
 		esac
-
+		
+		echo "Restarting camd service..."
+		systemctl restart camd
 		echo "✅ IQ DB operation complete."
 
 	elif [ "$2" = "kill" ]; then
