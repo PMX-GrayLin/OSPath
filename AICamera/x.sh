@@ -506,6 +506,11 @@ if [ "$1" = "aic" ]; then
 			setprop vendor.debug.p2f.dump.count 10
 			setprop vendor.debug.p2f.dump.in 15
 			setprop vendor.debug.p2f.dump.out 15
+			
+			setprop persist.mtk.camera.log_level 5
+   			setprop vendor.debug.camera.log 5
+   			setprop vendor.debug.camera.ulog.level 5
+
 			systemctl restart camd
 			curl http://localhost:8765/fw/gst/start
 			sleep 5
