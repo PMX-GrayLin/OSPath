@@ -492,6 +492,21 @@ if [ "$1" = "aic" ]; then
 			echo "wait for 3~5 min..."
 			exit 0
 
+		elif [ "$3" = "dump" ]; then
+
+			rm -rf "/data/vendor/p${4}_dump"
+			mkdir -p "/data/vendor/p${4}_dump"
+			setprop vendor.debug.p2f.dump.enable 1
+			# 1表示用camera_dump，2表示要创建p2_dump 
+    		setprop vendor.debug.p2f.dump.mode $4
+			# P2S FrameNo >= 5 就开始dump
+    		setprop vendor.debug.p2f.dump.start 5
+			# 连续dump 10个frame
+    		setprop vendor.debug.p2f.dump.count 10
+			echo "Dump files to /data/vendor/p${4}_dump"
+
+			exit 0
+
 		else
 			echo "❌ Invalid argument: must be 'new' or 'old'"
 			exit 1
