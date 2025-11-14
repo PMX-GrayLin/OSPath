@@ -508,7 +508,7 @@ if [ "$1" = "aic" ]; then
 			setprop vendor.debug.p2f.dump.out 15
 			systemctl restart camd
 			curl http://localhost:8765/fw/gst/start
-			sleep 3
+			sleep 5
 			curl http://localhost:8765/fw/gst/stop
 
 			exit 0
