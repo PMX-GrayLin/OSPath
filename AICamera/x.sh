@@ -494,17 +494,23 @@ if [ "$1" = "aic" ]; then
 
 		elif [ "$3" = "dump" ]; then
 
-			rm -rf "/data/vendor/p${4}_dump"
-			mkdir -p "/data/vendor/p${4}_dump"
+			echo "[Action] Enable raw dump..."
+			rm -rf /data/vendor/raw/
+			mkdir -p /data/vendor/raw/
+			setprop vendor.debug.feature.forceEnableIMGO 1
+			setprop vendor.debug.p1.pureraw_dump 10
+			mkdir -p /data/vendor/p2_dump
 			setprop vendor.debug.p2f.dump.enable 1
-			# 1表示用camera_dump，2表示要创建p2_dump 
-    		setprop vendor.debug.p2f.dump.mode $4
-			# P2S FrameNo >= 5 就开始dump
-    		setprop vendor.debug.p2f.dump.start 5
-			# 连续dump 10个frame
-    		setprop vendor.debug.p2f.dump.count 10
-			echo "Dump files to /data/vendor/p${4}_dump"
-
+			setprop vendor.debug.p2f.dump.mode 2
+			setprop vendor.debug.p2f.dump.start  5
+			setprop vendor.debug.p2f.dump.count 10
+			setprop vendor.debug.p2f.dump.in 15
+			setprop vendor.debug.p2f.dump.out 15
+			systemctl restart camd
+			curl http://localhost:8765/fw/gst/start
+			sleep 3
+			curl http://localhost:8765/fw/gst/stop
+			
 			exit 0
 
 		else
