@@ -481,6 +481,17 @@ if [ "$1" = "aic" ]; then
 
 			echo "[Info] Extraction completed to $dir_iq/db_new"
 			exit 0
+		elif [ "$3" = "ndd2" ]; then
+			curl http://localhost:8765/fw/gst/start
+			sleep 3
+			setprop vendor.debug.ndd.prv_ready 1
+			sleep 3
+			curl http://localhost:8765/fw/gst/stop
+			sleep 3
+			setprop vendor.debug.camera.close.manual 1
+			echo "wait for 3~5 min..."
+			exit 0
+
 		else
 			echo "❌ Invalid argument: must be 'new' or 'old'"
 			exit 1
