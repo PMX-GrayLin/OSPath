@@ -513,7 +513,7 @@ if [ "$1" = "aic" ]; then
 
 			systemctl restart camd
 			curl http://localhost:8765/fw/gst/start
-			sleep 5
+			sleep 10
 			curl http://localhost:8765/fw/gst/stop
 
 			exit 0
