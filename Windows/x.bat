@@ -29,6 +29,30 @@ if /i "!arg1!"=="iq" (
         echo to Run Streaming on device...
     )
 
+    if /i "!arg2!"=="dump" (
+        echo To do dump...
+        adb shell rm -r /data/vendor/raw /data/vendor/camera_dump/
+        adb shell mkdir -p /data/vendor/raw
+        adb shell setprop vendor.debug.camera.pipemgr.bufdump 1
+        echo to Run Streaming on device...
+    )
+
+    if /i "!arg2!"=="ndd1" (
+        echo NDD dump step1...
+        cd /d D:\project\Genio700_NDD_ODT\MCNR\NDD
+        adb shell rm -r /data/vendor/camera_dump/ /data/vendor/raw
+        adb shell mkdir -p /data/vendor/camera_dump/
+        call 01-NDD_init.bat
+        call 02_NDD_preview_L2.bat
+
+        echo to Run ndd2 on device...
+    )
+    if /i "!arg2!"=="ndd3" (
+        echo NDD dump step3...
+        cd /d D:\project\Genio700_NDD_ODT\MCNR\NDD
+        call 03_Save_dump.bat
+    )
+
     if /i "!arg2!"=="rui" (
         echo Running ui...
         cd /d "!base_dir!\svn\install"
@@ -120,4 +144,8 @@ if /i "%1"=="code" (
         echo [CODE] Opening saved_expr.dat in VSCode...
         code "C:\Users\gray.lin\STM32CubeIDE\workspace_1.13.2\.metadata\.plugins\com.st.stm32cube.ide.mcu.livewatch\saved_expr.dat"
     )
+)
+
+if /i "%1"=="cd" (
+    explorer %2
 )
