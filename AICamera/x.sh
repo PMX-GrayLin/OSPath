@@ -516,6 +516,8 @@ if [ "$1" = "aic" ]; then
 			sleep 10
 			curl http://localhost:8765/fw/gst/stop
 
+			sleep 5
+			setprop vendor.debug.p2f.dump.enable 1
 			exit 0
 
 		else
@@ -552,7 +554,7 @@ if [ "$1" = "aic" ]; then
 				exit 1
 				;;
 		esac
-		
+
 		echo "Restarting camd service..."
 		systemctl restart camd
 		echo "✅ IQ DB operation complete."
