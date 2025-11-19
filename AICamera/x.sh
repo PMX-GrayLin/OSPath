@@ -495,10 +495,12 @@ if [ "$1" = "aic" ]; then
 		elif [ "$3" = "dump" ]; then
 
 			echo "[Action] Enable raw dump..."
+			echo "check in .../data/vendor/raw/..."
 			rm -rf /data/vendor/raw/
 			mkdir -p /data/vendor/raw/
 			setprop vendor.debug.feature.forceEnableIMGO 1
 			setprop vendor.debug.p1.pureraw_dump 10
+			mkdir -rf /data/vendor/p2_dump
 			mkdir -p /data/vendor/p2_dump
 			setprop vendor.debug.p2f.dump.enable 1
 			setprop vendor.debug.p2f.dump.mode 2
@@ -511,12 +513,34 @@ if [ "$1" = "aic" ]; then
    			setprop vendor.debug.camera.log 5
    			setprop vendor.debug.camera.ulog.level 5
 
+			echo "systemctl restart camd"
 			systemctl restart camd
+			echo "start streaming for 10 sec..."
 			curl http://localhost:8765/fw/gst/start
 			sleep 10
+			echo "stop streaming..."
 			curl http://localhost:8765/fw/gst/stop
 
+			sleep 5
+			setprop vendor.debug.p2f.dump.enable 1
 			exit 0
+
+		elif [ "$3" = "mae" ]; then
+			if [ "$4" = "on" ]; then
+				echo "[Action] Set manual AE parameters..."
+				setprop vendor.debug.ae_mgr.enable 1
+				setprop vendor.debug.ae_mgr.lock 1
+				setprop vendor.debug.ae_mgr.preview.update 1
+				setprop vendor.debug.ae_mgr.capture.update 1
+				setprop vendor.debug.ae_mgr.shutter 16666
+				setprop vendor.debug.ae_mgr.ispgain 4096
+				setprop vendor.debug.ae_mgr.sensorgain 1024
+			elif [ "$4" = "off" ]; then
+				setprop vendor.debug.ae_mgr.preview.update 0
+				setprop vendor.debug.ae_mgr.capture.update 0
+				setprop vendor.debug.ae_mgr.lock 0
+				setprop vendor.debug.ae_mgr.enable 0
+			fi
 
 		else
 			echo "❌ Invalid argument: must be 'new' or 'old'"
@@ -552,7 +576,7 @@ if [ "$1" = "aic" ]; then
 				exit 1
 				;;
 		esac
-		
+
 		echo "Restarting camd service..."
 		systemctl restart camd
 		echo "✅ IQ DB operation complete."
