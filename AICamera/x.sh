@@ -837,7 +837,7 @@ if [ "$1" = "eth0" ]; then
 	fi
 fi
 
-# Test
+# Test via restful API
 if [ "$1" = "tv" ]; then
 	echo "call vision_box..."
 	url="http://localhost:9876/fw/$2"

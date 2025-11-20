@@ -30,6 +30,8 @@ alias dlog='cd /mnt/reserved/logs'
 alias dfe='cd /home/root/backend_data/vision-sensor-frontend/'          # dir frontend
 alias dbe='cd /home/root/backend_data/vision-sensor-backend/'           # dir backend
 alias dad='cd /home/root/backend_data/'                                 # dir AD
+alias srf='x tt'
+alias srfv='x tv'
 
 alias ep='[ -f ~/tmp/p1 ] && export p1=$(cat ~/tmp/p1); [ -f ~/tmp/p2 ] && export p2=$(cat ~/tmp/p2)'
 alias sp1='mkdir -p ~/tmp && echo `pwd` > ~/tmp/p1 && ep'
