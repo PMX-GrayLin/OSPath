@@ -112,6 +112,32 @@ if /i "!arg1!"=="iq" (
         echo Upload complete.
     )
 
+    if /i "!arg2!"=="mae" (
+
+        if /i "!arg3!"=="on" (
+            echo Manual AE On
+            rem === Put your AE ON logic here ===
+            adb shell setprop vendor.debug.ae_mgr.enable 1
+            adb shell setprop vendor.debug.ae_mgr.lock 1
+            adb shell setprop vendor.debug.ae_mgr.preview.update 1
+            adb shell setprop vendor.debug.ae_mgr.capture.update 1
+            adb shell setprop vendor.debug.ae_mgr.shutter 16666
+            adb shell setprop vendor.debug.ae_mgr.ispgain 4096
+            adb shell setprop vendor.debug.ae_mgr.sensorgain 1024
+        ) else if /i "!arg3!"=="off" (
+            echo Manual AE Off
+            rem === Put your AE OFF logic here ===
+            adb shell setprop vendor.debug.ae_mgr.preview.update 0
+            adb shell setprop vendor.debug.ae_mgr.capture.update 0
+            adb shell setprop vendor.debug.ae_mgr.lock 0
+            adb shell setprop vendor.debug.ae_mgr.enable 0
+        ) else (
+            echo Invalid argument: !arg3!
+            echo Usage: mae on  OR  mae off
+        )
+
+    )
+
 )
 
 endlocal
