@@ -545,6 +545,7 @@ if [ "$1" = "aic" ]; then
 				echo "[Action] Set manual AE shutter=$4..."
 				setprop vendor.debug.ae_mgr.shutter $4
 			fi
+			exit 0
 
 		else
 			echo "❌ Invalid argument: must be 'new' or 'old'"
