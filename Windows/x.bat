@@ -19,11 +19,12 @@ echo Total arguments: !count!
 :: Usage: script.bat iq s1|s2|ob1|ob2
 :: -----------------------------
 if /i "!arg1!"=="iq" (
-    set "base_dir=D:\project\MediaToolKit_IoTYocto_240522"
+    set "dir_cct=D:\project\MediaToolKit_IoTYocto_240522"
+    set "dir_cctdb=!dir_cct!\svn\install\DataSet\SQLiteModule"
 
     if /i "!arg2!"=="init" (
         echo Running init batch...
-        cd /d "!base_dir!"
+        cd /d "!dir_cct!"
         call 01_cct_setup.bat
         call 02_NDD_preview_8395.bat
         echo to Run Streaming on device...
@@ -55,42 +56,42 @@ if /i "!arg1!"=="iq" (
 
     if /i "!arg2!"=="rui" (
         echo Running ui...
-        cd /d "!base_dir!\svn\install"
+        cd /d "!dir_cct!\svn\install"
         call 4.0.MTKToolCustom.bat
     )
 
     if /i "!arg2!"=="drinit" (
         echo Dump raw init...
-        cd /d "!base_dir!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
+        cd /d "!dir_cct!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
         call 01_init_ISP7_IoTYocto.bat
         echo to Run Streaming on device...
     )
 
     if /i "!arg2!"=="drob" (
         echo Dump raw ob...
-        cd /d "!base_dir!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
+        cd /d "!dir_cct!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
         call 03_Dump_raw_ob_ISP7_IoTYocto.bat
     )
     if /i "!arg2!"=="driso" (
         echo Dump raw iso...
-        cd /d "!base_dir!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
+        cd /d "!dir_cct!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
         call 03_Dump_raw_miniso_ISP7_IoTYocto.bat
     )
     if /i "!arg2!"=="drsat" (
         echo Dump raw saturation...
-        cd /d "!base_dir!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
+        cd /d "!dir_cct!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
         call 03_Dump_raw_minsatgain_ISP7_IoTYocto.bat
     )
 
     if /i "!arg2!"=="2raw" (
         echo [IQ:OB2] convert packed_word to raw...
-        cd /d "!base_dir!\Packedword2Raw_IoT_v250307
+        cd /d "!dir_cct!\Packedword2Raw_IoT_v250307
         python BatchRun.py
     )
 
     if /i "!arg2!"=="ftp" (
         echo Preparing to upload DB to FTP...
-        cd /d "!base_dir!\svn\install\DataSet\SQLiteModule"
+        cd /d "!dir_cct!\svn\install\DataSet\SQLiteModule"
 
         echo Zipping db folder...
         powershell -Command "Compress-Archive -Path 'db' -DestinationPath 'db_new.zip' -Force"
@@ -134,7 +135,17 @@ if /i "!arg1!"=="iq" (
         ) else (
             adb shell setprop vendor.debug.ae_mgr.shutter !arg3!
         )
+    )
 
+    if /i "!arg2!"=="db" (
+        
+        echo Zipping db folder...
+        cd /d "!dir_cctdb!"
+        powershell -Command "Compress-Archive -Path 'db' -DestinationPath 'db_new.zip' -Force"
+
+        echo Pushing IQ database to device...
+        adb shell remove /usr/share/mtkcam/DataSet/SQLiteModule/db_new.zip
+        adb push 'db_new.zip' /usr/share/mtkcam/DataSet/SQLiteModule/db_new.zip
     )
 
 )
