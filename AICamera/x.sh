@@ -527,7 +527,7 @@ if [ "$1" = "aic" ]; then
 
 		elif [ "$3" = "mae" ]; then
 			if [ "$4" = "on" ]; then
-				echo "[Action] Set manual AE parameters..."
+				echo "[Action] Set manual AE on..."
 				setprop vendor.debug.ae_mgr.enable 1
 				setprop vendor.debug.ae_mgr.lock 1
 				setprop vendor.debug.ae_mgr.preview.update 1
@@ -536,11 +536,16 @@ if [ "$1" = "aic" ]; then
 				setprop vendor.debug.ae_mgr.ispgain 4096
 				setprop vendor.debug.ae_mgr.sensorgain 1024
 			elif [ "$4" = "off" ]; then
+				echo "[Action] Set manual AE off..."
 				setprop vendor.debug.ae_mgr.preview.update 0
 				setprop vendor.debug.ae_mgr.capture.update 0
 				setprop vendor.debug.ae_mgr.lock 0
 				setprop vendor.debug.ae_mgr.enable 0
+			else
+				echo "[Action] Set manual AE shutter=$4..."
+				setprop vendor.debug.ae_mgr.shutter $4
 			fi
+			exit 0
 
 		else
 			echo "❌ Invalid argument: must be 'new' or 'old'"
@@ -837,7 +842,7 @@ if [ "$1" = "eth0" ]; then
 	fi
 fi
 
-# Test
+# Test via restful API
 if [ "$1" = "tv" ]; then
 	echo "call vision_box..."
 	url="http://localhost:9876/fw/$2"
