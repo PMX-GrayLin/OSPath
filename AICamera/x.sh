@@ -471,14 +471,14 @@ if [ "$1" = "aic" ]; then
 			src_base="$dir_iq_old"
 		elif [ "$3" = "unzip" ]; then
 			echo "[Action] unzip DBs to $dir_iq/db_tmp ..."
-			rm -rf "$dir_iq/db_tmp"
+			rm -rf "$dir_iq/db_tmp" "$dir_iq/db_new"
 			unzip -o "$dir_iq/db_new.zip" -d "$dir_iq"
 			mv "$dir_iq/db_tmp" "$dir_iq/db_new"
 			exit 0
 
 		elif [ "$3" = "udb" ]; then
 			echo "[Action] update IQ DBs..."
-			rm -rf "$dir_iq/db_tmp"
+			rm -rf "$dir_iq/db_tmp" "$dir_iq/db_new"
 			unzip -o "$dir_iq/db_new.zip" -d "$dir_iq"
 			mv "$dir_iq/db_tmp" "$dir_iq/db_new"
 			rm -rf $dir_iq_dev
