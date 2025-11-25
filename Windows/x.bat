@@ -141,11 +141,13 @@ if /i "!arg1!"=="iq" (
         
         echo Zipping db folder...
         cd /d "!dir_cctdb!"
+        del db_new.zip
         powershell -Command "Compress-Archive -Path 'db' -DestinationPath 'db_new.zip' -Force"
 
         echo Pushing IQ database to device...
-        adb shell remove /usr/share/mtkcam/DataSet/SQLiteModule/db_new.zip
-        adb push 'db_new.zip' /usr/share/mtkcam/DataSet/SQLiteModule/db_new.zip
+        adb shell rm -f /usr/share/mtkcam/DataSet/SQLiteModule/db_new.zip
+        adb push db_new.zip /mnt/reserved/10.1.13.207/IQ_DB/db_new.zip
+        @REM adb push db_new.zip /usr/share/mtkcam/DataSet/SQLiteModule/db_new.zip
     )
 
 )
