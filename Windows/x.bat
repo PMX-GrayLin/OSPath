@@ -20,7 +20,7 @@ echo Total arguments: !count!
 :: -----------------------------
 if /i "!arg1!"=="iq" (
     set "dir_cct=D:\project\MediaToolKit_IoTYocto_240522"
-    set "dir_cctdb=!dir_cct!\svn\install\DataSet\SQLiteModule"
+    set "dir_cctdb=!dir_cct!\svn\install\DataSet\SQLiteModule\db"
 
     if /i "!arg2!"=="init" (
         echo Running init batch...
@@ -91,10 +91,7 @@ if /i "!arg1!"=="iq" (
 
     if /i "!arg2!"=="ftp" (
         echo Preparing to upload DB to FTP...
-        cd /d "!dir_cct!\svn\install\DataSet\SQLiteModule"
-
-        echo Zipping db folder...
-        powershell -Command "Compress-Archive -Path 'db' -DestinationPath 'db_new.zip' -Force"
+        call :zipFolder "!dir_cctdb!" "db_new.zip"
 
         echo Uploading db_new.zip to FTP server...
         > "%temp%\ftp_commands.txt" (
@@ -139,10 +136,7 @@ if /i "!arg1!"=="iq" (
 
     if /i "!arg2!"=="db" (
         
-        echo Zipping db folder...
-        cd /d "!dir_cctdb!"
-        del db_new.zip
-        powershell -Command "Compress-Archive -Path 'db' -DestinationPath 'db_new.zip' -Force"
+        call :zipFolder "!dir_cctdb!" "db_new.zip"
 
         echo Pushing IQ database to device...
         adb shell rm -f /usr/share/mtkcam/DataSet/SQLiteModule/db_new.zip
@@ -187,3 +181,31 @@ if /i "%1"=="code" (
 if /i "%1"=="cd" (
     explorer %2
 )
+
+exit /b
+
+REM =====================================
+REM ========== Function section =========
+REM =====================================
+:zipFolder
+set "Z_DIR=%~1"
+set "Z_ZIP=%~2"
+
+echo Zipping folder "%Z_DIR%" to "%Z_ZIP%"...
+pushd "%Z_DIR%"
+cd ..
+
+del "%Z_ZIP%" 2>nul
+
+:: Create temp folder
+rmdir /s /q "%Z_DIR%_tmp" 2>nul
+xcopy db "%Z_DIR%_tmp" /e /i /y >nul
+
+:: Compress the temp directory
+powershell -Command "Compress-Archive -Path %Z_DIR%_tmp -DestinationPath '%Z_ZIP%' -Force"
+
+:: Cleanup temp folder
+rmdir /s /q "%Z_DIR%_tmp"
+
+popd
+goto :eof
