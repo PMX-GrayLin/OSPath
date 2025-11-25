@@ -470,17 +470,21 @@ if [ "$1" = "aic" ]; then
 			echo "[Action] Restore OLD DB..."
 			src_base="$dir_iq_old"
 		elif [ "$3" = "unzip" ]; then
-			echo "[Action] update DBs in folder..."
-
+			echo "[Action] unzip DBs to $dir_iq/db_new ..."
 			rm -rf "$dir_iq/db_new"
-			# mkdir -p "$dir_iq/db_new"
-
-			# Unzip safely, converting backslashes to slashes and overwriting automatically
 			unzip -o "$dir_iq/db_new.zip" -d "$dir_iq"
 			mv "$dir_iq/db" "$dir_iq/db_new"
-
-			echo "[Info] Extraction completed to $dir_iq/db_new"
 			exit 0
+
+		elif [ "$3" = "udb" ]; then
+			echo "[Action] update IQ DBs..."
+			rm -rf "$dir_iq/db_new"
+			unzip -o "$dir_iq/db_new.zip" -d "$dir_iq"
+			mv "$dir_iq/db" "$dir_iq/db_new"
+			rm -rf $dir_iq_dev
+			cp -rf $dir_iq_new $dir_iq_dev
+			exit 0
+
 		elif [ "$3" = "ndd2" ]; then
 			curl http://localhost:8765/fw/gst/start
 			sleep 3
@@ -568,13 +572,8 @@ if [ "$1" = "aic" ]; then
 			all)
 				echo "[Action] Applying all DBs (os, ae, awb, tone)..."
 				echo "cp -rf $dir_iq_new $dir_iq_dev"
-				rm -r $dir_iq_dev
+				rm -rf $dir_iq_dev
 				cp -rf $dir_iq_new $dir_iq_dev
-
-				# copy_db "$src_base" "tuning_DB/imx214_mipi_raw" "ISP_param.db"
-				# copy_db "$src_base" "ae" "ParameterDB_ae.db"
-				# copy_db "$src_base" "awb" "ParameterDB_awb.db"
-				# copy_db "$src_base" "tone" "ParameterDB_tone.db"
 				;;
 			*)
 				echo "❌ Invalid DB type: use one of [os | ae | awb | tone | all]"
