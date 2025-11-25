@@ -132,8 +132,7 @@ if /i "!arg1!"=="iq" (
             adb shell setprop vendor.debug.ae_mgr.lock 0
             adb shell setprop vendor.debug.ae_mgr.enable 0
         ) else (
-            echo Invalid argument: !arg3!
-            echo Usage: mae on  OR  mae off
+            adb shell setprop vendor.debug.ae_mgr.shutter !arg3!
         )
 
     )
