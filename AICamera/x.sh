@@ -1060,19 +1060,42 @@ fi
 
 # zip
 if [ "$1" = "zip" ] ; then
-	if [ "$4" = "bz2" ] ; then
-		echo ">>>> bz2 $2 to $3.tar.bz2"
-		echo "tar -jcvf $3.tar.bz2 $2"
-		tar -jcvf "$3.tar.bz2" "$2"
-	elif [ "$4" = "zip" ] ; then
-		echo ">>>> zip $2 to $3.zip"
-		echo "zip -r $3.zip $2"
-		zip -r "$3.zip" "$2"
-	else
-		echo ">>>> gzip $2 to $3.tar.gz"
-		echo "tar -zcvf $3.tar.gz $2"
-		tar -zcvf "$3.tar.gz" "$2"
-	fi
+    # $2 must exist
+    if [ -z "$2" ]; then
+        echo "❗ Missing target path (arg 2)"
+        echo "Usage: $0 zip <folder/file> [output_name] [bz2|zip|gz]"
+        exit 1
+    fi
+
+    # default output name if $3 is empty
+    if [ -z "$3" ]; then
+        # strip trailing slash & extract base name
+        out="$(basename "${2%/}")"
+    else
+        out="$3"
+    fi
+
+    # default type = gzip if no $4
+    type="$4"
+
+    # === bz2 ===
+    if [ "$type" = "bz2" ]; then
+        echo ">>>> bz2 $2 to $out.tar.bz2"
+        echo "tar -jcvf $out.tar.bz2 \"$2\""
+        tar -jcvf "$out.tar.bz2" "$2"
+
+    # === zip ===
+    elif [ "$type" = "zip" ]; then
+        echo ">>>> zip $2 to $out.zip"
+        echo "zip -r $out.zip \"$2\""
+        zip -r "$out.zip" "$2"
+
+    # === default: gzip ===
+    else
+        echo ">>>> gzip $2 to $out.tar.gz"
+        echo "tar -zcvf $out.tar.gz \"$2\""
+        tar -zcvf "$out.tar.gz" "$2"
+    fi
 fi
 if [ "$1" = "unzip" ] ; then
 	echo ">>>> unzip file: $2"
