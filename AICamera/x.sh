@@ -578,6 +578,7 @@ if [ "$1" = "aic" ]; then
 				echo "cp -rf $dir_iq_new $dir_iq_dev"
 				rm -rf $dir_iq_dev
 				cp -rf $dir_iq_new $dir_iq_dev
+				rm -rf "$dir_iq/db_tmp" "$dir_iq/db_new"
 				;;
 			*)
 				echo "❌ Invalid DB type: use one of [os | ae | awb | tone | all]"
