@@ -477,9 +477,10 @@ if [ "$1" = "aic" ]; then
 			exit 0
 
 		elif [ "$3" = "udb" ]; then
-			echo "[Action] update IQ DBs..."
+			echo "[Action] unzip IQ zip..."
 			rm -rf "$dir_iq/db_tmp" "$dir_iq/db_new"
 			unzip -o "$dir_iq/db_new.zip" -d "$dir_iq"
+			echo "[Action] update folder $dir_iq_dev..."
 			mv "$dir_iq/db_tmp" "$dir_iq/db_new"
 			rm -rf $dir_iq_dev
 			cp -rf $dir_iq_new $dir_iq_dev
