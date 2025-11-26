@@ -1147,13 +1147,31 @@ fi
 
 # file / folder size
 if [ "$1" == "size" ] ; then
-	if [ "$3" = "d" ] ; then
-		echo "sudo du -h --max-depth=1 $2 | sort -h" 
-		sudo du -h --max-depth=1 $2 | sort -h
-	else
-		echo "du -sh --no-dereference $2"
-		sudo du --no-dereference -sh $2
-	fi
+    
+    # must have a target path
+    if [ -z "$2" ]; then
+        echo "❗ No target specified!"
+        echo "Usage: $0 size <path> [d|m <depth>]"
+        exit 1
+    fi
+    
+    # === List directory size (one level) ===
+    if [ "$3" == "d" ]; then
+        echo "sudo du -h --max-depth=1 \"$2\" | sort -h"
+        sudo du -h --max-depth=1 "$2" | sort -h
+        exit 0
+    fi
+    
+    # === Max depth mode (m) ===
+    if [ "$3" == "m" ] && [ -n "$4" ] && [[ "$4" =~ ^[0-9]+$ ]]; then
+        echo "sudo du -h --max-depth=$4 \"$2\" | sort -h"
+        sudo du -h --max-depth="$4" "$2" | sort -h
+        exit 0
+    fi
+    
+    # === Default: summary only (file or folder size) ===
+    echo "sudo du --no-dereference -sh \"$2\""
+    sudo du --no-dereference -sh "$2"
 fi
 
 # tree -L3
