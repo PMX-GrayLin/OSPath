@@ -484,6 +484,7 @@ if [ "$1" = "aic" ]; then
 			mv "$dir_iq/db_tmp" "$dir_iq/db_new"
 			rm -rf $dir_iq_dev
 			cp -rf $dir_iq_new $dir_iq_dev
+			rm -rf "$dir_iq/db_tmp" "$dir_iq/db_new"
 			echo "Restarting camd service..."
 			systemctl restart camd
 			exit 0
