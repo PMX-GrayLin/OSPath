@@ -464,26 +464,28 @@ if [ "$1" = "aic" ]; then
 		}
 
 		if [ "$3" = "new" ]; then
-			echo "[Action] Update to NEW DB..."
+			echo "Update to NEW DB..."
 			src_base="$dir_iq_new"
 		elif [ "$3" = "old" ]; then
-			echo "[Action] Restore OLD DB..."
+			echo "Restore OLD DB..."
 			src_base="$dir_iq_old"
 		elif [ "$3" = "unzip" ]; then
-			echo "[Action] unzip DBs to $dir_iq/db_tmp ..."
+			echo "unzip DBs to $dir_iq/db_tmp ..."
 			rm -rf "$dir_iq/db_tmp" "$dir_iq/db_new"
 			unzip -o "$dir_iq/db_new.zip" -d "$dir_iq"
 			mv "$dir_iq/db_tmp" "$dir_iq/db_new"
 			exit 0
 
 		elif [ "$3" = "udb" ]; then
-			echo "[Action] unzip IQ zip..."
+			echo "unzip IQ db at $dir_iq..."
 			rm -rf "$dir_iq/db_tmp" "$dir_iq/db_new"
 			unzip -o "$dir_iq/db_new.zip" -d "$dir_iq"
-			echo "[Action] update folder $dir_iq_dev..."
+			echo "Update folder $dir_iq_dev..."
 			mv "$dir_iq/db_tmp" "$dir_iq/db_new"
 			rm -rf $dir_iq_dev
 			cp -rf $dir_iq_new $dir_iq_dev
+			echo "Restarting camd service..."
+			systemctl restart camd
 			exit 0
 
 		elif [ "$3" = "ndd2" ]; then
@@ -499,7 +501,7 @@ if [ "$1" = "aic" ]; then
 
 		elif [ "$3" = "dump" ]; then
 
-			echo "[Action] Enable raw dump..."
+			echo "Enable raw dump..."
 			echo "check in .../data/vendor/raw/..."
 			rm -rf /data/vendor/raw/
 			mkdir -p /data/vendor/raw/
@@ -532,7 +534,7 @@ if [ "$1" = "aic" ]; then
 
 		elif [ "$3" = "mae" ]; then
 			if [ "$4" = "on" ]; then
-				echo "[Action] Set manual AE on..."
+				echo "Set manual AE on..."
 				setprop vendor.debug.ae_mgr.enable 1
 				setprop vendor.debug.ae_mgr.lock 1
 				setprop vendor.debug.ae_mgr.preview.update 1
@@ -541,13 +543,13 @@ if [ "$1" = "aic" ]; then
 				setprop vendor.debug.ae_mgr.ispgain 4096
 				setprop vendor.debug.ae_mgr.sensorgain 1024
 			elif [ "$4" = "off" ]; then
-				echo "[Action] Set manual AE off..."
+				echo "Set manual AE off..."
 				setprop vendor.debug.ae_mgr.preview.update 0
 				setprop vendor.debug.ae_mgr.capture.update 0
 				setprop vendor.debug.ae_mgr.lock 0
 				setprop vendor.debug.ae_mgr.enable 0
 			else
-				echo "[Action] Set manual AE shutter=$4..."
+				echo "Set manual AE shutter=$4..."
 				setprop vendor.debug.ae_mgr.shutter $4
 			fi
 			exit 0
@@ -571,7 +573,7 @@ if [ "$1" = "aic" ]; then
 				copy_db "$src_base" "tone" "ParameterDB_tone.db"
 				;;
 			all)
-				echo "[Action] Applying all DBs (os, ae, awb, tone)..."
+				echo "Applying all DBs (os, ae, awb, tone)..."
 				echo "cp -rf $dir_iq_new $dir_iq_dev"
 				rm -rf $dir_iq_dev
 				cp -rf $dir_iq_new $dir_iq_dev
