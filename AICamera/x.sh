@@ -464,25 +464,29 @@ if [ "$1" = "aic" ]; then
 		}
 
 		if [ "$3" = "new" ]; then
-			echo "[Action] Update to NEW DB..."
+			echo "Update to NEW DB..."
 			src_base="$dir_iq_new"
 		elif [ "$3" = "old" ]; then
-			echo "[Action] Restore OLD DB..."
+			echo "Restore OLD DB..."
 			src_base="$dir_iq_old"
 		elif [ "$3" = "unzip" ]; then
-			echo "[Action] unzip DBs to $dir_iq/db_new ..."
-			rm -rf "$dir_iq/db_new"
+			echo "unzip DBs to $dir_iq/db_tmp ..."
+			rm -rf "$dir_iq/db_tmp" "$dir_iq/db_new"
 			unzip -o "$dir_iq/db_new.zip" -d "$dir_iq"
-			mv "$dir_iq/db" "$dir_iq/db_new"
+			mv "$dir_iq/db_tmp" "$dir_iq/db_new"
 			exit 0
 
 		elif [ "$3" = "udb" ]; then
-			echo "[Action] update IQ DBs..."
-			rm -rf "$dir_iq/db_new"
+			echo "unzip IQ db at $dir_iq..."
+			rm -rf "$dir_iq/db_tmp" "$dir_iq/db_new"
 			unzip -o "$dir_iq/db_new.zip" -d "$dir_iq"
-			mv "$dir_iq/db" "$dir_iq/db_new"
+			echo "Update folder $dir_iq_dev..."
+			mv "$dir_iq/db_tmp" "$dir_iq/db_new"
 			rm -rf $dir_iq_dev
 			cp -rf $dir_iq_new $dir_iq_dev
+			rm -rf "$dir_iq/db_tmp" "$dir_iq/db_new"
+			echo "Restarting camd service..."
+			systemctl restart camd
 			exit 0
 
 		elif [ "$3" = "ndd2" ]; then
@@ -498,7 +502,7 @@ if [ "$1" = "aic" ]; then
 
 		elif [ "$3" = "dump" ]; then
 
-			echo "[Action] Enable raw dump..."
+			echo "Enable raw dump..."
 			echo "check in .../data/vendor/raw/..."
 			rm -rf /data/vendor/raw/
 			mkdir -p /data/vendor/raw/
@@ -531,7 +535,7 @@ if [ "$1" = "aic" ]; then
 
 		elif [ "$3" = "mae" ]; then
 			if [ "$4" = "on" ]; then
-				echo "[Action] Set manual AE on..."
+				echo "Set manual AE on..."
 				setprop vendor.debug.ae_mgr.enable 1
 				setprop vendor.debug.ae_mgr.lock 1
 				setprop vendor.debug.ae_mgr.preview.update 1
@@ -540,13 +544,13 @@ if [ "$1" = "aic" ]; then
 				setprop vendor.debug.ae_mgr.ispgain 4096
 				setprop vendor.debug.ae_mgr.sensorgain 1024
 			elif [ "$4" = "off" ]; then
-				echo "[Action] Set manual AE off..."
+				echo "Set manual AE off..."
 				setprop vendor.debug.ae_mgr.preview.update 0
 				setprop vendor.debug.ae_mgr.capture.update 0
 				setprop vendor.debug.ae_mgr.lock 0
 				setprop vendor.debug.ae_mgr.enable 0
 			else
-				echo "[Action] Set manual AE shutter=$4..."
+				echo "Set manual AE shutter=$4..."
 				setprop vendor.debug.ae_mgr.shutter $4
 			fi
 			exit 0
@@ -570,10 +574,11 @@ if [ "$1" = "aic" ]; then
 				copy_db "$src_base" "tone" "ParameterDB_tone.db"
 				;;
 			all)
-				echo "[Action] Applying all DBs (os, ae, awb, tone)..."
+				echo "Applying all DBs (os, ae, awb, tone)..."
 				echo "cp -rf $dir_iq_new $dir_iq_dev"
 				rm -rf $dir_iq_dev
 				cp -rf $dir_iq_new $dir_iq_dev
+				rm -rf "$dir_iq/db_tmp" "$dir_iq/db_new"
 				;;
 			*)
 				echo "❌ Invalid DB type: use one of [os | ae | awb | tone | all]"
@@ -1060,19 +1065,42 @@ fi
 
 # zip
 if [ "$1" = "zip" ] ; then
-	if [ "$4" = "bz2" ] ; then
-		echo ">>>> bz2 $2 to $3.tar.bz2"
-		echo "tar -jcvf $3.tar.bz2 $2"
-		tar -jcvf "$3.tar.bz2" "$2"
-	elif [ "$4" = "zip" ] ; then
-		echo ">>>> zip $2 to $3.zip"
-		echo "zip -r $3.zip $2"
-		zip -r "$3.zip" "$2"
-	else
-		echo ">>>> gzip $2 to $3.tar.gz"
-		echo "tar -zcvf $3.tar.gz $2"
-		tar -zcvf "$3.tar.gz" "$2"
-	fi
+    # $2 must exist
+    if [ -z "$2" ]; then
+        echo "❗ Missing target path (arg 2)"
+        echo "Usage: $0 zip <folder/file> [output_name] [bz2|zip|gz]"
+        exit 1
+    fi
+
+    # default output name if $3 is empty
+    if [ -z "$3" ]; then
+        # strip trailing slash & extract base name
+        out="$(basename "${2%/}")"
+    else
+        out="$3"
+    fi
+
+    # default type = gzip if no $4
+    type="$4"
+
+    # === bz2 ===
+    if [ "$type" = "bz2" ]; then
+        echo ">>>> bz2 $2 to $out.tar.bz2"
+        echo "tar -jcvf $out.tar.bz2 \"$2\""
+        tar -jcvf "$out.tar.bz2" "$2"
+
+    # === zip ===
+    elif [ "$type" = "zip" ]; then
+        echo ">>>> zip $2 to $out.zip"
+        echo "zip -r $out.zip \"$2\""
+        zip -r "$out.zip" "$2"
+
+    # === default: gzip ===
+    else
+        echo ">>>> gzip $2 to $out.tar.gz"
+        echo "tar -zcvf $out.tar.gz \"$2\""
+        tar -zcvf "$out.tar.gz" "$2"
+    fi
 fi
 if [ "$1" = "unzip" ] ; then
 	echo ">>>> unzip file: $2"
@@ -1453,9 +1481,31 @@ if [ "$1" == "find" ]; then
 	find . -name "$2" 
 fi
 
-# file / folder size
 if [ "$1" == "size" ] ; then
-	echo "du -sh $2"
-	sudo du -sh $2
+    
+    # must have a target path
+    if [ -z "$2" ]; then
+        echo "❗ No target specified!"
+        echo "Usage: $0 size <path> [d|m <depth>]"
+        exit 1
+    fi
+    
+    # === List directory size (one level) ===
+    if [ "$3" == "d" ]; then
+        echo "sudo du -h --max-depth=1 \"$2\" | sort -h"
+        sudo du -h --max-depth=1 "$2" | sort -h
+        exit 0
+    fi
+    
+    # === Max depth mode (m) ===
+    if [ "$3" == "m" ] && [ -n "$4" ] && [[ "$4" =~ ^[0-9]+$ ]]; then
+        echo "sudo du -h --max-depth=$4 \"$2\" | sort -h"
+        sudo du -h --max-depth="$4" "$2" | sort -h
+        exit 0
+    fi
+    
+    # === Default: summary only (file or folder size) ===
+    echo "sudo du --no-dereference -sh \"$2\""
+    sudo du --no-dereference -sh "$2"
 fi
 
