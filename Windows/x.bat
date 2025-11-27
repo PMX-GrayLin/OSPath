@@ -20,7 +20,9 @@ echo Total arguments: !count!
 :: -----------------------------
 if /i "!arg1!"=="iq" (
     set "dir_cct=D:\project\MediaToolKit_IoTYocto_240522"
-    set "dir_cctdb=!dir_cct!\svn\install\DataSet\SQLiteModule\db"
+    set "dir_cct_dumpraw=!dir_cct!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
+    set "dir_cct_db=!dir_cct!\svn\install\DataSet\SQLiteModule"
+    set "dir_dev_db=/mnt/reserved/10.1.13.207/IQ_DB/"
 
     if /i "!arg2!"=="init" (
         echo Running init batch...
@@ -62,24 +64,24 @@ if /i "!arg1!"=="iq" (
 
     if /i "!arg2!"=="drinit" (
         echo Dump raw init...
-        cd /d "!dir_cct!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
+        cd /d "!dir_cct_dumpraw!"
         call 01_init_ISP7_IoTYocto.bat
         echo to Run Streaming on device...
     )
 
     if /i "!arg2!"=="drob" (
         echo Dump raw ob...
-        cd /d "!dir_cct!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
+        cd /d "!dir_cct_dumpraw!"
         call 03_Dump_raw_ob_ISP7_IoTYocto.bat
     )
     if /i "!arg2!"=="driso" (
         echo Dump raw iso...
-        cd /d "!dir_cct!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
+        cd /d "!dir_cct_dumpraw!"
         call 03_Dump_raw_miniso_ISP7_IoTYocto.bat
     )
     if /i "!arg2!"=="drsat" (
         echo Dump raw saturation...
-        cd /d "!dir_cct!\svn\install\DataSet\CamCaliTool\SensorCalibrationDumpRaw"
+        cd /d "!dir_cct_dumpraw!"
         call 03_Dump_raw_minsatgain_ISP7_IoTYocto.bat
     )
 
@@ -91,7 +93,7 @@ if /i "!arg1!"=="iq" (
 
     if /i "!arg2!"=="ftp" (
         echo Preparing to upload DB to FTP...
-        call :zipFolder "!dir_cctdb!" "db_new.zip"
+        call :zipFolder "!dir_cct_db!\db" "db_new.zip"
 
         echo Uploading db_new.zip to FTP server...
         > "%temp%\ftp_commands.txt" (
@@ -100,7 +102,7 @@ if /i "!arg1!"=="iq" (
             echo Zx03310331
             echo binary
             echo cd /Public/gray/aicamera/IQ_DB/
-            echo put db_new.zip
+            echo put "!dir_cct_db!\db_new.zip"
             echo bye
         )
 
@@ -136,12 +138,11 @@ if /i "!arg1!"=="iq" (
 
     if /i "!arg2!"=="db" (
         
-        call :zipFolder "!dir_cctdb!" "db_new.zip"
+        call :zipFolder "!dir_cct_db!\db" "db_new.zip"
 
         echo Pushing IQ database to device...
-        adb shell rm -f /usr/share/mtkcam/DataSet/SQLiteModule/db_new.zip
-        adb push db_new.zip /mnt/reserved/10.1.13.207/IQ_DB/db_new.zip
-        @REM adb push db_new.zip /usr/share/mtkcam/DataSet/SQLiteModule/db_new.zip
+        adb shell rm -f "!dir_dev_db!/db_new.zip"
+        adb push "!dir_cct_db!\db_new.zip" "!dir_dev_db!/db_new.zip"
     )
 
 )
