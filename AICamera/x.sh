@@ -555,6 +555,21 @@ if [ "$1" = "aic" ]; then
 			fi
 			exit 0
 
+		elif [ "$3" = "mawb" ]; then
+			if [ "$4" = "on" ]; then
+				echo "Set manual AWB on..."
+				echo "v4l2-ctl -d /dev/csi_cam_preview --set-ctrl white_balance_automatic=0"
+				v4l2-ctl -d /dev/csi_cam_preview --set-ctrl white_balance_automatic=0
+			elif [ "$4" = "off" ]; then
+				echo "Set manual AWB off..."
+				echo "v4l2-ctl -d /dev/csi_cam_preview --set-ctrl white_balance_automatic=1"
+				v4l2-ctl -d /dev/csi_cam_preview --set-ctrl white_balance_automatic=1
+			else
+				echo "Set manual AWB=$4..."
+				echo "v4l2-ctl -d /dev/csi_cam_preview --set-ctrl white_balance_temperature=$4"
+				v4l2-ctl -d /dev/csi_cam_preview --set-ctrl white_balance_temperature=$4
+			fi
+			exit 0
 		else
 			echo "❌ Invalid argument: must be 'new' or 'old'"
 			exit 1
