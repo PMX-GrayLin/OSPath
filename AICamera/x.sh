@@ -691,9 +691,9 @@ if [ "$1" = "aic" ]; then
 	elif [ "$2" = "uota" ]; then
 		echo "OTA from USB..."
 		# tmp, Mount USB drive if not already mounted
-		mkdir /mnt/sda1
+		mkdir -p /mnt/sda1
 		mount /dev/sda1 /mnt/sda1
-		mkdir /mnt/reserved/ota_images
+		mkdir -p /mnt/reserved/ota_images
 		cp -r /mnt/sda1/ota_images/* /mnt/reserved/ota_images/
 		ota_update.py /mnt/reserved/ota_images/ota_images/00.0B.04-#117-12041717/ai-camera-plus-box-release_ota_700_00.0B.04.tar
 
