@@ -692,6 +692,7 @@ if [ "$1" = "aic" ]; then
 		echo "OTA from USB..."
 		# tmp, Mount USB drive if not already mounted
 		mkdir -p /mnt/sda1
+		echo "mount /dev/sda1 /mnt/sda1"
 		mount /dev/sda1 /mnt/sda1
 		mkdir -p /mnt/reserved/ota_images
 		echo "cp -rf /mnt/sda1/ota_images/* /mnt/reserved/ota_images/"
