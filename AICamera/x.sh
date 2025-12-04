@@ -685,6 +685,10 @@ if [ "$1" = "aic" ]; then
 			cp -f "$dir_local/$ftp_host/fw_daemon" "$dir_exec"
 			chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
 			chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_ota.sh"
+
+			# tmp, Mount USB drive if not already mounted
+			mkdir /mnt/sda1
+			mount /dev/sda1 /mnt/sda1
 		fi
 
 	elif [ "$2" = "ftp2" ]; then
