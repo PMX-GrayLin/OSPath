@@ -684,6 +684,7 @@ if [ "$1" = "aic" ]; then
 			cp -f "$dir_local/$ftp_host/vision_box_DualCam" "$dir_exec"
 			cp -f "$dir_local/$ftp_host/fw_daemon" "$dir_exec"
 			chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
+			chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_ota.sh"
 		fi
 
 	elif [ "$2" = "ftp2" ]; then
