@@ -684,12 +684,18 @@ if [ "$1" = "aic" ]; then
 			cp -f "$dir_local/$ftp_host/vision_box_DualCam" "$dir_exec"
 			cp -f "$dir_local/$ftp_host/fw_daemon" "$dir_exec"
 			chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
-			chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_ota.sh"
+			chmod 777 "$dir_local/$ftp_host/fw_ota.sh"
 
-			# tmp, Mount USB drive if not already mounted
-			mkdir /mnt/sda1
-			mount /dev/sda1 /mnt/sda1
 		fi
+
+	elif [ "$2" = "uota" ]; then
+		echo "OTA from USB..."
+		# tmp, Mount USB drive if not already mounted
+		mkdir /mnt/sda1
+		mount /dev/sda1 /mnt/sda1
+		mkdir /mnt/reserved/ota_images
+		cp -r /mnt/sda1/ota_images/* /mnt/reserved/ota_images/
+		ota_update.py /mnt/reserved/ota_images/ota_images/00.0B.04-#117-12041717/ai-camera-plus-box-release_ota_700_00.0B.04.tar
 
 	elif [ "$2" = "ftp2" ]; then
 			echo "update files from ftp..."
