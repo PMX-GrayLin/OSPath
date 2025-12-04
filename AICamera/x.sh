@@ -694,8 +694,11 @@ if [ "$1" = "aic" ]; then
 		mkdir -p /mnt/sda1
 		mount /dev/sda1 /mnt/sda1
 		mkdir -p /mnt/reserved/ota_images
-		cp -r /mnt/sda1/ota_images/* /mnt/reserved/ota_images/
-		ota_update.py /mnt/reserved/ota_images/ota_images/00.0B.04-#117-12041717/ai-camera-plus-box-release_ota_700_00.0B.04.tar
+		echo "cp -rf /mnt/sda1/ota_images/* /mnt/reserved/ota_images/"
+		cp -rf /mnt/sda1/ota_images/* /mnt/reserved/ota_images/
+		cd /mnt/reserved/ota_images/ota_images/00.0B.04-#117-12041717/
+		echo "cp -rf /mnt/sda1/ota_images/* /mnt/reserved/ota_images/"
+		ota_update.py ai-camera-plus-box-release_ota_700_00.0B.04.tar
 
 	elif [ "$2" = "ftp2" ]; then
 			echo "update files from ftp..."
