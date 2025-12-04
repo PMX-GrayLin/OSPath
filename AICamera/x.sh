@@ -689,17 +689,75 @@ if [ "$1" = "aic" ]; then
 		fi
 
 	elif [ "$2" = "uota" ]; then
-		echo "OTA from USB..."
-		# tmp, Mount USB drive if not already mounted
-		mkdir -p /mnt/sda1
-		echo "mount /dev/sda1 /mnt/sda1"
-		mount /dev/sda1 /mnt/sda1
-		mkdir -p /mnt/reserved/ota_images
-		echo "cp -rf /mnt/sda1/ota_images/* /mnt/reserved/ota_images/"
-		cp -rf /mnt/sda1/ota_images/* /mnt/reserved/ota_images/
-		cd /mnt/reserved/ota_images/ota_images/00.0B.04-#117-12041717/
-		echo "cp -rf /mnt/sda1/ota_images/* /mnt/reserved/ota_images/"
-		ota_update.py ai-camera-plus-box-release_ota_700_00.0B.04.tar
+		echo "=== OTA from USB ==="
+
+		USB_MNT="/mnt/sda1"
+		OTA_DST="/mnt/reserved/ota_images"
+		OTA_SUBDIR=""
+		OTA_FILE=""
+
+		# --- Mount USB ------------------------------------------------------------
+		mkdir -p "$USB_MNT"
+		echo "> Mounting USB drive..."
+		if ! mount | grep -q "$USB_MNT"; then
+			mount /dev/sda1 "$USB_MNT"
+			if [ $? -ne 0 ]; then
+				echo "❌ ERROR: Failed to mount /dev/sda1"
+				exit 1
+			fi
+		fi
+
+		# --- Check source directory ------------------------------------------------
+		if [ ! -d "$USB_MNT/ota_images" ]; then
+			echo "❌ ERROR: USB does not contain ota_images/"
+			umount "$USB_MNT"
+			exit 1
+		fi
+
+		# --- Prepare destination ---------------------------------------------------
+		mkdir -p "$OTA_DST"
+		echo "> Copying OTA images..."
+		cp -rf "$USB_MNT/ota_images/"* "$OTA_DST/"
+
+		# --- Auto-detect OTA folder ------------------------------------------------
+		OTA_SUBDIR=$(ls -d "$OTA_DST"/*/ 2>/dev/null | sort -V | tail -n 1)
+
+		if [ -z "$OTA_SUBDIR" ]; then
+			echo "❌ ERROR: No OTA subfolders found in $OTA_DST"
+			umount "$USB_MNT"
+			exit 1
+		fi
+
+		echo "> Detected OTA folder: $OTA_SUBDIR"
+
+		cd "$OTA_SUBDIR"
+
+		# --- Auto-detect OTA tar file ---------------------------------------------
+		OTA_FILE=$(ls *.tar 2>/dev/null | head -n 1)
+
+		if [ -z "$OTA_FILE" ]; then
+			echo "❌ ERROR: No .tar OTA package found in $OTA_SUBDIR"
+			umount "$USB_MNT"
+			exit 1
+		fi
+
+		echo "> OTA file detected: $OTA_FILE"
+
+		# --- Run update ------------------------------------------------------------
+		echo ">>> Running OTA update..."
+		ota_update.py "$OTA_FILE"
+
+		RET=$?
+		if [ $RET -ne 0 ]; then
+			echo "❌ OTA update failed (exit code $RET)"
+			umount "$USB_MNT"
+			exit $RET
+		fi
+
+		echo "✅ OTA update completed."
+
+		# --- Clean up --------------------------------------------------------------
+		umount "$USB_MNT"
 
 	elif [ "$2" = "ftp2" ]; then
 			echo "update files from ftp..."
