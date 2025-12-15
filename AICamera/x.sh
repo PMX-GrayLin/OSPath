@@ -213,6 +213,12 @@ if [ "$1" = "aic" ]; then
 			echo "ip addr show wlan0"
 			ip addr show wlan0
 
+		elif [ "$3" = "wifip" ]; then
+			echo "wifi process..."
+			ps aux | grep wpa_supplicant
+			ps aux | hostapd
+			ps aux | grep dhcp
+
 		elif [ "$3" = "i2c" ]; then
 			echo "ls /dev/i2c-*"
 			ls /dev/i2c-*
