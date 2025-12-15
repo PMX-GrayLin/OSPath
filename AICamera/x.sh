@@ -216,7 +216,7 @@ if [ "$1" = "aic" ]; then
 		elif [ "$3" = "wifip" ]; then
 			echo "wifi process..."
 			ps aux | grep wpa_supplicant
-			ps aux | hostapd
+			ps aux | grep hostapd
 			ps aux | grep dhcp
 
 		elif [ "$3" = "i2c" ]; then
