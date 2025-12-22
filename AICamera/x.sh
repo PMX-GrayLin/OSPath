@@ -249,6 +249,10 @@ if [ "$1" = "aic" ]; then
 			echo "hwclock -r -f /dev/rtc1"
 			hwclock -r -f /dev/rtc1
 
+		elif [ "$3" = "ntp" ]; then
+			echo "timedatectl show-timesync --all"
+			timedatectl show-timesync --all
+			
 		else
 			echo "check version... ( cat /etc/primax_version )"
 			cat /etc/primax_version
@@ -329,7 +333,7 @@ if [ "$1" = "aic" ]; then
 		elif [ "$3" = "ntp" ]; then
 			echo " Restart time sync daemon "
 			systemctl restart systemd-timesyncd
-			
+
 		elif [ "$3" = "all" ]; then
 			pkill vision_box
 			pkill fw_daemon
