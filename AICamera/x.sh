@@ -326,6 +326,10 @@ if [ "$1" = "aic" ]; then
 			pkill -f utility_gui.py
 			/usr/bin/python3 /home/root/primax/misc/utility_gui.py &
 
+		elif [ "$3" = "ntp" ]; then
+			echo " Restart time sync daemon "
+			systemctl restart systemd-timesyncd
+			
 		elif [ "$3" = "all" ]; then
 			pkill vision_box
 			pkill fw_daemon
