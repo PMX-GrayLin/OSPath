@@ -367,8 +367,20 @@ if [ "$1" = "aic" ]; then
 							;;
 						resolution=*)
 							RES="${arg#resolution=}"
-							WIDTH="${RES%x*}"
-							HEIGHT="${RES#*x}"
+							case "$RES" in
+								*x*)
+									WIDTH="${RES%x*}"
+									HEIGHT="${RES#*x}"
+									;;
+								*\**)
+									WIDTH="${RES%\**}"
+									HEIGHT="${RES#*\*}"
+									;;
+								*)
+									echo "❌ Invalid resolution: $RES"
+									exit 1
+									;;
+							esac
 							;;
 						fps=*)
 							FPS="${arg#fps=}"
@@ -378,7 +390,6 @@ if [ "$1" = "aic" ]; then
 							;;
 					esac
 				done
-
 				cmd="gst-launch-1.0 -e -v \
 		v4l2src device=${DEVICE} \
 		! image/jpeg,width=${WIDTH},height=${HEIGHT},framerate=${FPS} \
