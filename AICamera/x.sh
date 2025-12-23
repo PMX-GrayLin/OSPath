@@ -252,7 +252,7 @@ if [ "$1" = "aic" ]; then
 		elif [ "$3" = "ntp" ]; then
 			echo "timedatectl show-timesync --all"
 			timedatectl show-timesync --all
-			
+
 		else
 			echo "check version... ( cat /etc/primax_version )"
 			cat /etc/primax_version
@@ -352,7 +352,40 @@ if [ "$1" = "aic" ]; then
 			if [ "$4" = "tee" ]; then
 				cmd="gst-launch-1.0 -e -v v4l2src device=$device_uvc ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! tee name=t ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true     t. ! queue ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
 			elif [ "$4" = "dp" ]; then
-				cmd="gst-launch-1.0 -e -v v4l2src device=$device_uvc ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true"
+				# ---- default values ----
+				DEVICE="$device_uvc"
+				WIDTH=1920
+				HEIGHT=1080
+				FPS="30/1"
+
+				# ---- now parse args AFTER dp ----
+				shift 4
+				for arg in "$@"; do
+					case "$arg" in
+						device=*)
+							DEVICE="${arg#device=}"
+							;;
+						resolution=*)
+							RES="${arg#resolution=}"
+							WIDTH="${RES%x*}"
+							HEIGHT="${RES#*x}"
+							;;
+						fps=*)
+							FPS="${arg#fps=}"
+							;;
+						*)
+							echo "⚠️ Unknown arg: $arg"
+							;;
+					esac
+				done
+
+				cmd="gst-launch-1.0 -e -v \
+		v4l2src device=${DEVICE} \
+		! image/jpeg,width=${WIDTH},height=${HEIGHT},framerate=${FPS} \
+		! jpegdec ! videoconvert ! queue \
+		! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true"
+
+				#cmd="gst-launch-1.0 -e -v v4l2src device=$device_uvc ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true"
 			else
 				cmd="gst-launch-1.0 -e -v v4l2src device=$device_uvc ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
 			fi
