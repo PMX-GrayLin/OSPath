@@ -168,7 +168,7 @@ if [ "$1" = "aic" ]; then
 		elif [ "$3" = "cam" ]; then
 			echo "camera..."
 
-			if [ "$4" = "uvc" ]; then
+			if [ "$4" = "usb" ] || [ "$4" = "uvc" ]; then
 				echo "v4l2-ctl --device=${device_uvc} --list-formats-ext"
 				v4l2-ctl --device=${device_uvc} --list-formats-ext
 				echo "v4l2-ctl --device=${device_uvc} --list-ctrls"
@@ -212,6 +212,9 @@ if [ "$1" = "aic" ]; then
 			echo "=== IP Info ==="
 			echo "ip addr show wlan0"
 			ip addr show wlan0
+			echo "=== Wi-Fi Power Management ==="
+			echo "cat /sys/bus/mmc/devices/mmc0:0001/power/control"
+			cat /sys/bus/mmc/devices/mmc0\:0001/power/control
 
 		elif [ "$3" = "wifip" ]; then
 			echo "wifi process..."
@@ -347,15 +350,15 @@ if [ "$1" = "aic" ]; then
 
 	elif [ "$2" = "gst" ]; then
 
-		if [ "$3" = "usb" ]; then
+		if [ "$3" = "usb" ] || [ "$3" = "uvc" ]; then
 			echo "usb..."
 			if [ "$4" = "tee" ]; then
 				cmd="gst-launch-1.0 -e -v v4l2src device=$device_uvc ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! tee name=t ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true     t. ! queue ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
 			elif [ "$4" = "dp" ]; then
 				# ---- default values ----
 				DEVICE="$device_uvc"
-				WIDTH=1920
-				HEIGHT=1080
+				WIDTH=640
+				HEIGHT=480
 				FPS="30/1"
 
 				# ---- now parse args AFTER dp ----
@@ -390,12 +393,7 @@ if [ "$1" = "aic" ]; then
 							;;
 					esac
 				done
-				cmd="gst-launch-1.0 -e -v \
-		v4l2src device=${DEVICE} \
-		! image/jpeg,width=${WIDTH},height=${HEIGHT},framerate=${FPS} \
-		! jpegdec ! videoconvert ! queue \
-		! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true"
-
+				cmd="gst-launch-1.0 -e -v v4l2src device=${DEVICE} ! image/jpeg,width=${WIDTH},height=${HEIGHT},framerate=${FPS} ! jpegdec ! videoconvert ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true"
 				#cmd="gst-launch-1.0 -e -v v4l2src device=$device_uvc ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true"
 			else
 				cmd="gst-launch-1.0 -e -v v4l2src device=$device_uvc ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
