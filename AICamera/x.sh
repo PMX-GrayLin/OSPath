@@ -296,8 +296,10 @@ if [ "$1" = "aic" ]; then
 
 	elif [ "$2" = "c" ]; then
 		echo "clean..."
-		cd /home/root/primax
-		rm *.png *.jpg *.bmp
+		rm /home/root/primax/*.png 
+		rm /home/root/primax/*.jpg 
+		rm /home/root/primax/*.bmp
+		rm /mnt/reserved/logs/*.log
 
 	elif [ "$2" = "rp" ]; then
 		echo "run .py..."
