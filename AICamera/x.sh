@@ -1005,8 +1005,7 @@ fi
 if [ "$1" = "sys" ]; then
 	if [ "$2" = "service" ]; then
 		echo "========== Service info =========="
-		service --status-all
-		#ls /etc/init.d
+		systemctl list-unit-files --type=service --state=enabled
 	elif [ "$2" = "info" ]; then
 		echo "========== System info =========="
 		echo "==== Ubuntu version ( cat /etc/os-release )===="
