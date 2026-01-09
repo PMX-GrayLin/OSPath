@@ -753,15 +753,15 @@ if [ "$1" = "aic" ]; then
 		OTA_FILE=""
 
 		# --- Mount USB ------------------------------------------------------------
-		mkdir -p "$USB_MNT"
-		echo "> Mounting USB drive..."
-		if ! mount | grep -q "$USB_MNT"; then
-			mount /dev/sda1 "$USB_MNT"
-			if [ $? -ne 0 ]; then
-				echo "❌ ERROR: Failed to mount /dev/sda1"
-				exit 1
-			fi
-		fi
+		# mkdir -p "$USB_MNT"
+		# echo "> Mounting USB drive..."
+		# if ! mount | grep -q "$USB_MNT"; then
+		# 	mount /dev/sda1 "$USB_MNT"
+		# 	if [ $? -ne 0 ]; then
+		# 		echo "❌ ERROR: Failed to mount /dev/sda1"
+		# 		exit 1
+		# 	fi
+		# fi
 
 		# --- Check source directory ------------------------------------------------
 		if [ ! -d "$USB_MNT/ota_images" ]; then
@@ -813,7 +813,7 @@ if [ "$1" = "aic" ]; then
 		echo "✅ OTA update completed."
 
 		# --- Clean up --------------------------------------------------------------
-		umount "$USB_MNT"
+		# umount "$USB_MNT"
 
 	elif [ "$2" = "ftp2" ]; then
 			echo "update files from ftp..."
