@@ -27,7 +27,7 @@ product=$(fw_printenv | grep '^product=' | cut -d '=' -f2)
 echo "product:$product"
 
 hostname_prefix=$(hostname | awk -F'-' '{print $1}')
-# aicamera or visionhub
+# aicamera, aibox or visionhub
 echo "hostname_prefix:$hostname_prefix"
 
 # Load device path from config
@@ -38,7 +38,7 @@ fi
 echo "device_uvc:$device_uvc"
 
 is_aicamera() {
-  if [[ "$hostname_prefix" == "aicamera" || "$product" == "ai_camera_plus" ]]; then
+  if [[ "$hostname_prefix" == "aicamera" || "$hostname_prefix" == "aibox" || "$product" == "ai_camera_plus" ]]; then
 	return 0  # true: it is an aicamera
   else
 	return 1  # false: not an aicamera
