@@ -260,10 +260,10 @@ if [ "$1" = "aic" ]; then
 			echo "check version... ( cat /etc/primax_version )"
 			cat /etc/primax_version
 			echo ""
-			echo "check build number... ( cat ~/primax/misc/build_number )"
-			build_number=$(cat ~/primax/misc/build_number)
-			echo "#$build_number"
-			echo ""
+			# echo "check build number... ( cat ~/primax/misc/build_number )"
+			# build_number=$(cat ~/primax/misc/build_number)
+			# echo "#$build_number"
+			# echo ""
 			echo "check build date... ( cat ~/primax/misc/build_date )"
 			cat ~/primax/misc/build_date
 			echo ""
@@ -271,7 +271,7 @@ if [ "$1" = "aic" ]; then
 			cat ~/primax/misc/build_commit
 			echo ""
 			echo "check process... ps aux | grep -E --color=auto \"vision_box|mediamtx|fw|gst\""
-			ps aux | grep -E --color=auto "vision_box|mediamtx|fw|gst"
+			ps aux | grep -E --color=auto "vision_box|mediamtx|fw|gst|wpa_s|hostapd"
 		fi
 	
 	elif [ "$2" = "u" ]; then
