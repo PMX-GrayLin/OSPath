@@ -766,7 +766,7 @@ if [ "$1" = "aic" ]; then
 		# --- Check source directory ------------------------------------------------
 		if [ ! -d "$USB_MNT/ota_images" ]; then
 			echo "❌ ERROR: USB does not contain ota_images/"
-			umount "$USB_MNT"
+			# umount "$USB_MNT"
 			exit 1
 		fi
 
@@ -780,7 +780,7 @@ if [ "$1" = "aic" ]; then
 
 		if [ -z "$OTA_SUBDIR" ]; then
 			echo "❌ ERROR: No OTA subfolders found in $OTA_DST"
-			umount "$USB_MNT"
+			# umount "$USB_MNT"
 			exit 1
 		fi
 
@@ -793,7 +793,7 @@ if [ "$1" = "aic" ]; then
 
 		if [ -z "$OTA_FILE" ]; then
 			echo "❌ ERROR: No .tar OTA package found in $OTA_SUBDIR"
-			umount "$USB_MNT"
+			# umount "$USB_MNT"
 			exit 1
 		fi
 
@@ -806,7 +806,7 @@ if [ "$1" = "aic" ]; then
 		RET=$?
 		if [ $RET -ne 0 ]; then
 			echo "❌ OTA update failed (exit code $RET)"
-			umount "$USB_MNT"
+			# umount "$USB_MNT"
 			exit $RET
 		fi
 
