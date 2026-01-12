@@ -253,8 +253,12 @@ if [ "$1" = "aic" ]; then
 			hwclock -r -f /dev/rtc1
 
 		elif [ "$3" = "ntp" ]; then
-			echo "timedatectl show-timesync --all"
+			echo ">>>> timedatectl show-timesync --all"
 			timedatectl show-timesync --all
+			echo ">>>> timedatectl status"
+			timedatectl status
+			echo ">>>> systemctl status systemd-timesyncd"
+			systemctl status systemd-timesyncd
 
 		else
 			echo "check version... ( cat /etc/primax_version )"
