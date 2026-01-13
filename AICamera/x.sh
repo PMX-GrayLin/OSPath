@@ -197,12 +197,16 @@ if [ "$1" = "aic" ]; then
 			systemctl status systemd-networkd
 			echo "========== systemctl status NetworkManager =========="
 			systemctl status NetworkManager
+
+		elif [ "$3" = "eth" ]; then
 			echo "========== ip addr show eth0 =========="
 			ip addr show eth0
 			echo "========== networkctl status eth0 =========="
 			networkctl status eth0
 			echo "========== fw_printenv | grep eth =========="
 			fw_printenv | grep --color=auto eth
+			echo "========== ethtool eth0 =========="
+			ethtool eth0	
 
 		elif [ "$3" = "wifi" ]; then
 			echo "wifi..."
