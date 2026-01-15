@@ -27,7 +27,7 @@ product=$(fw_printenv | grep '^product=' | cut -d '=' -f2)
 echo "product:$product"
 
 hostname_prefix=$(hostname | awk -F'-' '{print $1}')
-# aicamera or visionhub
+# aicamera, aibox or visionhub
 echo "hostname_prefix:$hostname_prefix"
 
 # Load device path from config
@@ -38,7 +38,7 @@ fi
 echo "device_uvc:$device_uvc"
 
 is_aicamera() {
-  if [[ "$hostname_prefix" == "aicamera" || "$product" == "ai_camera_plus" ]]; then
+  if [[ "$hostname_prefix" == "aicamera" || "$hostname_prefix" == "aibox" || "$product" == "ai_camera_plus" ]]; then
 	return 0  # true: it is an aicamera
   else
 	return 1  # false: not an aicamera
@@ -168,7 +168,7 @@ if [ "$1" = "aic" ]; then
 		elif [ "$3" = "cam" ]; then
 			echo "camera..."
 
-			if [ "$4" = "uvc" ]; then
+			if [ "$4" = "usb" ] || [ "$4" = "uvc" ]; then
 				echo "v4l2-ctl --device=${device_uvc} --list-formats-ext"
 				v4l2-ctl --device=${device_uvc} --list-formats-ext
 				echo "v4l2-ctl --device=${device_uvc} --list-ctrls"
@@ -197,12 +197,16 @@ if [ "$1" = "aic" ]; then
 			systemctl status systemd-networkd
 			echo "========== systemctl status NetworkManager =========="
 			systemctl status NetworkManager
+
+		elif [ "$3" = "eth" ]; then
 			echo "========== ip addr show eth0 =========="
 			ip addr show eth0
 			echo "========== networkctl status eth0 =========="
 			networkctl status eth0
 			echo "========== fw_printenv | grep eth =========="
 			fw_printenv | grep --color=auto eth
+			echo "========== ethtool eth0 =========="
+			ethtool eth0	
 
 		elif [ "$3" = "wifi" ]; then
 			echo "wifi..."
@@ -212,6 +216,13 @@ if [ "$1" = "aic" ]; then
 			echo "=== IP Info ==="
 			echo "ip addr show wlan0"
 			ip addr show wlan0
+			echo "=== Wi-Fi Power Management ==="
+			echo "cat /sys/bus/mmc/devices/mmc0:0001/power/control"
+			cat /sys/bus/mmc/devices/mmc0\:0001/power/control
+
+		elif [ "$3" = "wifip" ]; then
+			echo "wifi process..."
+			ps aux | grep -E --color=auto "wpa_supplicant|hostapd|dhcp"
 
 		elif [ "$3" = "i2c" ]; then
 			echo "ls /dev/i2c-*"
@@ -245,14 +256,22 @@ if [ "$1" = "aic" ]; then
 			echo "hwclock -r -f /dev/rtc1"
 			hwclock -r -f /dev/rtc1
 
+		elif [ "$3" = "ntp" ]; then
+			echo ">>>> timedatectl show-timesync --all"
+			timedatectl show-timesync --all
+			echo ">>>> timedatectl status"
+			timedatectl status
+			echo ">>>> systemctl status systemd-timesyncd"
+			systemctl status systemd-timesyncd
+
 		else
 			echo "check version... ( cat /etc/primax_version )"
 			cat /etc/primax_version
 			echo ""
-			echo "check build number... ( cat ~/primax/misc/build_number )"
-			build_number=$(cat ~/primax/misc/build_number)
-			echo "#$build_number"
-			echo ""
+			# echo "check build number... ( cat ~/primax/misc/build_number )"
+			# build_number=$(cat ~/primax/misc/build_number)
+			# echo "#$build_number"
+			# echo ""
 			echo "check build date... ( cat ~/primax/misc/build_date )"
 			cat ~/primax/misc/build_date
 			echo ""
@@ -260,7 +279,7 @@ if [ "$1" = "aic" ]; then
 			cat ~/primax/misc/build_commit
 			echo ""
 			echo "check process... ps aux | grep -E --color=auto \"vision_box|mediamtx|fw|gst\""
-			ps aux | grep -E --color=auto "vision_box|mediamtx|fw|gst"
+			ps aux | grep -E --color=auto "vision_box|mediamtx|fw|gst|wpa_s|hostapd"
 		fi
 	
 	elif [ "$2" = "u" ]; then
@@ -285,8 +304,10 @@ if [ "$1" = "aic" ]; then
 
 	elif [ "$2" = "c" ]; then
 		echo "clean..."
-		cd /home/root/primax
-		rm *.png *.jpg *.bmp
+		rm /home/root/primax/*.png 
+		rm /home/root/primax/*.jpg 
+		rm /home/root/primax/*.bmp
+		rm /mnt/reserved/logs/*.log
 
 	elif [ "$2" = "rp" ]; then
 		echo "run .py..."
@@ -322,6 +343,10 @@ if [ "$1" = "aic" ]; then
 			pkill -f utility_gui.py
 			/usr/bin/python3 /home/root/primax/misc/utility_gui.py &
 
+		elif [ "$3" = "ntp" ]; then
+			echo " Restart time sync daemon "
+			systemctl restart systemd-timesyncd
+
 		elif [ "$3" = "all" ]; then
 			pkill vision_box
 			pkill fw_daemon
@@ -335,14 +360,53 @@ if [ "$1" = "aic" ]; then
 
 	elif [ "$2" = "gst" ]; then
 
-		if [ "$3" = "usb" ]; then
+		if [ "$3" = "usb" ] || [ "$3" = "uvc" ]; then
 			echo "usb..."
 			if [ "$4" = "tee" ]; then
 				cmd="gst-launch-1.0 -e -v v4l2src device=$device_uvc ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! tee name=t ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true     t. ! queue ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
 			elif [ "$4" = "dp" ]; then
-				cmd="gst-launch-1.0 -e -v v4l2src device=$device_uvc ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true"
+				# ---- default values ----
+				DEVICE="$device_uvc"
+				WIDTH=640
+				HEIGHT=480
+				FPS="30/1"
+
+				# ---- now parse args AFTER dp ----
+				shift 4
+				for arg in "$@"; do
+					case "$arg" in
+						device=*)
+							DEVICE="${arg#device=}"
+							;;
+						resolution=*)
+							RES="${arg#resolution=}"
+							case "$RES" in
+								*x*)
+									WIDTH="${RES%x*}"
+									HEIGHT="${RES#*x}"
+									;;
+								*\**)
+									WIDTH="${RES%\**}"
+									HEIGHT="${RES#*\*}"
+									;;
+								*)
+									echo "❌ Invalid resolution: $RES"
+									exit 1
+									;;
+							esac
+							;;
+						fps=*)
+							FPS="${arg#fps=}"
+							;;
+						*)
+							echo "⚠️ Unknown arg: $arg"
+							;;
+					esac
+				done
+				cmd="gst-launch-1.0 -e -v v4l2src device=${DEVICE} ! image/jpeg,width=${WIDTH},height=${HEIGHT},framerate=${FPS} ! jpegdec ! videoconvert ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true"
+				#cmd="gst-launch-1.0 -e -v v4l2src device=$device_uvc ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! queue ! fpsdisplaysink video-sink=waylandsink sync=false text-overlay=true"
 			else
-				cmd="gst-launch-1.0 -e -v v4l2src device=$device_uvc ! image/jpeg,width=1920,height=1080,framerate=30/1 ! jpegdec ! videoconvert ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
+				cmd="gst-launch-1.0 -e -v v4l2src device=$device_uvc ! image/jpeg,width=640,height=480,framerate=30/1 ! jpegdec ! videoconvert ! v4l2h264enc extra-controls="cid,video_gop_size=30" capture-io-mode=dmabuf ! rtspclientsink location=rtsp://localhost:8554/mystream"
 			fi
 
 		elif [ "$3" = "gige" ]; then
@@ -555,6 +619,21 @@ if [ "$1" = "aic" ]; then
 			fi
 			exit 0
 
+		elif [ "$3" = "mawb" ]; then
+			if [ "$4" = "on" ]; then
+				echo "Set manual AWB on..."
+				echo "v4l2-ctl -d /dev/csi_cam_preview --set-ctrl white_balance_automatic=0"
+				v4l2-ctl -d /dev/csi_cam_preview --set-ctrl white_balance_automatic=0
+			elif [ "$4" = "off" ]; then
+				echo "Set manual AWB off..."
+				echo "v4l2-ctl -d /dev/csi_cam_preview --set-ctrl white_balance_automatic=1"
+				v4l2-ctl -d /dev/csi_cam_preview --set-ctrl white_balance_automatic=1
+			else
+				echo "Set manual AWB=$4..."
+				echo "v4l2-ctl -d /dev/csi_cam_preview --set-ctrl white_balance_temperature=$4"
+				v4l2-ctl -d /dev/csi_cam_preview --set-ctrl white_balance_temperature=$4
+			fi
+			exit 0
 		else
 			echo "❌ Invalid argument: must be 'new' or 'old'"
 			exit 1
@@ -669,7 +748,80 @@ if [ "$1" = "aic" ]; then
 			cp -f "$dir_local/$ftp_host/vision_box_DualCam" "$dir_exec"
 			cp -f "$dir_local/$ftp_host/fw_daemon" "$dir_exec"
 			chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
+			chmod 777 "$dir_local/$ftp_host/fw_ota.sh"
+
 		fi
+
+	elif [ "$2" = "uota" ]; then
+		echo "=== OTA from USB ==="
+
+		USB_MNT="/mnt/sda1"
+		OTA_DST="/mnt/reserved/ota_images"
+		OTA_SUBDIR=""
+		OTA_FILE=""
+
+		# --- Mount USB ------------------------------------------------------------
+		# mkdir -p "$USB_MNT"
+		# echo "> Mounting USB drive..."
+		# if ! mount | grep -q "$USB_MNT"; then
+		# 	mount /dev/sda1 "$USB_MNT"
+		# 	if [ $? -ne 0 ]; then
+		# 		echo "❌ ERROR: Failed to mount /dev/sda1"
+		# 		exit 1
+		# 	fi
+		# fi
+
+		# --- Check source directory ------------------------------------------------
+		if [ ! -d "$USB_MNT/ota_images" ]; then
+			echo "❌ ERROR: USB does not contain ota_images/"
+			# umount "$USB_MNT"
+			exit 1
+		fi
+
+		# --- Prepare destination ---------------------------------------------------
+		mkdir -p "$OTA_DST"
+		echo "> Copying OTA images..."
+		cp -rf "$USB_MNT/ota_images/"* "$OTA_DST/"
+
+		# --- Auto-detect OTA folder ------------------------------------------------
+		OTA_SUBDIR=$(ls -d "$OTA_DST"/*/ 2>/dev/null | sort -V | tail -n 1)
+
+		if [ -z "$OTA_SUBDIR" ]; then
+			echo "❌ ERROR: No OTA subfolders found in $OTA_DST"
+			# umount "$USB_MNT"
+			exit 1
+		fi
+
+		echo "> Detected OTA folder: $OTA_SUBDIR"
+
+		cd "$OTA_SUBDIR"
+
+		# --- Auto-detect OTA tar file ---------------------------------------------
+		OTA_FILE=$(ls *.tar 2>/dev/null | head -n 1)
+
+		if [ -z "$OTA_FILE" ]; then
+			echo "❌ ERROR: No .tar OTA package found in $OTA_SUBDIR"
+			# umount "$USB_MNT"
+			exit 1
+		fi
+
+		echo "> OTA file detected: $OTA_FILE"
+
+		# --- Run update ------------------------------------------------------------
+		echo ">>> Running OTA update..."
+		ota_update.py "$OTA_FILE"
+
+		RET=$?
+		if [ $RET -ne 0 ]; then
+			echo "❌ OTA update failed (exit code $RET)"
+			# umount "$USB_MNT"
+			exit $RET
+		fi
+
+		echo "✅ OTA update completed."
+
+		# --- Clean up --------------------------------------------------------------
+		# umount "$USB_MNT"
 
 	elif [ "$2" = "ftp2" ]; then
 			echo "update files from ftp..."
@@ -863,8 +1015,7 @@ fi
 if [ "$1" = "sys" ]; then
 	if [ "$2" = "service" ]; then
 		echo "========== Service info =========="
-		service --status-all
-		#ls /etc/init.d
+		systemctl list-unit-files --type=service --state=enabled
 	elif [ "$2" = "info" ]; then
 		echo "========== System info =========="
 		echo "==== Ubuntu version ( cat /etc/os-release )===="

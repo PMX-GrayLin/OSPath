@@ -19,14 +19,12 @@ wheeltec_ip="192.168.1.196"
 DellServer_ip="10.1.13.207"
 
 # ai camera
-AICamera_ip="192.168.1.65"
 # AICamera_ip="192.168.2.99"
-# AICamera_ip="aicamera-d14b"
-# AICamera_ip="aicamera-d14b.local"
 AICamera_ip="aicamera-0687.local"
-# AICamera_ip="visionhub-d14b"
-# AICamera_ip="visionhub-d14b.local"
-# AICamera_ip="192.168.1.220"
+# AICamera_ip="visionhub-0687.local"
+# AICamera_ip="192.168.1.190"
+# AICamera_ip="192.168.1.73"
+
 
 # nfs
 if [ "$1" == "nfs" ] ; then
