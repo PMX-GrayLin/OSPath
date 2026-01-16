@@ -681,7 +681,6 @@ if [ "$1" = "aic" ]; then
 		fi
 
 	elif [ "$2" = "ftp" ]; then
-		echo "update files from ftp..."
 
 		# FTP/SSH details
 		ftp_user="gray.lin"
@@ -702,9 +701,11 @@ if [ "$1" = "aic" ]; then
 		pkill fw_daemon
 
 		if [ "$3" = "sync" ]; then
+			echo "use rsync..."
 			cd "$dir_local" || exit 1
 			case "$4" in
 				up)
+					echo "sync -avz -e ssh "$dir_local/$ftp_host/" "$ftp_user@$ftp_host:$dir_ftp/"
 					rsync -avz -e ssh "$dir_local/$ftp_host/" "$ftp_user@$ftp_host:$dir_ftp/"
 					;;
 				down)
@@ -721,6 +722,7 @@ if [ "$1" = "aic" ]; then
 			esac
 
 		elif [ "$3" = "up" ]; then
+			echo "upload single file..."
 			file_to_upload="$4"
 			if [ -z "$file_to_upload" ]; then
 				echo "Error: No file specified to upload."
@@ -737,6 +739,7 @@ if [ "$1" = "aic" ]; then
 			rsync -avz -e ssh "$abs_path" "$ftp_user@$ftp_host:$dir_ftp/"
 
 		else
+			echo "use wget..."
 			cd "$dir_local" || exit 1
 			dir_ftp="Public/gray/$dir_prj"
 			cmd="wget -m --cut-dirs=3 --no-parent --user=\"$ftp_user\" --password=\"$ftp_pass\" ftp://$ftp_host/$dir_ftp/ --exclude-directories=$dir_ftp/IQ_DB,$dir_ftp/hikrobot"
