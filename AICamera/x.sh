@@ -933,7 +933,14 @@ if [ "$1" = "aic" ]; then
 			fi
 		fi
 
+	elif [ "$2" = "pkg" ]; then
+		if [ "$3" = "i" ]; then
+			echo "opkg install $4 --force-reinstall"
+			opkg install $4 --force-reinstall
+		fi
+
 	fi
+
 fi
 
 # AICamera G1
