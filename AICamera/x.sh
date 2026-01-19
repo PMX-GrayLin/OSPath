@@ -703,27 +703,37 @@ if [ "$1" = "aic" ]; then
 		if [ "$3" = "sync" ]; then
 			echo "use rsync..."
 			cd "$dir_local" || exit 1
+
 			case "$4" in
 				up)
-					echo "sync -avz -e ssh "$dir_local/$ftp_host/" "$ftp_user@$ftp_host:$dir_ftp/"
-					rsync -avz -e ssh "$dir_local/$ftp_host/" "$ftp_user@$ftp_host:$dir_ftp/"
+					echo "sync -avz -e ssh $dir_local/$ftp_host/ $ftp_user@$ftp_host:$dir_ftp/"
+					rsync -avz -e ssh \
+						"$dir_local/$ftp_host/" \
+						"$ftp_user@$ftp_host:$dir_ftp/"
 					;;
 				down)
-					cmd="rsync -avz -e ssh --exclude 'IQ_DB/' --exclude 'hikrobot/' $ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
 					if [ "$5" = "all" ]; then
-						cmd="rsync -avz -e ssh $ftp_user@$ftp_host:$dir_ftp/ $dir_local/$ftp_host/"
+						rsync -avz -e ssh \
+							"$ftp_user@$ftp_host:$dir_ftp/" \
+							"$dir_local/$ftp_host/"
+					else
+						rsync -avz -e ssh \
+							--exclude 'IQ_DB/' \
+							--exclude 'hikrobot/' \
+							"$ftp_user@$ftp_host:$dir_ftp/" \
+							"$dir_local/$ftp_host/"
 					fi
-					echo "Running: $cmd"
-					eval $cmd
+
 					cp -f "$dir_local/$ftp_host/vision_box_DualCam" "$dir_exec"
 					cp -f "$dir_local/$ftp_host/fw_daemon" "$dir_exec"
-					chmod 777 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
+					chmod 755 "$dir_exec/vision_box_DualCam" "$dir_exec/fw_daemon"
 					;;
 			esac
 
 		elif [ "$3" = "up" ]; then
 			echo "upload single file..."
 			file_to_upload="$4"
+
 			if [ -z "$file_to_upload" ]; then
 				echo "Error: No file specified to upload."
 				exit 1
@@ -737,7 +747,7 @@ if [ "$1" = "aic" ]; then
 
 			echo "Uploading $abs_path → $ftp_host:$dir_ftp/"
 			rsync -avz -e ssh "$abs_path" "$ftp_user@$ftp_host:$dir_ftp/"
-
+			
 		else
 			echo "use wget..."
 			cd "$dir_local" || exit 1
