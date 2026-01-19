@@ -21,6 +21,7 @@ alias d-3='cd ../../..'
 alias dpmx='cd ~/primax'                    # dir primax
 alias dscript='cd ~/primax/script'          # dir script
 alias dmisc='cd ~/primax/misc'              # dir misc
+alias dapp='cd ~/primax/app'                # dir app
 alias dnet='cd /etc/systemd/network'
 alias dinit='cd /etc/init.d'
 alias diq='cd /usr/share/mtkcam/DataSet/SQLiteModule/db/tuning_DB/'
