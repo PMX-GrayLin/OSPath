@@ -747,7 +747,7 @@ if [ "$1" = "aic" ]; then
 
 			echo "Uploading $abs_path → $ftp_host:$dir_ftp/"
 			rsync -avz -e ssh "$abs_path" "$ftp_user@$ftp_host:$dir_ftp/"
-			
+
 		else
 			echo "use wget..."
 			cd "$dir_local" || exit 1
@@ -770,71 +770,129 @@ if [ "$1" = "aic" ]; then
 
 		USB_MNT="/mnt/sda1"
 		OTA_DST="/mnt/reserved/ota_images"
+		SRC_OTA_DIR="$USB_MNT/ota_images"
+		OTA_SUBDIR_SRC=""
 		OTA_SUBDIR=""
 		OTA_FILE=""
+		AUTO_MODE=0
 
-		# --- Mount USB ------------------------------------------------------------
-		# mkdir -p "$USB_MNT"
-		# echo "> Mounting USB drive..."
-		# if ! mount | grep -q "$USB_MNT"; then
-		# 	mount /dev/sda1 "$USB_MNT"
-		# 	if [ $? -ne 0 ]; then
-		# 		echo "❌ ERROR: Failed to mount /dev/sda1"
-		# 		exit 1
-		# 	fi
-		# fi
+		[ "$3" = "--auto" ] && AUTO_MODE=1
 
 		# --- Check source directory ------------------------------------------------
-		if [ ! -d "$USB_MNT/ota_images" ]; then
+		if [ ! -d "$SRC_OTA_DIR" ]; then
 			echo "❌ ERROR: USB does not contain ota_images/"
-			# umount "$USB_MNT"
 			exit 1
+		fi
+
+		# --- Collect OTA folders ---------------------------------------------------
+		OTA_LIST=$(ls -d "$SRC_OTA_DIR"/*/ 2>/dev/null)
+
+		if [ -z "$OTA_LIST" ]; then
+			echo "❌ ERROR: No OTA folders found in ota_images/"
+			exit 1
+		fi
+
+		OTA_COUNT=$(echo "$OTA_LIST" | wc -w)
+
+		# --- AUTO MODE -------------------------------------------------------------
+		if [ "$AUTO_MODE" -eq 1 ]; then
+			echo ">>> AUTO MODE enabled (--auto)"
+
+			OTA_SUBDIR_SRC=$(echo "$OTA_LIST" | tr ' ' '\n' | sort -V | tail -n 1)
+			OTA_NAME=$(basename "$OTA_SUBDIR_SRC")
+
+			echo ">>> Auto-selected latest OTA folder:"
+			echo "    - $OTA_NAME"
+		else
+			# --- INTERACTIVE MODE ---------------------------------------------------
+			if [ "$OTA_COUNT" -eq 1 ]; then
+				OTA_SUBDIR_SRC="$OTA_LIST"
+				OTA_NAME=$(basename "$OTA_SUBDIR_SRC")
+				echo ">>> Only one OTA folder found, auto-selected:"
+				echo "    - $OTA_NAME"
+			else
+				echo
+				echo ">>> Available OTA folders:"
+				i=1
+				for d in $OTA_LIST; do
+					NAME=$(basename "$d")
+					SIZE=$(du -sh "$d" 2>/dev/null | awk '{print $1}')
+					TIME=$(ls -ld "$d" | awk '{print $6, $7, $8}')
+					printf "  [%d] %-30s  %8s  %s\n" "$i" "$NAME" "$SIZE" "$TIME"
+					i=$((i + 1))
+				done
+
+				echo
+				printf "Select OTA folder number: "
+				read SEL
+
+				if ! echo "$SEL" | grep -Eq '^[0-9]+$'; then
+					echo "❌ Invalid selection"
+					exit 1
+				fi
+
+				i=1
+				for d in $OTA_LIST; do
+					if [ "$i" -eq "$SEL" ]; then
+						OTA_SUBDIR_SRC="$d"
+						break
+					fi
+					i=$((i + 1))
+				done
+
+				if [ -z "$OTA_SUBDIR_SRC" ]; then
+					echo "❌ Selection out of range"
+					exit 1
+				fi
+
+				OTA_NAME=$(basename "$OTA_SUBDIR_SRC")
+				echo ">>> Selected OTA folder: $OTA_NAME"
+			fi
+
+			# --- Confirm -----------------------------------------------------------
+			echo
+			echo "⚠️  WARNING: OTA update will modify system firmware!"
+			echo "    Folder : $OTA_NAME"
+			printf "Proceed with OTA update? (yes/no): "
+			read CONFIRM
+
+			case "$CONFIRM" in
+				yes|y|Y) ;;
+				*) echo "❌ OTA update aborted by user."; exit 0 ;;
+			esac
 		fi
 
 		# --- Prepare destination ---------------------------------------------------
 		mkdir -p "$OTA_DST"
-		echo "> Copying OTA images..."
-		cp -rf "$USB_MNT/ota_images/"* "$OTA_DST/"
+		rm -rf "$OTA_DST/$OTA_NAME"
 
-		# --- Auto-detect OTA folder ------------------------------------------------
-		OTA_SUBDIR=$(ls -d "$OTA_DST"/*/ 2>/dev/null | sort -V | tail -n 1)
+		echo ">>> Copying OTA folder..."
+		cp -rf "$OTA_SUBDIR_SRC" "$OTA_DST/"
 
-		if [ -z "$OTA_SUBDIR" ]; then
-			echo "❌ ERROR: No OTA subfolders found in $OTA_DST"
-			# umount "$USB_MNT"
-			exit 1
-		fi
+		OTA_SUBDIR="$OTA_DST/$OTA_NAME"
+		cd "$OTA_SUBDIR" || exit 1
 
-		echo "> Detected OTA folder: $OTA_SUBDIR"
-
-		cd "$OTA_SUBDIR"
-
-		# --- Auto-detect OTA tar file ---------------------------------------------
+		# --- Find OTA tar ----------------------------------------------------------
 		OTA_FILE=$(ls *.tar 2>/dev/null | head -n 1)
 
 		if [ -z "$OTA_FILE" ]; then
 			echo "❌ ERROR: No .tar OTA package found in $OTA_SUBDIR"
-			# umount "$USB_MNT"
 			exit 1
 		fi
 
-		echo "> OTA file detected: $OTA_FILE"
+		echo ">>> OTA file detected: $OTA_FILE"
 
-		# --- Run update ------------------------------------------------------------
+		# --- Run OTA ---------------------------------------------------------------
 		echo ">>> Running OTA update..."
 		ota_update.py "$OTA_FILE"
-
 		RET=$?
+
 		if [ $RET -ne 0 ]; then
 			echo "❌ OTA update failed (exit code $RET)"
-			# umount "$USB_MNT"
 			exit $RET
 		fi
 
-		echo "✅ OTA update completed."
-
-		# --- Clean up --------------------------------------------------------------
-		# umount "$USB_MNT"
+		echo "✅ OTA update completed successfully."
 
 	elif [ "$2" = "ftp2" ]; then
 			echo "update files from ftp..."
