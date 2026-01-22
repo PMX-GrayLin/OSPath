@@ -23,8 +23,7 @@ DellServer_ip="10.1.13.207"
 AICamera_ip="aicamera-0687.local"
 # AICamera_ip="visionhub-0687.local"
 # AICamera_ip="aibox-0791.local"
-AICamera_ip="192.168.1.83"
-
+AICamera_ip="192.168.1.191"
 
 # nfs
 if [ "$1" == "nfs" ] ; then
