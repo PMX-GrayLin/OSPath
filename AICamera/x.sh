@@ -281,7 +281,6 @@ if [ "$1" = "aic" ]; then
 			if [ -s /home/root/primax/misc/application_tag ]; then
 				echo "App Tag:" && cat /home/root/primax/misc/application_tag && echo
 			fi
-			echo ""
 			echo "check process... ps aux | grep -E --color=auto \"vision_box|mediamtx|fw|gst\""
 			ps aux | grep -E --color=auto "vision_box|mediamtx|fw|gst|wpa_s|hostapd"
 		fi
