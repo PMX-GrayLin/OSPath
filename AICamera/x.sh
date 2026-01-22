@@ -781,6 +781,8 @@ if [ "$1" = "aic" ]; then
 
 		[ "$3" = "--auto" ] && AUTO_MODE=1
 
+		[ "$3" = "--m" ] && mkdir -p "$USB_MNT" && mount /dev/sda1 "$USB_MNT"
+
 		# --- Check source directory ------------------------------------------------
 		if [ ! -d "$SRC_OTA_DIR" ]; then
 			echo "❌ ERROR: USB does not contain ota_images/"
