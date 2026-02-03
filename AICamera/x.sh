@@ -980,13 +980,15 @@ if [ "$1" = "aic" ]; then
 			done
 
 		# ----------------------------
-		# Write system time to RTC
+		# Write date to RTC
 		# ----------------------------
 		elif [ "$3" = "w" ]; then
 			rtcdev="$4"
+			setdate="$5"
 
-			if [ -z "$rtcdev" ]; then
-				echo "Usage: aic ck rtc w /dev/rtcX"
+			if [ -z "$rtcdev" ] || [ -z "$setdate" ]; then
+				echo "Usage:"
+				echo "  aic ck rtc w /dev/rtcX \"YYYY-MM-DD HH:MM:SS\""
 				exit 1
 			fi
 
@@ -995,16 +997,18 @@ if [ "$1" = "aic" ]; then
 				exit 1
 			fi
 
-			echo "==== Write system time to $rtcdev ===="
-			date
-			echo "hwclock -w -f $rtcdev"
-			hwclock -w -f "$rtcdev"
-			echo "Done."
+			echo "==== Set RTC time on $rtcdev ===="
+			echo "Target date: $setdate"
+			echo "hwclock --set --date \"$setdate\" -f $rtcdev"
+			hwclock --set --date "$setdate" -f "$rtcdev"
+
+			echo "Verify:"
+			hwclock -r -f "$rtcdev"
 
 		else
 			echo "Usage:"
-			echo "  aic ck rtc r              # read all rtc"
-			echo "  aic ck rtc w /dev/rtcX   # write system time to rtcX"
+			echo "  aic ck rtc r"
+			echo "  aic ck rtc w /dev/rtcX \"YYYY-MM-DD HH:MM:SS\""
 		fi
 		
 	elif [ "$2" = "pwm" ]; then
