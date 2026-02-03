@@ -23,7 +23,7 @@ DellServer_ip="10.1.13.207"
 AICamera_ip="aicamera-0687.local"
 # AICamera_ip="visionhub-0687.local"
 # AICamera_ip="aibox-0791.local"
-# AICamera_ip="192.168.1.105"
+# AICamera_ip="192.168.1.114"
 
 # nfs
 if [ "$1" == "nfs" ] ; then
@@ -63,6 +63,16 @@ if [ "$1" == "ssh" ] ; then
 		fi
 		echo "ssh root@$AICamera_ip"
 		ssh root@$AICamera_ip
+
+	elif [ "$2" == "usb" ] ; then
+		# device_ip="192.168.1.190"
+		device_ip="192.168.1.127"
+		if [ "$3" == "r" ] ; then
+			echo "ssh-keygen -R $device_ip"
+			ssh-keygen -R $device_ip
+		fi
+		echo "ssh root@$device_ip"
+		ssh root@$device_ip
 
 	elif [ "$2" == "wt" ] ; then
 		# wheeltech

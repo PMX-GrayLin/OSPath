@@ -253,8 +253,14 @@ if [ "$1" = "aic" ]; then
 			arv-tool-0.8 control DeviceUserID Width Height ExposureAuto ExposureTime GainAuto Gain TriggerMode TriggerSource TriggerActivation TriggerDelay LineDebouncerTime LineSelector=Line1 LineInverter LineSource StrobeEnable StrobeLineDuration StrobeLineDelay StrobeLinePreDelay
 
 		elif [ "$3" = "rtc" ]; then
+			echo "hwclock -r -f /dev/rtc"
+			hwclock -r -f /dev/rtc
+
 			echo "hwclock -r -f /dev/rtc1"
 			hwclock -r -f /dev/rtc1
+
+			echo "hwclock -r -f /dev/rtc0"
+			hwclock -r -f /dev/rtc0
 
 		elif [ "$3" = "ntp" ]; then
 			echo ">>>> timedatectl show-timesync --all"
@@ -950,6 +956,57 @@ if [ "$1" = "aic" ]; then
 			gpioset 0 119=$status_red 120=$status_green
 		fi
 
+	elif [ "$2" = "rtc" ]; then
+
+		echo "==== RTC devices ===="
+		for r in /dev/rtc*; do
+			[ -e "$r" ] || continue
+			idx=$(basename "$r" | sed 's/rtc//')
+			name=$(cat /sys/class/rtc/rtc${idx}/name 2>/dev/null)
+			echo "$r  ->  $name"
+		done
+		echo
+
+		# ----------------------------
+		# Read RTC time
+		# ----------------------------
+		if [ "$3" = "r" ]; then
+			echo "==== Read RTC time ===="
+			for r in /dev/rtc*; do
+				[ -e "$r" ] || continue
+				echo "hwclock -r -f $r"
+				hwclock -r -f "$r"
+				echo
+			done
+
+		# ----------------------------
+		# Write system time to RTC
+		# ----------------------------
+		elif [ "$3" = "w" ]; then
+			rtcdev="$4"
+
+			if [ -z "$rtcdev" ]; then
+				echo "Usage: aic ck rtc w /dev/rtcX"
+				exit 1
+			fi
+
+			if [ ! -e "$rtcdev" ]; then
+				echo "RTC device $rtcdev not found!"
+				exit 1
+			fi
+
+			echo "==== Write system time to $rtcdev ===="
+			date
+			echo "hwclock -w -f $rtcdev"
+			hwclock -w -f "$rtcdev"
+			echo "Done."
+
+		else
+			echo "Usage:"
+			echo "  aic ck rtc r              # read all rtc"
+			echo "  aic ck rtc w /dev/rtcX   # write system time to rtcX"
+		fi
+		
 	elif [ "$2" = "pwm" ]; then
 		echo "pwm..."
 		# ps aux | grep fw_daemon
